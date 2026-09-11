@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:MatchIn/utils/app_colors.dart';
-import 'package:MatchIn/utils/app_constants.dart';
+import 'package:MatchIn/core/utils/app_colors.dart';
+import 'package:MatchIn/core/utils/app_constants.dart';
 
 final ThemeData lightTheme = ThemeData(
   //TODO: change these values
@@ -25,7 +25,7 @@ final ThemeData lightTheme = ThemeData(
   ),
 
   // AppBar
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     backgroundColor: AppColors.background,
     foregroundColor: AppColors.textPrimary,
     elevation: 0,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:MatchIn/generated/l10n.dart';
-import 'package:MatchIn/utils/app_colors.dart';
-import 'package:MatchIn/utils/app_text_styles.dart';
+import 'package:MatchIn/core/utils/app_colors.dart';
+import 'package:MatchIn/core/utils/app_text_styles.dart';
 
 Future<void> showCustomDialog({
   required BuildContext context,

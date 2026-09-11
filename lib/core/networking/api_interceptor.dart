@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:MatchIn/core/networking/api_end_points.dart';
 import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
-import 'package:MatchIn/utils/app_constants.dart';
+import 'package:MatchIn/core/utils/app_constants.dart';
 import 'package:dio/dio.dart';
 
 ///* APi interceptor used to handle api requests
