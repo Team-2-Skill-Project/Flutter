@@ -2,23 +2,31 @@
 /// has four methods: get, post, put, delete
 /// each method takes a path, query parameters, data, and isFormData
 abstract class ApiConsumer {
+  //! ===== get =====
   Future<dynamic> get(
     String path, {
     Map<String, dynamic>? queryParameters,
     Object? data,
+    bool isFormData = false,
   });
+
+  //! ===== post =====
   Future<dynamic> post(
     String path, {
     Map<String, dynamic>? queryParameters,
     Object? data,
     bool isFormData = false,
   });
+
+  //! ===== put =====
   Future<dynamic> put(
     String path, {
     Map<String, dynamic>? queryParameters,
     Object? data,
     bool isFormData = false,
   });
+
+  //! ===== delete =====
   Future<dynamic> delete(
     String path, {
     Map<String, dynamic>? queryParameters,
