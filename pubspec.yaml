@@ -28,45 +28,23 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  # Bloc For state management
-  flutter_bloc: ^9.1.1
-
   cupertino_icons: ^1.0.8
-  
-  # Dartz for functional programming
   dartz: ^0.10.1
-
-  # Dio for network requests
   dio: ^5.11.1
-
-  # Equatable for state comparison
   equatable: ^2.1.0
+  firebase_messaging: ^16.6.0
   flutter:
     sdk: flutter
-
-  # Flutter Launcher Icons for app icon generation
+  flutter_bloc: ^9.1.1
   flutter_launcher_icons: ^0.14.4
-
-  # for localization
+  flutter_local_notifications: ^22.3.0
   flutter_localizations:
     sdk: flutter
-
-  # Flutter ScreenUtil for responsive design
   flutter_screenutil: ^5.9.3
-
-  # Flutter Secure Storage
   flutter_secure_storage: ^11.1.0
-
-  # Flutter SVG
   flutter_svg: ^2.3.0
-
-  # Get It for dependency injection
   get_it: ^9.2.1
-
-  # Go Router for navigation
   go_router: ^18.0.1
-
-  # shared_preferences for persistent storage
   shared_preferences: ^2.5.5
 
 dev_dependencies:
