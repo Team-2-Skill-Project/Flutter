@@ -1,17 +1,20 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// [CacheHelper] wraps [SharedPreferences] and [FlutterSecureStorage].
+///
+/// [SharedPreferences] is injected via the constructor so the app uses a
+/// single instance (managed by [GetIt]) instead of calling
+/// [SharedPreferences.getInstance()] in multiple places.
 class CacheHelper {
-  late final SharedPreferences preferences;
+  CacheHelper({required this.preferences});
+
+  final SharedPreferences preferences;
   static const FlutterSecureStorage _storage = FlutterSecureStorage();
 
   //? ====================================================
   //? ================ Shared Preferences ================
   //? ====================================================
-  //! Here The Initialization of Shared Preferences
-  Future<void> init() async {
-    preferences = await SharedPreferences.getInstance();
-  }
 
   //! This Method Put Data To local Database of any Type with Key
   Future<bool> saveData({required String key, required dynamic value}) async {
@@ -103,7 +106,6 @@ class CacheHelper {
   }
 
   //! --- get secure data ---
-
   Future<String?> getSecureData({required String key}) async {
     return await _storage.read(key: key);
   }

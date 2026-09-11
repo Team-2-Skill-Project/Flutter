@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 ///* abstract class to get information about the network
@@ -7,15 +8,28 @@ abstract class NetworkInfo {
 
 /// implementation of NetworkInfo
 class NetworkInfoImpl implements NetworkInfo {
-  /// check if the device is connected to the internet
+  /// Checks connectivity by trying to resolve multiple well-known hosts.
+  /// Using a fallback list avoids relying on a single host (e.g. google.com
+  /// may be blocked in some regions). Each attempt has a 5-second timeout.
   @override
   Future<bool> get isConnected async {
-    try {
-      final result = await InternetAddress.lookup('google.com');
+    const hosts = ['google.com', 'cloudflare.com', 'apple.com'];
 
-      return result.isNotEmpty && result.first.rawAddress.isNotEmpty;
-    } on SocketException {
-      return false;
+    for (final host in hosts) {
+      try {
+        final result = await InternetAddress.lookup(host)
+            .timeout(const Duration(seconds: 5));
+
+        if (result.isNotEmpty && result.first.rawAddress.isNotEmpty) {
+          return true;
+        }
+      } on SocketException {
+        continue;
+      } on TimeoutException {
+        continue;
+      }
     }
+
+    return false;
   }
 }

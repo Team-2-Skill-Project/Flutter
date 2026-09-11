@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -14,6 +13,9 @@ class LocalNotificationService {
 
   static final StreamController<NotificationResponse> streamController =
       StreamController<NotificationResponse>.broadcast();
+
+  /// A single, reusable [Dio] instance for downloading notification images.
+  static final _imageDio = Dio();
 
   /// handle notification taps
   static void onTap(NotificationResponse notificationResponse) {
@@ -45,7 +47,8 @@ class LocalNotificationService {
     BigPictureStyleInformation? bigPictureStyleInformation;
 
     if (imageUrl != null && imageUrl.isNotEmpty) {
-      final Response<List<int>> response = await getIt<Dio>().get<List<int>>(
+      // Reuse the static _imageDio instance instead of creating a new one
+      final Response<List<int>> response = await _imageDio.get<List<int>>(
         imageUrl,
         options: Options(responseType: ResponseType.bytes),
       );
@@ -80,5 +83,11 @@ class LocalNotificationService {
       body: message.notification?.body,
       notificationDetails: details,
     );
+  }
+
+  /// Releases all resources held by this service.
+  static Future<void> dispose() async {
+    await streamController.close();
+    _imageDio.close(force: true);
   }
 }

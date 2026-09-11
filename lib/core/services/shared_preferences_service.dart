@@ -30,4 +30,14 @@ abstract class SharedPreferencesService {
     return getIt<CacheHelper>().getData(key: CacheKey.onBoardingViewed) ??
         false;
   }
+
+  // --- FCM token — persisted locally so it can be re-sent after a restart ---
+  static Future<void> saveFcmToken(String token) async {
+    await getIt<CacheHelper>().saveData(key: CacheKey.fcmToken, value: token);
+  }
+
+  static String? getFcmToken() {
+    return getIt<CacheHelper>().getString(key: CacheKey.fcmToken);
+  }
 }
+

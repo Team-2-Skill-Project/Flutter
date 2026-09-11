@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/core/utils/app_constants.dart';
 
-ThemeData darkTheme = ThemeData(
+final ThemeData darkTheme = ThemeData(
   //TODO: change these values
   useMaterial3: true,
   fontFamily: AppConstants.appFamilyFont,

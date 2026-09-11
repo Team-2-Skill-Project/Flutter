@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:MatchIn/core/services/local_notifications_service.dart';
+import 'package:MatchIn/core/services/shared_preferences_service.dart';
 
 /// [PushNotificationsService] is a class that handles push notifications
 /// It will send the FCM token to the server
@@ -17,11 +18,11 @@ class PushNotificationsService {
     final String? token = await messaging.getToken();
 
     if (token != null) {
-      sendTokenToServer(token);
+      await sendTokenToServer(token);
     }
 
     // send the new token to the server whenever Firebase refreshes it
-    messaging.onTokenRefresh.listen(sendTokenToServer);
+    messaging.onTokenRefresh.listen((token) async => sendTokenToServer(token));
 
     // handle notifications received while the app is in background
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
@@ -47,9 +48,9 @@ class PushNotificationsService {
     });
   }
 
-  ///! send the FCM token to the server
-  static void sendTokenToServer(String token) {
-    // option 1 => send the token through the API
-    // option 2 => save the token in Firebase
+  ///! Send the FCM token to the server and save it locally.
+  static Future<void> sendTokenToServer(String token) async {
+    // Persist locally so the token is available even after an app restart
+    await SharedPreferencesService.saveFcmToken(token);
   }
 }

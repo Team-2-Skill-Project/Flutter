@@ -2,17 +2,74 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 ///* This method is used to show image in app with different types of image formats
-Widget showImage({required String image, BoxFit? fit}) {
+///* and handle loading and error states
+Widget showImage({
+  required String image,
+  BoxFit? fit,
+  double? width,
+  double? height,
+}) {
   // in the case of svg
   if (image.endsWith('.svg')) {
-    return SvgPicture.asset(image, fit: fit ?? BoxFit.contain);
+    return SvgPicture.asset(
+      image,
+      fit: fit ?? BoxFit.contain,
+      width: width,
+      height: height,
+    );
   }
   // in the case of network image
   else if (image.startsWith('http') || image.startsWith('https')) {
-    return Image.network(image, fit: fit);
+    return Image.network(
+      image,
+      fit: fit,
+      width: width,
+      height: height,
+      // Show a progress indicator while the image is loading
+      loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress == null) return child;
+        return SizedBox(
+          width: width,
+          height: height,
+          child: Center(
+            child: CircularProgressIndicator(
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                        loadingProgress.expectedTotalBytes!
+                  : null,
+            ),
+          ),
+        );
+      },
+      // Show a broken image icon if loading fails
+      errorBuilder: (context, error, stackTrace) {
+        return SizedBox(
+          width: width,
+          height: height,
+          child: const Center(
+            child: Icon(Icons.broken_image_outlined, color: Colors.grey),
+          ),
+        );
+      },
+    );
   }
   // in the case of asset image
   else {
-    return Image.asset(image, fit: fit);
+    return Image.asset(
+      image,
+      fit: fit,
+      width: width,
+      height: height,
+      // Show a broken image icon if the asset is missing or fails
+      errorBuilder: (context, error, stackTrace) {
+        return SizedBox(
+          width: width,
+          height: height,
+          child: const Center(
+            child: Icon(Icons.broken_image_outlined, color: Colors.grey),
+          ),
+        );
+      },
+    );
   }
 }

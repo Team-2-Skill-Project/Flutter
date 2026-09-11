@@ -21,14 +21,30 @@ Future<void> setupServiceLocator() async {
   //! ======= External =========
 
   // ---> Shared Preferences <---
+  // Obtain a single SharedPreferences instance and register it.
+  // CacheHelper receives this same instance via constructor injection so that
+  // only ONE SharedPreferences object exists throughout the app.
   final sharedPreferences = await SharedPreferences.getInstance();
   getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 
   // ---> Cache Helper <---
-  getIt.registerLazySingleton(() => CacheHelper().init());
+  // Inject the already-initialized SharedPreferences instance — no second
+  // getInstance() call and no Future<void> registration mistake.
+  getIt.registerLazySingleton<CacheHelper>(
+    () => CacheHelper(preferences: sharedPreferences),
+  );
+
+  //! ======== Core =========
+
+  // ---> Network Info <---
+  getIt.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
 
   // ---> Dio <---
-  getIt.registerLazySingleton(() => Dio());
-  //consumer
+  getIt.registerLazySingleton<Dio>(() => Dio());
+
+  // ---> Dio Consumer <---
   getIt.registerLazySingleton<DioConsumer>(() => DioConsumer(dio: getIt()));
+
+  //! ========= Features ==========
+  //TODO: Put here all your features
 }
