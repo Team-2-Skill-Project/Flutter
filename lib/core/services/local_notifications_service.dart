@@ -15,7 +15,7 @@ class LocalNotificationService {
   static void onTap(NotificationResponse notificationResponse) {
     streamController.add(notificationResponse);
 
-    // handle notification navigation from here
+    //TODO: handle notification navigation from here
     // Navigator.push(context, route);
   }
 
