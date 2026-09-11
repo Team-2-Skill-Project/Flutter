@@ -1,7 +1,7 @@
 // ignore_for_file: unused_import
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:skill_match/core/routing/app_routes.dart';
+import 'package:MatchIn/core/routing/app_routes.dart';
 
 abstract final class AppRouter {
   //* --- Global Transition ---

@@ -1,6 +1,6 @@
-import 'package:skill_match/core/cache/cache_helper.dart';
-import 'package:skill_match/core/cache/cache_key.dart';
-import 'package:skill_match/core/services/services_locator.dart';
+import 'package:MatchIn/core/cache/cache_helper.dart';
+import 'package:MatchIn/core/cache/cache_key.dart';
+import 'package:MatchIn/core/services/services_locator.dart';
 
 abstract class SharedPreferencesService {
   // --- This methods are used to save and get data about login status ---

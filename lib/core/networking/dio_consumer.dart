@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:skill_match/core/networking/api_consumer.dart';
-import 'package:skill_match/core/networking/api_interceptor.dart';
-import 'package:skill_match/core/networking/api_end_points.dart';
-import 'package:skill_match/core/errors/exceptions.dart';
+import 'package:MatchIn/core/networking/api_consumer.dart';
+import 'package:MatchIn/core/networking/api_interceptor.dart';
+import 'package:MatchIn/core/networking/api_end_points.dart';
+import 'package:MatchIn/core/errors/exceptions.dart';
 
 class DioConsumer extends ApiConsumer {
   DioConsumer({required this.dio}) {

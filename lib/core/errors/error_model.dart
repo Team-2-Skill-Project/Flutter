@@ -1,8 +1,6 @@
-import 'package:skill_match/core/networking/api_end_points.dart';
+import 'package:MatchIn/core/networking/api_end_points.dart';
 
 class ErrorModel {
-  int statusCode;
-  String errorMessage;
   ErrorModel({required this.statusCode, required this.errorMessage});
   factory ErrorModel.fromJson(Map<String, dynamic> json) {
     return ErrorModel(
@@ -10,4 +8,6 @@ class ErrorModel {
       errorMessage: json[ApiKey.errorMessage],
     );
   }
+  int statusCode;
+  String errorMessage;
 }

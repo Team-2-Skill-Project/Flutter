@@ -3,14 +3,13 @@
 // And there is an exception for each type of Failure
 
 import 'package:dio/dio.dart';
-import 'package:skill_match/core/errors/error_model.dart';
+import 'package:MatchIn/core/errors/error_model.dart';
 
 class OfflineException implements Exception {}
 
 class ServerException implements Exception {
-  final ErrorModel errorModel;
-
   ServerException({required this.errorModel});
+  final ErrorModel errorModel;
 }
 
 class CacheException implements Exception {}

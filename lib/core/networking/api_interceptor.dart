@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:skill_match/core/networking/api_end_points.dart';
-import 'package:skill_match/core/services/secure_storage_service.dart';
-import 'package:skill_match/core/services/shared_preferences_service.dart';
-import 'package:skill_match/utils/app_constants.dart';
+import 'package:MatchIn/core/networking/api_end_points.dart';
+import 'package:MatchIn/core/services/secure_storage_service.dart';
+import 'package:MatchIn/core/services/shared_preferences_service.dart';
+import 'package:MatchIn/utils/app_constants.dart';
 
 class ApiInterceptor extends Interceptor {
   final Dio dio;

@@ -1,4 +1,4 @@
-package com.example.skill_match
+package com.example.MatchIn
 
 import io.flutter.embedding.android.FlutterActivity
 

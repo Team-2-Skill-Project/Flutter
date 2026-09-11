@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:skill_match/utils/app_colors.dart';
+import 'package:MatchIn/utils/app_colors.dart';
 
 abstract class AppTextStyles {
   // TODO: change these values
