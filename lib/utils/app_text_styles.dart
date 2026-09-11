@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skill_match/utils/app_colors.dart';
 
 abstract class AppTextStyles {
+  // TODO: change these values
+
   static TextStyle extraBold24 = TextStyle(
     fontWeight: FontWeight.w800,
     fontSize: 24.sp,
