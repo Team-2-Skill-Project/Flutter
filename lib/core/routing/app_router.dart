@@ -5,6 +5,8 @@ import 'package:MatchIn/core/routing/app_routes.dart';
 
 abstract final class AppRouter {
   //* --- Global Transition ---
+
+  // ignore: unused_element
   static CustomTransitionPage<dynamic> _buildTransitionPage({
     required GoRouterState state,
     required Widget child,
