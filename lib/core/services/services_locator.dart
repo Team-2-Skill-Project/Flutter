@@ -1,11 +1,14 @@
+import 'package:MatchIn/core/cache/secure_storage_helper.dart';
+import 'package:MatchIn/core/cache/shared_preferences_helper.dart';
+import 'package:MatchIn/core/networking/api_consumer.dart';
+import 'package:MatchIn/core/networking/dio_consumer.dart';
+import 'package:MatchIn/core/networking/network_info.dart';
+import 'package:MatchIn/core/services/secure_storage_service.dart';
+import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:MatchIn/core/cache/cache_helper.dart';
-import 'package:MatchIn/core/networking/dio_consumer.dart';
-import 'package:MatchIn/core/networking/network_info.dart';
 
-// Create a global instance (or use GetIt.instance)
 final getIt = GetIt.instance;
 
 Future<void> setupServiceLocator() async {
@@ -14,37 +17,38 @@ Future<void> setupServiceLocator() async {
   //! ========= Features ==========
   //TODO: Put here all your features
 
-  //! ======== Core =========
-  // ---> Network Info <---
-  getIt.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
-
-  //! ======= External =========
-
-  // ---> Shared Preferences <---
-  // Obtain a single SharedPreferences instance and register it.
-  // CacheHelper receives this same instance via constructor injection so that
-  // only ONE SharedPreferences object exists throughout the app.
+  //! ======== External =========
   final sharedPreferences = await SharedPreferences.getInstance();
   getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 
-  // ---> Cache Helper <---
-  // Inject the already-initialized SharedPreferences instance — no second
-  // getInstance() call and no Future<void> registration mistake.
-  getIt.registerLazySingleton<CacheHelper>(
-    () => CacheHelper(preferences: sharedPreferences),
+  //! ======== Core Storage Helpers =========
+  getIt.registerLazySingleton<SharedPreferencesHelper>(
+    () => SharedPreferencesHelper(preferences: getIt()),
   );
 
-  //! ======== Core =========
+  getIt.registerLazySingleton<SecureStorageHelper>(() => SecureStorageHelper());
+
+  //! ======== Core Services =========
+  getIt.registerLazySingleton<SharedPreferencesService>(
+    () => SharedPreferencesService(getIt()),
+  );
+
+  getIt.registerLazySingleton<SecureStorageService>(
+    () => SecureStorageService(getIt()),
+  );
 
   // ---> Network Info <---
   getIt.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
 
-  // ---> Dio <---
+  // ---> Network Client <---
   getIt.registerLazySingleton<Dio>(() => Dio());
 
-  // ---> Dio Consumer <---
-  getIt.registerLazySingleton<DioConsumer>(() => DioConsumer(dio: getIt()));
-
-  //! ========= Features ==========
-  //TODO: Put here all your features
+  // ---> Api Consumer (abstract interface registration) <---
+  getIt.registerLazySingleton<ApiConsumer>(
+    () => DioConsumer(
+      dio: getIt(),
+      secureStorageService: getIt(),
+      sharedPreferencesService: getIt(),
+    ),
+  );
 }

@@ -77,12 +77,17 @@ class LocalNotificationService {
 
     final NotificationDetails details = NotificationDetails(android: android);
 
+    final int notificationId =
+        message.messageId?.hashCode ??
+        (DateTime.now().millisecondsSinceEpoch % 100000);
+
     await flutterLocalNotificationsPlugin.show(
-      id: 0,
+      id: notificationId,
       title: message.notification?.title,
       body: message.notification?.body,
       notificationDetails: details,
     );
+
   }
 
   /// Releases all resources held by this service.

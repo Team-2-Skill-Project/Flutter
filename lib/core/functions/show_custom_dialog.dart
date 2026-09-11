@@ -107,7 +107,7 @@ Future<void> showCustomDialog({
   );
 }
 
-void showNoInternetConnectionDialog(context) {
+void showNoInternetConnectionDialog(BuildContext context) {
   showCustomDialog(
     context: context,
     title: S.of(context).noInternetConnection,

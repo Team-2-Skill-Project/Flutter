@@ -1,7 +1,8 @@
+import 'package:MatchIn/core/services/local_notifications_service.dart';
+import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:MatchIn/core/services/local_notifications_service.dart';
-import 'package:MatchIn/core/services/shared_preferences_service.dart';
 
 /// [PushNotificationsService] is a class that handles push notifications
 /// It will send the FCM token to the server
@@ -51,6 +52,7 @@ class PushNotificationsService {
   ///! Send the FCM token to the server and save it locally.
   static Future<void> sendTokenToServer(String token) async {
     // Persist locally so the token is available even after an app restart
-    await SharedPreferencesService.saveFcmToken(token);
+    await getIt<SharedPreferencesService>().saveFcmToken(token);
   }
 }
+

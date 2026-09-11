@@ -11,8 +11,15 @@ import 'package:dio/dio.dart';
 ///* and refresh token if access token is expired
 ///* It will also handle api errors
 class ApiInterceptor extends Interceptor {
-  ApiInterceptor(this.dio);
+  ApiInterceptor(
+    this.dio, {
+    required this.secureStorageService,
+    required this.sharedPreferencesService,
+  });
+
   final Dio dio;
+  final SecureStorageService secureStorageService;
+  final SharedPreferencesService sharedPreferencesService;
 
   // This Completer prevent multiple refresh token requests
   static Completer<bool>? _refreshCompleter;
@@ -24,7 +31,7 @@ class ApiInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     // get access token from secure storage
-    final accessToken = await SecureStorageService.getAccessToken();
+    final accessToken = await secureStorageService.getAccessToken();
 
     // add access token in request header
     options.headers[ApiHeaderKey.authorization] =
@@ -55,7 +62,7 @@ class ApiInterceptor extends Interceptor {
 
       // if refresh success retry failed request
       if (success) {
-        final accessToken = await SecureStorageService.getAccessToken();
+        final accessToken = await secureStorageService.getAccessToken();
 
         // update authorization header with new token
         err.requestOptions.headers[ApiHeaderKey.authorization] =
@@ -78,7 +85,7 @@ class ApiInterceptor extends Interceptor {
     _refreshCompleter = Completer<bool>();
 
     // get refresh token from secure storage
-    final refreshToken = await SecureStorageService.getRefreshToken();
+    final refreshToken = await secureStorageService.getRefreshToken();
 
     // if refresh token is null logout user
     if (refreshToken == null) {
@@ -106,7 +113,7 @@ class ApiInterceptor extends Interceptor {
       final newRefreshToken = response.data[ApiKey.refreshToken] as String;
 
       // save new tokens in secure storage
-      await SecureStorageService.saveTokens(
+      await secureStorageService.saveTokens(
         accessToken: newAccessToken,
         refreshToken: newRefreshToken,
       );
@@ -159,9 +166,9 @@ class ApiInterceptor extends Interceptor {
 
   // clear local auth data and logout user
   Future<void> _performLogout() async {
-    await SharedPreferencesService.clearAuthData();
+    await sharedPreferencesService.clearAuthData();
 
-    await SecureStorageService.deleteTokens();
+    await secureStorageService.deleteTokens();
 
     AuthEventBus.instance.addEvent(AuthEvent.logout);
   }

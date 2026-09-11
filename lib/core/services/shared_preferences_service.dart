@@ -1,43 +1,53 @@
-import 'package:MatchIn/core/cache/cache_helper.dart';
 import 'package:MatchIn/core/cache/cache_key.dart';
-import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/core/cache/shared_preferences_helper.dart';
 
-abstract class SharedPreferencesService {
+class SharedPreferencesService {
+  const SharedPreferencesService(this._sharedPreferencesHelper);
+
+  final SharedPreferencesHelper _sharedPreferencesHelper;
+
   // --- This methods are used to save and get data about login status ---
-  static Future<void> setLoggedIn(bool value) async {
-    await getIt<CacheHelper>().saveData(key: CacheKey.isLoggedIn, value: value);
+  Future<void> setLoggedIn(bool value) async {
+    await _sharedPreferencesHelper.saveData(
+      key: CacheKey.isLoggedIn,
+      value: value,
+    );
   }
 
-  static bool isLoggedIn() {
-    return getIt<CacheHelper>().getData(key: CacheKey.isLoggedIn) ?? false;
+  bool isLoggedIn() {
+    return _sharedPreferencesHelper.getData(key: CacheKey.isLoggedIn) ?? false;
   }
 
-  static Future<void> clearAuthData() async {
-    await getIt<CacheHelper>().deleteData(key: CacheKey.id);
-    await getIt<CacheHelper>().deleteData(key: CacheKey.userDataKey);
-    await getIt<CacheHelper>().deleteData(key: CacheKey.isLoggedIn);
+  Future<void> clearAuthData() async {
+    await _sharedPreferencesHelper.deleteData(key: CacheKey.id);
+    await _sharedPreferencesHelper.deleteData(key: CacheKey.userDataKey);
+    await _sharedPreferencesHelper.deleteData(key: CacheKey.isLoggedIn);
   }
 
   // --- This methods are used to save and get data about onboarding status ---
-  static Future<void> onBoardingViewed() async {
-    await getIt<CacheHelper>().saveData(
+  Future<void> onBoardingViewed() async {
+    await _sharedPreferencesHelper.saveData(
       key: CacheKey.onBoardingViewed,
       value: true,
     );
   }
 
-  static bool isOnBoardingViewed() {
-    return getIt<CacheHelper>().getData(key: CacheKey.onBoardingViewed) ??
+  bool isOnBoardingViewed() {
+    return _sharedPreferencesHelper.getData(key: CacheKey.onBoardingViewed) ??
         false;
   }
 
   // --- FCM token — persisted locally so it can be re-sent after a restart ---
-  static Future<void> saveFcmToken(String token) async {
-    await getIt<CacheHelper>().saveData(key: CacheKey.fcmToken, value: token);
+  Future<void> saveFcmToken(String token) async {
+    await _sharedPreferencesHelper.saveData(
+      key: CacheKey.fcmToken,
+      value: token,
+    );
   }
 
-  static String? getFcmToken() {
-    return getIt<CacheHelper>().getString(key: CacheKey.fcmToken);
+  String? getFcmToken() {
+    return _sharedPreferencesHelper.getString(key: CacheKey.fcmToken);
   }
 }
+
 

@@ -2,18 +2,30 @@ import 'package:MatchIn/core/errors/exceptions.dart';
 import 'package:MatchIn/core/networking/api_consumer.dart';
 import 'package:MatchIn/core/networking/api_end_points.dart';
 import 'package:MatchIn/core/networking/api_interceptor.dart';
+import 'package:MatchIn/core/services/secure_storage_service.dart';
+import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:dio/dio.dart';
 
 /// [DioConsumer] is a class that implements the [ApiConsumer] interface
 /// It Implements the main four methods [post], [get], [put], [delete]
 class DioConsumer extends ApiConsumer {
-  DioConsumer({required this.dio}) {
+  DioConsumer({
+    required this.dio,
+    required SecureStorageService secureStorageService,
+    required SharedPreferencesService sharedPreferencesService,
+  }) {
     //! =================== Configurations ===================
     // takeing base url from api end point
     dio.options.baseUrl = EndPoint.baseUrl;
 
     // adding api interceptor
-    dio.interceptors.add(ApiInterceptor(dio));
+    dio.interceptors.add(
+      ApiInterceptor(
+        dio,
+        secureStorageService: secureStorageService,
+        sharedPreferencesService: sharedPreferencesService,
+      ),
+    );
 
     // adding log interceptor
     dio.interceptors.add(
@@ -26,6 +38,7 @@ class DioConsumer extends ApiConsumer {
       ),
     );
   }
+
   final Dio dio; // injecting dio
 
   //! =================== Methods ===================

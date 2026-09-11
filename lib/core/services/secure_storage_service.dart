@@ -1,37 +1,40 @@
-import 'package:MatchIn/core/cache/cache_helper.dart';
 import 'package:MatchIn/core/cache/cache_key.dart';
-import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/core/cache/secure_storage_helper.dart';
 
-abstract class SecureStorageService {
+class SecureStorageService {
+  const SecureStorageService(this._secureStorageHelper);
+
+  final SecureStorageHelper _secureStorageHelper;
+
   // --- Save access token and refresh token as secure data ---
-  static Future<void> saveTokens({
+  Future<void> saveTokens({
     required String accessToken,
     required String refreshToken,
   }) async {
-    await getIt<CacheHelper>().saveSecureData(
+    await _secureStorageHelper.saveSecureData(
       key: CacheKey.accessToken,
       value: accessToken,
     );
-    await getIt<CacheHelper>().saveSecureData(
+    await _secureStorageHelper.saveSecureData(
       key: CacheKey.refreshToken,
       value: refreshToken,
     );
   }
 
   // --- Get access token ---
-  static Future<String?> getAccessToken() async {
-    return await getIt<CacheHelper>().getSecureData(key: CacheKey.accessToken);
+  Future<String?> getAccessToken() async {
+    return await _secureStorageHelper.getSecureData(key: CacheKey.accessToken);
   }
 
   // --- Get refresh token ---
-
-  static Future<String?> getRefreshToken() async {
-    return await getIt<CacheHelper>().getSecureData(key: CacheKey.refreshToken);
+  Future<String?> getRefreshToken() async {
+    return await _secureStorageHelper.getSecureData(key: CacheKey.refreshToken);
   }
 
   // --- Delete access token and refresh token ---
-  static Future<void> deleteTokens() async {
-    await getIt<CacheHelper>().deleteSecureData(key: CacheKey.accessToken);
-    await getIt<CacheHelper>().deleteSecureData(key: CacheKey.refreshToken);
+  Future<void> deleteTokens() async {
+    await _secureStorageHelper.deleteSecureData(key: CacheKey.accessToken);
+    await _secureStorageHelper.deleteSecureData(key: CacheKey.refreshToken);
   }
 }
+

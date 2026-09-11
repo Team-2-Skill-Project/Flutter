@@ -1,122 +1,71 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:MatchIn/core/cache/secure_storage_helper.dart';
+import 'package:MatchIn/core/cache/shared_preferences_helper.dart';
 
-/// [CacheHelper] wraps [SharedPreferences] and [FlutterSecureStorage].
-///
-/// [SharedPreferences] is injected via the constructor so the app uses a
-/// single instance (managed by [GetIt]) instead of calling
-/// [SharedPreferences.getInstance()] in multiple places.
+/// [CacheHelper] acts as a unified wrapper delegating to
+/// [SharedPreferencesHelper] for non-sensitive data and
+/// [SecureStorageHelper] for sensitive data.
+@Deprecated('Use SharedPreferencesHelper or SecureStorageHelper instead')
 class CacheHelper {
-  CacheHelper({required this.preferences});
+  CacheHelper({
+    required this.sharedPreferencesHelper,
+    required this.secureStorageHelper,
+  });
 
-  final SharedPreferences preferences;
-  static const FlutterSecureStorage _storage = FlutterSecureStorage();
+  final SharedPreferencesHelper sharedPreferencesHelper;
+  final SecureStorageHelper secureStorageHelper;
 
   //? ====================================================
   //? ================ Shared Preferences ================
   //? ====================================================
 
-  //! This Method Put Data To local Database of any Type with Key
-  Future<bool> saveData({required String key, required dynamic value}) async {
-    if (value is String) {
-      return preferences.setString(key, value);
-    }
+  Future<bool> saveData({required String key, required dynamic value}) =>
+      sharedPreferencesHelper.saveData(key: key, value: value);
 
-    if (value is int) {
-      return preferences.setInt(key, value);
-    }
+  dynamic getData({required String key}) =>
+      sharedPreferencesHelper.getData(key: key);
 
-    if (value is bool) {
-      return preferences.setBool(key, value);
-    }
+  String? getString({required String key}) =>
+      sharedPreferencesHelper.getString(key: key);
 
-    if (value is double) {
-      return preferences.setDouble(key, value);
-    }
+  int? getInt({required String key}) =>
+      sharedPreferencesHelper.getInt(key: key);
 
-    if (value is List<String>) {
-      return preferences.setStringList(key, value);
-    }
+  bool? getBool({required String key}) =>
+      sharedPreferencesHelper.getBool(key: key);
 
-    throw UnsupportedError(
-      'The type ${value.runtimeType} is not supported by SharedPreferences.',
-    );
-  }
+  double? getDouble({required String key}) =>
+      sharedPreferencesHelper.getDouble(key: key);
 
-  //! This Method Get Data From local Database of any Type with Key
-  dynamic getData({required String key}) {
-    return preferences.get(key);
-  }
+  List<String>? getStringList({required String key}) =>
+      sharedPreferencesHelper.getStringList(key: key);
 
-  //! This Method Get String Data From local Database with Key
-  String? getString({required String key}) {
-    return preferences.getString(key);
-  }
+  bool containsKey({required String key}) =>
+      sharedPreferencesHelper.containsKey(key: key);
 
-  //! This Method Get Integer Data From local Database with Key
-  int? getInt({required String key}) {
-    return preferences.getInt(key);
-  }
+  Future<bool> deleteData({required String key}) =>
+      sharedPreferencesHelper.deleteData(key: key);
 
-  //! This Method Get Boolean Data From local Database with Key
-  bool? getBool({required String key}) {
-    return preferences.getBool(key);
-  }
+  Future<bool> clearAllData() => sharedPreferencesHelper.clearAllData();
 
-  //! This Method Get Double Data From local Database with Key
-  double? getDouble({required String key}) {
-    return preferences.getDouble(key);
-  }
-
-  //! This Method Get String List Data From local Database with Key
-  List<String>? getStringList({required String key}) {
-    return preferences.getStringList(key);
-  }
-
-  //! This Method Check of this Key is exist
-  bool containsKey({required String key}) {
-    return preferences.containsKey(key);
-  }
-
-  //! This Method Remove Data From local Database with Key
-  Future<bool> deleteData({required String key}) {
-    return preferences.remove(key);
-  }
-
-  //! This Method Remove All Data From local Database
-  Future<bool> clearAllData() {
-    return preferences.clear();
-  }
-
-  //! This Method Update Data
-  Future<bool> updateData({required String key, required dynamic value}) {
-    return saveData(key: key, value: value);
-  }
+  Future<bool> updateData({required String key, required dynamic value}) =>
+      sharedPreferencesHelper.updateData(key: key, value: value);
 
   //? ====================================================
   //? ================== Secure Storage ==================
   //? ====================================================
 
-  //! --- save secure data ---
   Future<void> saveSecureData({
     required String key,
     required String value,
-  }) async {
-    await _storage.write(key: key, value: value);
-  }
+  }) =>
+      secureStorageHelper.saveSecureData(key: key, value: value);
 
-  //! --- get secure data ---
-  Future<String?> getSecureData({required String key}) async {
-    return await _storage.read(key: key);
-  }
+  Future<String?> getSecureData({required String key}) =>
+      secureStorageHelper.getSecureData(key: key);
 
-  //! --- delete secure data ---
-  Future<void> deleteSecureData({required String key}) async {
-    await _storage.delete(key: key);
-  }
+  Future<void> deleteSecureData({required String key}) =>
+      secureStorageHelper.deleteSecureData(key: key);
 
-  //! --- delete all secure data ---
-  Future<void> deleteAllSecureData() async {
-    await _storage.deleteAll();
-  }
+  Future<void> deleteAllSecureData() =>
+      secureStorageHelper.deleteAllSecureData();
 }
