@@ -1,44 +1,48 @@
-import 'dart:developer';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:MatchIn/core/services/local_notifications_service.dart';
 
 class PushNotificationsService {
-  static FirebaseMessaging messaging = FirebaseMessaging.instance;
+  static final FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-  static Future init() async {
+  static Future<void> init() async {
+    // request notification permission from the user
     await messaging.requestPermission();
-    await messaging.getToken().then((value) {
-      sendTokenToServer(value!);
-    });
-    messaging.onTokenRefresh.listen((value) {
-      sendTokenToServer(value);
-    });
-    FirebaseMessaging.onBackgroundMessage(handlebackgroundMessage);
-    //foreground
-    handleForegroundMessage();
-    messaging.subscribeToTopic('all').then((val) {
-      log('sub');
-    });
 
-    // messaging.unsubscribeFromTopic('all');
+    // get the current FCM token and send it to the server
+    final String? token = await messaging.getToken();
+
+    if (token != null) {
+      sendTokenToServer(token);
+    }
+
+    // send the new token to the server whenever Firebase refreshes it
+    messaging.onTokenRefresh.listen(sendTokenToServer);
+
+    // handle notifications received while the app is in background
+    FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
+
+    // handle notifications received while the app is in foreground
+    handleForegroundMessage();
+
+    // subscribe all users to the default topic
+    await messaging.subscribeToTopic('all');
   }
 
-  static Future<void> handlebackgroundMessage(RemoteMessage message) async {
+  static Future<void> handleBackgroundMessage(RemoteMessage message) async {
     await Firebase.initializeApp();
-    log(message.notification?.title ?? 'null');
   }
 
   static void handleForegroundMessage() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      // show local notification
+      // show a local notification because Firebase doesn't show it automatically
+      // when the app is in foreground
       LocalNotificationService.showBasicNotification(message);
     });
   }
 
   static void sendTokenToServer(String token) {
-    // option 1 => API
-    // option 2 => Firebase
+    // option 1 => send the token through the API
+    // option 2 => save the token in Firebase
   }
 }
