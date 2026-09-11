@@ -1,6 +1,6 @@
 import 'dart:io';
 
-/// abstract class to get information about the network
+///* abstract class to get information about the network
 abstract class NetworkInfo {
   Future<bool> get isConnected;
 }

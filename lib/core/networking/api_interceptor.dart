@@ -1,18 +1,21 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:MatchIn/core/networking/api_end_points.dart';
 import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/utils/app_constants.dart';
+import 'package:dio/dio.dart';
 
+///* APi interceptor used to handle api requests
+///* It will add access token in request header
+///* and refresh token if access token is expired
+///* It will also handle api errors
 class ApiInterceptor extends Interceptor {
+  ApiInterceptor(this.dio);
   final Dio dio;
 
   // This Completer prevent multiple refresh token requests
   static Completer<bool>? _refreshCompleter;
-
-  ApiInterceptor(this.dio);
 
   // This will be called before each request
   @override

@@ -1,13 +1,21 @@
-import 'package:dio/dio.dart';
-import 'package:MatchIn/core/networking/api_consumer.dart';
-import 'package:MatchIn/core/networking/api_interceptor.dart';
-import 'package:MatchIn/core/networking/api_end_points.dart';
 import 'package:MatchIn/core/errors/exceptions.dart';
+import 'package:MatchIn/core/networking/api_consumer.dart';
+import 'package:MatchIn/core/networking/api_end_points.dart';
+import 'package:MatchIn/core/networking/api_interceptor.dart';
+import 'package:dio/dio.dart';
 
+/// [DioConsumer] is a class that implements the [ApiConsumer] interface
+/// It Implements the main four methods [post], [get], [put], [delete]
 class DioConsumer extends ApiConsumer {
   DioConsumer({required this.dio}) {
+    //! =================== Configurations ===================
+    // takeing base url from api end point
     dio.options.baseUrl = EndPoint.baseUrl;
+
+    // adding api interceptor
     dio.interceptors.add(ApiInterceptor(dio));
+
+    // adding log interceptor
     dio.interceptors.add(
       LogInterceptor(
         request: true,
@@ -18,8 +26,11 @@ class DioConsumer extends ApiConsumer {
       ),
     );
   }
-  final Dio dio;
+  final Dio dio; // injecting dio
 
+  //! =================== Methods ===================
+
+  //? ---------- Delete ----------
   @override
   Future delete(
     String path, {
@@ -39,6 +50,7 @@ class DioConsumer extends ApiConsumer {
     }
   }
 
+  //? ---------- Get ----------
   @override
   Future get(
     String path, {
@@ -58,6 +70,7 @@ class DioConsumer extends ApiConsumer {
     }
   }
 
+  //? ---------- Post ----------
   @override
   Future post(
     String path, {
@@ -77,6 +90,7 @@ class DioConsumer extends ApiConsumer {
     }
   }
 
+  //? ---------- Put ----------
   @override
   Future put(
     String path, {

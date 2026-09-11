@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+/// [LocalNotificationService] is a class that handles local notifications
+/// It will show a basic notification with an optional image
 class LocalNotificationService {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -12,6 +14,7 @@ class LocalNotificationService {
   static final StreamController<NotificationResponse> streamController =
       StreamController<NotificationResponse>.broadcast();
 
+  /// handle notification taps
   static void onTap(NotificationResponse notificationResponse) {
     streamController.add(notificationResponse);
 
@@ -19,6 +22,7 @@ class LocalNotificationService {
     // Navigator.push(context, route);
   }
 
+  /// initialize the local notification plugin
   static Future<void> init() async {
     const InitializationSettings settings = InitializationSettings(
       android: AndroidInitializationSettings('@mipmap/ic_launcher'),
@@ -33,7 +37,7 @@ class LocalNotificationService {
     );
   }
 
-  // show a basic notification with an optional image
+  /// show a basic notification with an optional image
   static Future<void> showBasicNotification(RemoteMessage message) async {
     final String? imageUrl = message.notification?.android?.imageUrl;
 
