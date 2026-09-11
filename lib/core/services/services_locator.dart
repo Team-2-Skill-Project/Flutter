@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skill_match/core/cache/cache_helper.dart';
 
 // Create a global instance (or use GetIt.instance)
 final getIt = GetIt.instance;
@@ -25,7 +26,7 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 
   // ---> Cache Helper <---
-  getIt.registerLazySingleton(() => CacheHelper(preferences: getIt()));
+  getIt.registerLazySingleton(() => CacheHelper().init());
 
   // ---> Dio <---
   getIt.registerLazySingleton(() => Dio());
