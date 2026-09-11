@@ -12,6 +12,7 @@ class SharedPreferencesHelper {
 
   //! ─── Write ───────────────────────────────────────────────────────────────
 
+  /// this method is used to save data with different types
   Future<bool> saveData({required String key, required dynamic value}) async {
     if (value is String) return preferences.setString(key, value);
     if (value is int) return preferences.setInt(key, value);
