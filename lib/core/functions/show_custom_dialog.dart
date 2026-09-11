@@ -84,7 +84,7 @@ Future<void> showCustomDialog({
                       Navigator.pop(context);
 
                       // --- execute custom action ---
-                      onPressed ?? ();
+                      onPressed?.call();
                     },
 
                     style: ElevatedButton.styleFrom(
