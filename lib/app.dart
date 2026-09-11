@@ -37,6 +37,7 @@ class MatchIn extends StatelessWidget {
         // === theme ===
         theme: theme.lightTheme,
         darkTheme: darkTheme,
+        themeMode: ThemeMode.system,
 
         // === router ===
         routerConfig: AppRouter.router,

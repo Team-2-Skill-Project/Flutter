@@ -14,10 +14,10 @@ class LocalNotificationService {
   static final StreamController<NotificationResponse> streamController =
       StreamController<NotificationResponse>.broadcast();
 
-  /// A single, reusable [Dio] instance for downloading notification images.
+  // A single, reusable [Dio] instance for downloading notification images.
   static final _imageDio = Dio();
 
-  /// handle notification taps
+  ///! =========== handle notification taps ===========
   static void onTap(NotificationResponse notificationResponse) {
     streamController.add(notificationResponse);
 
@@ -25,7 +25,7 @@ class LocalNotificationService {
     // Navigator.push(context, route);
   }
 
-  /// initialize the local notification plugin
+  ///!=========== initialize the local notification plugin ===========
   static Future<void> init() async {
     const InitializationSettings settings = InitializationSettings(
       android: AndroidInitializationSettings('@mipmap/ic_launcher'),
@@ -40,7 +40,7 @@ class LocalNotificationService {
     );
   }
 
-  /// show a basic notification with an optional image
+  ///! ======== show a basic notification with an optional image ========
   static Future<void> showBasicNotification(RemoteMessage message) async {
     final String? imageUrl = message.notification?.android?.imageUrl;
 
@@ -87,10 +87,9 @@ class LocalNotificationService {
       body: message.notification?.body,
       notificationDetails: details,
     );
-
   }
 
-  /// Releases all resources held by this service.
+  ///! ======= Releases all resources held by this service ========
   static Future<void> dispose() async {
     await streamController.close();
     _imageDio.close(force: true);

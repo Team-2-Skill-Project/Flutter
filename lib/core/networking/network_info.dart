@@ -6,11 +6,11 @@ abstract class NetworkInfo {
   Future<bool> get isConnected;
 }
 
-/// implementation of NetworkInfo
+///* implementation of NetworkInfo
+///* Checks connectivity by trying to resolve multiple well-known hosts.
+///* Using a fallback list avoids relying on a single host (e.g. google.com
+///* may be blocked in some regions). Each attempt has a 5-second timeout.
 class NetworkInfoImpl implements NetworkInfo {
-  /// Checks connectivity by trying to resolve multiple well-known hosts.
-  /// Using a fallback list avoids relying on a single host (e.g. google.com
-  /// may be blocked in some regions). Each attempt has a 5-second timeout.
   @override
   Future<bool> get isConnected async {
     const hosts = ['google.com', 'cloudflare.com', 'apple.com'];

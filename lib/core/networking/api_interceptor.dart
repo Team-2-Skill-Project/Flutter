@@ -24,7 +24,8 @@ class ApiInterceptor extends Interceptor {
   // This Completer prevent multiple refresh token requests
   static Completer<bool>? _refreshCompleter;
 
-  // This will be called before each request
+  ///! ======================= on request =======================
+  /// This will be called before each request
   @override
   void onRequest(
     RequestOptions options,
@@ -43,7 +44,8 @@ class ApiInterceptor extends Interceptor {
     super.onRequest(options, handler);
   }
 
-  // This will be called when request throw error
+  ///! ======================= on error =======================
+  /// This will be called when request throw error
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     // if error is not unauthorized return normal error
@@ -141,7 +143,7 @@ class ApiInterceptor extends Interceptor {
     }
   }
 
-  // check if request is public request
+  /// check if request is public request
   bool _isPublicRequest(RequestOptions options) {
     final path = _normalizePath(options.path);
 
@@ -150,7 +152,7 @@ class ApiInterceptor extends Interceptor {
         path == _normalizePath(EndPoint.refreshToken);
   }
 
-  // normalize path to compare endpoints correctly
+  /// normalize path to compare endpoints correctly
   String _normalizePath(String path) {
     final normalizedPath = path.startsWith(EndPoint.baseUrl)
         ? path.substring(EndPoint.baseUrl.length)
@@ -164,7 +166,7 @@ class ApiInterceptor extends Interceptor {
     return normalizedPath;
   }
 
-  // clear local auth data and logout user
+  /// clear local auth data and logout user
   Future<void> _performLogout() async {
     await sharedPreferencesService.clearAuthData();
 
@@ -176,6 +178,7 @@ class ApiInterceptor extends Interceptor {
 
 enum AuthEvent { logout }
 
+///! ======================= auth event bus =======================
 class AuthEventBus {
   AuthEventBus._();
 
@@ -185,13 +188,13 @@ class AuthEventBus {
 
   Stream<AuthEvent> get stream => _streamController.stream;
 
-  // add new auth event to stream
+  /// add new auth event to stream
   void addEvent(AuthEvent event) {
     if (!_streamController.isClosed) {
       _streamController.add(event);
     }
   }
 
-  // close stream controller
+  /// close stream controller
   void close() => _streamController.close();
 }

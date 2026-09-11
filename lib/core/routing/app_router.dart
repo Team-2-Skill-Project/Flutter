@@ -22,7 +22,7 @@ abstract final class AppRouter {
 
   static final router = GoRouter(
     routes: [
-      //TODO: add routes
+      //TODO: add routes here
     ],
   );
 }
