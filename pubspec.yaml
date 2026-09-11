@@ -11,24 +11,50 @@ environment:
 #! =============== Dependencies ===============
 dependencies:
   cupertino_icons: ^1.0.8
+
+  #--> functional programming
   dartz: ^0.10.1
+
+  #--> http requests
   dio: ^5.11.1
+
+  #--> equality comparison of objects
   equatable: ^2.1.0
+  
+  #--> Firebase services
   firebase_core: ^4.14.0
   firebase_messaging: ^16.6.0
   flutter:
     sdk: flutter
+
+  #--> state management
   flutter_bloc: ^9.1.1
+
+  #--> App icon
   flutter_launcher_icons: ^0.14.4
+
+  #--> local Notifications
   flutter_local_notifications: ^22.3.0
   flutter_localizations:
     sdk: flutter
   intl: ^0.20.3
+
+  #--> responsive UI
   flutter_screenutil: ^5.9.3
+
+  #--> secure storage
   flutter_secure_storage: ^11.1.0
+
+  #--> SVG support
   flutter_svg: ^2.3.0
+
+  #--> dependency injection (service locator)
   get_it: ^9.2.1
+
+  #--> navigation and routing
   go_router: ^18.0.1
+
+  #--> shared preferences storage
   shared_preferences: ^2.5.5
 
 dev_dependencies:
