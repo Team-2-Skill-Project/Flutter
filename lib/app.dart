@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MatchIn extends StatelessWidget {
-  const new({super.key});
+  const MatchIn({super.key});
 
   @override
   Widget build(BuildContext context) {
