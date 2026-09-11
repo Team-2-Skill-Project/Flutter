@@ -1,4 +1,5 @@
 import 'package:MatchIn/core/routing/app_router.dart';
+import 'package:MatchIn/core/theme/dark_theme.dart';
 import 'package:MatchIn/core/theme/light_theme.dart' as theme;
 import 'package:MatchIn/core/utils/app_constants.dart';
 import 'package:MatchIn/generated/l10n.dart';
@@ -35,6 +36,7 @@ class MatchIn extends StatelessWidget {
 
         // === theme ===
         theme: theme.lightTheme,
+        darkTheme: darkTheme,
 
         // === router ===
         routerConfig: AppRouter.router,
