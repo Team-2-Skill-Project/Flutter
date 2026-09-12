@@ -14,8 +14,7 @@ class MatchIn extends StatelessWidget {
   Widget build(BuildContext context) {
     //=== screenUtil init for responsive design ===
     return ScreenUtilInit(
-      //TODO: change design size
-      designSize: const Size(375, 812),
+      designSize: const Size(390, 845),
       minTextAdapt: true,
       splitScreenMode: true,
 
