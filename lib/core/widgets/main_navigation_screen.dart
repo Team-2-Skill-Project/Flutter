@@ -35,23 +35,23 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
+            icon: Icon(Icons.home_outlined, color: Colors.black),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat_outlined),
+            icon: Icon(Icons.chat_outlined, color: Colors.black),
             label: 'AI Chat',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark_outline),
+            icon: Icon(Icons.bookmark_outline, color: Colors.black),
             label: 'Saved',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.route_outlined),
+            icon: Icon(Icons.route_outlined, color: Colors.black),
             label: 'Roadmap',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
+            icon: Icon(Icons.person_outline, color: Colors.black),
             label: 'Profile',
           ),
         ],
