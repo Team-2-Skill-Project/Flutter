@@ -22,8 +22,8 @@ dependencies:
   equatable: ^2.1.0
   
   #--> Firebase services
-  firebase_core: ^4.14.0
-  firebase_messaging: ^16.6.0
+  # firebase_core: ^4.14.0
+  # firebase_messaging: ^16.6.0
   flutter:
     sdk: flutter
 
@@ -34,7 +34,7 @@ dependencies:
   flutter_launcher_icons: ^0.14.4
 
   #--> local Notifications
-  flutter_local_notifications: ^22.3.0
+ # flutter_local_notifications: ^22.3.0
   flutter_localizations:
     sdk: flutter
   intl: ^0.20.3
@@ -67,8 +67,8 @@ flutter:
 
   uses-material-design: true  
   #! =============== Assets ===============
-  assets:
-    - assets/
+  # assets:
+    # - assets/
 
   #! =============== Fonts ===============
   # fonts:
