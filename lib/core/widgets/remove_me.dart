@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget {
-  const new({super.key});
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class HomeView extends StatelessWidget {
 }
 
 class AiChatView extends StatelessWidget {
-  const new({super.key});
+  const AiChatView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class AiChatView extends StatelessWidget {
 }
 
 class SavedJobsView extends StatelessWidget {
-  const new({super.key});
+  const SavedJobsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class SavedJobsView extends StatelessWidget {
 }
 
 class RoadmapView extends StatelessWidget {
-  const new({super.key});
+  const RoadmapView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class RoadmapView extends StatelessWidget {
 }
 
 class ProfileView extends StatelessWidget {
-  const new({super.key});
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
