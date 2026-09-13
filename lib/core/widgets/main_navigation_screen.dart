@@ -11,7 +11,7 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int currentIndex = 0;
 
-  final List<Widget> pages = const [
+  final List<Widget> pages = [
     HomeView(),
     AiChatView(),
     SavedJobsView(),
