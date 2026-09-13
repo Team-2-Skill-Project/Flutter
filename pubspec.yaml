@@ -68,8 +68,8 @@ flutter:
 
   uses-material-design: true  
   #! =============== Assets ===============
-  # assets:
-    # - assets/
+  assets:
+    - assets/
 
   #! =============== Fonts ===============
   # fonts:
