@@ -38,15 +38,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 currentIndex = index;
               });
             },
-
             gap: 8,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-
             color: Colors.grey,
             activeColor: Colors.black,
-
             tabBackgroundColor: Colors.grey.shade200,
-
             tabs: [
               GButton(
                 icon: Icons.smart_toy_outlined,

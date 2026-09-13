@@ -1,3 +1,5 @@
+import 'package:MatchIn/features/roadmap/data/models/mockup_roadmap_node.dart';
+import 'package:MatchIn/features/roadmap/presentation/widgets/career_roadmap.dart';
 import 'package:flutter/material.dart';
 
 class RoadmapView extends StatelessWidget {
@@ -5,6 +7,6 @@ class RoadmapView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.black);
+    return CareerRoadmap(nodes: roadmapNodes);
   }
 }
