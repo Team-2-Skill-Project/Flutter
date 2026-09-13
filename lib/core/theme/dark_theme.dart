@@ -3,9 +3,9 @@ import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/core/utils/app_text_styles.dart';
 
 ThemeData getDarkTheme({bool isArabic = false}) {
-  final textTheme = isArabic
-      ? AppTextStyles.arabicTextTheme()
-      : AppTextStyles.englishTextTheme();
+  final textTheme = AppTextStyles.textTheme(
+    isArabic: isArabic,
+  );
 
   const colorScheme = ColorScheme.dark(
     primary: AppColors.midnightBlue,
@@ -19,16 +19,18 @@ ThemeData getDarkTheme({bool isArabic = false}) {
     onError: AppColors.white,
   );
 
+  final themedTextTheme = textTheme.copyWith(
+    titleSmall: textTheme.titleSmall?.copyWith(
+      color: colorScheme.onSurface.withValues(alpha: 0.6),
+    ),
+  );
+
   return ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
     colorScheme: colorScheme,
     scaffoldBackgroundColor: AppColors.darkBackground,
-
-    textTheme: textTheme.apply(
-      bodyColor: AppColors.darkTextPrimary,
-      displayColor: AppColors.darkTextPrimary,
-    ),
+    textTheme: themedTextTheme,
 
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.darkBackground,

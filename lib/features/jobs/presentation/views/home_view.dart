@@ -1,3 +1,4 @@
+import 'package:MatchIn/features/jobs/presentation/widgets/home_header.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget {
@@ -6,14 +7,8 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Color(0xffFAF8F4),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(children: [Row(children: [
-                  
-                ],
-              )]),
-        ),
+        child: SingleChildScrollView(child: HomeHeader()),
       ),
     );
   }
