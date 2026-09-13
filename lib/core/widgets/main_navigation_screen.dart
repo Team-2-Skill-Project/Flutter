@@ -1,4 +1,5 @@
 import 'package:MatchIn/core/widgets/remove_me.dart';
+import 'package:MatchIn/features/roadmap/presentation/views/roadmap_view.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
