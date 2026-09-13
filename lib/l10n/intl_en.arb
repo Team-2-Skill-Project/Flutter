@@ -3,4 +3,11 @@
     "noInternetConnection": "No internet connection",
     "pleaseCheckYourInternetConnection": "Please check your internet connection and try again",
     "tryAgain": "Try Again"
+
+   
+    , "chatBot" : "Chat Bot"
+    , "roadMap" : "RoadMap"
+    , "home" : "Home"
+    , "savedJobs" : "Saved Jobs"
+    , "profile" : "Profile"
 }

@@ -22,12 +22,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "chatBot": MessageLookupByLibrary.simpleMessage("Chat Bot"),
+    "home": MessageLookupByLibrary.simpleMessage("Home"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "No internet connection",
     ),
     "pleaseCheckYourInternetConnection": MessageLookupByLibrary.simpleMessage(
       "Please check your internet connection and try again",
     ),
+    "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+    "roadMap": MessageLookupByLibrary.simpleMessage("RoadMap"),
+    "savedJobs": MessageLookupByLibrary.simpleMessage("Saved Jobs"),
     "tryAgain": MessageLookupByLibrary.simpleMessage("Try Again"),
   };
 }

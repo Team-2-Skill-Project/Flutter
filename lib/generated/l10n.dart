@@ -78,6 +78,31 @@ class S {
   String get tryAgain {
     return Intl.message('Try Again', name: 'tryAgain', desc: '', args: []);
   }
+
+  /// `Chat Bot`
+  String get chatBot {
+    return Intl.message('Chat Bot', name: 'chatBot', desc: '', args: []);
+  }
+
+  /// `RoadMap`
+  String get roadMap {
+    return Intl.message('RoadMap', name: 'roadMap', desc: '', args: []);
+  }
+
+  /// `Home`
+  String get home {
+    return Intl.message('Home', name: 'home', desc: '', args: []);
+  }
+
+  /// `Saved Jobs`
+  String get savedJobs {
+    return Intl.message('Saved Jobs', name: 'savedJobs', desc: '', args: []);
+  }
+
+  /// `Profile`
+  String get profile {
+    return Intl.message('Profile', name: 'profile', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

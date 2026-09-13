@@ -57,6 +57,11 @@ dependencies:
   #--> shared preferences storage
   shared_preferences: ^2.5.5
 
+#! ============== UI ==============
+  #--> Navigation bar
+  google_nav_bar: ^5.0.7
+
+
 dev_dependencies:
   flutter_lints: ^6.0.0
   flutter_test:

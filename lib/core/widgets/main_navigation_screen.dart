@@ -1,5 +1,7 @@
 import 'package:MatchIn/core/widgets/remove_me.dart';
+import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -9,13 +11,13 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int currentIndex = 0;
+  int currentIndex = 2;
 
   final List<Widget> pages = const [
-    HomeView(),
     AiChatView(),
-    SavedJobsView(),
     RoadmapView(),
+    HomeView(),
+    SavedJobsView(),
     ProfileView(),
   ];
 
@@ -24,37 +26,41 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     return Scaffold(
       body: IndexedStack(index: currentIndex, children: pages),
 
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: GNav(
+            selectedIndex: currentIndex,
 
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
+            onTabChange: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
 
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined, color: Colors.black),
-            label: 'Home',
+            gap: 8,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+
+            color: Colors.grey,
+            activeColor: Colors.black,
+
+            tabBackgroundColor: Colors.grey.shade200,
+
+            tabs: [
+              GButton(
+                icon: Icons.smart_toy_outlined,
+                text: S.of(context).roadMap,
+              ),
+              GButton(icon: Icons.route_outlined, text: S.of(context).roadMap),
+              GButton(icon: Icons.home_outlined, text: S.of(context).home),
+              GButton(
+                icon: Icons.bookmark_outline,
+                text: S.of(context).savedJobs,
+              ),
+              GButton(icon: Icons.person_outline, text: S.of(context).profile),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_outlined, color: Colors.black),
-            label: 'AI Chat',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark_outline, color: Colors.black),
-            label: 'Saved',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.route_outlined, color: Colors.black),
-            label: 'Roadmap',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline, color: Colors.black),
-            label: 'Profile',
-          ),
-        ],
+        ),
       ),
     );
   }
