@@ -20,14 +20,38 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
+  static String m0(name) => "مرحبًا، ${name} 👋";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "applyNow": MessageLookupByLibrary.simpleMessage("قدّم الآن"),
+    "goodMatch": MessageLookupByLibrary.simpleMessage("توافق جيد"),
+    "greetingUser": m0,
+    "jobsMatchDescription": MessageLookupByLibrary.simpleMessage(
+      "استكشف الفرص المناسبة لمهاراتك وتفضيلاتك المهنية.",
+    ),
+    "jobsMatchYourProfile": MessageLookupByLibrary.simpleMessage(
+      "وجدنا وظائف تناسب ملفك الشخصي",
+    ),
+    "matches": MessageLookupByLibrary.simpleMessage("وظيفة مناسبة"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "لا يوجد اتصال بالإنترنت",
     ),
+    "noJobsFound": MessageLookupByLibrary.simpleMessage("لا توجد وظائف متاحة"),
     "pleaseCheckYourInternetConnection": MessageLookupByLibrary.simpleMessage(
       "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
     ),
+    "readyToFindYourNextOpportunity": MessageLookupByLibrary.simpleMessage(
+      "جاهز للعثور على فرصتك القادمة؟",
+    ),
+    "recommendedForYou": MessageLookupByLibrary.simpleMessage("مقترحة لك"),
+    "searchJobs": MessageLookupByLibrary.simpleMessage(
+      "ابحث عن وظيفة أو شركة أو مهارة",
+    ),
+    "seeAll": MessageLookupByLibrary.simpleMessage("عرض الكل"),
+    "somethingWentWrong": MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
+    "strongMatch": MessageLookupByLibrary.simpleMessage("توافق قوي"),
     "tryAgain": MessageLookupByLibrary.simpleMessage("إعادة المحاولة"),
+    "viewMatches": MessageLookupByLibrary.simpleMessage("عرض الوظائف المناسبة"),
   };
 }

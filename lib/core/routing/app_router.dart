@@ -1,4 +1,5 @@
 // ignore_for_file: unused_import
+import 'package:MatchIn/core/widgets/main_navigation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:MatchIn/core/routing/app_routes.dart';
@@ -22,7 +23,10 @@ abstract final class AppRouter {
 
   static final router = GoRouter(
     routes: [
-      //TODO: add routes here
+      GoRoute(
+        path: AppRoutes.kSplashView,
+        builder: (context, state) => const MainNavigationScreen(),
+      ),
     ],
   );
 }

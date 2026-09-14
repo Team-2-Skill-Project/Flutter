@@ -1,7 +1,29 @@
 {
+  "noInternetConnection": "لا يوجد اتصال بالإنترنت",
+  "pleaseCheckYourInternetConnection": "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
+  "tryAgain": "إعادة المحاولة",
 
-    "noInternetConnection": "لا يوجد اتصال بالإنترنت",
-    "pleaseCheckYourInternetConnection": "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
-    "tryAgain": "إعادة المحاولة"
+  "greetingUser": "مرحبًا، {name} 👋",
+  "@greetingUser": {
+  "description": "Greeting message displayed on the home screen",
+  "placeholders": {
+    "name": {
+      "type": "String"
+    }
+  }
+},
 
+  "readyToFindYourNextOpportunity": "جاهز للعثور على فرصتك القادمة؟",
+  "searchJobs": "ابحث عن وظيفة أو شركة أو مهارة",
+  "jobsMatchYourProfile": "وجدنا وظائف تناسب ملفك الشخصي",
+  "jobsMatchDescription": "استكشف الفرص المناسبة لمهاراتك وتفضيلاتك المهنية.",
+  "viewMatches": "عرض الوظائف المناسبة",
+  "recommendedForYou": "مقترحة لك",
+  "seeAll": "عرض الكل",
+  "applyNow": "قدّم الآن",
+  "noJobsFound": "لا توجد وظائف متاحة",
+  "somethingWentWrong": "حدث خطأ ما",
+  "strongMatch": "توافق قوي",
+  "goodMatch": "توافق جيد",
+  "matches": "وظيفة مناسبة"
 }
