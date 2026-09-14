@@ -29,5 +29,96 @@ class MessageLookup extends MessageLookupByLibrary {
       "Please check your internet connection and try again",
     ),
     "tryAgain": MessageLookupByLibrary.simpleMessage("Try Again"),
+
+    "turnCvIntoOpportunities": MessageLookupByLibrary.simpleMessage(
+      "Turn your CV into opportunities",
+    ),
+    "turnCvIntoOpportunitiesDesc": MessageLookupByLibrary.simpleMessage(
+      "See why a job fits you, what you’re missing, and what to do next.",
+    ),
+    "getExplainableMatch": MessageLookupByLibrary.simpleMessage(
+      "Get an explainable match",
+    ),
+    "getExplainableMatchDesc": MessageLookupByLibrary.simpleMessage(
+      "Not just a score — strengths, gaps, and clear next actions.",
+    ),
+    "setupCareerProfile": MessageLookupByLibrary.simpleMessage(
+      "Setup your career profile",
+    ),
+    "setupCareerProfileDesc": MessageLookupByLibrary.simpleMessage(
+      "Tell us about your skills and goals to get better recommendations.",
+    ),
+    "onboardingBullet1": MessageLookupByLibrary.simpleMessage(
+      "Upload your CV for instant AI parsing",
+    ),
+    "onboardingBullet2": MessageLookupByLibrary.simpleMessage(
+      "Select target roles and skills",
+    ),
+    "onboardingBullet3": MessageLookupByLibrary.simpleMessage(
+      "Get matched with high-fit opportunities",
+    ),
+    "start": MessageLookupByLibrary.simpleMessage("Start"),
+    "getStarted": MessageLookupByLibrary.simpleMessage("Get Started"),
+    "next": MessageLookupByLibrary.simpleMessage("Next"),
+    "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+    "notNow": MessageLookupByLibrary.simpleMessage("Not now"),
+
+    "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
+      "Enter verification code",
+    ),
+    "sentCodeToEmail": MessageLookupByLibrary.simpleMessage(
+      "We sent a 6-digit code to your email.",
+    ),
+    "verificationCodeLabel": MessageLookupByLibrary.simpleMessage(
+      "VERIFICATION CODE",
+    ),
+    "verify": MessageLookupByLibrary.simpleMessage("Verify"),
+    "resendCodeIn": MessageLookupByLibrary.simpleMessage("Resend code in"),
+    "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
+    "useDifferentEmail": MessageLookupByLibrary.simpleMessage(
+      "Use a different email",
+    ),
+    "invalidVerificationCode": MessageLookupByLibrary.simpleMessage(
+      "Invalid verification code",
+    ),
+    "secondsSuffix": MessageLookupByLibrary.simpleMessage("s"),
+
+    "createNewPassword": MessageLookupByLibrary.simpleMessage(
+      "Create a new password",
+    ),
+    "chooseStrongPassword": MessageLookupByLibrary.simpleMessage(
+      "Choose a strong password you haven’t used before.",
+    ),
+    "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
+    "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
+      "Confirm new password",
+    ),
+    "passwordLengthHint": MessageLookupByLibrary.simpleMessage(
+      "Use at least 8 characters.",
+    ),
+    "passwordRequirements": MessageLookupByLibrary.simpleMessage(
+      "Password requirements",
+    ),
+    "reqMin8Chars": MessageLookupByLibrary.simpleMessage(
+      "At least 8 characters",
+    ),
+    "reqAtLeastOneNumber": MessageLookupByLibrary.simpleMessage(
+      "At least one number",
+    ),
+    "reqAtLeastOneSpecial": MessageLookupByLibrary.simpleMessage(
+      "At least one special character",
+    ),
+    "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
+      "Passwords do not match",
+    ),
+    "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
+    "backToLogin": MessageLookupByLibrary.simpleMessage("Back to login"),
+
+    "passwordChangedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Password changed successfully",
+    ),
+    "passwordChangedSuccessDesc": MessageLookupByLibrary.simpleMessage(
+      "Your password has been changed successfully. You can now log in with your new password.",
+    ),
   };
 }

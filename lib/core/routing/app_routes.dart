@@ -5,4 +5,7 @@ abstract final class AppRoutes {
   static const kLoginView = '/login';
   static const kRegisterView = '/register';
   static const kForgetPasswordView = '/forgotPassword';
+  static const kOtpVerificationView = '/otp';
+  static const kCreateNewPasswordView = '/createNewPassword';
+  static const kPasswordChangedSuccessView = '/passwordChangedSuccess';
 }

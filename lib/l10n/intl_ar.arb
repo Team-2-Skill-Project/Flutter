@@ -2,6 +2,46 @@
 
     "noInternetConnection": "لا يوجد اتصال بالإنترنت",
     "pleaseCheckYourInternetConnection": "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
-    "tryAgain": "إعادة المحاولة"
+    "tryAgain": "إعادة المحاولة",
 
+    "turnCvIntoOpportunities": "حوّل سيرتك الذاتية إلى فرص",
+    "turnCvIntoOpportunitiesDesc": "اكتشف لماذا تناسبك الوظيفة، وما ينقصك، والخطوات التالية.",
+    "getExplainableMatch": "احصل على توافق واضح ومفصل",
+    "getExplainableMatchDesc": "ليس مجرد نسبة مئوية — بل نقاط قوة وفجوات وخطوات عمل واضحة.",
+    "setupCareerProfile": "أكمل ملفك المهني",
+    "setupCareerProfileDesc": "أخبرنا بمهاراتك وأهدافك للحصول على توصيات وظيفية أفضل.",
+    "onboardingBullet1": "ارفع سيرتك الذاتية لتحليل فوري بالذكاء الاصطناعي",
+    "onboardingBullet2": "حدد المسميات الوظيفية والمهارات المستهدفة",
+    "onboardingBullet3": "احصل على أفضل الفرص المتوافقة معك بدقة",
+    "start": "ابدأ",
+    "getStarted": "ابدأ الآن",
+    "next": "التالي",
+    "skip": "تخطي",
+    "notNow": "ليس الآن",
+
+    "enterVerificationCode": "أدخل رمز التحقق",
+    "sentCodeToEmail": "لقد أرسلنا رمزاً مكوناً من 6 أرقام إلى بريدك الإلكتروني.",
+    "verificationCodeLabel": "رمز التحقق",
+    "verify": "تحقق",
+    "resendCodeIn": "إعادة إرسال الرمز خلال",
+    "resendCode": "إعادة إرسال الرمز",
+    "useDifferentEmail": "استخدام بريد إلكتروني آخر",
+    "invalidVerificationCode": "رمز التحقق غير صحيح",
+    "secondsSuffix": "ث",
+
+    "createNewPassword": "إنشاء كلمة مرور جديدة",
+    "chooseStrongPassword": "اختر كلمة مرور قوية لم تستخدمها من قبل.",
+    "newPassword": "كلمة المرور الجديدة",
+    "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+    "passwordLengthHint": "استخدم 8 أحرف على الأقل.",
+    "passwordRequirements": "متطلبات كلمة المرور",
+    "reqMin8Chars": "8 أحرف على الأقل",
+    "reqAtLeastOneNumber": "رقم واحد على الأقل",
+    "reqAtLeastOneSpecial": "رمز خاص واحد على الأقل",
+    "passwordsDoNotMatch": "كلمتا المرور غير متطابقتين",
+    "resetPassword": "إعادة تعيين كلمة المرور",
+    "backToLogin": "العودة لتسجيل الدخول",
+
+    "passwordChangedSuccessfully": "تم تغيير كلمة المرور بنجاح",
+    "passwordChangedSuccessDesc": "تم تغيير كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة."
 }
