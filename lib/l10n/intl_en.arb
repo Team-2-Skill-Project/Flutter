@@ -1,6 +1,29 @@
 {
+  "noInternetConnection": "No internet connection",
+  "pleaseCheckYourInternetConnection": "Please check your internet connection and try again",
+  "tryAgain": "Try Again",
 
-    "noInternetConnection": "No internet connection",
-    "pleaseCheckYourInternetConnection": "Please check your internet connection and try again",
-    "tryAgain": "Try Again"
+  "greetingUser": "Hello, {name} 👋",
+  "@greetingUser": {
+  "description": "Greeting message displayed on the home screen",
+  "placeholders": {
+    "name": {
+      "type": "String"
+    }
+  }
+},
+
+  "readyToFindYourNextOpportunity": "Ready to find your next opportunity?",
+  "searchJobs": "Search jobs, companies, or skills",
+  "jobsMatchYourProfile": "We found jobs that match your profile",
+  "jobsMatchDescription": "Explore opportunities based on your skills and career preferences.",
+  "viewMatches": "View Matches",
+  "recommendedForYou": "Recommended for you",
+  "seeAll": "See all",
+  "applyNow": "Apply Now",
+  "noJobsFound": "No jobs found",
+  "somethingWentWrong": "Something went wrong",
+  "strongMatch": "Strong Match",
+  "goodMatch": "Good Match",
+  "matches": "matches"
 }

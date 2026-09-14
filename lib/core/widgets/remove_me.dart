@@ -6,7 +6,7 @@ class AiChatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('AiChatView');
+    return const Center(child: Text('AiChatView'));
   }
 }
 
@@ -15,7 +15,7 @@ class SavedJobsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('SavedJobsView');
+    return const Center(child: Text('SavedJobsView'));
   }
 }
 
@@ -24,7 +24,7 @@ class RoadmapView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('RoadmapView');
+    return const Center(child: Text('RoadmapView'));
   }
 }
 
@@ -33,6 +33,6 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('ProfileView');
+    return const Center(child: Text('ProfileView'));
   }
 }

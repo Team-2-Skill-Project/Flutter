@@ -20,10 +20,12 @@ class HomeHeader extends StatelessWidget {
                   SvgPicture.asset(Assets.imagesTextLogo),
                   const Spacer(),
                   SvgPicture.asset(
-                    Assets.notificationBellNewIcon,
+                    Assets.iconsNotificationBellNewIcon,
                   ),
                   SizedBox(width: 8.0.w),
-                  SvgPicture.asset(Assets.settingsIcon),
+                  SvgPicture.asset(
+                    Assets.iconsSettingsIcon,
+                  ),
                 ],
               ),
               SizedBox(height: 24.0.w),
