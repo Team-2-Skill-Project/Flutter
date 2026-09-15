@@ -8,11 +8,19 @@ import 'package:MatchIn/features/roadmap/presentation/widgets/skill_details_shee
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
 class RoadmapViewBody extends StatelessWidget {
   const RoadmapViewBody({super.key, this.nodes});
 
   final List<RoadmapNode>? nodes;
+
+  /// Available Lottie animation assets for roadmap decoration
+  static const List<String> _lottieAssets = [
+    'assets/lottie/graduation_hat.json',
+    'assets/lottie/books_1.lottie.json',
+    'assets/lottie/books_2.lottie.json',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -57,17 +65,33 @@ class RoadmapViewBody extends StatelessWidget {
                 final node = roadmapNodes[index];
                 // Calculate organic horizontal offset using continuous dual-harmonic wave
                 final horizontalShift = _calculateOrganicOffset(index, maxOffset);
+                // Calculate Lottie decoration if sufficient negative horizontal space exists beside the task
+                final lottieWidget = _buildLottieDecoration(
+                  index: index,
+                  horizontalShift: horizontalShift,
+                  maxOffset: maxOffset,
+                );
 
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: 12.h),
-                  child: Transform.translate(
-                    offset: Offset(horizontalShift, 0),
-                    child: Center(
-                      child: RoadmapTaskNode(
-                        node: node,
-                        onTap: () => _onNodeTap(context, node),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    clipBehavior: Clip.none,
+                    children: [
+                      // Task Node positioned along the organic winding path
+                      Transform.translate(
+                        offset: Offset(horizontalShift, 0),
+                        child: Center(
+                          child: RoadmapTaskNode(
+                            node: node,
+                            onTap: () => _onNodeTap(context, node),
+                          ),
+                        ),
                       ),
-                    ),
+
+                      // Decorative Lottie animation placed in the empty horizontal negative space beside the task
+                      ?lottieWidget,
+                    ],
                   ),
                 );
               }),
@@ -86,6 +110,48 @@ class RoadmapViewBody extends StatelessWidget {
     final rawOffset = 0.65 * sin(t * 0.85) + 0.35 * sin(t * 0.45 + 0.8);
     final clamped = rawOffset.clamp(-1.0, 1.0);
     return clamped * maxOffset;
+  }
+
+  /// Builds a decorative Lottie animation placed in the empty horizontal negative space
+  /// beside the task node, vertically aligned with the node.
+  Widget? _buildLottieDecoration({
+    required int index,
+    required double horizontalShift,
+    required double maxOffset,
+  }) {
+    // Only place Lottie animation when there is sufficient empty negative space
+    final minSpaceThreshold = maxOffset * 0.40;
+    if (horizontalShift.abs() < minSpaceThreshold) {
+      return null;
+    }
+
+    // Distribute Lotties across selected nodes to maintain clean aesthetic
+    if (index % 2 != 1 && index % 5 != 0) {
+      return null;
+    }
+
+    // Cycle through available Lottie assets
+    final assetPath = _lottieAssets[(index ~/ 2) % _lottieAssets.length];
+
+    // If task is shifted RIGHT -> place Lottie in the open space on the LEFT
+    // If task is shifted LEFT  -> place Lottie in the open space on the RIGHT
+    final isShiftedRight = horizontalShift > 0;
+
+    return Positioned(
+      left: isShiftedRight ? 20.w : null,
+      right: isShiftedRight ? null : 20.w,
+      child: IgnorePointer(
+        child: SizedBox(
+          width: 56.r,
+          height: 56.r,
+          child: Lottie.asset(
+            assetPath,
+            fit: BoxFit.contain,
+            errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+          ),
+        ),
+      ),
+    );
   }
 
   void _onNodeTap(BuildContext context, RoadmapNode node) {

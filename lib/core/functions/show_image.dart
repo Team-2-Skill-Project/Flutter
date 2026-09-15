@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lottie/lottie.dart';
 
 ///* This method is used to show image in app with different types of image formats
 ///* and handle loading and error states
@@ -52,6 +53,10 @@ Widget showImage({
         );
       },
     );
+
+    // in the case of lottie files animations
+  } else if (image.endsWith('.lottie')) {
+    return Lottie.asset(image, fit: fit, width: width, height: height);
   }
   // in the case of asset image
   else {
