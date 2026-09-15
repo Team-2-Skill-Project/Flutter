@@ -1,3 +1,4 @@
+import 'package:MatchIn/core/functions/show_image.dart';
 import 'package:MatchIn/core/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +18,7 @@ class HomeHeader extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  SvgPicture.asset(Assets.imagesTextLogo),
+                  showImage(image: Assets.imagesTextLogo),
                   const Spacer(),
                   SvgPicture.asset(
                     Assets.iconsNotificationBellNewIcon,

@@ -25,5 +25,15 @@
   "somethingWentWrong": "حدث خطأ ما",
   "strongMatch": "توافق قوي",
   "goodMatch": "توافق جيد",
-  "matches": "وظيفة مناسبة"
+  "matches": "وظيفة مناسبة",
+  "match": "توافق",
+  "searchJobsTitle": "البحث عن وظائف",
+  "all": "الكل",
+  "remote": "عن بُعد",
+  "internship": "تدريب",
+  "fullTime": "دوام كامل",
+  "entryLevel": "مستوى مبتدئ",
+  "opportunities": "فرصة",
+  "mostRelevant": "الأكثر ملاءمة"
+
 }

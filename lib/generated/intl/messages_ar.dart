@@ -24,20 +24,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "all": MessageLookupByLibrary.simpleMessage("الكل"),
     "applyNow": MessageLookupByLibrary.simpleMessage("قدّم الآن"),
+    "entryLevel": MessageLookupByLibrary.simpleMessage("مستوى مبتدئ"),
+    "fullTime": MessageLookupByLibrary.simpleMessage("دوام كامل"),
     "goodMatch": MessageLookupByLibrary.simpleMessage("توافق جيد"),
     "greetingUser": m0,
+    "internship": MessageLookupByLibrary.simpleMessage("تدريب"),
     "jobsMatchDescription": MessageLookupByLibrary.simpleMessage(
       "استكشف الفرص المناسبة لمهاراتك وتفضيلاتك المهنية.",
     ),
     "jobsMatchYourProfile": MessageLookupByLibrary.simpleMessage(
       "وجدنا وظائف تناسب ملفك الشخصي",
     ),
+    "match": MessageLookupByLibrary.simpleMessage("توافق"),
     "matches": MessageLookupByLibrary.simpleMessage("وظيفة مناسبة"),
+    "mostRelevant": MessageLookupByLibrary.simpleMessage("الأكثر ملاءمة"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "لا يوجد اتصال بالإنترنت",
     ),
     "noJobsFound": MessageLookupByLibrary.simpleMessage("لا توجد وظائف متاحة"),
+    "opportunities": MessageLookupByLibrary.simpleMessage("فرصة"),
     "pleaseCheckYourInternetConnection": MessageLookupByLibrary.simpleMessage(
       "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
     ),
@@ -45,9 +52,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "جاهز للعثور على فرصتك القادمة؟",
     ),
     "recommendedForYou": MessageLookupByLibrary.simpleMessage("مقترحة لك"),
+    "remote": MessageLookupByLibrary.simpleMessage("عن بُعد"),
     "searchJobs": MessageLookupByLibrary.simpleMessage(
       "ابحث عن وظيفة أو شركة أو مهارة",
     ),
+    "searchJobsTitle": MessageLookupByLibrary.simpleMessage("البحث عن وظائف"),
     "seeAll": MessageLookupByLibrary.simpleMessage("عرض الكل"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
     "strongMatch": MessageLookupByLibrary.simpleMessage("توافق قوي"),

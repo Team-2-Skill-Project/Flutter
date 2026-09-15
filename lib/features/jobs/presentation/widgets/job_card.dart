@@ -14,9 +14,12 @@ class JobCard extends StatelessWidget {
     required this.experience,
     required this.jobType,
     required this.postedDate,
-    required this.matchScore,
-    required this.matchReason,
+    required this.skills,
+    required this.matchStatus,
+    this.matchPercentage,
+    this.showShareButton = false,
     this.isSaved = false,
+    this.onShare,
     this.onTap,
     this.onApply,
     this.onSave,
@@ -29,19 +32,22 @@ class JobCard extends StatelessWidget {
   final String experience;
   final String jobType;
   final String postedDate;
-  final int matchScore;
-  final String matchReason;
 
+  final List<String> skills;
+
+  final MatchingStatusType matchStatus;
+  final int? matchPercentage;
+
+  final bool showShareButton;
   final bool isSaved;
 
+  final VoidCallback? onShare;
   final VoidCallback? onTap;
   final VoidCallback? onApply;
   final VoidCallback? onSave;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Card(
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
@@ -56,71 +62,61 @@ class JobCard extends StatelessWidget {
                 title: title,
                 company: company,
                 isSaved: isSaved,
+                showShareButton: showShareButton,
+                onShare: onShare,
                 onSave: onSave,
               ),
 
               SizedBox(height: 14.h),
 
               Wrap(
-                spacing: 6.w,
-                runSpacing: 6.h,
+                spacing: 8.w,
+                runSpacing: 8.h,
                 children: [
-                  JobsInfoJobCard(label: location),
-                  JobsInfoJobCard(label: experience),
+                  JobsInfoJobCard(
+                    label: location,
+                    icon: Icons.location_on_outlined,
+                  ),
                   JobsInfoJobCard(label: jobType),
+                  JobsInfoJobCard(label: workMode),
+                  JobsInfoJobCard(
+                    label: experience,
+                    icon: Icons.work_outline_rounded,
+                  ),
                 ],
               ),
 
-              SizedBox(height: 8.h),
+              SizedBox(height: 10.h),
 
-              _JobMetaData(
-                workMode: workMode,
-                postedDate: postedDate,
-              ),
+              _PostedDate(postedDate: postedDate),
 
-              SizedBox(height: 14.h),
+              if (skills.isNotEmpty) ...[
+                SizedBox(height: 14.h),
+
+                _SkillsSection(skills: skills),
+              ],
+
+              SizedBox(height: 16.h),
 
               Divider(height: 1.h),
 
               SizedBox(height: 14.h),
 
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
-                      children: [
-                        MatchingStatus(score: matchScore),
-                        SizedBox(height: 6.h),
-                        Text(
-                          matchReason,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodySmall
-                              ?.copyWith(
-                                color: theme
-                                    .colorScheme
-                                    .onSurface
-                                    .withValues(alpha: 0.6),
-                              ),
-                        ),
-                      ],
-                    ),
+                  MatchingStatus(
+                    type: matchStatus,
+                    percentage: matchPercentage,
                   ),
 
-                  SizedBox(width: 12.w),
+                  const Spacer(),
 
                   ElevatedButton(
-                    // UI First:
-                    // Keep the button enabled until real logic is connected.
                     onPressed: onApply ?? () {},
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(96.w, 40.h),
+                      minimumSize: Size(110.w, 42.h),
                       padding: EdgeInsets.symmetric(
-                        horizontal: 16.w,
-                        vertical: 10.h,
+                        horizontal: 18.w,
                       ),
                     ),
                     child: Text(S.of(context).applyNow),
@@ -140,12 +136,17 @@ class _JobHeader extends StatelessWidget {
     required this.title,
     required this.company,
     required this.isSaved,
+    required this.showShareButton,
     required this.onSave,
+    this.onShare,
   });
 
   final String title;
   final String company;
   final bool isSaved;
+  final bool showShareButton;
+
+  final VoidCallback? onShare;
   final VoidCallback? onSave;
 
   @override
@@ -156,18 +157,18 @@ class _JobHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 42.w,
-          height: 42.w,
+          width: 48.r,
+          height: 48.r,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color:
                 theme.colorScheme.surfaceContainerHighest,
-            borderRadius: BorderRadius.circular(9.r),
+            borderRadius: BorderRadius.circular(12.r),
             border: Border.all(color: theme.dividerColor),
           ),
           child: Text(
             _companyInitials(company),
-            style: theme.textTheme.titleSmall,
+            style: theme.textTheme.titleMedium,
           ),
         ),
 
@@ -178,26 +179,33 @@ class _JobHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.titleMedium,
-              ),
-              SizedBox(height: 3.h),
-              Text(
                 company,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodySmall?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.onSurface
                       .withValues(alpha: 0.6),
                 ),
+              ),
+
+              SizedBox(height: 3.h),
+
+              Text(
+                title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.titleLarge,
               ),
             ],
           ),
         ),
 
-        SizedBox(width: 8.w),
+        if (showShareButton)
+          IconButton(
+            onPressed: onShare ?? () {},
+            visualDensity: VisualDensity.compact,
+            icon: const Icon(Icons.share_outlined),
+          ),
 
         IconButton(
           onPressed: onSave ?? () {},
@@ -236,45 +244,78 @@ class _JobHeader extends StatelessWidget {
           .toUpperCase();
     }
 
-    return '${words[0][0]}${words[1][0]}'.toUpperCase();
+    return '${words.first[0]}${words[1][0]}'.toUpperCase();
   }
 }
 
-class _JobMetaData extends StatelessWidget {
-  const _JobMetaData({
-    required this.workMode,
-    required this.postedDate,
-  });
+class _PostedDate extends StatelessWidget {
+  const _PostedDate({required this.postedDate});
 
-  final String workMode;
   final String postedDate;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final style = theme.textTheme.bodySmall?.copyWith(
-      color: theme.colorScheme.onSurface.withValues(
-        alpha: 0.6,
-      ),
-    );
-
-    return Wrap(
-      crossAxisAlignment: WrapCrossAlignment.center,
-      spacing: 6.w,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          width: 6.r,
-          height: 6.r,
-          decoration: const BoxDecoration(
-            color: Color(0xFF4F7A5A),
-            shape: BoxShape.circle,
+        Icon(
+          Icons.schedule_rounded,
+          size: 16.sp,
+          color: theme.colorScheme.onSurface.withValues(
+            alpha: 0.55,
           ),
         ),
-        Text(workMode, style: style),
-        Text('•', style: style),
-        Text(postedDate, style: style),
+
+        SizedBox(width: 4.w),
+
+        Text(
+          postedDate,
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: theme.colorScheme.onSurface.withValues(
+              alpha: 0.6,
+            ),
+          ),
+        ),
       ],
+    );
+  }
+}
+
+class _SkillsSection extends StatelessWidget {
+  const _SkillsSection({required this.skills});
+
+  final List<String> skills;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Wrap(
+      spacing: 8.w,
+      runSpacing: 8.h,
+      children: skills
+          .map(
+            (skill) => Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+                vertical: 1.h,
+              ),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surface,
+                borderRadius: BorderRadius.circular(6.r),
+                border: Border.all(
+                  color: theme.dividerColor,
+                ),
+              ),
+              child: Text(
+                skill,
+                style: theme.textTheme.labelMedium,
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 }

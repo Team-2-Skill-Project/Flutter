@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class HomeCardViewMatchesJobs extends StatelessWidget {
   const HomeCardViewMatchesJobs({
     super.key,
-    this.matchesCount = 12,
+    required this.matchesCount,
   });
 
   final int matchesCount;

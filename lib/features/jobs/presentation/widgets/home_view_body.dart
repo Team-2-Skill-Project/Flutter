@@ -1,9 +1,11 @@
+import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/home_card_view_matches_jobs.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/home_header.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/home_search_field.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/recommended_jobs_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
@@ -21,11 +23,15 @@ class HomeViewBody extends StatelessWidget {
 
           SizedBox(height: 20.h),
 
-          const HomeSearchField(),
+          HomeSearchField(
+            onTap: () {
+              context.push(AppRoutes.jobsSearch);
+            },
+          ),
 
           SizedBox(height: 16.h),
 
-          const HomeCardViewMatchesJobs(),
+          const HomeCardViewMatchesJobs(matchesCount: 12),
 
           SizedBox(height: 12.h),
 

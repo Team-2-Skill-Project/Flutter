@@ -1,56 +1,91 @@
 import 'package:MatchIn/core/utils/app_colors.dart';
+import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class MatchingStatus extends StatelessWidget {
-  const MatchingStatus({super.key, required this.score});
+enum MatchingStatusType { strong, good, percentage }
 
-  final int score;
+class MatchingStatus extends StatelessWidget {
+  const MatchingStatus({
+    super.key,
+    required this.type,
+    this.percentage,
+  });
+
+  final MatchingStatusType type;
+  final int? percentage;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final bool isStrongMatch = score >= 80;
-
-    final Color statusColor = isStrongMatch
-        ? AppColors.forestGreen
-        : AppColors.amber;
-
-    final String statusText = isStrongMatch
-        ? 'Strong Match'
-        : 'Good Match';
+    final data = _getStatusData(context);
 
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: 8.w,
-        vertical: 4.h,
+        horizontal: 10.w,
+        vertical: 5.h,
       ),
       decoration: BoxDecoration(
-        color: statusColor.withValues(alpha: 0.12),
+        color: data.color.withValues(alpha: 0.10),
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
-          Container(
-            width: 6.r,
-            height: 6.r,
-            decoration: BoxDecoration(
-              color: statusColor,
-              shape: BoxShape.circle,
+          if (type != MatchingStatusType.percentage) ...[
+            Container(
+              width: 7.r,
+              height: 7.r,
+              decoration: BoxDecoration(
+                color: data.color,
+                shape: BoxShape.circle,
+              ),
             ),
-          ),
-          SizedBox(width: 5.w),
+            SizedBox(width: 5.w),
+          ],
           Text(
-            statusText,
-            style: theme.textTheme.labelSmall?.copyWith(
-              color: statusColor,
-              fontWeight: FontWeight.w600,
+            data.label,
+            style: theme.textTheme.labelMedium?.copyWith(
+              color: data.color,
             ),
           ),
         ],
       ),
     );
   }
+
+  _MatchingStatusData _getStatusData(BuildContext context) {
+    switch (type) {
+      case MatchingStatusType.strong:
+        return _MatchingStatusData(
+          label: S.of(context).strongMatch,
+          color: AppColors.forestGreen,
+        );
+
+      case MatchingStatusType.good:
+        return _MatchingStatusData(
+          label: S.of(context).goodMatch,
+          color: AppColors.amber,
+        );
+
+      case MatchingStatusType.percentage:
+        return _MatchingStatusData(
+          label:
+              '${percentage ?? 0}% ${S.of(context).match}',
+          color: Theme.of(context).colorScheme.onSurface
+              .withValues(alpha: 0.6),
+        );
+    }
+  }
+}
+
+class _MatchingStatusData {
+  const _MatchingStatusData({
+    required this.label,
+    required this.color,
+  });
+
+  final String label;
+  final Color color;
 }

@@ -24,20 +24,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "all": MessageLookupByLibrary.simpleMessage("All"),
     "applyNow": MessageLookupByLibrary.simpleMessage("Apply Now"),
+    "entryLevel": MessageLookupByLibrary.simpleMessage("Entry Level"),
+    "fullTime": MessageLookupByLibrary.simpleMessage("Full-time"),
     "goodMatch": MessageLookupByLibrary.simpleMessage("Good Match"),
     "greetingUser": m0,
+    "internship": MessageLookupByLibrary.simpleMessage("Internship"),
     "jobsMatchDescription": MessageLookupByLibrary.simpleMessage(
       "Explore opportunities based on your skills and career preferences.",
     ),
     "jobsMatchYourProfile": MessageLookupByLibrary.simpleMessage(
       "We found jobs that match your profile",
     ),
+    "match": MessageLookupByLibrary.simpleMessage("Match"),
     "matches": MessageLookupByLibrary.simpleMessage("matches"),
+    "mostRelevant": MessageLookupByLibrary.simpleMessage("Most relevant"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "No internet connection",
     ),
     "noJobsFound": MessageLookupByLibrary.simpleMessage("No jobs found"),
+    "opportunities": MessageLookupByLibrary.simpleMessage("opportunities"),
     "pleaseCheckYourInternetConnection": MessageLookupByLibrary.simpleMessage(
       "Please check your internet connection and try again",
     ),
@@ -47,9 +54,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "recommendedForYou": MessageLookupByLibrary.simpleMessage(
       "Recommended for you",
     ),
+    "remote": MessageLookupByLibrary.simpleMessage("Remote"),
     "searchJobs": MessageLookupByLibrary.simpleMessage(
       "Search jobs, companies, or skills",
     ),
+    "searchJobsTitle": MessageLookupByLibrary.simpleMessage("Search Jobs"),
     "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong",
