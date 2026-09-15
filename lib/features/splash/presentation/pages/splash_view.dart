@@ -1,12 +1,15 @@
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashView extends StatefulWidget {
+  const SplashView({super.key});
+
   @override
-  State<SplashView> createState() => _splashViewState();
+  State<SplashView> createState() => _SplashViewState();
 }
 
-class _splashViewState extends State<SplashView> {
+class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
@@ -34,10 +37,7 @@ class _splashViewState extends State<SplashView> {
               ),
             );
           },
-          child: Image.asset(
-            'assets/images/app_icon.jpg',
-            width: 180,
-          ),
+          child: Image.asset('assets/images/app_icon.jpg', width: 180.w),
         ),
       ),
     );
