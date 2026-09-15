@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
@@ -43,8 +45,8 @@ class RoadmapViewBody extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final screenWidth = constraints.maxWidth;
-        // Dynamic horizontal offset from center for alternating zigzag
-        final offsetAmount = (screenWidth * 0.22).clamp(50.0.w, 110.0.w);
+        // Maximum horizontal offset from center for organic curve range
+        final maxOffset = (screenWidth * 0.28).clamp(60.0.w, 120.0.w);
 
         return SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -53,8 +55,8 @@ class RoadmapViewBody extends StatelessWidget {
             child: Column(
               children: List.generate(roadmapNodes.length, (index) {
                 final node = roadmapNodes[index];
-                final isLeft = index.isEven;
-                final horizontalShift = isLeft ? -offsetAmount : offsetAmount;
+                // Calculate organic horizontal offset using continuous dual-harmonic wave
+                final horizontalShift = _calculateOrganicOffset(index, maxOffset);
 
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: 12.h),
@@ -74,6 +76,16 @@ class RoadmapViewBody extends StatelessWidget {
         );
       },
     );
+  }
+
+  /// Calculates a smooth, organic horizontal offset for each task node.
+  /// Uses a dual-frequency harmonic wave function to create a natural, continuous S-curve progression.
+  double _calculateOrganicOffset(int index, double maxOffset) {
+    final t = index.toDouble();
+    // Superposition of two sine frequencies creates a dynamic, organic winding path
+    final rawOffset = 0.65 * sin(t * 0.85) + 0.35 * sin(t * 0.45 + 0.8);
+    final clamped = rawOffset.clamp(-1.0, 1.0);
+    return clamped * maxOffset;
   }
 
   void _onNodeTap(BuildContext context, RoadmapNode node) {
