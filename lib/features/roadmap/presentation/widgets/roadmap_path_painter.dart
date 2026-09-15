@@ -1,21 +1,22 @@
 import 'dart:math';
 
+import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
-/// CustomPainter rendering an old treasure-map style dashed curve connecting task nodes.
+/// CustomPainter rendering a soft, subtle curve connecting task nodes.
 class RoadmapPathPainter extends CustomPainter {
   RoadmapPathPainter({
     required this.nodeCenters,
-    this.pathColor = const Color(0xFF8B5A2B),
-    this.strokeWidth = 3.5,
-    this.dashLength = 9.0,
-    this.dashGap = 7.0,
-  });
+    Color? pathColor,
+    this.strokeWidth = 3.0,
+    this.dashLength = 8.0,
+    this.dashGap = 6.0,
+  }) : pathColor = pathColor ?? AppColors.primary.withValues(alpha: 0.28);
 
   /// Exact center coordinates for each task node
   final List<Offset> nodeCenters;
 
-  /// Earthy treasure map path color
+  /// Soft, muted theme path color
   final Color pathColor;
 
   /// Line thickness

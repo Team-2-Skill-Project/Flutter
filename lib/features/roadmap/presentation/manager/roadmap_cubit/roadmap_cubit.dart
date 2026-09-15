@@ -1,3 +1,5 @@
+import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/features/roadmap/data/models/mockup_roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +13,35 @@ class RoadmapCubit extends Cubit<RoadmapState> {
   void fetchRoadmapNodes() {
     emit(RoadmapLoading());
     try {
-      emit(RoadmapSuccess(nodes: roadmapNodes));
+      Set<int> collectedTreasures = {};
+      if (getIt.isRegistered<SharedPreferencesService>()) {
+        collectedTreasures =
+            getIt<SharedPreferencesService>().getCollectedTreasures();
+      }
+      emit(RoadmapSuccess(
+        nodes: roadmapNodes,
+        collectedTreasures: collectedTreasures,
+      ));
     } catch (e) {
       emit(RoadmapFailure(errorMessage: e.toString()));
+    }
+  }
+
+  Future<void> claimTreasureReward(int milestoneIndex) async {
+    if (state is RoadmapSuccess) {
+      final currentSuccess = state as RoadmapSuccess;
+      final updatedSet = Set<int>.from(currentSuccess.collectedTreasures)
+        ..add(milestoneIndex);
+
+      if (getIt.isRegistered<SharedPreferencesService>()) {
+        await getIt<SharedPreferencesService>()
+            .saveCollectedTreasures(updatedSet);
+      }
+
+      emit(RoadmapSuccess(
+        nodes: currentSuccess.nodes,
+        collectedTreasures: updatedSet,
+      ));
     }
   }
 }

@@ -7,9 +7,11 @@ class RoadmapXpBar extends StatelessWidget {
   const RoadmapXpBar({
     super.key,
     required this.nodes,
+    this.collectedTreasures = const {},
   });
 
   final List<RoadmapNode> nodes;
+  final Set<int> collectedTreasures;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,13 @@ class RoadmapXpBar extends StatelessWidget {
         currentXp += nodeXp;
       }
     }
+
+    // Data-driven 5-node milestone XP reward addition
+    final totalMilestones = nodes.length ~/ 5;
+    totalXp += totalMilestones * 50;
+
+    final earnedMilestonesXp = collectedTreasures.length * 50;
+    currentXp += earnedMilestonesXp;
 
     final double progress = (totalXp > 0)
         ? (currentXp / totalXp).clamp(0.0, 1.0)

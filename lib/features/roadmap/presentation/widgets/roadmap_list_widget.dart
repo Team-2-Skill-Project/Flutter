@@ -2,17 +2,25 @@ import 'dart:math';
 
 import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
+import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/floating_lottie_widget.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_path_painter.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/skill_details_sheet.dart';
+import 'package:MatchIn/features/roadmap/presentation/widgets/treasure_box_node.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RoadmapListWidget extends StatefulWidget {
-  const RoadmapListWidget({super.key, required this.nodes});
+  const RoadmapListWidget({
+    super.key,
+    required this.nodes,
+    this.collectedTreasures = const {},
+  });
 
   final List<RoadmapNode> nodes;
+  final Set<int> collectedTreasures;
 
   /// Available Lottie animation assets for roadmap decoration
   static const List<String> lottieAssets = [
@@ -32,10 +40,38 @@ class RoadmapListWidget extends StatefulWidget {
   State<RoadmapListWidget> createState() => _RoadmapListWidgetState();
 }
 
+class _RoadmapItem {
+  _RoadmapItem.node(this.node, this.taskIndex)
+      : milestoneIndex = null,
+        targetNodeIndex = null;
+  _RoadmapItem.treasure(this.milestoneIndex, this.targetNodeIndex)
+      : node = null,
+        taskIndex = null;
+
+  final RoadmapNode? node;
+  final int? taskIndex;
+  final int? milestoneIndex;
+  final int? targetNodeIndex;
+
+  bool get isTreasure => milestoneIndex != null;
+}
+
 class _RoadmapListWidgetState extends State<RoadmapListWidget> {
   final GlobalKey _stackKey = GlobalKey();
   List<GlobalKey> _circleKeys = [];
   List<Offset> _nodeCenters = [];
+
+  List<_RoadmapItem> _buildRoadmapItems(List<RoadmapNode> nodes) {
+    final List<_RoadmapItem> items = [];
+    for (int i = 0; i < nodes.length; i++) {
+      items.add(_RoadmapItem.node(nodes[i], i));
+      if ((i + 1) % 5 == 0) {
+        final milestoneIndex = (i + 1) ~/ 5;
+        items.add(_RoadmapItem.treasure(milestoneIndex, i));
+      }
+    }
+    return items;
+  }
 
   void _syncKeys(int count) {
     if (_circleKeys.length != count) {
@@ -81,7 +117,8 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    _syncKeys(widget.nodes.length);
+    final items = _buildRoadmapItems(widget.nodes);
+    _syncKeys(items.length);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _updateNodeCenters();
@@ -100,27 +137,59 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
               key: _stackKey,
               clipBehavior: Clip.none,
               children: [
-                // Layer 1: Old-map path CustomPaint
+                // Layer 1: Lighter theme path CustomPaint
                 Positioned.fill(
                   child: CustomPaint(
                     painter: RoadmapPathPainter(nodeCenters: _nodeCenters),
                   ),
                 ),
 
-                // Layer 2 & 3: Lottie Decorations & Task Nodes
+                // Layer 2 & 3: Lottie Decorations, Task Nodes & Treasure Milestones
                 Column(
-                  children: List.generate(widget.nodes.length, (index) {
-                    final node = widget.nodes[index];
+                  children: List.generate(items.length, (itemIndex) {
+                    final item = items[itemIndex];
                     final horizontalShift = _calculateOrganicOffset(
-                      index,
+                      itemIndex,
                       maxOffset,
                     );
                     final lottieWidget = _buildLottieDecoration(
-                      index: index,
+                      index: itemIndex,
                       horizontalShift: horizontalShift,
                       maxOffset: maxOffset,
                       screenWidth: screenWidth,
                     );
+
+                    Widget childWidget;
+                    if (item.isTreasure) {
+                      final milestoneIndex = item.milestoneIndex!;
+                      final targetIndex = item.targetNodeIndex!;
+                      final isUnlocked = targetIndex < widget.nodes.length &&
+                          widget.nodes[targetIndex].status ==
+                              RoadmapTaskStatus.completed;
+                      final isClaimed = widget.collectedTreasures
+                          .contains(milestoneIndex);
+
+                      childWidget = TreasureBoxNodeWidget(
+                        milestoneIndex: milestoneIndex,
+                        isUnlocked: isUnlocked,
+                        isClaimed: isClaimed,
+                        circleKey: _circleKeys[itemIndex],
+                        onTap: () => _onTreasureTap(
+                          context: context,
+                          milestoneIndex: milestoneIndex,
+                          targetNodeIndex: targetIndex,
+                          isUnlocked: isUnlocked,
+                          isClaimed: isClaimed,
+                        ),
+                      );
+                    } else {
+                      final node = item.node!;
+                      childWidget = RoadmapTaskNode(
+                        node: node,
+                        circleKey: _circleKeys[itemIndex],
+                        onTap: () => _onNodeTap(context, node),
+                      );
+                    }
 
                     return Padding(
                       padding: EdgeInsets.symmetric(vertical: 12.h),
@@ -128,15 +197,11 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
                         alignment: Alignment.center,
                         clipBehavior: Clip.none,
                         children: [
-                          // Task Node positioned along organic path
+                          // Item positioned along organic path
                           Transform.translate(
                             offset: Offset(horizontalShift, 0),
                             child: Center(
-                              child: RoadmapTaskNode(
-                                node: node,
-                                circleKey: _circleKeys[index],
-                                onTap: () => _onNodeTap(context, node),
-                              ),
+                              child: childWidget,
                             ),
                           ),
 
@@ -155,7 +220,7 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
     );
   }
 
-  /// Calculates a smooth, organic horizontal offset for each task node.
+  /// Calculates a smooth, organic horizontal offset for each item along the curve.
   double _calculateOrganicOffset(int index, double maxOffset) {
     final t = index.toDouble();
     final rawOffset = 0.65 * sin(t * 0.85) + 0.35 * sin(t * 0.45 + 0.8);
@@ -252,6 +317,91 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
       builder: (_) {
         return SkillDetailsSheet(node: node);
       },
+    );
+  }
+
+  void _onTreasureTap({
+    required BuildContext context,
+    required int milestoneIndex,
+    required int targetNodeIndex,
+    required bool isUnlocked,
+    required bool isClaimed,
+  }) {
+    if (isClaimed) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              Icon(Icons.check_circle_rounded, color: Colors.white, size: 20.r),
+              SizedBox(width: 8.w),
+              Text(
+                'You have already collected this +50 XP reward!',
+                style: TextStyle(fontSize: 14.sp),
+              ),
+            ],
+          ),
+          backgroundColor: AppColors.success,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+        ),
+      );
+      return;
+    }
+
+    if (!isUnlocked) {
+      final requiredNodeNumber = targetNodeIndex + 1;
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              Icon(Icons.lock_rounded, color: Colors.white, size: 20.r),
+              SizedBox(width: 8.w),
+              Expanded(
+                child: Text(
+                  'Complete task #$requiredNodeNumber to unlock this +50 XP milestone!',
+                  style: TextStyle(fontSize: 14.sp),
+                ),
+              ),
+            ],
+          ),
+          backgroundColor: AppColors.secondary,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+        ),
+      );
+      return;
+    }
+
+    // Claim reward
+    try {
+      context.read<RoadmapCubit>().claimTreasureReward(milestoneIndex);
+    } catch (_) {}
+
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(Icons.card_giftcard_rounded, color: Colors.white, size: 20.r),
+            SizedBox(width: 8.w),
+            Text(
+              '🎉 Milestone Claimed! +50 XP Added!',
+              style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        backgroundColor: AppColors.primary,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+      ),
     );
   }
 }

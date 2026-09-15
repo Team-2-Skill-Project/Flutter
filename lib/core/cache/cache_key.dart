@@ -7,4 +7,5 @@ abstract class CacheKey {
   static const String userDataKey = 'userDataKey';
   static const String onBoardingViewed = 'onBoardingViewed';
   static const String fcmToken = 'fcmToken';
+  static const String collectedTreasures = 'collectedTreasures';
 }

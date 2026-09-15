@@ -13,5 +13,9 @@ class Assets {
   /// Assets for lottieGraduationHat
   /// assets/lottie/graduation_hat.json
   static const String lottieGraduationHat = "assets/lottie/graduation_hat.json";
+
+  /// Assets for lottieTreasureBox
+  /// assets/lottie/treasure_box.json
+  static const String lottieTreasureBox = "assets/lottie/treasure_box.json";
 }
 
