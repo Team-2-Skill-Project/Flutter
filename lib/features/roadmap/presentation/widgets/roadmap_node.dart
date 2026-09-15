@@ -23,8 +23,13 @@ class RoadmapTaskNode extends StatefulWidget {
 class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
   bool _isPressed = false;
 
+  // ==============================================================
+  // PRESS HANDLERS
+  // ==============================================================
+
   void _onTapDown(TapDownDetails details) {
     if (widget.node.status == RoadmapTaskStatus.locked) return;
+
     setState(() {
       _isPressed = true;
     });
@@ -32,6 +37,7 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
 
   void _onTapUp(TapUpDetails details) {
     if (widget.node.status == RoadmapTaskStatus.locked) return;
+
     setState(() {
       _isPressed = false;
     });
@@ -39,6 +45,7 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
 
   void _onTapCancel() {
     if (widget.node.status == RoadmapTaskStatus.locked) return;
+
     setState(() {
       _isPressed = false;
     });
@@ -47,45 +54,91 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
   @override
   Widget build(BuildContext context) {
     final status = widget.node.status;
+
     final isCompleted = status == RoadmapTaskStatus.completed;
     final isActive = status == RoadmapTaskStatus.active;
     final isLocked = status == RoadmapTaskStatus.locked;
 
-    // Proportional node surface sizes
+    // ============================================================
+    // NODE SIZE
+    // ============================================================
+
     final double circleSize = isActive
         ? 76.r
         : isCompleted
         ? 68.r
         : 64.r;
 
-    // 3D Depth heights
+    // ============================================================
+    // 3D DEPTH
+    // ============================================================
+
     final double depthHeight = isActive
         ? 14.h
         : isCompleted
         ? 9.h
         : 4.h;
 
-    // Press translation (compresses depth down on tap)
+    // ============================================================
+    // PRESS TRANSLATION
+    //
+    // The top surface moves down when pressed.
+    // ============================================================
+
     final double pressTranslation = _isPressed
         ? (isActive ? 11.h : depthHeight - 2.h)
         : 0.0;
 
-    final baseColor = _getNodeColor(status);
-    final depthColor = _getDepthColor(status);
-    final iconColor = isLocked ? AppColors.textHint : Colors.white;
+    // ============================================================
+    // COLORS
+    // ============================================================
 
-    // Proportional outer ring parameters
-    final double ringSize = 84.r;
-    final double totalWidth = isActive ? ringSize : circleSize;
+    final Color baseColor = _getNodeColor(status);
+    final Color depthColor = _getDepthColor(status);
+
+    final Color iconColor = isLocked ? AppColors.textHint : Colors.white;
+
+    // ============================================================
+    // ACTIVE RING
+    //
+    // The ring surrounds ONLY the top surface.
+    //
+    // Active node = 76.r
+    // Ring        = 84.r
+    //
+    // Difference = 8.r
+    // So there is approximately 4.r around each side.
+    // ============================================================
+
+    final double ringSize = isActive ? 84.r : circleSize;
+
+    // Centers the 76.r node inside the 84.r ring.
     final double ringOffset = isActive ? (ringSize - circleSize) / 2 : 0.0;
+
+    // Width required by the largest element.
+    final double totalWidth = isActive ? ringSize : circleSize;
+
+    // ============================================================
+    // NODE AREA HEIGHT
+    //
+    // Ring/node + 3D depth.
+    // ============================================================
+
+    final double nodeAreaHeight =
+        (isActive ? ringSize : circleSize) + depthHeight;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // START indicator bubble for ACTIVE task
+        // ============================================================
+        // START INDICATOR
+        // ============================================================
+
         if (isActive) ...[const ActiveTaskIndicator(), SizedBox(height: 10.h)],
 
-        // Physical 3D Pressable Node Button Stack
+        // ============================================================
+        // PRESSABLE ROADMAP NODE
+        // ============================================================
         GestureDetector(
           onTapDown: _onTapDown,
           onTapUp: _onTapUp,
@@ -95,30 +148,59 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
           child: SizedBox(
             key: widget.circleKey,
             width: totalWidth,
-            height: (isActive ? ringSize : circleSize) + depthHeight,
+            height: nodeAreaHeight,
             child: Stack(
               alignment: Alignment.topCenter,
               clipBehavior: Clip.none,
               children: [
-                // Proportional outer ring background for ACTIVE task
+                // ======================================================
+                // ACTIVE OUTER RING
+                //
+                // The ring follows the top surface.
+                //
+                // It uses the exact same vertical translation as
+                // the top node surface so it stays centered while
+                // pressing.
+                // ======================================================
+
                 if (isActive)
-                  Positioned(
-                    top: pressTranslation,
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 80),
-                      width: ringSize,
-                      height: ringSize,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: AppColors.primary.withValues(alpha: 0.35),
-                          width: 3.5.w,
+                  AnimatedPositioned(
+                    duration: const Duration(milliseconds: 80),
+                    curve: Curves.easeOutCubic,
+                    top: ringOffset + pressTranslation,
+                    left: 0,
+                    right: 0,
+                    child: IgnorePointer(
+                      child: Container(
+                        width: ringSize,
+                        height: ringSize,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: AppColors.primary.withValues(alpha: 0.30),
+                            width: 3.w,
+                          ),
                         ),
                       ),
                     ),
                   ),
 
-                // 1. Bottom 3D Depth Layer (Solid dark contrast base block)
+                // ======================================================
+                // 3D DEPTH LAYER
+                //
+                // This remains below the top surface.
+                //
+                // When the button is idle:
+                //
+                //       TOP
+                //       ↓
+                //      NODE
+                //       ↓
+                //     DEPTH
+                //
+                // When pressed, the top surface moves toward the
+                // depth layer and visually compresses the button.
+                // ======================================================
                 Positioned(
                   top: ringOffset + depthHeight,
                   child: Container(
@@ -146,7 +228,13 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
                   ),
                 ),
 
-                // 2. Top Button Surface (Translates down on tap, compressing depth)
+                // ======================================================
+                // TOP BUTTON SURFACE
+                //
+                // This is the visible roadmap node.
+                //
+                // It moves down when pressed.
+                // ======================================================
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 80),
                   curve: Curves.easeOutCubic,
@@ -195,9 +283,14 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
           ),
         ),
 
+        // ============================================================
+        // SPACE BETWEEN NODE AND TITLE
+        // ============================================================
         SizedBox(height: 14.h),
 
-        // Node Title
+        // ============================================================
+        // NODE TITLE
+        // ============================================================
         SizedBox(
           width: 140.w,
           child: Text(
@@ -211,7 +304,9 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
           ),
         ),
 
-        // Node Subtitle (if available)
+        // ============================================================
+        // NODE SUBTITLE
+        // ============================================================
         if (widget.node.subtitle != null) ...[
           SizedBox(height: 2.h),
           SizedBox(
@@ -233,41 +328,60 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
     );
   }
 
+  // ==============================================================
+  // NODE COLOR
+  // ==============================================================
+
   Color _getNodeColor(RoadmapTaskStatus status) {
     switch (status) {
       case RoadmapTaskStatus.completed:
-        return AppColors.success; // 0xFF2ECC71
+        return AppColors.success;
+
       case RoadmapTaskStatus.active:
-        return AppColors.primary; // 0xFFF83758
+        return AppColors.primary;
+
       case RoadmapTaskStatus.locked:
         return AppColors.surfaceVariant;
     }
   }
 
+  // ==============================================================
+  // 3D DEPTH COLOR
+  // ==============================================================
+
   Color _getDepthColor(RoadmapTaskStatus status) {
     switch (status) {
       case RoadmapTaskStatus.completed:
-        return const Color(0xFF196F3D); // Dark forest green base
+        return const Color(0xFF196F3D);
+
       case RoadmapTaskStatus.active:
-        return const Color(0xFFB71C1C); // Solid rich dark crimson red base
+        return const Color(0xFFB71C1C);
+
       case RoadmapTaskStatus.locked:
-        return const Color(0xFF9E9E9E); // Solid grey base
+        return const Color(0xFF9E9E9E);
     }
   }
+
+  // ==============================================================
+  // NODE ICON
+  // ==============================================================
 
   IconData _getNodeIcon(RoadmapNode node) {
     if (node.status == RoadmapTaskStatus.completed) {
       return Icons.check_rounded;
     }
+
     if (node.status == RoadmapTaskStatus.locked) {
       return Icons.lock_rounded;
     }
+
     if (node.icon is IconData) {
       return node.icon as IconData;
     }
+
     return Icons.play_arrow_rounded;
   }
 }
 
-// Keep alias RoadmapNodeWidget for backwards compatibility
+// Keep alias RoadmapNodeWidget for backwards compatibility.
 typedef RoadmapNodeWidget = RoadmapTaskNode;
