@@ -489,3 +489,276 @@
 - **Prefer `abstract class` over top-level constants** when grouping related constants. Never use a plain class with a private constructor for constants (except for the auto-generated `Assets` class).
 - **When a service becomes too large**, split it into focused methods within the same class before splitting into multiple services.
 - **When in doubt about registration type**, use `registerLazySingleton`. Only use `registerFactory` for feature-level Cubits/Blocs.
+
+---
+
+# Features Folder Coding & Architecture Rules
+
+## Scope
+These rules apply to code inside `lib/features`.
+
+## 1. Clean Architecture Layer Responsibilities
+
+### Presentation
+- **Pages / Screens**: Top-level route widgets must be named with the `View` suffix (e.g., `LoginView`, `HomeView`, `OnboardingView`, `SplashView`) and placed under `presentation/views/`. Page widgets should be concise containers returning a `Scaffold` with `SafeArea` wrapping a body widget.
+  - *Evidence (`Auth` feature, `lib/features/Auth/presentation/views/login_view.dart`):*
+    ```dart
+    class LoginView extends StatelessWidget {
+      const LoginView({super.key});
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(body: SafeArea(child: LoginViewBody()));
+      }
+    }
+    ```
+
+- **Widgets**: Component widgets must be extracted into standalone classes placed inside `presentation/widgets/` (or `presentation/views/widgets/`). Main screen content must be structured in a `<Name>ViewBody` widget (e.g., `LoginViewBody`, `HomeViewBody`).
+  - *Evidence (`home` feature, `lib/features/home/presentation/views/widgets/home_view_body.dart`):*
+    ```dart
+    class HomeViewBody extends StatefulWidget {
+      const HomeViewBody({super.key});
+
+      @override
+      State<HomeViewBody> createState() => _HomeViewBodyState();
+    }
+    ```
+
+- **State Management**: Use `flutter_bloc` with **Cubit** for feature state management, placed under `presentation/manager/` or `presentation/manager/cubit/`. Cubit classes must extend `Cubit<StateClass>`. Controllers (`TextEditingController`, `GlobalKey<FormState>`) are defined inside the Cubit.
+  - *Evidence (`Auth` feature, `lib/features/Auth/presentation/manager/signin_cubit/signin_cubit.dart`):*
+    ```dart
+    class SigninCubit extends Cubit<SigninState> {
+      final AuthRepoImplementation authRepo;
+      TextEditingController emailSigninController = TextEditingController();
+      TextEditingController passwordSigninController = TextEditingController();
+      GlobalKey<FormState> formKeySignin = GlobalKey<FormState>();
+
+      SigninCubit({required this.authRepo}) : super(SigninInitial());
+    ```
+
+- **UI State / View Models**: State classes must be defined as Dart 3 `sealed class` hierarchies in a separate `<name>_state.dart` file using `part of '<name>_cubit.dart';`. States must model specific outcomes (e.g., `Initial`, `Loading`, `Success`, `Failure`, `NoInternetConnection`). `freezed` is NOT used.
+  - *Evidence (`Auth` feature, `lib/features/Auth/presentation/manager/signin_cubit/signin_state.dart`):*
+    ```dart
+    part of 'signin_cubit.dart';
+
+    @immutable
+    sealed class SigninState {}
+
+    final class SigninInitial extends SigninState {}
+
+    final class SignInSuccess extends SigninState {
+      final SignInResponseModel signinModel;
+      SignInSuccess({required this.signinModel});
+    }
+    ```
+
+### Domain
+- **Domain Layer Missing**: Do NOT create a separate `domain/` folder for features in this codebase.
+- **Entities**: Business entities are omitted as separate domain classes; data models (`UserModel`, `ProductModel`) act as both domain entities and data models.
+- **Repository Interfaces**: Abstract repository interfaces live directly in `data/repositories/` (or `data/repos/`), NOT in a domain folder. Methods must return `Future<Either<Failure, T>>` using the `dartz` package and use required named parameters.
+  - *Evidence (`Auth` feature, `lib/features/Auth/data/repositories/auth_repo.dart`):*
+    ```dart
+    abstract class AuthRepo {
+      Future<Either<Failure, SignInResponseModel>> singIn({
+        required String email,
+        required String password,
+      });
+    }
+    ```
+- **Use Cases**: Use case / interactor classes are omitted entirely. Blocs/Cubits directly invoke repository methods.
+
+### Data
+- **Models**: Models are plain Dart classes with explicit constructor parameters, `factory Model.fromJson(Map<String, dynamic> json)` constructors, and `Map<String, dynamic> toJson()` methods. Do NOT use `freezed` or `json_serializable`.
+  - *Evidence (`home` feature, `lib/features/home/data/models/product_model/product_model.dart`):*
+    ```dart
+    factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
+      id: json['id'] as num,
+      title: json['title'] as String,
+      price: json['price'] as num,
+      description: json['description'] as String,
+      images: List<String>.from(json['images']),
+    );
+    ```
+
+- **Repository Implementations**: Implement abstract repositories in `data/repositories/` (or `data/repos/`) with the suffix `RepoImpl` or `RepoImplementation`. Map errors to `Left(Failure(errorMessage: ...))` and data to `Right(...)`. Check internet connectivity using `InternetConnection()` before network calls.
+  - *Evidence (`Auth` feature, `lib/features/Auth/data/repositories/auth_repo_implementation.dart`):*
+    ```dart
+    class AuthRepoImplementation extends AuthRepo {
+      AuthRepoImplementation({required this.dioConsumer});
+      final DioConsumer dioConsumer;
+      
+      @override
+      Future<Either<Failure, SignInResponseModel>> singIn({
+        required String email,
+        required String password,
+      }) async {
+        if (!await _isConnectedToInternet()) {
+          return const Left(Failure(errorMessage: AppConstants.noInternetConnection));
+        }
+    ```
+
+- **Data Sources**: Separate data source classes (`remote_data_source.dart`, `local_data_source.dart`) are omitted. Repository implementations interact directly with `DioConsumer`, `SecureStorageService`, `SharedPreferencesService`, and `CacheHelper`.
+
+### Dependency Injection
+- Register feature repositories centrally inside `lib/config/services/services_locator.dart` using `GetIt`.
+- Concrete implementation classes are registered as singletons:
+  - *Evidence (`lib/config/services/services_locator.dart`):*
+    ```dart
+    getIt.registerSingleton<AuthRepoImplementation>(
+      AuthRepoImplementation(dioConsumer: DioConsumer(dio: getIt<Dio>())),
+    );
+    getIt.registerSingleton<ProductsRepoImpl>(
+      ProductsRepoImpl(dioConsumer: DioConsumer(dio: getIt<Dio>())),
+    );
+    ```
+
+---
+
+## 2. Widget Structure Conventions
+
+1. **Composition Style**: Keep `build()` methods clean by delegating layout sections to extracted widget classes in standalone files. Avoid `_build...` helper methods inside the view class.
+   - *Evidence (`Auth` feature, `lib/features/Auth/presentation/widgets/login_view_body.dart`):*
+     ```dart
+     CustomTitleScreenWidget(title: S.of(context).welcomeBack),
+     SizedBox(height: 36.h),
+     LoginFormWidget(),
+     SizedBox(height: 9.h),
+     ForgetPasswordTextWidget(),
+     ```
+
+2. **StatelessWidget vs. StatefulWidget**:
+   - Default to `StatelessWidget` whenever possible.
+   - Use `StatefulWidget` only when managing local animation/page controllers, `initState()` triggers (e.g. initial data fetch), or ephemeral UI state.
+   - *Evidence (`home` feature, `lib/features/home/presentation/views/widgets/home_view_body.dart`):*
+     ```dart
+     @override
+     void initState() {
+       super.initState();
+       context.read<ProductsCubit>().fetchProducts();
+     }
+     ```
+
+3. **Constructors**: Use `const` constructors with `super.key` shorthand. Pass required parameters as named arguments.
+   - *Evidence (`home` feature, `lib/features/home/presentation/views/widgets/big_ad_banner.dart`):*
+     ```dart
+     const BigAdBanner({
+       super.key,
+       required this.image,
+       required this.title,
+       required this.subtitle,
+       required this.action,
+     });
+     ```
+
+4. **Styling Approach**:
+   - Access colors via `AppColors.<colorName>` tokens from `core/utils/app_colors.dart`.
+   - Apply `flutter_screenutil` extension methods (`.w`, `.h`, `.sp`, `.r`) for responsive sizing on all dimensions, paddings, and font sizes.
+   - Access localized strings via `S.of(context).<key>`.
+   - *Evidence (`Auth` feature, `lib/features/Auth/presentation/widgets/login_view_body.dart`):*
+     ```dart
+     padding: EdgeInsets.symmetric(horizontal: 30.w),
+     CustomTitleScreenWidget(title: S.of(context).welcomeBack),
+     ```
+
+5. **Layout & Spacing**:
+   - Preferred layout containers are `Column`, `Row`, `ListView`, and `PageView`.
+   - Use `SizedBox(height: xx.h)` for vertical spacing between widgets. Private local helper widgets like `_StaticSizedBox` may be used for uniform list item gaps.
+   - *Evidence (`home` feature, `lib/features/home/presentation/views/widgets/home_view_body.dart`):*
+     ```dart
+     class _StaticSizedBox extends StatelessWidget {
+       const _StaticSizedBox();
+       final double height = 16;
+       @override
+       Widget build(BuildContext context) {
+         return SizedBox(height: height.h);
+       }
+     }
+     ```
+
+6. **Reusable Widget Extraction**:
+   - Extract widgets into standalone files inside `widgets/` as soon as they form a logical section (form section, header, banner, tile, item card).
+
+7. **Widget Naming Conventions**:
+   - Top-level routes: `<Feature>View` (e.g. `LoginView`, `HomeView`).
+   - Screen main bodies: `<Feature>ViewBody` (e.g. `LoginViewBody`, `HomeViewBody`).
+   - Functional UI units: `*Widget` (e.g. `LoginFormWidget`, `UpperBarWidget`), `*Bar` (e.g. `CategoriesBar`, `CustomFilterBar`), `*Banner` (e.g. `BigAdBanner`, `SpecialOfferBanner`), `*Card` (e.g. `PromoBannerCard`).
+
+---
+
+## 3. Method Conventions
+
+1. **Method Granularity**: Keep methods concise (10–30 lines) with single responsibility.
+2. **Parameter Style**: Use named parameters with `required` for 2+ arguments.
+3. **Return Types**: Always declare explicit return types (`Future<Either<Failure, T>>`, `Future<void>`, `void`). Do not rely on type inference for method signatures.
+   - *Evidence (`home` feature, `lib/features/home/data/repos/products_repo.dart`):*
+     ```dart
+     Future<Either<Failure, List<ProductModel>>> getProducts({
+       required int limit,
+       required int offset,
+     });
+     ```
+4. **Async Patterns**:
+   - Use `async`/`await` exclusively. Do NOT use `.then()`.
+   - Handle exceptions with `try ... on ServerException catch (e)` or `on DioException catch (e)`.
+   - Process `Either` results in Cubits using `.fold()`:
+   - *Evidence (`Auth` feature, `lib/features/Auth/presentation/manager/signin_cubit/signin_cubit.dart`):*
+     ```dart
+     response.fold(
+       (leftSide) {
+         emit(SignInFailure(errorMessage: leftSide.errorMessage));
+       },
+       (rightSide) {
+         emit(SignInSuccess(signinModel: rightSide));
+       },
+     );
+     ```
+5. **Extension Methods**:
+   - Use `flutter_screenutil` num extensions (`.w`, `.h`, `.sp`, `.r`) for layout numbers.
+6. **Helper & Utility Placement**:
+   - Shared UI functions (dialogs, snackbars, image loaders) live in `core/functions/`.
+   - Feature-specific helpers live in `presentation/helpers/` or within the feature file.
+
+---
+
+## 4. Package Usage
+
+| Package | Purpose | Usage Pattern | Notes / Inconsistencies |
+|---|---|---|---|
+| `flutter_bloc` | State Management | `Cubit<StateClass>` used per feature view. `BlocConsumer` handles UI rebuilds (`builder`) and side-effects like navigation/snackbars (`listener`). | Blocs with events are not used; Cubits with direct method invocation are preferred. |
+| `dartz` | Functional Error Handling | Repositories return `Future<Either<Failure, T>>`. Calling code uses `.fold()` or `.isRight()`. | Used consistently across data and presentation layers. |
+| `dio` | HTTP Client | Network requests executed via `DioConsumer` wrapper from `core/networking/dio_consumer.dart`. | Low-level `Dio` is injected via `GetIt`. |
+| `flutter_screenutil` | Responsive Layout | Sizing applied with extensions (`.w`, `.h`, `.sp`, `.r`). Top-level `ScreenUtilInit` configured in `main.dart`. | Standardized across all widget views. |
+| `go_router` | Routing & Navigation | `context.go(AppRoutes.kHomeView)` used for screen transitions. | Path constants defined in `AppRoutes`. |
+| `get_it` | Service Locator | Repositories registered as singletons in `services_locator.dart`. | Concrete implementations are registered rather than abstract interfaces. |
+| `internet_connection_checker_plus` | Internet Check | `InternetConnection().hasInternetAccess` checked in repository implementations before making Dio requests. | Wrapped in private repo helper `_isConnectedToInternet()`. |
+| `jwt_decoder` | Token Parsing | `JwtDecoder.decode(accessToken)` used in `AuthRepoImplementation` to extract user ID. | Used in `Auth` feature repository. |
+
+---
+
+## 5. Notes & Inconsistencies
+
+1. **Feature Directory Naming Casing**:
+   - `lib/features/Auth` uses PascalCase (`Auth`), whereas `lib/features/home`, `lib/features/onboarding`, and `lib/features/splash` use lowercase.
+   - *Standardization Rule*: Standardize all feature folder names to **lowercase** (e.g., `lib/features/auth`).
+
+2. **Widgets Subfolder Path Variance**:
+   - `Auth` and `onboarding` place widgets in `presentation/widgets/`.
+   - `home` places widgets in `presentation/views/widgets/`.
+   - *Standardization Rule*: Standardize widget folder placement to `presentation/widgets/`.
+
+3. **Repository Subfolder Naming Variance**:
+   - `Auth` uses `data/repositories/` while `home` uses `data/repos/`.
+   - *Standardization Rule*: Standardize folder name to `data/repos/` (or `data/repositories/`).
+
+4. **Widget Filename Casing**:
+   - `Second_big_ad_banner.dart` and `Products_list_loading.dart` in `home` use mixed Pascal/snake_case filenames.
+   - *Standardization Rule*: Enforce strict `snake_case` for all dart filenames (e.g., `second_big_ad_banner.dart`, `products_list_loading.dart`).
+
+5. **DI Registration Pattern**:
+   - `services_locator.dart` registers concrete repo implementations (`AuthRepoImplementation`, `ProductsRepoImpl`) with `registerSingleton`.
+   - *Standardization Rule*: Register abstract types with `registerLazySingleton<ProductsRepo>(() => ProductsRepoImpl(...))` to align with `core` DI conventions.
+
+6. **Hardcoded Mock Data in View Body**:
+   - In `home_view_body.dart` (lines 160-200), static `ProductModel` objects are instantiated inside `HorizontalProductList` rather than fetched through a Cubit.
+   - *Standardization Rule*: All dynamic list data must be provided by a Cubit state.
+
