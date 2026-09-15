@@ -1,8 +1,8 @@
-import 'package:MatchIn/core/functions/show_image.dart';
 import 'package:MatchIn/core/utils/app_assets.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
 class TreasureBoxNodeWidget extends StatefulWidget {
   const TreasureBoxNodeWidget({
@@ -26,246 +26,148 @@ class TreasureBoxNodeWidget extends StatefulWidget {
 
 class _TreasureBoxNodeWidgetState extends State<TreasureBoxNodeWidget>
     with SingleTickerProviderStateMixin {
-  bool _isPressed = false;
-  late final AnimationController _pulseController;
-  late final Animation<double> _scaleAnimation;
+  late final AnimationController _lottieController;
+  bool _isAnimating = false;
 
   @override
   void initState() {
     super.initState();
-    _pulseController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1200),
-    );
+    _lottieController = AnimationController(vsync: this);
 
-    _scaleAnimation = Tween<double>(begin: 0.96, end: 1.05).animate(
-      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
-    );
-
-    if (widget.isUnlocked && !widget.isClaimed) {
-      _pulseController.repeat(reverse: true);
-    }
-  }
-
-  @override
-  void didUpdateWidget(covariant TreasureBoxNodeWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.isUnlocked && !widget.isClaimed) {
-      if (!_pulseController.isAnimating) {
-        _pulseController.repeat(reverse: true);
+    _lottieController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        setState(() {
+          _isAnimating = false;
+        });
+        widget.onTap();
       }
-    } else {
-      if (_pulseController.isAnimating) {
-        _pulseController.stop();
-        _pulseController.reset();
-      }
-    }
+    });
   }
 
   @override
   void dispose() {
-    _pulseController.dispose();
+    _lottieController.dispose();
     super.dispose();
   }
 
-  void _onTapDown(TapDownDetails details) {
-    setState(() {
-      _isPressed = true;
-    });
-  }
+  void _handleTap() {
+    if (widget.isClaimed || _isAnimating) {
+      widget.onTap(); // Shows already collected notification
+      return;
+    }
 
-  void _onTapUp(TapUpDetails details) {
-    setState(() {
-      _isPressed = false;
-    });
-  }
+    if (!widget.isUnlocked) {
+      widget.onTap(); // Shows locked notification
+      return;
+    }
 
-  void _onTapCancel() {
+    // Unlocked and unclaimed: play animation ONCE
     setState(() {
-      _isPressed = false;
+      _isAnimating = true;
     });
+    _lottieController.forward(from: 0.0);
   }
 
   @override
   Widget build(BuildContext context) {
-    final double boxSize = 72.r;
-    final double depthHeight = 6.h;
-    final double pressOffset = _isPressed ? 5.h : 0.0;
+    final double artworkSize = 74.r;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // 3D Interactive Treasure Box Button
+        // Standalone Treasure Box Artwork (No node circle, no circular container)
         GestureDetector(
-          onTapDown: _onTapDown,
-          onTapUp: _onTapUp,
-          onTapCancel: _onTapCancel,
-          onTap: widget.onTap,
+          onTap: _handleTap,
           behavior: HitTestBehavior.opaque,
-          child: AnimatedBuilder(
-            animation: _scaleAnimation,
-            builder: (context, child) {
-              final scale = (widget.isUnlocked && !widget.isClaimed)
-                  ? _scaleAnimation.value
-                  : 1.0;
-              return Transform.scale(
-                scale: scale,
-                child: child,
-              );
-            },
-            child: SizedBox(
-              key: widget.circleKey,
-              width: boxSize,
-              height: boxSize + depthHeight,
-              child: Stack(
-                alignment: Alignment.topCenter,
-                clipBehavior: Clip.none,
-                children: [
-                  // Glow background for unclaimed unlocked reward
-                  if (widget.isUnlocked && !widget.isClaimed)
-                    Positioned(
-                      top: pressOffset,
-                      child: Container(
-                        width: boxSize + 12.r,
-                        height: boxSize + 12.r,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: const Color(0xFFFFD700).withValues(alpha: 0.25),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color(0xFFFFD700).withValues(alpha: 0.4),
-                              blurRadius: 14.r,
-                              spreadRadius: 2.r,
-                            ),
-                          ],
+          child: Container(
+            key: widget.circleKey, // Center point measured for path painter
+            width: artworkSize,
+            height: artworkSize,
+            alignment: Alignment.center,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // Subtle static golden glow indicator when ready to collect
+                if (widget.isUnlocked && !widget.isClaimed && !_isAnimating)
+                  Container(
+                    width: artworkSize * 0.85,
+                    height: artworkSize * 0.85,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFFFFD700).withValues(alpha: 0.45),
+                          blurRadius: 18.r,
+                          spreadRadius: 4.r,
                         ),
-                      ),
-                    ),
-
-                  // 3D Bottom Depth Layer
-                  Positioned(
-                    top: depthHeight,
-                    child: Container(
-                      width: boxSize,
-                      height: boxSize,
-                      decoration: BoxDecoration(
-                        color: widget.isClaimed
-                            ? const Color(0xFF27AE60)
-                            : widget.isUnlocked
-                                ? const Color(0xFFD35400)
-                                : const Color(0xFFBDBDBD),
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: _isPressed ? 0.08 : 0.2),
-                            blurRadius: _isPressed ? 2.r : 8.r,
-                            offset: Offset(0, _isPressed ? 1.h : 4.h),
-                          ),
-                        ],
-                      ),
+                      ],
                     ),
                   ),
 
-                  // 3D Top Face Container
-                  AnimatedPositioned(
-                    duration: const Duration(milliseconds: 100),
-                    curve: Curves.easeOut,
-                    top: pressOffset,
-                    child: Container(
-                      width: boxSize,
-                      height: boxSize,
-                      decoration: BoxDecoration(
-                        color: widget.isClaimed
-                            ? AppColors.success
-                            : widget.isUnlocked
-                                ? const Color(0xFFF39C12)
-                                : AppColors.surfaceVariant,
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: widget.isClaimed
-                              ? Colors.white.withValues(alpha: 0.8)
-                              : widget.isUnlocked
-                                  ? const Color(0xFFFFE082)
-                                  : AppColors.border.withValues(alpha: 0.4),
-                          width: 2.w,
-                        ),
-                      ),
-                      child: Center(
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(6.r),
-                              child: showImage(
-                                image: Assets.lottieTreasureBox,
-                                width: 54.r,
-                                height: 54.r,
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                            if (widget.isClaimed)
-                              Positioned(
-                                right: 2.r,
-                                bottom: 2.r,
-                                child: Container(
-                                  padding: EdgeInsets.all(3.r),
-                                  decoration: const BoxDecoration(
-                                    color: AppColors.success,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Icon(
-                                    Icons.check_rounded,
-                                    color: Colors.white,
-                                    size: 14.r,
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                    ),
+                // Pure Lottie Artwork (Controlled frame state)
+                Opacity(
+                  opacity: (!widget.isUnlocked && !widget.isClaimed) ? 0.7 : 1.0,
+                  child: Lottie.asset(
+                    Assets.lottieTreasureBox,
+                    controller: _lottieController,
+                    width: artworkSize,
+                    height: artworkSize,
+                    fit: BoxFit.contain,
+                    onLoaded: (composition) {
+                      _lottieController.duration = composition.duration;
+                      if (widget.isClaimed) {
+                        // Already collected: stay in OPEN state (1.0)
+                        _lottieController.value = 1.0;
+                      } else if (!_isAnimating) {
+                        // Locked or Ready: stay in CLOSED state (0.0)
+                        _lottieController.value = 0.0;
+                      }
+                    },
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
 
-        SizedBox(height: 8.h),
+        SizedBox(height: 6.h),
 
-        // Milestone Badge Label
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-          decoration: BoxDecoration(
-            color: widget.isClaimed
-                ? AppColors.success.withValues(alpha: 0.15)
-                : widget.isUnlocked
-                    ? const Color(0xFFFFF3CD)
-                    : AppColors.surfaceVariant,
-            borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(
+        // Independent Milestone Badge Label
+        GestureDetector(
+          onTap: _handleTap,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+            decoration: BoxDecoration(
               color: widget.isClaimed
-                  ? AppColors.success.withValues(alpha: 0.4)
+                  ? AppColors.success.withValues(alpha: 0.15)
                   : widget.isUnlocked
-                      ? const Color(0xFFFFEEBA)
-                      : AppColors.border.withValues(alpha: 0.3),
-              width: 1.w,
+                      ? const Color(0xFFFFF3CD)
+                      : AppColors.surfaceVariant.withValues(alpha: 0.6),
+              borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(
+                color: widget.isClaimed
+                    ? AppColors.success.withValues(alpha: 0.4)
+                    : widget.isUnlocked
+                        ? const Color(0xFFFFD700)
+                        : AppColors.border.withValues(alpha: 0.3),
+                width: 1.w,
+              ),
             ),
-          ),
-          child: Text(
-            widget.isClaimed
-                ? '+50 XP Claimed!'
-                : widget.isUnlocked
-                    ? '🎁 Claim +50 XP!'
-                    : '🎁 +50 XP Milestone',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 12.sp,
-              color: widget.isClaimed
-                  ? AppColors.success
+            child: Text(
+              widget.isClaimed
+                  ? '✅ +50 XP Collected!'
                   : widget.isUnlocked
-                      ? const Color(0xFF856404)
-                      : AppColors.textHint,
+                      ? '🎁 Claim +50 XP!'
+                      : '🔒 +50 XP Milestone',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12.sp,
+                color: widget.isClaimed
+                    ? AppColors.success
+                    : widget.isUnlocked
+                        ? const Color(0xFF856404)
+                        : AppColors.textHint,
+              ),
             ),
           ),
         ),

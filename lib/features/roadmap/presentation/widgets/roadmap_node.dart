@@ -24,18 +24,21 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
   bool _isPressed = false;
 
   void _onTapDown(TapDownDetails details) {
+    if (widget.node.status == RoadmapTaskStatus.locked) return;
     setState(() {
       _isPressed = true;
     });
   }
 
   void _onTapUp(TapUpDetails details) {
+    if (widget.node.status == RoadmapTaskStatus.locked) return;
     setState(() {
       _isPressed = false;
     });
   }
 
   void _onTapCancel() {
+    if (widget.node.status == RoadmapTaskStatus.locked) return;
     setState(() {
       _isPressed = false;
     });
@@ -48,13 +51,29 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
     final isActive = status == RoadmapTaskStatus.active;
     final isLocked = status == RoadmapTaskStatus.locked;
 
+    // Node surface sizes
+    final double circleSize = isActive
+        ? 76.r
+        : isCompleted
+            ? 68.r
+            : 64.r;
+
+    // 3D Depth heights
+    final double depthHeight = isActive
+        ? 12.h
+        : isCompleted
+            ? 9.h
+            : 4.h;
+
+    // Press translation
+    final double pressTranslation = _isPressed ? (depthHeight - 2.h) : 0.0;
+
     final baseColor = _getNodeColor(status);
     final depthColor = _getDepthColor(status);
     final iconColor = isLocked ? AppColors.textHint : Colors.white;
 
-    final double circleSize = 68.r;
-    final double depthHeight = 6.h;
-    final double pressOffset = _isPressed ? 5.h : 0.0;
+    final totalWidth = isActive ? 92.r : circleSize;
+    final ringOffset = isActive ? 8.r : 0.0;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -65,7 +84,7 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
           SizedBox(height: 8.h),
         ],
 
-        // 3D Pressable Circular Node Button
+        // Physical 3D Pressable Node Button Stack
         GestureDetector(
           onTapDown: _onTapDown,
           onTapUp: _onTapUp,
@@ -74,20 +93,20 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
           behavior: HitTestBehavior.opaque,
           child: SizedBox(
             key: widget.circleKey,
-            width: isActive ? 84.r : circleSize,
-            height: (isActive ? 84.r : circleSize) + depthHeight,
+            width: totalWidth,
+            height: (isActive ? 92.r : circleSize) + depthHeight,
             child: Stack(
               alignment: Alignment.topCenter,
               clipBehavior: Clip.none,
               children: [
-                // Active ring background for ACTIVE task
+                // Active outer ring background for ACTIVE task
                 if (isActive)
                   Positioned(
-                    top: pressOffset,
+                    top: pressTranslation,
                     child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 100),
-                      width: 84.r,
-                      height: 84.r,
+                      duration: const Duration(milliseconds: 80),
+                      width: 92.r,
+                      height: 92.r,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
@@ -98,9 +117,9 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
                     ),
                   ),
 
-                // 3D Bottom Depth Layer (visible edge under top face)
+                // 1. Bottom 3D Depth Layer (Distinct solid darker base block)
                 Positioned(
-                  top: (isActive ? 8.r : 0) + depthHeight,
+                  top: ringOffset + depthHeight,
                   child: Container(
                     width: circleSize,
                     height: circleSize,
@@ -109,46 +128,53 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: _isPressed ? 0.08 : 0.22),
-                          blurRadius: _isPressed ? 3.r : 8.r,
-                          offset: Offset(0, _isPressed ? 1.h : 4.h),
+                          color: Colors.black.withValues(alpha: _isPressed ? 0.06 : 0.25),
+                          blurRadius: _isPressed ? 2.r : 8.r,
+                          offset: Offset(0, _isPressed ? 1.h : 5.h),
                         ),
                       ],
                     ),
                   ),
                 ),
 
-                // 3D Top Face Layer (translates downward on tap)
+                // 2. Top Button Surface (Translates down on tap, compressing depth)
                 AnimatedPositioned(
-                  duration: const Duration(milliseconds: 100),
-                  curve: Curves.easeOut,
-                  top: (isActive ? 8.r : 0) + pressOffset,
+                  duration: const Duration(milliseconds: 80),
+                  curve: Curves.easeOutCubic,
+                  top: ringOffset + pressTranslation,
                   child: Container(
                     width: circleSize,
                     height: circleSize,
                     decoration: BoxDecoration(
                       color: baseColor,
                       shape: BoxShape.circle,
-                      border: isLocked
-                          ? Border.all(color: AppColors.border.withValues(alpha: 0.5), width: 2.w)
-                          : null,
+                      border: Border.all(
+                        color: isLocked
+                            ? AppColors.border.withValues(alpha: 0.4)
+                            : Colors.white.withValues(alpha: 0.45),
+                        width: 2.w,
+                      ),
                       gradient: isLocked
                           ? null
                           : LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
-                                Colors.white.withValues(alpha: 0.25),
+                                Colors.white.withValues(alpha: 0.35),
                                 Colors.transparent,
                               ],
-                              stops: const [0.0, 0.45],
+                              stops: const [0.0, 0.5],
                             ),
                     ),
                     child: Center(
                       child: Icon(
                         _getNodeIcon(widget.node),
                         color: iconColor,
-                        size: isCompleted ? 32.r : 28.r,
+                        size: isActive
+                            ? 34.r
+                            : isCompleted
+                                ? 32.r
+                                : 26.r,
                       ),
                     ),
                   ),
@@ -168,7 +194,7 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w700,
-              fontSize: 14.sp,
+              fontSize: isActive ? 15.sp : 14.sp,
               color: isLocked ? AppColors.textHint : AppColors.secondary,
             ),
           ),
@@ -199,9 +225,9 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
   Color _getNodeColor(RoadmapTaskStatus status) {
     switch (status) {
       case RoadmapTaskStatus.completed:
-        return AppColors.success;
+        return AppColors.success; // 0xFF2ECC71
       case RoadmapTaskStatus.active:
-        return AppColors.primary;
+        return AppColors.primary; // 0xFFF83758
       case RoadmapTaskStatus.locked:
         return AppColors.surfaceVariant;
     }
@@ -210,11 +236,11 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
   Color _getDepthColor(RoadmapTaskStatus status) {
     switch (status) {
       case RoadmapTaskStatus.completed:
-        return const Color(0xFF27AE60);
+        return const Color(0xFF196F3D); // Dark forest green base
       case RoadmapTaskStatus.active:
-        return const Color(0xFFD81B43);
+        return const Color(0xFFB71C1C); // Dark crimson red base
       case RoadmapTaskStatus.locked:
-        return const Color(0xFFBDBDBD);
+        return const Color(0xFF9E9E9E); // Solid grey base
     }
   }
 
