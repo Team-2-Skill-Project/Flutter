@@ -65,11 +65,12 @@ class RoadmapViewBody extends StatelessWidget {
                 final node = roadmapNodes[index];
                 // Calculate organic horizontal offset using continuous dual-harmonic wave
                 final horizontalShift = _calculateOrganicOffset(index, maxOffset);
-                // Calculate Lottie decoration if sufficient negative horizontal space exists beside the task
+                // Calculate Lottie decoration centered dynamically in available negative space
                 final lottieWidget = _buildLottieDecoration(
                   index: index,
                   horizontalShift: horizontalShift,
                   maxOffset: maxOffset,
+                  screenWidth: screenWidth,
                 );
 
                 return Padding(
@@ -89,7 +90,7 @@ class RoadmapViewBody extends StatelessWidget {
                         ),
                       ),
 
-                      // Decorative Lottie animation placed in the empty horizontal negative space beside the task
+                      // Decorative Lottie animation centered in empty horizontal negative space
                       ?lottieWidget,
                     ],
                   ),
@@ -112,15 +113,16 @@ class RoadmapViewBody extends StatelessWidget {
     return clamped * maxOffset;
   }
 
-  /// Builds a decorative Lottie animation placed in the empty horizontal negative space
+  /// Builds a decorative Lottie animation centered in the empty horizontal negative space
   /// beside the task node, vertically aligned with the node.
   Widget? _buildLottieDecoration({
     required int index,
     required double horizontalShift,
     required double maxOffset,
+    required double screenWidth,
   }) {
     // Only place Lottie animation when there is sufficient empty negative space
-    final minSpaceThreshold = maxOffset * 0.40;
+    final minSpaceThreshold = maxOffset * 0.35;
     if (horizontalShift.abs() < minSpaceThreshold) {
       return null;
     }
@@ -133,22 +135,46 @@ class RoadmapViewBody extends StatelessWidget {
     // Cycle through available Lottie assets
     final assetPath = _lottieAssets[(index ~/ 2) % _lottieAssets.length];
 
-    // If task is shifted RIGHT -> place Lottie in the open space on the LEFT
-    // If task is shifted LEFT  -> place Lottie in the open space on the RIGHT
-    final isShiftedRight = horizontalShift > 0;
+    // Responsive larger Lottie size (scaled between 72.r and 90.r)
+    final lottieSize = (screenWidth * 0.22).clamp(72.0.r, 90.0.r);
+
+    // Screen center and node container bounds
+    final screenCenter = screenWidth / 2;
+    final taskCenterX = screenCenter + horizontalShift;
+
+    // Approximate width radius of task node + title label
+    final taskHalfWidth = 70.0.w;
+
+    double lottieLeft;
+
+    if (horizontalShift > 0) {
+      // Task is shifted RIGHT -> empty space is on the LEFT (from 0 to taskLeftEdge)
+      final taskLeftEdge = (taskCenterX - taskHalfWidth).clamp(0.0, screenWidth);
+      final emptySpaceCenter = taskLeftEdge / 2;
+      lottieLeft = emptySpaceCenter - (lottieSize / 2);
+    } else {
+      // Task is shifted LEFT -> empty space is on the RIGHT (from taskRightEdge to screenWidth)
+      final taskRightEdge = (taskCenterX + taskHalfWidth).clamp(0.0, screenWidth);
+      final emptySpaceCenter = (taskRightEdge + screenWidth) / 2;
+      lottieLeft = emptySpaceCenter - (lottieSize / 2);
+    }
+
+    // Clamp lottieLeft safely to avoid screen edge overflow
+    final minMargin = 12.w;
+    final maxMargin = screenWidth - lottieSize - 12.w;
+    lottieLeft = lottieLeft.clamp(minMargin, maxMargin);
 
     return Positioned(
-      left: isShiftedRight ? 20.w : null,
-      right: isShiftedRight ? null : 20.w,
+      left: lottieLeft,
       child: IgnorePointer(
         child: SizedBox(
-          width: 56.r,
-          height: 56.r,
+          width: lottieSize,
+          height: lottieSize,
           child: showImage(
             image: assetPath,
             fit: BoxFit.contain,
-            width: 56.r,
-            height: 56.r,
+            width: lottieSize,
+            height: lottieSize,
           ),
         ),
       ),
