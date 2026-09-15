@@ -10,14 +10,16 @@ class TreasureBoxNodeWidget extends StatefulWidget {
     required this.milestoneIndex,
     required this.isUnlocked,
     required this.isClaimed,
-    required this.onTap,
+    required this.onClaimSuccess,
+    this.onLockedTap,
     this.circleKey,
   });
 
   final int milestoneIndex;
   final bool isUnlocked;
   final bool isClaimed;
-  final VoidCallback onTap;
+  final VoidCallback onClaimSuccess;
+  final VoidCallback? onLockedTap;
   final Key? circleKey;
 
   @override
@@ -34,14 +36,27 @@ class _TreasureBoxNodeWidgetState extends State<TreasureBoxNodeWidget>
     super.initState();
     _lottieController = AnimationController(vsync: this);
 
+    // Lock initial controller value: 1.0 (OPEN) if claimed, 0.0 (CLOSED) if unclaimed/locked
+    _lottieController.value = widget.isClaimed ? 1.0 : 0.0;
+
     _lottieController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() {
           _isAnimating = false;
         });
-        widget.onTap();
+        // Animation finished ONCE -> trigger claim success (XP & SnackBar)
+        widget.onClaimSuccess();
       }
     });
+  }
+
+  @override
+  void didUpdateWidget(covariant TreasureBoxNodeWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!_isAnimating) {
+      // Ensure controller stays locked to 1.0 (OPEN) if claimed, or 0.0 (CLOSED) if unclaimed
+      _lottieController.value = widget.isClaimed ? 1.0 : 0.0;
+    }
   }
 
   @override
@@ -51,17 +66,18 @@ class _TreasureBoxNodeWidgetState extends State<TreasureBoxNodeWidget>
   }
 
   void _handleTap() {
+    // Case E: Already claimed -> NO SnackBar, NO animation, NO XP duplicate
     if (widget.isClaimed || _isAnimating) {
-      widget.onTap(); // Shows already collected notification
       return;
     }
 
+    // Case A: Locked / Not Reached -> Show locked feedback
     if (!widget.isUnlocked) {
-      widget.onTap(); // Shows locked notification
+      widget.onLockedTap?.call();
       return;
     }
 
-    // Unlocked and unclaimed: play animation ONCE
+    // Case C: Reached & Unclaimed -> Play opening animation ONCE
     setState(() {
       _isAnimating = true;
     });
@@ -75,7 +91,7 @@ class _TreasureBoxNodeWidgetState extends State<TreasureBoxNodeWidget>
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Standalone Treasure Box Artwork (No node circle, no circular container)
+        // Standalone Treasure Box Artwork (No circular node container)
         GestureDetector(
           onTap: _handleTap,
           behavior: HitTestBehavior.opaque,
@@ -87,7 +103,7 @@ class _TreasureBoxNodeWidgetState extends State<TreasureBoxNodeWidget>
             child: Stack(
               alignment: Alignment.center,
               children: [
-                // Subtle static golden glow indicator when ready to collect
+                // Static gold glow indicator when available to collect
                 if (widget.isUnlocked && !widget.isClaimed && !_isAnimating)
                   Container(
                     width: artworkSize * 0.85,
@@ -104,7 +120,7 @@ class _TreasureBoxNodeWidgetState extends State<TreasureBoxNodeWidget>
                     ),
                   ),
 
-                // Pure Lottie Artwork (Controlled frame state)
+                // Lottie Treasure Box Artwork
                 Opacity(
                   opacity: (!widget.isUnlocked && !widget.isClaimed) ? 0.7 : 1.0,
                   child: Lottie.asset(
@@ -113,14 +129,13 @@ class _TreasureBoxNodeWidgetState extends State<TreasureBoxNodeWidget>
                     width: artworkSize,
                     height: artworkSize,
                     fit: BoxFit.contain,
+                    animate: false, // Managed strictly via controller
                     onLoaded: (composition) {
                       _lottieController.duration = composition.duration;
                       if (widget.isClaimed) {
-                        // Already collected: stay in OPEN state (1.0)
-                        _lottieController.value = 1.0;
+                        _lottieController.value = 1.0; // Permanently OPEN
                       } else if (!_isAnimating) {
-                        // Locked or Ready: stay in CLOSED state (0.0)
-                        _lottieController.value = 0.0;
+                        _lottieController.value = 0.0; // Permanently CLOSED
                       }
                     },
                   ),

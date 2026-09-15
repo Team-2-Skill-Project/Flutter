@@ -174,12 +174,13 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
                         isUnlocked: isUnlocked,
                         isClaimed: isClaimed,
                         circleKey: _circleKeys[itemIndex],
-                        onTap: () => _onTreasureTap(
+                        onClaimSuccess: () => _onTreasureClaimSuccess(
                           context: context,
                           milestoneIndex: milestoneIndex,
+                        ),
+                        onLockedTap: () => _onTreasureLockedTap(
+                          context: context,
                           targetNodeIndex: targetIndex,
-                          isUnlocked: isUnlocked,
-                          isClaimed: isClaimed,
                         ),
                       );
                     } else {
@@ -320,69 +321,16 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
     );
   }
 
-  void _onTreasureTap({
+  void _onTreasureClaimSuccess({
     required BuildContext context,
     required int milestoneIndex,
-    required int targetNodeIndex,
-    required bool isUnlocked,
-    required bool isClaimed,
   }) {
-    if (isClaimed) {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Row(
-            children: [
-              Icon(Icons.check_circle_rounded, color: Colors.white, size: 20.r),
-              SizedBox(width: 8.w),
-              Text(
-                'You have already collected this +50 XP reward!',
-                style: TextStyle(fontSize: 14.sp),
-              ),
-            ],
-          ),
-          backgroundColor: AppColors.success,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.r),
-          ),
-        ),
-      );
-      return;
-    }
-
-    if (!isUnlocked) {
-      final requiredNodeNumber = targetNodeIndex + 1;
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Row(
-            children: [
-              Icon(Icons.lock_rounded, color: Colors.white, size: 20.r),
-              SizedBox(width: 8.w),
-              Expanded(
-                child: Text(
-                  'Complete task #$requiredNodeNumber to unlock this +50 XP milestone!',
-                  style: TextStyle(fontSize: 14.sp),
-                ),
-              ),
-            ],
-          ),
-          backgroundColor: AppColors.secondary,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.r),
-          ),
-        ),
-      );
-      return;
-    }
-
-    // Claim reward
+    // Grant reward in Cubit & persistence
     try {
       context.read<RoadmapCubit>().claimTreasureReward(milestoneIndex);
     } catch (_) {}
 
+    // Show SnackBar ONCE upon initial successful collection
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -397,6 +345,35 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
           ],
         ),
         backgroundColor: AppColors.primary,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+      ),
+    );
+  }
+
+  void _onTreasureLockedTap({
+    required BuildContext context,
+    required int targetNodeIndex,
+  }) {
+    final requiredNodeNumber = targetNodeIndex + 1;
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(Icons.lock_rounded, color: Colors.white, size: 20.r),
+            SizedBox(width: 8.w),
+            Expanded(
+              child: Text(
+                'Complete task #$requiredNodeNumber to unlock this +50 XP milestone!',
+                style: TextStyle(fontSize: 14.sp),
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: AppColors.secondary,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.r),

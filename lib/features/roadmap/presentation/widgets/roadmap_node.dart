@@ -51,38 +51,39 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
     final isActive = status == RoadmapTaskStatus.active;
     final isLocked = status == RoadmapTaskStatus.locked;
 
-    // Node surface sizes
+    // Proportional node surface sizes
     final double circleSize = isActive
         ? 76.r
         : isCompleted
-            ? 68.r
-            : 64.r;
+        ? 68.r
+        : 64.r;
 
     // 3D Depth heights
     final double depthHeight = isActive
-        ? 12.h
+        ? 14.h
         : isCompleted
-            ? 9.h
-            : 4.h;
+        ? 9.h
+        : 4.h;
 
-    // Press translation
-    final double pressTranslation = _isPressed ? (depthHeight - 2.h) : 0.0;
+    // Press translation (compresses depth down on tap)
+    final double pressTranslation = _isPressed
+        ? (isActive ? 11.h : depthHeight - 2.h)
+        : 0.0;
 
     final baseColor = _getNodeColor(status);
     final depthColor = _getDepthColor(status);
     final iconColor = isLocked ? AppColors.textHint : Colors.white;
 
-    final totalWidth = isActive ? 92.r : circleSize;
-    final ringOffset = isActive ? 8.r : 0.0;
+    // Proportional outer ring parameters
+    final double ringSize = 84.r;
+    final double totalWidth = isActive ? ringSize : circleSize;
+    final double ringOffset = isActive ? (ringSize - circleSize) / 2 : 0.0;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         // START indicator bubble for ACTIVE task
-        if (isActive) ...[
-          const ActiveTaskIndicator(),
-          SizedBox(height: 8.h),
-        ],
+        if (isActive) ...[const ActiveTaskIndicator(), SizedBox(height: 10.h)],
 
         // Physical 3D Pressable Node Button Stack
         GestureDetector(
@@ -94,30 +95,30 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
           child: SizedBox(
             key: widget.circleKey,
             width: totalWidth,
-            height: (isActive ? 92.r : circleSize) + depthHeight,
+            height: (isActive ? ringSize : circleSize) + depthHeight,
             child: Stack(
               alignment: Alignment.topCenter,
               clipBehavior: Clip.none,
               children: [
-                // Active outer ring background for ACTIVE task
+                // Proportional outer ring background for ACTIVE task
                 if (isActive)
                   Positioned(
                     top: pressTranslation,
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 80),
-                      width: 92.r,
-                      height: 92.r,
+                      width: ringSize,
+                      height: ringSize,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: AppColors.primary.withValues(alpha: 0.35),
-                          width: 5.w,
+                          width: 3.5.w,
                         ),
                       ),
                     ),
                   ),
 
-                // 1. Bottom 3D Depth Layer (Distinct solid darker base block)
+                // 1. Bottom 3D Depth Layer (Solid dark contrast base block)
                 Positioned(
                   top: ringOffset + depthHeight,
                   child: Container(
@@ -126,11 +127,19 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
                     decoration: BoxDecoration(
                       color: depthColor,
                       shape: BoxShape.circle,
+                      border: isActive
+                          ? Border.all(
+                              color: const Color(0xFF7F0000),
+                              width: 1.5.w,
+                            )
+                          : null,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: _isPressed ? 0.06 : 0.25),
-                          blurRadius: _isPressed ? 2.r : 8.r,
-                          offset: Offset(0, _isPressed ? 1.h : 5.h),
+                          color: Colors.black.withValues(
+                            alpha: _isPressed ? 0.08 : 0.26,
+                          ),
+                          blurRadius: _isPressed ? 2.r : 10.r,
+                          offset: Offset(0, _isPressed ? 1.h : 6.h),
                         ),
                       ],
                     ),
@@ -151,8 +160,10 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
                       border: Border.all(
                         color: isLocked
                             ? AppColors.border.withValues(alpha: 0.4)
+                            : isActive
+                            ? Colors.white.withValues(alpha: 0.6)
                             : Colors.white.withValues(alpha: 0.45),
-                        width: 2.w,
+                        width: isActive ? 2.5.w : 2.w,
                       ),
                       gradient: isLocked
                           ? null
@@ -163,7 +174,7 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
                                 Colors.white.withValues(alpha: 0.35),
                                 Colors.transparent,
                               ],
-                              stops: const [0.0, 0.5],
+                              stops: const [0.0, 0.45],
                             ),
                     ),
                     child: Center(
@@ -173,8 +184,8 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
                         size: isActive
                             ? 34.r
                             : isCompleted
-                                ? 32.r
-                                : 26.r,
+                            ? 32.r
+                            : 26.r,
                       ),
                     ),
                   ),
@@ -184,7 +195,7 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
           ),
         ),
 
-        SizedBox(height: 12.h),
+        SizedBox(height: 14.h),
 
         // Node Title
         SizedBox(
@@ -238,7 +249,7 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
       case RoadmapTaskStatus.completed:
         return const Color(0xFF196F3D); // Dark forest green base
       case RoadmapTaskStatus.active:
-        return const Color(0xFFB71C1C); // Dark crimson red base
+        return const Color(0xFFB71C1C); // Solid rich dark crimson red base
       case RoadmapTaskStatus.locked:
         return const Color(0xFF9E9E9E); // Solid grey base
     }
