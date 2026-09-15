@@ -296,6 +296,8 @@
 52. Add `//TODO: Put here all your features` as a placeholder comment at the top of the Features section.
 53. Group registrations with `//! ========= Section =========` section comments.
 
+> **See also**: Section "6. Service Locator Rules — Extended Domain-Layer Variant" below for the fuller registration pattern to apply once a feature grows a real `domain/` layer (UseCases + split DataSources) instead of the leaner `mathcIn_flutter` structure.
+
 ---
 
 ### Networking
@@ -567,6 +569,8 @@ These rules apply to code inside `lib/features`.
     ```
 - **Use Cases**: Use case / interactor classes are omitted entirely. Blocs/Cubits directly invoke repository methods.
 
+> **Note**: This "no domain layer" convention is the default for this codebase. See Section 6 below for the alternate, fuller registration pattern (with `domain/`, UseCases, and split DataSources) to use only when a feature explicitly requires that structure (e.g., offline-first features).
+
 ### Data
 - **Models**: Models are plain Dart classes with explicit constructor parameters, `factory Model.fromJson(Map<String, dynamic> json)` constructors, and `Map<String, dynamic> toJson()` methods. Do NOT use `freezed` or `json_serializable`.
   - *Evidence (`home` feature, `lib/features/home/data/models/product_model/product_model.dart`):*
@@ -762,3 +766,49 @@ These rules apply to code inside `lib/features`.
    - In `home_view_body.dart` (lines 160-200), static `ProductModel` objects are instantiated inside `HorizontalProductList` rather than fetched through a Cubit.
    - *Standardization Rule*: All dynamic list data must be provided by a Cubit state.
 
+---
+
+## 6. Service Locator Rules — Extended Domain-Layer Variant
+
+> **Source**: Derived from a separate reference project's `service_locator.dart` (Clean Architecture with a real `domain/` layer, UseCases, and split remote/local data sources — e.g. `clean_architecutre_posts_app`). Apply this variant **instead of** the leaner Section 1 "Domain Layer Missing" convention only when a feature explicitly needs a `domain/` folder, UseCases, and/or offline caching via split data sources. Otherwise, default to the leaner `mathcIn_flutter` convention above.
+
+### Structure & Section Ordering
+
+1. Organize `setupServiceLocator()` into exactly three top-level blocks, each opened with a `//! ========= Section Name ==========` comment, in this order:
+   1. `Features - <FeatureName>` (one block per feature, repeated as features are added)
+   2. `Core`
+   3. `External`
+2. Within a feature's block, register in this exact sub-order, each sub-group separated by a `// ---> SubGroup <---` comment:
+   1. `// ---> Bloc <---`
+   2. `// ---> Usecases <---`
+   3. `// ---> Repository <---`
+   4. `// ---> Data Source <---` (remote first, then local, each with a short lowercase inline comment: `//remote`, `//local`)
+3. Under the `Core` block, register infrastructure shared across features but not bootstrapped by `core/services/services_locator.dart` itself (e.g., `Connectivity`, `NetworkInfo`).
+4. Under the `External` block, register third-party package instances last, in this order: async-initialized packages first (e.g., `SharedPreferences.getInstance()`, awaited before registration), then the cache wrapper built on top of them (e.g., `CacheHelper`), then the raw HTTP client (`Dio()`), then the API consumer wrapper (`DioConsumer`) last, since it depends on `Dio`.
+
+### Registration Types by Layer
+
+5. Register Blocs with `registerFactory` — never `registerLazySingleton` or `registerSingleton` — so each screen/subscription gets a fresh instance.
+6. Split a feature's Bloc by responsibility when reads and writes are logically distinct: a `Get<Feature>Bloc` for fetching/listing, and a separate `AddDeleteUpdate<Feature>Bloc` for create/delete/update, each registered as its own `registerFactory`.
+7. Register UseCases with `registerLazySingleton`, one class per domain operation (e.g., `GetAllPostsUsecase`, `CreatePostUsecase`, `DeletePostUsecase`, `UpdatePostUsecase`), each resolving its repository dependency via `getIt()` inside the factory lambda.
+8. Register the Repository against its **abstract type** (e.g., `PostRepo`), never the concrete `*RepoImpl`, injecting `networkInfo` plus both local and remote data sources via `getIt()`.
+9. When a feature supports offline access, split data access into two abstract interfaces — `<Feature>RemoteDataSource` and `<Feature>LocalDataSource` — and register each against its abstract type with `registerLazySingleton`.
+10. Register `NetworkInfo` against its abstract type with `registerLazySingleton`, injecting a `registerLazySingleton(() => Connectivity())` instance.
+11. Register `SharedPreferences` only after `await`-ing `SharedPreferences.getInstance()`; never register the unresolved `Future`.
+12. Register the feature-facing cache wrapper (`CacheHelper`) with `registerLazySingleton`, injecting `SharedPreferences` via `getIt()`. `CacheHelper` plays the same architectural role here as `SharedPreferencesHelper`/`SharedPreferencesService` do in the leaner `core/` convention.
+13. Register `Dio()` bare (no `BaseOptions`) with `registerLazySingleton`, then register `DioConsumer` against its own type last, injecting `Dio` via `getIt()`.
+
+### Naming Conventions for This Variant
+
+14. Name UseCase classes `<Verb><Feature>Usecase` (e.g., `GetAllPostsUsecase`, `CreatePostUsecase`, `DeletePostUsecase`, `UpdatePostUsecase`).
+15. Name split Blocs `Get<Feature>Bloc` (read) and `AddDeleteUpdate<Feature>Bloc` (write), not a single monolithic `<Feature>Bloc`.
+16. Name remote data source implementations with an explicit client suffix when the client could be swapped, e.g., `<Feature>RemoteDataSourceImplWithDio`.
+17. Name local data source implementations `<Feature>LocalDataSourceImpl`, injecting the shared `CacheHelper`.
+18. Name the abstract data source interfaces `<Feature>RemoteDataSource` and `<Feature>LocalDataSource`.
+
+### What to Avoid in This Variant
+
+- **AVOID** registering Blocs with anything other than `registerFactory`.
+- **AVOID** registering `SharedPreferences` before awaiting `getInstance()`.
+- **AVOID** collapsing remote and local data sources into the repository implementation directly — keep them as separate injected classes so the repository stays a pure coordinator.
+- **AVOID** mixing this variant's three-block (`Features` / `Core` / `External`) section structure with the leaner `core/` convention's seven-step flat ordering in the same file — pick one structure per project and apply it consistently.
