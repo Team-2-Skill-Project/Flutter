@@ -1,4 +1,10 @@
-enum RoadmapNodeStatus { completed, current, available, locked, milestone }
+enum RoadmapTaskStatus {
+  completed,
+  active,
+  locked,
+}
+
+typedef RoadmapNodeStatus = RoadmapTaskStatus;
 
 class RoadmapNode {
   const RoadmapNode({
@@ -7,10 +13,13 @@ class RoadmapNode {
     required this.status,
     this.duration,
     this.xp,
+    this.icon,
   });
+
   final String title;
   final String? subtitle;
-  final RoadmapNodeStatus status;
+  final RoadmapTaskStatus status;
   final String? duration;
   final int? xp;
+  final dynamic icon;
 }

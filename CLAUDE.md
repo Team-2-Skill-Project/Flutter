@@ -417,6 +417,25 @@
 
 ---
 
+### Responsive UI & ScreenUtil Standards (`flutter_screenutil`)
+
+131. **Mandatory ScreenUtil Usage**: All UI dimensions, paddings, margins, font sizes, icon sizes, and border radii MUST use `flutter_screenutil` extension methods to ensure uniform responsive design across all screen resolutions and aspect ratios.
+132. **Extension Mapping**:
+    - `.w` → Widths, horizontal paddings, horizontal margins, `SizedBox(width: ...)`:
+      - `width: 120.w`, `padding: EdgeInsets.symmetric(horizontal: 16.w)`, `SizedBox(width: 8.w)`
+    - `.h` → Heights, vertical paddings, vertical margins, `SizedBox(height: ...)`:
+      - `height: 48.h`, `padding: EdgeInsets.symmetric(vertical: 12.h)`, `SizedBox(height: 16.h)`
+    - `.sp` → All font sizes in `TextStyle` definitions:
+      - `fontSize: 16.sp`, `fontSize: 14.sp`
+    - `.r` → Radius for `BorderRadius`, circular containers, avatars, and rounded corners:
+      - `BorderRadius.circular(12.r)`, `Radius.circular(8.r)`, `padding: EdgeInsets.all(16.r)`
+    - `.sw` / `.sh` → Screen width/height fraction offsets:
+      - `width: 0.85.sw` (85% of viewport width), `height: 0.3.sh` (30% of viewport height)
+133. **Avoid Hardcoded Raw Pixel Values**: Never hardcode raw numeric literals for UI dimensions without ScreenUtil extensions inside widget `build()` methods.
+134. **ScreenUtil Initialization**: Root `ScreenUtilInit` must wrap the main app in `main.dart` configured with standard design dimensions (e.g., `Size(375, 812)`), `minTextAdapt: true`, and `splitScreenMode: true`.
+
+---
+
 ### Comments & Documentation
 
 131. Use `///* Short description` at the top of abstract class files and top-level functions.
@@ -654,13 +673,18 @@ These rules apply to code inside `lib/features`.
      });
      ```
 
-4. **Styling Approach**:
+4. **Styling Approach & Responsive Design (`flutter_screenutil`)**:
    - Access colors via `AppColors.<colorName>` tokens from `core/utils/app_colors.dart`.
-   - Apply `flutter_screenutil` extension methods (`.w`, `.h`, `.sp`, `.r`) for responsive sizing on all dimensions, paddings, and font sizes.
+   - Apply `flutter_screenutil` extension methods (`.w`, `.h`, `.sp`, `.r`, `.sw`, `.sh`) on ALL dimensions, paddings, margins, border radii, and font sizes:
+     - `.w` for width, horizontal padding, horizontal margin, `SizedBox(width: ...)`
+     - `.h` for height, vertical padding, vertical margin, `SizedBox(height: ...)`
+     - `.sp` for font sizes in `TextStyle` and icon sizes
+     - `.r` for `BorderRadius.circular(...)`, circular containers, and icon radii
+     - `.sw` / `.sh` for screen width/height percentages (e.g., `0.8.sw` for 80% screen width)
    - Access localized strings via `S.of(context).<key>`.
    - *Evidence (`Auth` feature, `lib/features/Auth/presentation/widgets/login_view_body.dart`):*
      ```dart
-     padding: EdgeInsets.symmetric(horizontal: 30.w),
+     padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 16.h),
      CustomTitleScreenWidget(title: S.of(context).welcomeBack),
      ```
 
