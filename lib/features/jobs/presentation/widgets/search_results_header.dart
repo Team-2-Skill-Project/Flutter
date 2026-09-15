@@ -1,0 +1,62 @@
+import 'package:MatchIn/generated/l10n.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class SearchResultsHeader extends StatelessWidget {
+  const SearchResultsHeader({
+    super.key,
+    required this.opportunitiesCount,
+    this.onSortTap,
+  });
+
+  final int opportunitiesCount;
+  final VoidCallback? onSortTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    final style = theme.textTheme.bodyMedium?.copyWith(
+      color: theme.colorScheme.onSurface.withValues(
+        alpha: 0.6,
+      ),
+    );
+
+    return Padding(
+      padding: EdgeInsetsDirectional.symmetric(
+        horizontal: 16.w,
+      ),
+      child: Row(
+        children: [
+          Text(
+            '$opportunitiesCount ${S.of(context).opportunities}',
+            style: style,
+          ),
+
+          const Spacer(),
+
+          InkWell(
+            onTap: onSortTap,
+            borderRadius: BorderRadius.circular(8.r),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 4.h),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    S.of(context).mostRelevant,
+                    style: style,
+                  ),
+                  SizedBox(width: 2.w),
+                  const Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

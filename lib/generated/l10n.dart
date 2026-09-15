@@ -199,6 +199,66 @@ class S {
   String get matches {
     return Intl.message('matches', name: 'matches', desc: '', args: []);
   }
+
+  /// `Match`
+  String get match {
+    return Intl.message('Match', name: 'match', desc: '', args: []);
+  }
+
+  /// `Search Jobs`
+  String get searchJobsTitle {
+    return Intl.message(
+      'Search Jobs',
+      name: 'searchJobsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All`
+  String get all {
+    return Intl.message('All', name: 'all', desc: '', args: []);
+  }
+
+  /// `Remote`
+  String get remote {
+    return Intl.message('Remote', name: 'remote', desc: '', args: []);
+  }
+
+  /// `Internship`
+  String get internship {
+    return Intl.message('Internship', name: 'internship', desc: '', args: []);
+  }
+
+  /// `Full-time`
+  String get fullTime {
+    return Intl.message('Full-time', name: 'fullTime', desc: '', args: []);
+  }
+
+  /// `Entry Level`
+  String get entryLevel {
+    return Intl.message('Entry Level', name: 'entryLevel', desc: '', args: []);
+  }
+
+  /// `opportunities`
+  String get opportunities {
+    return Intl.message(
+      'opportunities',
+      name: 'opportunities',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Most relevant`
+  String get mostRelevant {
+    return Intl.message(
+      'Most relevant',
+      name: 'mostRelevant',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

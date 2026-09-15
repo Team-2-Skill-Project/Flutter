@@ -25,5 +25,14 @@
   "somethingWentWrong": "Something went wrong",
   "strongMatch": "Strong Match",
   "goodMatch": "Good Match",
-  "matches": "matches"
+  "matches": "matches",
+  "match": "Match",
+  "searchJobsTitle": "Search Jobs",
+  "all": "All",
+  "remote": "Remote",
+  "internship": "Internship",
+  "fullTime": "Full-time",
+  "entryLevel": "Entry Level",
+  "opportunities": "opportunities",
+  "mostRelevant": "Most relevant"
 }

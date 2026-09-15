@@ -1,32 +1,31 @@
-// ignore_for_file: unused_import
-import 'package:MatchIn/core/widgets/main_navigation_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:MatchIn/core/routing/app_routes.dart';
+import 'package:MatchIn/features/jobs/presentation/views/home_view.dart';
+import 'package:MatchIn/features/jobs/presentation/views/jobs_search_view.dart';
+import 'package:go_router/go_router.dart';
 
 abstract final class AppRouter {
-  //* --- Global Transition ---
+  AppRouter._();
 
-  // ignore: unused_element
-  static CustomTransitionPage<dynamic> _buildTransitionPage({
-    required GoRouterState state,
-    required Widget child,
-  }) {
-    return CustomTransitionPage(
-      key: state.pageKey,
-      child: child,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(opacity: animation, child: child);
-      },
-    );
-  }
-
-  static final router = GoRouter(
+  static final GoRouter router = GoRouter(
+    initialLocation: AppRoutes.home,
     routes: [
       GoRoute(
-        path: AppRoutes.kSplashView,
-        builder: (context, state) => const MainNavigationScreen(),
+        path: AppRoutes.home,
+        builder: (context, state) {
+          return const HomeView();
+        },
       ),
+
+      GoRoute(
+        path: AppRoutes.jobsSearch,
+        builder: (context, state) {
+          return const JobsSearchView();
+        },
+      ),
+
+      // TODO: Add Job Details route.
+
+      // TODO: Add application routes.
     ],
   );
 }

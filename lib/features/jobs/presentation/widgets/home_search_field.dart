@@ -23,16 +23,10 @@ class HomeSearchField extends StatelessWidget {
         onTap: onTap,
         decoration: InputDecoration(
           hintText: S.of(context).searchJobs,
-          prefixIcon: const Icon(
-            Icons.search_rounded,
-            color: Colors.grey,
-          ),
+          prefixIcon: const Icon(Icons.search_rounded),
           suffixIcon: IconButton(
             onPressed: onFilterTap,
-            icon: const Icon(
-              Icons.tune_rounded,
-              color: Colors.grey,
-            ),
+            icon: const Icon(Icons.tune_rounded),
           ),
         ),
       ),

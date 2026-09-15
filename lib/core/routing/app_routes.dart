@@ -1,8 +1,10 @@
 abstract final class AppRoutes {
-  static const kSplashView = '/';
-  static const kOnboardingView = '/onboarding';
-  static const kHomeView = '/home';
-  static const kLoginView = '/login';
-  static const kRegisterView = '/register';
-  static const kForgetPasswordView = '/forgotPassword';
+  AppRoutes._();
+
+  // Main
+  static const String home = '/home';
+
+  // Jobs
+  static const String jobsSearch = '/jobs/search';
+  static const String jobDetails = '/jobs/details';
 }
