@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:MatchIn/core/functions/show_image.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
@@ -8,7 +9,6 @@ import 'package:MatchIn/features/roadmap/presentation/widgets/skill_details_shee
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
 
 class RoadmapViewBody extends StatelessWidget {
   const RoadmapViewBody({super.key, this.nodes});
@@ -144,10 +144,11 @@ class RoadmapViewBody extends StatelessWidget {
         child: SizedBox(
           width: 56.r,
           height: 56.r,
-          child: Lottie.asset(
-            assetPath,
+          child: showImage(
+            image: assetPath,
             fit: BoxFit.contain,
-            errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+            width: 56.r,
+            height: 56.r,
           ),
         ),
       ),
