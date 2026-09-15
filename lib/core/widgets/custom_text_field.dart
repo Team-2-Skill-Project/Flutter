@@ -103,7 +103,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   void didUpdateWidget(covariant CustomTextField oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.obscureText != widget.obscureText && widget.obscureText != null) {
+    if (oldWidget.obscureText != widget.obscureText &&
+        widget.obscureText != null) {
       _obscureText = widget.obscureText!;
     }
   }
@@ -118,14 +119,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     final effectiveRadius = widget.borderRadius ?? 8.r;
     final effectiveBorderColor = widget.borderColor ?? AppColors.border;
-    final effectiveFocusedColor = widget.focusedBorderColor ?? AppColors.primary;
+    final effectiveFocusedColor =
+        widget.focusedBorderColor ?? AppColors.primary;
     final effectiveErrorColor = widget.errorBorderColor ?? AppColors.error;
 
     Widget? effectiveSuffixIcon = widget.suffixIcon;
     if (widget.isPassword) {
       effectiveSuffixIcon = IconButton(
         icon: Icon(
-          _obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+          _obscureText
+              ? Icons.visibility_off_outlined
+              : Icons.visibility_outlined,
           size: 20.sp,
           color: AppColors.textSecondary,
         ),
@@ -145,7 +149,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
         if (widget.labelText != null) ...[
           Text(
             widget.labelText!,
-            style: widget.labelStyle ??
+            style:
+                widget.labelStyle ??
                 TextStyle(
                   fontFamily: 'DM Sans',
                   fontSize: 14.sp,
@@ -176,7 +181,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
           minLines: widget.minLines,
           maxLength: widget.maxLength,
           cursorColor: widget.cursorColor ?? AppColors.primary,
-          style: widget.textStyle ??
+          style:
+              widget.textStyle ??
               TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 14.sp,
@@ -184,7 +190,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ),
           decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: widget.hintStyle ??
+            hintStyle:
+                widget.hintStyle ??
                 TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 14.sp,
@@ -198,33 +205,22 @@ class _CustomTextFieldState extends State<CustomTextField> {
             suffixIcon: effectiveSuffixIcon,
             prefix: widget.prefix,
             suffix: widget.suffix,
-            contentPadding: widget.contentPadding ??
-                EdgeInsets.symmetric(
-                  horizontal: 14.w,
-                  vertical: 14.h,
-                ),
+            contentPadding:
+                widget.contentPadding ??
+                EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
             border: outlineBorder,
             enabledBorder: outlineBorder,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(effectiveRadius),
-              borderSide: BorderSide(
-                color: effectiveFocusedColor,
-                width: 1.5,
-              ),
+              borderSide: BorderSide(color: effectiveFocusedColor, width: 1.5),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(effectiveRadius),
-              borderSide: BorderSide(
-                color: effectiveErrorColor,
-                width: 1.0,
-              ),
+              borderSide: BorderSide(color: effectiveErrorColor, width: 1.0),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(effectiveRadius),
-              borderSide: BorderSide(
-                color: effectiveErrorColor,
-                width: 1.5,
-              ),
+              borderSide: BorderSide(color: effectiveErrorColor, width: 1.5),
             ),
           ),
         ),

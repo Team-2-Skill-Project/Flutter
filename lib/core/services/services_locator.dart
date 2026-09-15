@@ -35,10 +35,7 @@ Future<void> setupServiceLocator() async {
   );
 
   getIt.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(
-      remoteDataSource: getIt(),
-      networkInfo: getIt(),
-    ),
+    () => AuthRepositoryImpl(remoteDataSource: getIt(), networkInfo: getIt()),
   );
 
   getIt.registerLazySingleton<VerifyOtpUseCase>(
@@ -52,15 +49,10 @@ Future<void> setupServiceLocator() async {
   );
 
   getIt.registerFactory<OtpCubit>(
-    () => OtpCubit(
-      verifyOtpUseCase: getIt(),
-      resendOtpUseCase: getIt(),
-    ),
+    () => OtpCubit(verifyOtpUseCase: getIt(), resendOtpUseCase: getIt()),
   );
   getIt.registerFactory<ResetPasswordCubit>(
-    () => ResetPasswordCubit(
-      resetPasswordUseCase: getIt(),
-    ),
+    () => ResetPasswordCubit(resetPasswordUseCase: getIt()),
   );
 
   //! ======== External =========
