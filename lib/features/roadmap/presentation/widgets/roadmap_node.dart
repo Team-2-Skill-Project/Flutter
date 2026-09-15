@@ -9,10 +9,12 @@ class RoadmapTaskNode extends StatefulWidget {
     super.key,
     required this.node,
     required this.onTap,
+    this.circleKey,
   });
 
   final RoadmapNode node;
   final VoidCallback onTap;
+  final Key? circleKey;
 
   @override
   State<RoadmapTaskNode> createState() => _RoadmapTaskNodeState();
@@ -89,6 +91,7 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
 
                 // Main Circular Task Node
                 AnimatedContainer(
+                  key: widget.circleKey,
                   duration: const Duration(milliseconds: 120),
                   width: 68.r,
                   height: 68.r,

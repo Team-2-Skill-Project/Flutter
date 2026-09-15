@@ -6,6 +6,7 @@ final roadmapNodes = [
     title: 'Dart Fundamentals',
     subtitle: 'Foundation',
     status: RoadmapTaskStatus.completed,
+    xp: 100,
     icon: Icons.code_rounded,
   ),
 
@@ -13,6 +14,7 @@ final roadmapNodes = [
     title: 'OOP & Clean Code',
     subtitle: 'Foundation',
     status: RoadmapTaskStatus.completed,
+    xp: 150,
     icon: Icons.architecture_rounded,
   ),
 
