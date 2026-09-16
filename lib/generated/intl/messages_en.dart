@@ -24,22 +24,48 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "account": MessageLookupByLibrary.simpleMessage("ACCOUNT"),
     "all": MessageLookupByLibrary.simpleMessage("All"),
+    "applicationStatusDescription": MessageLookupByLibrary.simpleMessage(
+      "Your TechNova application is now In Review.",
+    ),
+    "applicationStatusUpdated": MessageLookupByLibrary.simpleMessage(
+      "Application status updated",
+    ),
+    "applications": MessageLookupByLibrary.simpleMessage("Applications"),
     "applyNow": MessageLookupByLibrary.simpleMessage("Apply Now"),
     "backToLogin": MessageLookupByLibrary.simpleMessage("Back to login"),
+    "changePassword": MessageLookupByLibrary.simpleMessage("Change Password"),
     "chooseStrongPassword": MessageLookupByLibrary.simpleMessage(
       "Choose a strong password you haven’t used before.",
     ),
     "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
       "Confirm new password",
     ),
+    "contactUs": MessageLookupByLibrary.simpleMessage("Contact Us"),
+    "copyright": MessageLookupByLibrary.simpleMessage(
+      "© 2025 SkillMatch. All rights reserved.",
+    ),
     "createNewPassword": MessageLookupByLibrary.simpleMessage(
       "Create a new password",
     ),
+    "cv": MessageLookupByLibrary.simpleMessage("CV"),
+    "cvAnalysisCompleted": MessageLookupByLibrary.simpleMessage(
+      "CV analysis completed",
+    ),
+    "cvAnalysisDescription": MessageLookupByLibrary.simpleMessage(
+      "We extracted 12 skills and updated your career profile.",
+    ),
+    "english": MessageLookupByLibrary.simpleMessage("English"),
     "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
       "Enter verification code",
     ),
     "entryLevel": MessageLookupByLibrary.simpleMessage("Entry Level"),
+    "flutterOpportunities": MessageLookupByLibrary.simpleMessage(
+      "We found 8 Flutter opportunities based on your skills.",
+    ),
+    "followUs": MessageLookupByLibrary.simpleMessage("Follow Us"),
+    "fourHoursAgo": MessageLookupByLibrary.simpleMessage("4 hrs ago"),
     "fullTime": MessageLookupByLibrary.simpleMessage("Full-time"),
     "getExplainableMatch": MessageLookupByLibrary.simpleMessage(
       "Get an explainable match",
@@ -54,15 +80,23 @@ class MessageLookup extends MessageLookupByLibrary {
     "invalidVerificationCode": MessageLookupByLibrary.simpleMessage(
       "Invalid verification code",
     ),
+    "jobs": MessageLookupByLibrary.simpleMessage("Jobs"),
     "jobsMatchDescription": MessageLookupByLibrary.simpleMessage(
       "Explore opportunities based on your skills and career preferences.",
     ),
     "jobsMatchYourProfile": MessageLookupByLibrary.simpleMessage(
       "We found jobs that match your profile",
     ),
+    "language": MessageLookupByLibrary.simpleMessage("Language"),
+    "light": MessageLookupByLibrary.simpleMessage("Light"),
+    "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
+    "markAllRead": MessageLookupByLibrary.simpleMessage("Mark all read"),
     "match": MessageLookupByLibrary.simpleMessage("Match"),
     "matches": MessageLookupByLibrary.simpleMessage("matches"),
     "mostRelevant": MessageLookupByLibrary.simpleMessage("Most relevant"),
+    "newJobsMatchProfile": MessageLookupByLibrary.simpleMessage(
+      "New jobs match your profile",
+    ),
     "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
     "next": MessageLookupByLibrary.simpleMessage("Next"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
@@ -70,6 +104,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noJobsFound": MessageLookupByLibrary.simpleMessage("No jobs found"),
     "notNow": MessageLookupByLibrary.simpleMessage("Not now"),
+    "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
     "onboardingBullet1": MessageLookupByLibrary.simpleMessage(
       "Upload your CV for instant AI parsing",
     ),
@@ -98,6 +133,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "pleaseCheckYourInternetConnection": MessageLookupByLibrary.simpleMessage(
       "Please check your internet connection and try again",
     ),
+    "preferences": MessageLookupByLibrary.simpleMessage("PREFERENCES"),
+    "privacyAndSupport": MessageLookupByLibrary.simpleMessage(
+      "PRIVACY & SUPPORT",
+    ),
+    "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
     "readyToFindYourNextOpportunity": MessageLookupByLibrary.simpleMessage(
       "Ready to find your next opportunity?",
     ),
@@ -117,6 +157,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
     "resendCodeIn": MessageLookupByLibrary.simpleMessage("Resend code in"),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
+    "reviewCv": MessageLookupByLibrary.simpleMessage("Review CV"),
+    "roadmap": MessageLookupByLibrary.simpleMessage("Roadmap"),
+    "roadmapUpdated": MessageLookupByLibrary.simpleMessage(
+      "Your roadmap has been updated",
+    ),
     "searchJobs": MessageLookupByLibrary.simpleMessage(
       "Search jobs, companies, or skills",
     ),
@@ -126,6 +171,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sentCodeToEmail": MessageLookupByLibrary.simpleMessage(
       "We sent a 6-digit code to your email.",
     ),
+    "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "setupCareerProfile": MessageLookupByLibrary.simpleMessage(
       "Setup your career profile",
     ),
@@ -138,6 +184,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "start": MessageLookupByLibrary.simpleMessage("Start"),
     "strongMatch": MessageLookupByLibrary.simpleMessage("Strong Match"),
+    "tenMinutesAgo": MessageLookupByLibrary.simpleMessage("10 min ago"),
+    "testingPrioritySkill": MessageLookupByLibrary.simpleMessage(
+      "Testing is now one of your highest-priority skills.",
+    ),
+    "theme": MessageLookupByLibrary.simpleMessage("Theme"),
+    "today": MessageLookupByLibrary.simpleMessage("TODAY"),
     "tryAgain": MessageLookupByLibrary.simpleMessage("Try Again"),
     "turnCvIntoOpportunities": MessageLookupByLibrary.simpleMessage(
       "Turn your CV into opportunities",
@@ -145,6 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "turnCvIntoOpportunitiesDesc": MessageLookupByLibrary.simpleMessage(
       "See why a job fits you, what you’re missing, and what to do next.",
     ),
+    "twoHoursAgo": MessageLookupByLibrary.simpleMessage("2 hrs ago"),
     "useDifferentEmail": MessageLookupByLibrary.simpleMessage(
       "Use a different email",
     ),
@@ -152,6 +205,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "VERIFICATION CODE",
     ),
     "verify": MessageLookupByLibrary.simpleMessage("Verify"),
+    "viewApplication": MessageLookupByLibrary.simpleMessage("View Application"),
+    "viewJobs": MessageLookupByLibrary.simpleMessage("View Jobs"),
     "viewMatches": MessageLookupByLibrary.simpleMessage("View Matches"),
+    "viewRoadmap": MessageLookupByLibrary.simpleMessage("View Roadmap"),
+    "yesterday": MessageLookupByLibrary.simpleMessage("YESTERDAY"),
+    "yesterdayTime": MessageLookupByLibrary.simpleMessage(
+      "Yesterday • 3:45 PM",
+    ),
   };
 }

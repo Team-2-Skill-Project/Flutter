@@ -589,6 +589,291 @@ class S {
       args: [],
     );
   }
+
+  /// `Notifications`
+  String get notifications {
+    return Intl.message(
+      'Notifications',
+      name: 'notifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mark all read`
+  String get markAllRead {
+    return Intl.message(
+      'Mark all read',
+      name: 'markAllRead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Jobs`
+  String get jobs {
+    return Intl.message('Jobs', name: 'jobs', desc: '', args: []);
+  }
+
+  /// `Applications`
+  String get applications {
+    return Intl.message(
+      'Applications',
+      name: 'applications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Roadmap`
+  String get roadmap {
+    return Intl.message('Roadmap', name: 'roadmap', desc: '', args: []);
+  }
+
+  /// `CV`
+  String get cv {
+    return Intl.message('CV', name: 'cv', desc: '', args: []);
+  }
+
+  /// `TODAY`
+  String get today {
+    return Intl.message('TODAY', name: 'today', desc: '', args: []);
+  }
+
+  /// `YESTERDAY`
+  String get yesterday {
+    return Intl.message('YESTERDAY', name: 'yesterday', desc: '', args: []);
+  }
+
+  /// `New jobs match your profile`
+  String get newJobsMatchProfile {
+    return Intl.message(
+      'New jobs match your profile',
+      name: 'newJobsMatchProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We found 8 Flutter opportunities based on your skills.`
+  String get flutterOpportunities {
+    return Intl.message(
+      'We found 8 Flutter opportunities based on your skills.',
+      name: 'flutterOpportunities',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `10 min ago`
+  String get tenMinutesAgo {
+    return Intl.message(
+      '10 min ago',
+      name: 'tenMinutesAgo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Jobs`
+  String get viewJobs {
+    return Intl.message('View Jobs', name: 'viewJobs', desc: '', args: []);
+  }
+
+  /// `Your roadmap has been updated`
+  String get roadmapUpdated {
+    return Intl.message(
+      'Your roadmap has been updated',
+      name: 'roadmapUpdated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Testing is now one of your highest-priority skills.`
+  String get testingPrioritySkill {
+    return Intl.message(
+      'Testing is now one of your highest-priority skills.',
+      name: 'testingPrioritySkill',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2 hrs ago`
+  String get twoHoursAgo {
+    return Intl.message('2 hrs ago', name: 'twoHoursAgo', desc: '', args: []);
+  }
+
+  /// `View Roadmap`
+  String get viewRoadmap {
+    return Intl.message(
+      'View Roadmap',
+      name: 'viewRoadmap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CV analysis completed`
+  String get cvAnalysisCompleted {
+    return Intl.message(
+      'CV analysis completed',
+      name: 'cvAnalysisCompleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We extracted 12 skills and updated your career profile.`
+  String get cvAnalysisDescription {
+    return Intl.message(
+      'We extracted 12 skills and updated your career profile.',
+      name: 'cvAnalysisDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `4 hrs ago`
+  String get fourHoursAgo {
+    return Intl.message('4 hrs ago', name: 'fourHoursAgo', desc: '', args: []);
+  }
+
+  /// `Review CV`
+  String get reviewCv {
+    return Intl.message('Review CV', name: 'reviewCv', desc: '', args: []);
+  }
+
+  /// `Application status updated`
+  String get applicationStatusUpdated {
+    return Intl.message(
+      'Application status updated',
+      name: 'applicationStatusUpdated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your TechNova application is now In Review.`
+  String get applicationStatusDescription {
+    return Intl.message(
+      'Your TechNova application is now In Review.',
+      name: 'applicationStatusDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yesterday • 3:45 PM`
+  String get yesterdayTime {
+    return Intl.message(
+      'Yesterday • 3:45 PM',
+      name: 'yesterdayTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Application`
+  String get viewApplication {
+    return Intl.message(
+      'View Application',
+      name: 'viewApplication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
+  }
+
+  /// `ACCOUNT`
+  String get account {
+    return Intl.message('ACCOUNT', name: 'account', desc: '', args: []);
+  }
+
+  /// `Change Password`
+  String get changePassword {
+    return Intl.message(
+      'Change Password',
+      name: 'changePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PREFERENCES`
+  String get preferences {
+    return Intl.message('PREFERENCES', name: 'preferences', desc: '', args: []);
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message('Language', name: 'language', desc: '', args: []);
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message('English', name: 'english', desc: '', args: []);
+  }
+
+  /// `Theme`
+  String get theme {
+    return Intl.message('Theme', name: 'theme', desc: '', args: []);
+  }
+
+  /// `Light`
+  String get light {
+    return Intl.message('Light', name: 'light', desc: '', args: []);
+  }
+
+  /// `PRIVACY & SUPPORT`
+  String get privacyAndSupport {
+    return Intl.message(
+      'PRIVACY & SUPPORT',
+      name: 'privacyAndSupport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privacy Policy`
+  String get privacyPolicy {
+    return Intl.message(
+      'Privacy Policy',
+      name: 'privacyPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact Us`
+  String get contactUs {
+    return Intl.message('Contact Us', name: 'contactUs', desc: '', args: []);
+  }
+
+  /// `Follow Us`
+  String get followUs {
+    return Intl.message('Follow Us', name: 'followUs', desc: '', args: []);
+  }
+
+  /// `Log Out`
+  String get logOut {
+    return Intl.message('Log Out', name: 'logOut', desc: '', args: []);
+  }
+
+  /// `© 2025 SkillMatch. All rights reserved.`
+  String get copyright {
+    return Intl.message(
+      '© 2025 SkillMatch. All rights reserved.',
+      name: 'copyright',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

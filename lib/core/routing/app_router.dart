@@ -7,6 +7,8 @@ import 'package:MatchIn/features/auth/presentation/pages/create_new_password_vie
 import 'package:MatchIn/features/auth/presentation/pages/otp_verification_view.dart';
 import 'package:MatchIn/features/auth/presentation/pages/password_changed_success_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/jobs_search_view.dart';
+import 'package:MatchIn/features/jobs/presentation/views/notifications_view.dart';
+import 'package:MatchIn/features/jobs/presentation/views/settings_view.dart';
 import 'package:MatchIn/features/onbording/presentation/pages/onbording.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +36,7 @@ abstract final class AppRouter {
   }
 
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.kOnboardingView,
+    initialLocation: AppRoutes.kHomeView,
     routes: [
       // Main Navigation
       GoRoute(
@@ -93,6 +95,20 @@ abstract final class AppRouter {
         path: AppRoutes.kPasswordChangedSuccessView,
         builder: (context, state) {
           return const PasswordChangedSuccessView();
+        },
+      ),
+
+      GoRoute(
+        path: AppRoutes.notifications,
+        builder: (context, state) {
+          return const NotificationsView();
+        },
+      ),
+
+      GoRoute(
+        path: AppRoutes.settings,
+        builder: (context, state) {
+          return const SettingsView();
         },
       ),
 
