@@ -1,3 +1,4 @@
+import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/features/applications/presentation/widgets/apply_bottom_button.dart';
 import 'package:MatchIn/features/applications/presentation/widgets/apply_header.dart';
 import 'package:MatchIn/features/applications/presentation/widgets/job_info_details.dart';
@@ -9,6 +10,7 @@ import 'package:MatchIn/features/applications/presentation/widgets/work_mode_opt
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class ApplicationQuestionsViewBody extends StatelessWidget {
   const ApplicationQuestionsViewBody({super.key});
@@ -162,8 +164,7 @@ class ApplicationQuestionsViewBody extends StatelessWidget {
           label: s.reviewApplication,
           helperText: s.reviewBeforeSubmission,
           onPressed: () {
-            // Step 3 route will be connected
-            // when its UI is implemented.
+            context.push(AppRoutes.reviewApplication);
           },
         ),
       ],

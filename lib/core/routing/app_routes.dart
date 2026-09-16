@@ -27,6 +27,16 @@ abstract final class AppRoutes {
 
   // Applications
   static const String applyForRole = '/applications/apply';
+
   static const String applicationQuestions =
       '/applications/questions';
+
+  static const String reviewApplication =
+      '/applications/review';
+
+  static const String applicationSubmitted =
+      '/applications/submitted';
+
+  static const String trackingApplication =
+      '/applications/tracking';
 }

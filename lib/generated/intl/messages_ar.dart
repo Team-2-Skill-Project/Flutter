@@ -36,6 +36,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "أجب عن أسئلة صاحب العمل لمتابعة طلب التقديم.",
     ),
     "application": MessageLookupByLibrary.simpleMessage("طلب التقديم"),
+    "applicationDetails": MessageLookupByLibrary.simpleMessage(
+      "تفاصيل طلب التقديم",
+    ),
+    "applicationMethod": MessageLookupByLibrary.simpleMessage("طريقة التقديم"),
     "applicationQuestions": MessageLookupByLibrary.simpleMessage(
       "أسئلة التقديم",
     ),
@@ -46,10 +50,24 @@ class MessageLookup extends MessageLookupByLibrary {
     "applicationStatusUpdated": MessageLookupByLibrary.simpleMessage(
       "تم تحديث حالة التقديم",
     ),
+    "applicationSubmitted": MessageLookupByLibrary.simpleMessage(
+      "تم إرسال طلبك!",
+    ),
+    "applicationTimeline": MessageLookupByLibrary.simpleMessage(
+      "مراحل طلب التقديم",
+    ),
     "applications": MessageLookupByLibrary.simpleMessage("التقديمات"),
     "applied": MessageLookupByLibrary.simpleMessage("تم التقديم"),
     "applyForRole": MessageLookupByLibrary.simpleMessage("التقديم للوظيفة"),
     "applyNow": MessageLookupByLibrary.simpleMessage("قدّم الآن"),
+    "applyingFor": MessageLookupByLibrary.simpleMessage("التقديم على"),
+    "askCareerMentorDescription": MessageLookupByLibrary.simpleMessage(
+      "اسأل مرشدك المهني عما يمكنك التركيز عليه أثناء الانتظار.",
+    ),
+    "askChatBot": MessageLookupByLibrary.simpleMessage("اسأل المساعد"),
+    "at": MessageLookupByLibrary.simpleMessage("في"),
+    "back": MessageLookupByLibrary.simpleMessage("رجوع"),
+    "backToJobs": MessageLookupByLibrary.simpleMessage("العودة للوظائف"),
     "backToLogin": MessageLookupByLibrary.simpleMessage("العودة لتسجيل الدخول"),
     "buildMyRoadmap": MessageLookupByLibrary.simpleMessage(
       "إنشاء خارطة الطريق",
@@ -79,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "csOrRelated": MessageLookupByLibrary.simpleMessage(
       "علوم حاسب أو مجال ذو صلة",
     ),
+    "currentStatus": MessageLookupByLibrary.simpleMessage("الحالة الحالية"),
     "cv": MessageLookupByLibrary.simpleMessage("السيرة الذاتية"),
     "cvAnalysisCompleted": MessageLookupByLibrary.simpleMessage(
       "اكتمل تحليل السيرة الذاتية",
@@ -87,6 +106,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "استخرجنا 12 مهارة وقمنا بتحديث ملفك المهني.",
     ),
     "cvResume": MessageLookupByLibrary.simpleMessage("السيرة الذاتية"),
+    "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
+    "editNote": MessageLookupByLibrary.simpleMessage("تعديل الملاحظة"),
     "education": MessageLookupByLibrary.simpleMessage("التعليم"),
     "emailAddress": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "english": MessageLookupByLibrary.simpleMessage("الإنجليزية"),
@@ -97,8 +118,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "expectedMonthlySalary": MessageLookupByLibrary.simpleMessage(
       "ما الراتب الشهري المتوقع؟",
     ),
+    "expectedSalary": MessageLookupByLibrary.simpleMessage("الراتب المتوقع"),
     "experience": MessageLookupByLibrary.simpleMessage("الخبرة"),
     "experienceWithBloc": MessageLookupByLibrary.simpleMessage("خبرة في Bloc"),
+    "finalConfirmation": MessageLookupByLibrary.simpleMessage(
+      "التأكيد النهائي",
+    ),
+    "finalDecisionAndOnboarding": MessageLookupByLibrary.simpleMessage(
+      "القرار النهائي وبدء العمل",
+    ),
     "flutterOpportunities": MessageLookupByLibrary.simpleMessage(
       "وجدنا 8 فرص Flutter بناءً على مهاراتك.",
     ),
@@ -130,7 +158,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "highPriority": MessageLookupByLibrary.simpleMessage("أولوية عالية"),
     "hybrid": MessageLookupByLibrary.simpleMessage("هجين"),
+    "inReview": MessageLookupByLibrary.simpleMessage("قيد المراجعة"),
     "internship": MessageLookupByLibrary.simpleMessage("تدريب"),
+    "interview": MessageLookupByLibrary.simpleMessage("المقابلة"),
     "invalidVerificationCode": MessageLookupByLibrary.simpleMessage(
       "رمز التحقق غير صحيح",
     ),
@@ -145,6 +175,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "juniorFlutterDeveloper": MessageLookupByLibrary.simpleMessage(
       "مطور Flutter مبتدئ",
+    ),
+    "keepTrackerUpdated": MessageLookupByLibrary.simpleMessage(
+      "حدّث حالة طلبك عندما يصلك رد من صاحب العمل.",
     ),
     "language": MessageLookupByLibrary.simpleMessage("اللغة"),
     "light": MessageLookupByLibrary.simpleMessage("فاتح"),
@@ -162,6 +195,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "مذكورة في متطلبات الوظيفة",
     ),
     "mostRelevant": MessageLookupByLibrary.simpleMessage("الأكثر ملاءمة"),
+    "needHelpWithNextSteps": MessageLookupByLibrary.simpleMessage(
+      "تحتاج مساعدة في الخطوات القادمة؟",
+    ),
     "newJobsMatchProfile": MessageLookupByLibrary.simpleMessage(
       "وظائف جديدة تناسب ملفك",
     ),
@@ -171,12 +207,17 @@ class MessageLookup extends MessageLookupByLibrary {
       "التالي: أسئلة التقديم",
     ),
     "niceToHave": MessageLookupByLibrary.simpleMessage("ميزة إضافية"),
+    "noCoverNoteAdded": MessageLookupByLibrary.simpleMessage(
+      "لم تتم إضافة رسالة تعريفية",
+    ),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "لا يوجد اتصال بالإنترنت",
     ),
     "noJobsFound": MessageLookupByLibrary.simpleMessage("لا توجد وظائف متاحة"),
     "notNow": MessageLookupByLibrary.simpleMessage("ليس الآن"),
+    "notes": MessageLookupByLibrary.simpleMessage("الملاحظات"),
     "notifications": MessageLookupByLibrary.simpleMessage("الإشعارات"),
+    "offer": MessageLookupByLibrary.simpleMessage("العرض"),
     "onSite": MessageLookupByLibrary.simpleMessage("من مقر العمل"),
     "onboardingBullet1": MessageLookupByLibrary.simpleMessage(
       "ارفع سيرتك الذاتية لتحليل فوري بالذكاء الاصطناعي",
@@ -204,6 +245,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
       "كلمتا المرور غير متطابقتين",
     ),
+    "pendingEmployerScreening": MessageLookupByLibrary.simpleMessage(
+      "بانتظار مراجعة صاحب العمل",
+    ),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
     "pleaseCheckYourInternetConnection": MessageLookupByLibrary.simpleMessage(
       "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
@@ -221,6 +265,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "preferredWorkMode": MessageLookupByLibrary.simpleMessage(
       "ما نمط العمل الذي تفضله؟",
     ),
+    "preferredWorkModeLabel": MessageLookupByLibrary.simpleMessage(
+      "نمط العمل المفضل",
+    ),
     "privacyAndSupport": MessageLookupByLibrary.simpleMessage(
       "الخصوصية والدعم",
     ),
@@ -230,6 +277,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "جاهز للعثور على فرصتك القادمة؟",
     ),
     "recommendedForYou": MessageLookupByLibrary.simpleMessage("مقترحة لك"),
+    "recruiterReview": MessageLookupByLibrary.simpleMessage(
+      "مراجعة مسؤول التوظيف",
+    ),
     "remote": MessageLookupByLibrary.simpleMessage("عن بُعد"),
     "reqAtLeastOneNumber": MessageLookupByLibrary.simpleMessage(
       "رقم واحد على الأقل",
@@ -252,6 +302,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "reviewApplication": MessageLookupByLibrary.simpleMessage("مراجعة الطلب"),
     "reviewBeforeSubmission": MessageLookupByLibrary.simpleMessage(
       "ستراجع جميع التفاصيل قبل الإرسال النهائي.",
+    ),
+    "reviewBeforeSubmitting": MessageLookupByLibrary.simpleMessage(
+      "راجع طلبك قبل الإرسال",
+    ),
+    "reviewBeforeSubmittingDescription": MessageLookupByLibrary.simpleMessage(
+      "تأكد من صحة معلوماتك. يمكنك الرجوع وتعديل أي شيء قبل إرسال الطلب.",
     ),
     "reviewCv": MessageLookupByLibrary.simpleMessage("مراجعة السيرة الذاتية"),
     "reviewInformationBeforeContinuing": MessageLookupByLibrary.simpleMessage(
@@ -294,11 +350,28 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
     "source": MessageLookupByLibrary.simpleMessage("المصدر"),
     "start": MessageLookupByLibrary.simpleMessage("ابدأ"),
+    "stepFourConfirmation": MessageLookupByLibrary.simpleMessage(
+      "الخطوة 4 من 4 • التأكيد",
+    ),
     "stepOf": MessageLookupByLibrary.simpleMessage("من"),
+    "stepThreeOfThree": MessageLookupByLibrary.simpleMessage("الخطوة 3 من 3"),
     "strongMatch": MessageLookupByLibrary.simpleMessage("توافق قوي"),
+    "submissionConfirmationNotice": MessageLookupByLibrary.simpleMessage(
+      "بإرسال الطلب، فإنك تؤكد أن المعلومات المقدمة صحيحة ومتوافقة مع إرشادات المجتمع.",
+    ),
+    "submitApplication": MessageLookupByLibrary.simpleMessage("إرسال الطلب"),
+    "submittedJustNow": MessageLookupByLibrary.simpleMessage("تم الإرسال الآن"),
+    "submittedSuccessfully": MessageLookupByLibrary.simpleMessage("بنجاح."),
+    "submittedTodayTime": MessageLookupByLibrary.simpleMessage(
+      "تم التقديم اليوم الساعة 10:32 ص",
+    ),
     "supportingDocumentOptional": MessageLookupByLibrary.simpleMessage(
       "مستند داعم (اختياري)",
     ),
+    "technicalCultureFitStage": MessageLookupByLibrary.simpleMessage(
+      "مرحلة التقييم التقني والثقافي",
+    ),
+    "technologies": MessageLookupByLibrary.simpleMessage("التقنيات"),
     "technologiesWorkedWith": MessageLookupByLibrary.simpleMessage(
       "ما التقنيات التي عملت بها؟",
     ),
@@ -307,7 +380,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "أصبح الاختبار الآن من مهاراتك ذات الأولوية الأعلى.",
     ),
     "theme": MessageLookupByLibrary.simpleMessage("المظهر"),
+    "timeline": MessageLookupByLibrary.simpleMessage("الوقت"),
     "today": MessageLookupByLibrary.simpleMessage("اليوم"),
+    "todayAtTime": MessageLookupByLibrary.simpleMessage("اليوم • 10:32 ص"),
+    "trackApplication": MessageLookupByLibrary.simpleMessage("متابعة الطلب"),
+    "trackingApplication": MessageLookupByLibrary.simpleMessage(
+      "متابعة طلب التقديم",
+    ),
     "tryAgain": MessageLookupByLibrary.simpleMessage("إعادة المحاولة"),
     "turnCvIntoOpportunities": MessageLookupByLibrary.simpleMessage(
       "حوّل سيرتك الذاتية إلى فرص",
@@ -317,6 +396,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "twoDaysAgo": MessageLookupByLibrary.simpleMessage("منذ يومين"),
     "twoHoursAgo": MessageLookupByLibrary.simpleMessage("منذ ساعتين"),
+    "updateStatus": MessageLookupByLibrary.simpleMessage("تحديث الحالة"),
     "updatedFiveDaysAgo": MessageLookupByLibrary.simpleMessage(
       "تم التحديث منذ 5 أيام",
     ),
@@ -337,10 +417,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "viewFullJobDescription": MessageLookupByLibrary.simpleMessage(
       "عرض الوصف الكامل للوظيفة",
     ),
+    "viewJob": MessageLookupByLibrary.simpleMessage("عرض الوظيفة"),
     "viewJobs": MessageLookupByLibrary.simpleMessage("عرض الوظائف"),
     "viewMatches": MessageLookupByLibrary.simpleMessage("عرض الوظائف المناسبة"),
     "viewRoadmap": MessageLookupByLibrary.simpleMessage("عرض خارطة الطريق"),
     "viewTimeline": MessageLookupByLibrary.simpleMessage("عرض التسلسل الزمني"),
+    "waitingForRecruiterResponse": MessageLookupByLibrary.simpleMessage(
+      "بانتظار رد مسؤول التوظيف.",
+    ),
     "wantToImproveYourMatch": MessageLookupByLibrary.simpleMessage(
       "هل تريد تحسين توافقك؟",
     ),
@@ -353,8 +437,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "whyInterestedRequired": MessageLookupByLibrary.simpleMessage(
       "لماذا أنت مهتم بهذه الوظيفة؟ *",
     ),
+    "withdrawApplication": MessageLookupByLibrary.simpleMessage(
+      "سحب طلب التقديم",
+    ),
+    "withinThreeBusinessDays": MessageLookupByLibrary.simpleMessage(
+      "خلال 3 أيام عمل",
+    ),
     "yesterday": MessageLookupByLibrary.simpleMessage("أمس"),
     "yesterdayTime": MessageLookupByLibrary.simpleMessage("أمس • 3:45 م"),
+    "yourApplicationFor": MessageLookupByLibrary.simpleMessage(
+      "تم إرسال طلبك لوظيفة",
+    ),
     "yourInformation": MessageLookupByLibrary.simpleMessage("معلوماتك"),
     "yourMatch": MessageLookupByLibrary.simpleMessage("مدى توافقك"),
     "zeroToTwoYears": MessageLookupByLibrary.simpleMessage("0–2 سنة"),
