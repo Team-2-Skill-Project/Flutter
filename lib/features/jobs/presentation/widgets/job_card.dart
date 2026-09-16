@@ -1,8 +1,10 @@
+import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/jobs_info_job_card.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/matching_status.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class JobCard extends StatelessWidget {
   const JobCard({
@@ -52,7 +54,9 @@ class JobCard extends StatelessWidget {
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: onTap,
+        onTap: () {
+          GoRouter.of(context).push(AppRoutes.jobDetails);
+        },
         child: Padding(
           padding: EdgeInsets.all(16.r),
           child: Column(

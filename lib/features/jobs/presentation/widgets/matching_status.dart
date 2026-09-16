@@ -56,23 +56,28 @@ class MatchingStatus extends StatelessWidget {
   }
 
   _MatchingStatusData _getStatusData(BuildContext context) {
+    final s = S.of(context);
+
     switch (type) {
       case MatchingStatusType.strong:
         return _MatchingStatusData(
-          label: S.of(context).strongMatch,
+          label: percentage == null
+              ? s.strongMatch
+              : '$percentage% ${s.strongMatch}',
           color: AppColors.forestGreen,
         );
 
       case MatchingStatusType.good:
         return _MatchingStatusData(
-          label: S.of(context).goodMatch,
+          label: percentage == null
+              ? s.goodMatch
+              : '$percentage% ${s.goodMatch}',
           color: AppColors.amber,
         );
 
       case MatchingStatusType.percentage:
         return _MatchingStatusData(
-          label:
-              '${percentage ?? 0}% ${S.of(context).match}',
+          label: '${percentage ?? 0}% ${s.match}',
           color: Theme.of(context).colorScheme.onSurface
               .withValues(alpha: 0.6),
         );

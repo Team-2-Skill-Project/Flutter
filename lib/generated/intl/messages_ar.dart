@@ -26,6 +26,11 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "account": MessageLookupByLibrary.simpleMessage("الحساب"),
     "all": MessageLookupByLibrary.simpleMessage("الكل"),
+    "alreadySubmitted": MessageLookupByLibrary.simpleMessage(
+      "تم التقديم بالفعل",
+    ),
+    "application": MessageLookupByLibrary.simpleMessage("طلب التقديم"),
+    "applicationStatus": MessageLookupByLibrary.simpleMessage("حالة التقديم"),
     "applicationStatusDescription": MessageLookupByLibrary.simpleMessage(
       "طلبك لدى TechNova قيد المراجعة الآن.",
     ),
@@ -33,8 +38,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "تم تحديث حالة التقديم",
     ),
     "applications": MessageLookupByLibrary.simpleMessage("التقديمات"),
+    "applied": MessageLookupByLibrary.simpleMessage("تم التقديم"),
     "applyNow": MessageLookupByLibrary.simpleMessage("قدّم الآن"),
     "backToLogin": MessageLookupByLibrary.simpleMessage("العودة لتسجيل الدخول"),
+    "buildMyRoadmap": MessageLookupByLibrary.simpleMessage(
+      "إنشاء خارطة الطريق",
+    ),
+    "cairo": MessageLookupByLibrary.simpleMessage("القاهرة"),
     "changePassword": MessageLookupByLibrary.simpleMessage("تغيير كلمة المرور"),
     "chooseStrongPassword": MessageLookupByLibrary.simpleMessage(
       "اختر كلمة مرور قوية لم تستخدمها من قبل.",
@@ -49,6 +59,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "createNewPassword": MessageLookupByLibrary.simpleMessage(
       "إنشاء كلمة مرور جديدة",
     ),
+    "csOrRelated": MessageLookupByLibrary.simpleMessage(
+      "علوم حاسب أو مجال ذو صلة",
+    ),
     "cv": MessageLookupByLibrary.simpleMessage("السيرة الذاتية"),
     "cvAnalysisCompleted": MessageLookupByLibrary.simpleMessage(
       "اكتمل تحليل السيرة الذاتية",
@@ -56,16 +69,29 @@ class MessageLookup extends MessageLookupByLibrary {
     "cvAnalysisDescription": MessageLookupByLibrary.simpleMessage(
       "استخرجنا 12 مهارة وقمنا بتحديث ملفك المهني.",
     ),
+    "education": MessageLookupByLibrary.simpleMessage("التعليم"),
     "english": MessageLookupByLibrary.simpleMessage("الإنجليزية"),
     "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
       "أدخل رمز التحقق",
     ),
     "entryLevel": MessageLookupByLibrary.simpleMessage("مستوى مبتدئ"),
+    "experience": MessageLookupByLibrary.simpleMessage("الخبرة"),
+    "experienceWithBloc": MessageLookupByLibrary.simpleMessage("خبرة في Bloc"),
     "flutterOpportunities": MessageLookupByLibrary.simpleMessage(
       "وجدنا 8 فرص Flutter بناءً على مهاراتك.",
     ),
+    "focusOnTwoHighPrioritySkills": MessageLookupByLibrary.simpleMessage(
+      "ركز على مهارتين بأولوية عالية",
+    ),
     "followUs": MessageLookupByLibrary.simpleMessage("تابعنا"),
+    "foundInCvAndProjects": MessageLookupByLibrary.simpleMessage(
+      "موجودة في سيرتك الذاتية ومشاريعك",
+    ),
+    "foundInYourSkills": MessageLookupByLibrary.simpleMessage(
+      "موجودة ضمن مهاراتك",
+    ),
     "fourHoursAgo": MessageLookupByLibrary.simpleMessage("منذ 4 ساعات"),
+    "fromYourCv": MessageLookupByLibrary.simpleMessage("من سيرتك الذاتية"),
     "fullTime": MessageLookupByLibrary.simpleMessage("دوام كامل"),
     "getExplainableMatch": MessageLookupByLibrary.simpleMessage(
       "احصل على توافق واضح ومفصل",
@@ -76,10 +102,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "getStarted": MessageLookupByLibrary.simpleMessage("ابدأ الآن"),
     "goodMatch": MessageLookupByLibrary.simpleMessage("توافق جيد"),
     "greetingUser": m0,
+    "helpfulAdvantage": MessageLookupByLibrary.simpleMessage(
+      "ميزة إضافية مفيدة",
+    ),
+    "highPriority": MessageLookupByLibrary.simpleMessage("أولوية عالية"),
+    "hybrid": MessageLookupByLibrary.simpleMessage("هجين"),
     "internship": MessageLookupByLibrary.simpleMessage("تدريب"),
     "invalidVerificationCode": MessageLookupByLibrary.simpleMessage(
       "رمز التحقق غير صحيح",
     ),
+    "jobDetails": MessageLookupByLibrary.simpleMessage("تفاصيل الوظيفة"),
+    "jobRequirements": MessageLookupByLibrary.simpleMessage("متطلبات الوظيفة"),
     "jobs": MessageLookupByLibrary.simpleMessage("الوظائف"),
     "jobsMatchDescription": MessageLookupByLibrary.simpleMessage(
       "استكشف الفرص المناسبة لمهاراتك وتفضيلاتك المهنية.",
@@ -87,18 +120,31 @@ class MessageLookup extends MessageLookupByLibrary {
     "jobsMatchYourProfile": MessageLookupByLibrary.simpleMessage(
       "وجدنا وظائف تناسب ملفك الشخصي",
     ),
+    "juniorFlutterDeveloper": MessageLookupByLibrary.simpleMessage(
+      "مطور Flutter مبتدئ",
+    ),
     "language": MessageLookupByLibrary.simpleMessage("اللغة"),
     "light": MessageLookupByLibrary.simpleMessage("فاتح"),
     "logOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
     "markAllRead": MessageLookupByLibrary.simpleMessage("تحديد الكل كمقروء"),
     "match": MessageLookupByLibrary.simpleMessage("توافق"),
+    "matchExplanation": MessageLookupByLibrary.simpleMessage(
+      "أنت مناسب لهذه الوظيفة. خبرتك في Flutter وواجهات API تتوافق مع المتطلبات الأساسية، لكن الاختبار وCI/CD من المهارات المهمة التي تحتاج إلى تطوير.",
+    ),
+    "matchSevenOfNine": MessageLookupByLibrary.simpleMessage(
+      "أنت متوافق مع 7 من أصل 9 متطلبات مهمة.",
+    ),
     "matches": MessageLookupByLibrary.simpleMessage("وظيفة مناسبة"),
+    "mentionedInJobRequirements": MessageLookupByLibrary.simpleMessage(
+      "مذكورة في متطلبات الوظيفة",
+    ),
     "mostRelevant": MessageLookupByLibrary.simpleMessage("الأكثر ملاءمة"),
     "newJobsMatchProfile": MessageLookupByLibrary.simpleMessage(
       "وظائف جديدة تناسب ملفك",
     ),
     "newPassword": MessageLookupByLibrary.simpleMessage("كلمة المرور الجديدة"),
     "next": MessageLookupByLibrary.simpleMessage("التالي"),
+    "niceToHave": MessageLookupByLibrary.simpleMessage("ميزة إضافية"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "لا يوجد اتصال بالإنترنت",
     ),
@@ -133,7 +179,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "pleaseCheckYourInternetConnection": MessageLookupByLibrary.simpleMessage(
       "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
     ),
+    "postedTwoDaysAgo": MessageLookupByLibrary.simpleMessage("نُشرت منذ يومين"),
     "preferences": MessageLookupByLibrary.simpleMessage("التفضيلات"),
+    "preferred": MessageLookupByLibrary.simpleMessage("المفضل"),
     "privacyAndSupport": MessageLookupByLibrary.simpleMessage(
       "الخصوصية والدعم",
     ),
@@ -150,6 +198,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "رمز خاص واحد على الأقل",
     ),
     "reqMin8Chars": MessageLookupByLibrary.simpleMessage("8 أحرف على الأقل"),
+    "requiredForThisRole": MessageLookupByLibrary.simpleMessage(
+      "مطلوبة لهذه الوظيفة",
+    ),
+    "requiredSkills": MessageLookupByLibrary.simpleMessage("المهارات المطلوبة"),
     "resendCode": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
     "resendCodeIn": MessageLookupByLibrary.simpleMessage(
       "إعادة إرسال الرمز خلال",
@@ -159,6 +211,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "reviewCv": MessageLookupByLibrary.simpleMessage("مراجعة السيرة الذاتية"),
     "roadmap": MessageLookupByLibrary.simpleMessage("خارطة الطريق"),
+    "roadmapBasedOnJob": MessageLookupByLibrary.simpleMessage(
+      "ستعتمد خارطة الطريق على هذه الوظيفة ومهاراتك الحالية.",
+    ),
+    "roadmapMatchDescription": MessageLookupByLibrary.simpleMessage(
+      "أنشئ خارطة طريق مخصصة للعمل على Testing وCI/CD لتصبح مرشحًا أقوى لهذه الوظيفة.",
+    ),
     "roadmapUpdated": MessageLookupByLibrary.simpleMessage(
       "تم تحديث خارطة طريقك",
     ),
@@ -178,8 +236,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "setupCareerProfileDesc": MessageLookupByLibrary.simpleMessage(
       "أخبرنا بمهاراتك وأهدافك للحصول على توصيات وظيفية أفضل.",
     ),
+    "skillsToImprove": MessageLookupByLibrary.simpleMessage(
+      "مهارات تحتاج إلى تطوير",
+    ),
     "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
+    "source": MessageLookupByLibrary.simpleMessage("المصدر"),
     "start": MessageLookupByLibrary.simpleMessage("ابدأ"),
     "strongMatch": MessageLookupByLibrary.simpleMessage("توافق قوي"),
     "tenMinutesAgo": MessageLookupByLibrary.simpleMessage("منذ 10 دقائق"),
@@ -195,17 +257,33 @@ class MessageLookup extends MessageLookupByLibrary {
     "turnCvIntoOpportunitiesDesc": MessageLookupByLibrary.simpleMessage(
       "اكتشف لماذا تناسبك الوظيفة، وما ينقصك، والخطوات التالية.",
     ),
+    "twoDaysAgo": MessageLookupByLibrary.simpleMessage("منذ يومين"),
     "twoHoursAgo": MessageLookupByLibrary.simpleMessage("منذ ساعتين"),
     "useDifferentEmail": MessageLookupByLibrary.simpleMessage(
       "استخدام بريد إلكتروني آخر",
     ),
+    "usedInTwoProjects": MessageLookupByLibrary.simpleMessage(
+      "استخدمتها في مشروعين",
+    ),
     "verificationCodeLabel": MessageLookupByLibrary.simpleMessage("رمز التحقق"),
     "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
     "viewApplication": MessageLookupByLibrary.simpleMessage("عرض التقديم"),
+    "viewFullJobDescription": MessageLookupByLibrary.simpleMessage(
+      "عرض الوصف الكامل للوظيفة",
+    ),
     "viewJobs": MessageLookupByLibrary.simpleMessage("عرض الوظائف"),
     "viewMatches": MessageLookupByLibrary.simpleMessage("عرض الوظائف المناسبة"),
     "viewRoadmap": MessageLookupByLibrary.simpleMessage("عرض خارطة الطريق"),
+    "viewTimeline": MessageLookupByLibrary.simpleMessage("عرض التسلسل الزمني"),
+    "wantToImproveYourMatch": MessageLookupByLibrary.simpleMessage(
+      "هل تريد تحسين توافقك؟",
+    ),
+    "whatYouAlreadyMatch": MessageLookupByLibrary.simpleMessage(
+      "المهارات المتوافقة لديك",
+    ),
     "yesterday": MessageLookupByLibrary.simpleMessage("أمس"),
     "yesterdayTime": MessageLookupByLibrary.simpleMessage("أمس • 3:45 م"),
+    "yourMatch": MessageLookupByLibrary.simpleMessage("مدى توافقك"),
+    "zeroToTwoYears": MessageLookupByLibrary.simpleMessage("0–2 سنة"),
   };
 }

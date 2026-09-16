@@ -6,6 +6,7 @@ import 'package:MatchIn/features/auth/presentation/cubit/reset_password_cubit.da
 import 'package:MatchIn/features/auth/presentation/pages/create_new_password_view.dart';
 import 'package:MatchIn/features/auth/presentation/pages/otp_verification_view.dart';
 import 'package:MatchIn/features/auth/presentation/pages/password_changed_success_view.dart';
+import 'package:MatchIn/features/jobs/presentation/views/job_details_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/jobs_search_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/notifications_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/settings_view.dart';
@@ -54,7 +55,7 @@ abstract final class AppRouter {
         },
       ),
 
-      // Jobs
+      // JobsSearch
       GoRoute(
         path: AppRoutes.jobsSearch,
         builder: (context, state) {
@@ -77,6 +78,7 @@ abstract final class AppRouter {
         },
       ),
 
+      // Reset Password
       GoRoute(
         path: AppRoutes.kCreateNewPasswordView,
         builder: (context, state) {
@@ -91,6 +93,7 @@ abstract final class AppRouter {
         },
       ),
 
+      // Password Changed Success
       GoRoute(
         path: AppRoutes.kPasswordChangedSuccessView,
         builder: (context, state) {
@@ -98,6 +101,7 @@ abstract final class AppRouter {
         },
       ),
 
+      // Notifications
       GoRoute(
         path: AppRoutes.notifications,
         builder: (context, state) {
@@ -105,6 +109,7 @@ abstract final class AppRouter {
         },
       ),
 
+      // Settings
       GoRoute(
         path: AppRoutes.settings,
         builder: (context, state) {
@@ -112,7 +117,15 @@ abstract final class AppRouter {
         },
       ),
 
-      // TODO: Add Job Details route.
+      GoRoute(
+        path: AppRoutes.jobDetails,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: const JobDetailsView(),
+          );
+        },
+      ),
 
       // TODO: Add application routes.
     ],
