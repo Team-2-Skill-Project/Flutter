@@ -26,12 +26,16 @@ class JobMatchHeroWidget extends StatelessWidget {
                 color: Colors.white.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(16.r),
                 border: Border.all(
-                  color: AppColors.border.withValues(alpha: 0.6),
+                  color: AppColors.border.withValues(
+                    alpha: 0.6,
+                  ),
                   width: 1,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withValues(alpha: 0.05),
+                    color: AppColors.primary.withValues(
+                      alpha: 0.05,
+                    ),
                     blurRadius: 20,
                     offset: const Offset(0, 4),
                   ),
@@ -46,9 +50,10 @@ class JobMatchHeroWidget extends StatelessWidget {
                   child: Image.asset(
                     imagePath,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return _buildFallback();
-                    },
+                    errorBuilder:
+                        (context, error, stackTrace) {
+                          return _buildFallback();
+                        },
                   ),
                 ),
               ),
@@ -66,7 +71,9 @@ class JobMatchHeroWidget extends StatelessWidget {
                 border: Border.all(color: AppColors.border),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
+                    color: Colors.black.withValues(
+                      alpha: 0.05,
+                    ),
                     blurRadius: 2,
                     offset: const Offset(0, 1),
                   ),
@@ -77,7 +84,8 @@ class JobMatchHeroWidget extends StatelessWidget {
                 children: [
                   // Top Row: Dot + Job Title + Strong Match Badge
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment:
+                        MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
@@ -107,10 +115,13 @@ class JobMatchHeroWidget extends StatelessWidget {
                           vertical: 2.h,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.success.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(9999.r),
+                          color: AppColors.success
+                              .withValues(alpha: 0.1),
+                          borderRadius:
+                              BorderRadius.circular(9999.r),
                           border: Border.all(
-                            color: AppColors.success.withValues(alpha: 0.2),
+                            color: AppColors.success
+                                .withValues(alpha: 0.2),
                           ),
                         ),
                         child: Text(
@@ -127,7 +138,9 @@ class JobMatchHeroWidget extends StatelessWidget {
                   ),
 
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 6.h),
+                    padding: EdgeInsets.symmetric(
+                      vertical: 6.h,
+                    ),
                     child: const Divider(
                       height: 1,
                       color: AppColors.background,
@@ -136,7 +149,8 @@ class JobMatchHeroWidget extends StatelessWidget {
 
                   // Bottom Row: Location Info + Top Badge
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment:
+                        MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'TechNova • Cairo • Hybrid',
@@ -153,10 +167,13 @@ class JobMatchHeroWidget extends StatelessWidget {
                           vertical: 2.h,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.accent.withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(4.r),
+                          color: AppColors.accent
+                              .withValues(alpha: 0.15),
+                          borderRadius:
+                              BorderRadius.circular(4.r),
                           border: Border.all(
-                            color: AppColors.accent.withValues(alpha: 0.3),
+                            color: AppColors.accent
+                                .withValues(alpha: 0.3),
                           ),
                         ),
                         child: Text(
@@ -203,7 +220,9 @@ class JobMatchHeroWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(14.r),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withValues(alpha: 0.06),
+                    color: AppColors.primary.withValues(
+                      alpha: 0.06,
+                    ),
                     blurRadius: 10,
                   ),
                 ],
@@ -215,7 +234,9 @@ class JobMatchHeroWidget extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+              ),
               child: Icon(
                 Icons.compare_arrows_rounded,
                 size: 28.sp,
@@ -229,7 +250,9 @@ class JobMatchHeroWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(14.r),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withValues(alpha: 0.06),
+                    color: AppColors.primary.withValues(
+                      alpha: 0.06,
+                    ),
                     blurRadius: 10,
                   ),
                 ],

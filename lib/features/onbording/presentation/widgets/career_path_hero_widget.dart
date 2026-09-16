@@ -19,10 +19,12 @@ class CareerPathHeroWidget extends StatelessWidget {
             height: 288.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color(0xFFEAE8E4).withValues(alpha: 0.4),
+              color: const Color(0xFFEAE8E4)
+                  .withValues(alpha: 0.4),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFFEAE8E4).withValues(alpha: 0.5),
+                  color: const Color(0xFFEAE8E4)
+                      .withValues(alpha: 0.5),
                   blurRadius: 32,
                   spreadRadius: 8,
                 ),
@@ -53,7 +55,8 @@ class CareerPathHeroWidget extends StatelessWidget {
 
                 // The 3 Flat Cards
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
                   children: [
                     _buildFeatureCard(
                       icon: Icons.description_outlined,
@@ -92,7 +95,8 @@ class CareerPathHeroWidget extends StatelessWidget {
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(
-          color: const Color(0xFFC4C6CF).withValues(alpha: 0.6),
+          color: const Color(0xFFC4C6CF)
+              .withValues(alpha: 0.6),
           width: 1,
         ),
         boxShadow: [
@@ -106,11 +110,7 @@ class CareerPathHeroWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            icon,
-            size: 26.sp,
-            color: iconColor,
-          ),
+          Icon(icon, size: 26.sp, color: iconColor),
           SizedBox(height: 6.h),
           Text(
             label,

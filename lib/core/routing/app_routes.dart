@@ -1,11 +1,25 @@
 abstract final class AppRoutes {
-  static const kSplashView = '/';
-  static const kOnboardingView = '/onboarding';
-  static const kHomeView = '/home';
-  static const kLoginView = '/login';
-  static const kRegisterView = '/register';
-  static const kForgetPasswordView = '/forgotPassword';
-  static const kOtpVerificationView = '/otp';
-  static const kCreateNewPasswordView = '/createNewPassword';
-  static const kPasswordChangedSuccessView = '/passwordChangedSuccess';
+  AppRoutes._();
+
+  // Splash & Onboarding
+  static const String kSplashView = '/';
+  static const String kOnboardingView = '/onboarding';
+
+  // Authentication
+  static const String kLoginView = '/login';
+  static const String kRegisterView = '/register';
+  static const String kForgetPasswordView =
+      '/forgotPassword';
+  static const String kOtpVerificationView = '/otp';
+  static const String kCreateNewPasswordView =
+      '/createNewPassword';
+  static const String kPasswordChangedSuccessView =
+      '/passwordChangedSuccess';
+
+  // Main
+  static const String kHomeView = '/home';
+
+  // Jobs
+  static const String jobsSearch = '/jobs/search';
+  static const String jobDetails = '/jobs/details';
 }

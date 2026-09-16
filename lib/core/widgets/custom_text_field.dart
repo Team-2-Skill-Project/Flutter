@@ -1,4 +1,3 @@
-import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,45 +49,61 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String? initialValue;
   final FocusNode? focusNode;
+
   final String? labelText;
   final String? hintText;
   final String? helperText;
   final String? errorText;
+
   final bool isPassword;
   final bool? obscureText;
+
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final Widget? prefix;
   final Widget? suffix;
+
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final TextCapitalization textCapitalization;
+
   final List<TextInputFormatter>? inputFormatters;
+
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onFieldSubmitted;
   final FormFieldSetter<String>? onSaved;
   final VoidCallback? onTap;
+
   final bool readOnly;
   final bool enabled;
   final bool autofocus;
+
   final int? maxLines;
   final int? minLines;
   final int? maxLength;
+
   final Color? fillColor;
   final bool filled;
+
   final double? borderRadius;
+
   final Color? borderColor;
   final Color? focusedBorderColor;
   final Color? errorBorderColor;
+
   final EdgeInsetsGeometry? contentPadding;
+
   final TextStyle? textStyle;
   final TextStyle? hintStyle;
   final TextStyle? labelStyle;
+
   final Color? cursorColor;
 
   @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
+  State<CustomTextField> createState() {
+    return _CustomTextFieldState();
+  }
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
@@ -97,13 +112,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   void initState() {
     super.initState();
+
     _obscureText = widget.obscureText ?? widget.isPassword;
   }
 
   @override
-  void didUpdateWidget(covariant CustomTextField oldWidget) {
+  void didUpdateWidget(
+    covariant CustomTextField oldWidget,
+  ) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.obscureText != widget.obscureText && widget.obscureText != null) {
+
+    if (oldWidget.obscureText != widget.obscureText &&
+        widget.obscureText != null) {
       _obscureText = widget.obscureText!;
     }
   }
@@ -116,27 +136,44 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveRadius = widget.borderRadius ?? 8.r;
-    final effectiveBorderColor = widget.borderColor ?? AppColors.border;
-    final effectiveFocusedColor = widget.focusedBorderColor ?? AppColors.primary;
-    final effectiveErrorColor = widget.errorBorderColor ?? AppColors.error;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
-    Widget? effectiveSuffixIcon = widget.suffixIcon;
-    if (widget.isPassword) {
-      effectiveSuffixIcon = IconButton(
-        icon: Icon(
-          _obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-          size: 20.sp,
-          color: AppColors.textSecondary,
-        ),
-        onPressed: _togglePasswordVisibility,
-      );
-    }
+    final effectiveRadius = widget.borderRadius ?? 8.r;
+
+    final effectiveBorderColor =
+        widget.borderColor ?? theme.dividerColor;
+
+    final effectiveFocusedColor =
+        widget.focusedBorderColor ?? colorScheme.primary;
+
+    final effectiveErrorColor =
+        widget.errorBorderColor ?? colorScheme.error;
 
     final outlineBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(effectiveRadius),
-      borderSide: BorderSide(color: effectiveBorderColor, width: 1.0),
+      borderSide: BorderSide(
+        color: effectiveBorderColor,
+        width: 1,
+      ),
     );
+
+    Widget? effectiveSuffixIcon = widget.suffixIcon;
+
+    if (widget.isPassword) {
+      effectiveSuffixIcon = IconButton(
+        onPressed: _togglePasswordVisibility,
+        icon: Icon(
+          _obscureText
+              ? Icons.visibility_off_outlined
+              : Icons.visibility_outlined,
+          size: 20.sp,
+          color: colorScheme.onSurface.withValues(
+            alpha: 0.6,
+          ),
+        ),
+      );
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,82 +182,106 @@ class _CustomTextFieldState extends State<CustomTextField> {
         if (widget.labelText != null) ...[
           Text(
             widget.labelText!,
-            style: widget.labelStyle ??
-                TextStyle(
-                  fontFamily: 'DM Sans',
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.textPrimary,
-                ),
+            style:
+                widget.labelStyle ??
+                theme.textTheme.labelLarge,
           ),
+
           SizedBox(height: 6.h),
         ],
+
         TextFormField(
           controller: widget.controller,
           initialValue: widget.initialValue,
           focusNode: widget.focusNode,
+
           obscureText: _obscureText,
+
           keyboardType: widget.keyboardType,
           textInputAction: widget.textInputAction,
           textCapitalization: widget.textCapitalization,
+
           inputFormatters: widget.inputFormatters,
+
           validator: widget.validator,
           onChanged: widget.onChanged,
           onFieldSubmitted: widget.onFieldSubmitted,
           onSaved: widget.onSaved,
           onTap: widget.onTap,
+
           readOnly: widget.readOnly,
           enabled: widget.enabled,
           autofocus: widget.autofocus,
+
           maxLines: widget.isPassword ? 1 : widget.maxLines,
           minLines: widget.minLines,
           maxLength: widget.maxLength,
-          cursorColor: widget.cursorColor ?? AppColors.primary,
-          style: widget.textStyle ??
-              TextStyle(
-                fontFamily: 'Inter',
-                fontSize: 14.sp,
-                color: AppColors.textPrimary,
-              ),
+
+          cursorColor:
+              widget.cursorColor ?? colorScheme.primary,
+
+          style:
+              widget.textStyle ??
+              theme.textTheme.bodyMedium,
+
           decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: widget.hintStyle ??
-                TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 14.sp,
-                  color: AppColors.textSecondary.withValues(alpha: 0.6),
+
+            hintStyle:
+                widget.hintStyle ??
+                theme.textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurface.withValues(
+                    alpha: 0.6,
+                  ),
                 ),
+
             helperText: widget.helperText,
             errorText: widget.errorText,
+
             filled: widget.filled,
-            fillColor: widget.fillColor ?? Colors.white,
+            fillColor:
+                widget.fillColor ?? colorScheme.surface,
+
             prefixIcon: widget.prefixIcon,
             suffixIcon: effectiveSuffixIcon,
+
             prefix: widget.prefix,
             suffix: widget.suffix,
-            contentPadding: widget.contentPadding ??
+
+            contentPadding:
+                widget.contentPadding ??
                 EdgeInsets.symmetric(
                   horizontal: 14.w,
                   vertical: 14.h,
                 ),
+
             border: outlineBorder,
             enabledBorder: outlineBorder,
+
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(effectiveRadius),
+              borderRadius: BorderRadius.circular(
+                effectiveRadius,
+              ),
               borderSide: BorderSide(
                 color: effectiveFocusedColor,
                 width: 1.5,
               ),
             ),
+
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(effectiveRadius),
+              borderRadius: BorderRadius.circular(
+                effectiveRadius,
+              ),
               borderSide: BorderSide(
                 color: effectiveErrorColor,
-                width: 1.0,
+                width: 1,
               ),
             ),
+
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(effectiveRadius),
+              borderRadius: BorderRadius.circular(
+                effectiveRadius,
+              ),
               borderSide: BorderSide(
                 color: effectiveErrorColor,
                 width: 1.5,

@@ -23,7 +23,8 @@ class ProfileSetupCard extends StatelessWidget {
         color: Colors.white.withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(
-          color: const Color(0xFFC4C6CF).withValues(alpha: 0.4),
+          color: const Color(0xFFC4C6CF)
+              .withValues(alpha: 0.4),
           width: 1,
         ),
         boxShadow: [

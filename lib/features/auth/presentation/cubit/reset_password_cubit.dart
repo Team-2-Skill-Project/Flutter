@@ -3,9 +3,8 @@ import 'package:MatchIn/features/auth/presentation/cubit/reset_password_state.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ResetPasswordCubit extends Cubit<ResetPasswordState> {
-  ResetPasswordCubit({
-    required this.resetPasswordUseCase,
-  }) : super(const ResetPasswordInitial());
+  ResetPasswordCubit({required this.resetPasswordUseCase})
+    : super(const ResetPasswordInitial());
 
   final ResetPasswordUseCase resetPasswordUseCase;
 
@@ -21,7 +20,9 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     );
 
     result.fold(
-      (failure) => emit(ResetPasswordError(message: failure.message)),
+      (failure) => emit(
+        ResetPasswordError(message: failure.message),
+      ),
       (_) => emit(const ResetPasswordSuccess()),
     );
   }

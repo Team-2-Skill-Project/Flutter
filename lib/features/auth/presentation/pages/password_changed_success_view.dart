@@ -29,7 +29,9 @@ class PasswordChangedSuccessView extends StatelessWidget {
                   color: const Color(0xFFEBF3ED),
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: AppColors.success.withValues(alpha: 0.2),
+                    color: AppColors.success.withValues(
+                      alpha: 0.2,
+                    ),
                     width: 1,
                   ),
                 ),
@@ -59,7 +61,9 @@ class PasswordChangedSuccessView extends StatelessWidget {
 
               // Supporting Text
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16.w,
+                ),
                 child: Text(
                   S.of(context).passwordChangedSuccessDesc,
                   textAlign: TextAlign.center,
@@ -78,7 +82,8 @@ class PasswordChangedSuccessView extends StatelessWidget {
               // Primary Action
               CustomButton(
                 text: S.of(context).backToLogin,
-                onPressed: () => context.go(AppRoutes.kLoginView),
+                onPressed: () =>
+                    context.go(AppRoutes.kLoginView),
               ),
               SizedBox(height: 24.h),
             ],

@@ -14,8 +14,12 @@ class PasswordRequirementTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color iconColor = isMet ? AppColors.success : const Color(0xFF74777F);
-    final Color textColor = isMet ? AppColors.textPrimary : const Color(0xFF44474E);
+    final Color iconColor = isMet
+        ? AppColors.success
+        : const Color(0xFF74777F);
+    final Color textColor = isMet
+        ? AppColors.textPrimary
+        : const Color(0xFF44474E);
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 4.h),
@@ -26,7 +30,11 @@ class PasswordRequirementTile extends StatelessWidget {
             width: 14.w,
             height: 14.w,
             decoration: BoxDecoration(
-              color: isMet ? AppColors.success.withValues(alpha: 0.15) : Colors.transparent,
+              color: isMet
+                  ? AppColors.success.withValues(
+                      alpha: 0.15,
+                    )
+                  : Colors.transparent,
               shape: BoxShape.circle,
             ),
             alignment: Alignment.center,
@@ -43,7 +51,9 @@ class PasswordRequirementTile extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 12.sp,
-                fontWeight: isMet ? FontWeight.w500 : FontWeight.w400,
+                fontWeight: isMet
+                    ? FontWeight.w500
+                    : FontWeight.w400,
                 color: textColor,
                 height: 16 / 12,
               ),

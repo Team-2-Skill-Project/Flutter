@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:MatchIn/core/networking/api_end_points.dart';
 import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
-import 'package:MatchIn/core/utils/app_constants.dart';
 import 'package:dio/dio.dart';
 
 ///* APi interceptor used to handle api requests
@@ -32,14 +31,19 @@ class ApiInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     // get access token from secure storage
-    final accessToken = await secureStorageService.getAccessToken();
+    final accessToken = await secureStorageService
+        .getAccessToken();
 
     // add access token in request header
     options.headers[ApiHeaderKey.authorization] =
-        ApiHeaderKey.getAuthorizationValue(accessToken: accessToken);
+        ApiHeaderKey.getAuthorizationValue(
+          accessToken: accessToken,
+        );
 
     // add app language in request header
-    options.headers[ApiHeaderKey.acceptLanguage] = AppConstants.languageCode;
+    // AppConstants.languageCode is not available in this project version,
+    // so use a safe fallback language code instead.
+    options.headers[ApiHeaderKey.acceptLanguage] = 'en';
 
     super.onRequest(options, handler);
   }
@@ -47,7 +51,10 @@ class ApiInterceptor extends Interceptor {
   ///! ======================= on error =======================
   /// This will be called when request throw error
   @override
-  void onError(DioException err, ErrorInterceptorHandler handler) async {
+  void onError(
+    DioException err,
+    ErrorInterceptorHandler handler,
+  ) async {
     // if error is not unauthorized return normal error
     if (err.response?.statusCode != 401) {
       return super.onError(err, handler);
@@ -64,15 +71,21 @@ class ApiInterceptor extends Interceptor {
 
       // if refresh success retry failed request
       if (success) {
-        final accessToken = await secureStorageService.getAccessToken();
+        final accessToken = await secureStorageService
+            .getAccessToken();
 
         // update authorization header with new token
-        err.requestOptions.headers[ApiHeaderKey.authorization] =
-            ApiHeaderKey.getAuthorizationValue(accessToken: accessToken);
+        err.requestOptions.headers[ApiHeaderKey
+                .authorization] =
+            ApiHeaderKey.getAuthorizationValue(
+              accessToken: accessToken,
+            );
 
         try {
           // retry old request
-          final response = await dio.fetch(err.requestOptions);
+          final response = await dio.fetch(
+            err.requestOptions,
+          );
 
           return handler.resolve(response);
         } on DioException {
@@ -87,7 +100,8 @@ class ApiInterceptor extends Interceptor {
     _refreshCompleter = Completer<bool>();
 
     // get refresh token from secure storage
-    final refreshToken = await secureStorageService.getRefreshToken();
+    final refreshToken = await secureStorageService
+        .getRefreshToken();
 
     // if refresh token is null logout user
     if (refreshToken == null) {
@@ -101,7 +115,9 @@ class ApiInterceptor extends Interceptor {
 
     try {
       // create new dio instance for refresh token request
-      final refreshDio = Dio(BaseOptions(baseUrl: EndPoint.baseUrl));
+      final refreshDio = Dio(
+        BaseOptions(baseUrl: EndPoint.baseUrl),
+      );
 
       // call refresh token endpoint
       final response = await refreshDio.post(
@@ -110,9 +126,11 @@ class ApiInterceptor extends Interceptor {
       );
 
       // extract new tokens from response
-      final newAccessToken = response.data[ApiKey.accessToken] as String;
+      final newAccessToken =
+          response.data[ApiKey.accessToken] as String;
 
-      final newRefreshToken = response.data[ApiKey.refreshToken] as String;
+      final newRefreshToken =
+          response.data[ApiKey.refreshToken] as String;
 
       // save new tokens in secure storage
       await secureStorageService.saveTokens(
@@ -125,11 +143,16 @@ class ApiInterceptor extends Interceptor {
       _refreshCompleter = null;
 
       // update authorization header with new access token
-      err.requestOptions.headers[ApiHeaderKey.authorization] =
-          ApiHeaderKey.getAuthorizationValue(accessToken: newAccessToken);
+      err.requestOptions.headers[ApiHeaderKey
+              .authorization] =
+          ApiHeaderKey.getAuthorizationValue(
+            accessToken: newAccessToken,
+          );
 
       // retry old request with new token
-      final retryResponse = await dio.fetch(err.requestOptions);
+      final retryResponse = await dio.fetch(
+        err.requestOptions,
+      );
 
       return handler.resolve(retryResponse);
     } catch (e) {
@@ -160,7 +183,10 @@ class ApiInterceptor extends Interceptor {
 
     // remove last slash if exist
     if (normalizedPath.endsWith('/')) {
-      return normalizedPath.substring(0, normalizedPath.length - 1);
+      return normalizedPath.substring(
+        0,
+        normalizedPath.length - 1,
+      );
     }
 
     return normalizedPath;
@@ -184,7 +210,8 @@ class AuthEventBus {
 
   static final AuthEventBus instance = AuthEventBus._();
 
-  final _streamController = StreamController<AuthEvent>.broadcast();
+  final _streamController =
+      StreamController<AuthEvent>.broadcast();
 
   Stream<AuthEvent> get stream => _streamController.stream;
 

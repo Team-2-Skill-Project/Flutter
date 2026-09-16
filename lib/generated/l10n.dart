@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -241,12 +242,7 @@ class S {
 
   /// `Resend Code`
   String get resendCode {
-    return Intl.message(
-      'Resend Code',
-      name: 'resendCode',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Resend Code', name: 'resendCode', desc: '', args: []);
   }
 
   /// `Use a different email`
@@ -409,6 +405,186 @@ class S {
     return Intl.message(
       'Your password has been changed successfully. You can now log in with your new password.',
       name: 'passwordChangedSuccessDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hello, {name} 👋`
+  String greetingUser(String name) {
+    return Intl.message(
+      'Hello, $name 👋',
+      name: 'greetingUser',
+      desc: 'Greeting message displayed on the home screen',
+      args: [name],
+    );
+  }
+
+  /// `Ready to find your next opportunity?`
+  String get readyToFindYourNextOpportunity {
+    return Intl.message(
+      'Ready to find your next opportunity?',
+      name: 'readyToFindYourNextOpportunity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search jobs, companies, or skills`
+  String get searchJobs {
+    return Intl.message(
+      'Search jobs, companies, or skills',
+      name: 'searchJobs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We found jobs that match your profile`
+  String get jobsMatchYourProfile {
+    return Intl.message(
+      'We found jobs that match your profile',
+      name: 'jobsMatchYourProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Explore opportunities based on your skills and career preferences.`
+  String get jobsMatchDescription {
+    return Intl.message(
+      'Explore opportunities based on your skills and career preferences.',
+      name: 'jobsMatchDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Matches`
+  String get viewMatches {
+    return Intl.message(
+      'View Matches',
+      name: 'viewMatches',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recommended for you`
+  String get recommendedForYou {
+    return Intl.message(
+      'Recommended for you',
+      name: 'recommendedForYou',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See all`
+  String get seeAll {
+    return Intl.message('See all', name: 'seeAll', desc: '', args: []);
+  }
+
+  /// `Apply Now`
+  String get applyNow {
+    return Intl.message('Apply Now', name: 'applyNow', desc: '', args: []);
+  }
+
+  /// `No jobs found`
+  String get noJobsFound {
+    return Intl.message(
+      'No jobs found',
+      name: 'noJobsFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong`
+  String get somethingWentWrong {
+    return Intl.message(
+      'Something went wrong',
+      name: 'somethingWentWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Strong Match`
+  String get strongMatch {
+    return Intl.message(
+      'Strong Match',
+      name: 'strongMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good Match`
+  String get goodMatch {
+    return Intl.message('Good Match', name: 'goodMatch', desc: '', args: []);
+  }
+
+  /// `matches`
+  String get matches {
+    return Intl.message('matches', name: 'matches', desc: '', args: []);
+  }
+
+  /// `Match`
+  String get match {
+    return Intl.message('Match', name: 'match', desc: '', args: []);
+  }
+
+  /// `Search Jobs`
+  String get searchJobsTitle {
+    return Intl.message(
+      'Search Jobs',
+      name: 'searchJobsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All`
+  String get all {
+    return Intl.message('All', name: 'all', desc: '', args: []);
+  }
+
+  /// `Remote`
+  String get remote {
+    return Intl.message('Remote', name: 'remote', desc: '', args: []);
+  }
+
+  /// `Internship`
+  String get internship {
+    return Intl.message('Internship', name: 'internship', desc: '', args: []);
+  }
+
+  /// `Full-time`
+  String get fullTime {
+    return Intl.message('Full-time', name: 'fullTime', desc: '', args: []);
+  }
+
+  /// `Entry Level`
+  String get entryLevel {
+    return Intl.message('Entry Level', name: 'entryLevel', desc: '', args: []);
+  }
+
+  /// `opportunities`
+  String get opportunities {
+    return Intl.message(
+      'opportunities',
+      name: 'opportunities',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Most relevant`
+  String get mostRelevant {
+    return Intl.message(
+      'Most relevant',
+      name: 'mostRelevant',
       desc: '',
       args: [],
     );

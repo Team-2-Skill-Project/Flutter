@@ -21,7 +21,8 @@ class OpportunityHeroWidget extends StatelessWidget {
           color: Colors.white.withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
-            color: const Color(0xFFC4C6CF).withValues(alpha: 0.6),
+            color: const Color(0xFFC4C6CF)
+                .withValues(alpha: 0.6),
             width: 1,
           ),
         ),
@@ -66,7 +67,9 @@ class OpportunityHeroWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.r),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withValues(alpha: 0.08),
+                    color: AppColors.primary.withValues(
+                      alpha: 0.08,
+                    ),
                     blurRadius: 16,
                     offset: const Offset(0, 6),
                   ),
@@ -80,12 +83,19 @@ class OpportunityHeroWidget extends StatelessWidget {
             ),
             SizedBox(height: 16.h),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
+              padding: EdgeInsets.symmetric(
+                horizontal: 14.w,
+                vertical: 6.h,
+              ),
               decoration: BoxDecoration(
-                color: AppColors.secondary.withValues(alpha: 0.1),
+                color: AppColors.secondary.withValues(
+                  alpha: 0.1,
+                ),
                 borderRadius: BorderRadius.circular(20.r),
                 border: Border.all(
-                  color: AppColors.secondary.withValues(alpha: 0.25),
+                  color: AppColors.secondary.withValues(
+                    alpha: 0.25,
+                  ),
                 ),
               ),
               child: Text(

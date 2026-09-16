@@ -34,7 +34,9 @@ class DashedLinePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant DashedLinePainter oldDelegate) {
+  bool shouldRepaint(
+    covariant DashedLinePainter oldDelegate,
+  ) {
     return oldDelegate.color != color ||
         oldDelegate.dashWidth != dashWidth ||
         oldDelegate.dashSpace != dashSpace ||

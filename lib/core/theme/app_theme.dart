@@ -1,10 +1,19 @@
-// ignore_for_file: library_prefixes
-
 import 'package:flutter/material.dart';
-import 'package:MatchIn/core/theme/dark_theme.dart' as DarkTheme;
-import 'package:MatchIn/core/theme/light_theme.dart' as LightTheme;
+import 'package:MatchIn/core/theme/dark_theme.dart';
+import 'package:MatchIn/core/theme/light_theme.dart';
 
-abstract class AppTheme {
-  static ThemeData get lightTheme => LightTheme.lightTheme;
-  static ThemeData get darkTheme => DarkTheme.darkTheme;
+abstract final class AppTheme {
+  AppTheme._();
+
+  static ThemeData light({required Locale locale}) {
+    return getLightTheme(
+      isArabic: locale.languageCode == 'ar',
+    );
+  }
+
+  static ThemeData dark({required Locale locale}) {
+    return getDarkTheme(
+      isArabic: locale.languageCode == 'ar',
+    );
+  }
 }

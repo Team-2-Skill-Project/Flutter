@@ -18,10 +18,15 @@ class OtpCubit extends Cubit<OtpState> {
   }) async {
     emit(const OtpLoading());
 
-    final result = await verifyOtpUseCase(email: email, otp: otp);
+    final result = await verifyOtpUseCase(
+      email: email,
+      otp: otp,
+    );
 
     result.fold(
-      (failure) => emit(OtpVerificationError(message: failure.message)),
+      (failure) => emit(
+        OtpVerificationError(message: failure.message),
+      ),
       (_) => emit(const OtpVerificationSuccess()),
     );
   }
@@ -30,7 +35,8 @@ class OtpCubit extends Cubit<OtpState> {
     final result = await resendOtpUseCase(email: email);
 
     result.fold(
-      (failure) => emit(OtpResendError(message: failure.message)),
+      (failure) =>
+          emit(OtpResendError(message: failure.message)),
       (_) => emit(const OtpResendSuccess()),
     );
   }

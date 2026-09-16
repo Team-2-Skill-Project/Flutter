@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/core/widgets/custom_app_bar.dart';
@@ -22,10 +23,12 @@ class OtpVerificationView extends StatefulWidget {
   final String email;
 
   @override
-  State<OtpVerificationView> createState() => _OtpVerificationViewState();
+  State<OtpVerificationView> createState() =>
+      _OtpVerificationViewState();
 }
 
-class _OtpVerificationViewState extends State<OtpVerificationView> {
+class _OtpVerificationViewState
+    extends State<OtpVerificationView> {
   String _enteredOtp = '';
   int _secondsRemaining = 60;
   Timer? _countdownTimer;
@@ -39,13 +42,16 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
   void _startTimer() {
     _countdownTimer?.cancel();
     setState(() => _secondsRemaining = 60);
-    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_secondsRemaining > 0) {
-        setState(() => _secondsRemaining--);
-      } else {
-        timer.cancel();
-      }
-    });
+    _countdownTimer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        if (_secondsRemaining > 0) {
+          setState(() => _secondsRemaining--);
+        } else {
+          timer.cancel();
+        }
+      },
+    );
   }
 
   @override
@@ -57,15 +63,17 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
   void _onVerify() {
     if (_enteredOtp.length == 6) {
       context.read<OtpCubit>().verifyOtp(
-            email: widget.email,
-            otp: _enteredOtp,
-          );
+        email: widget.email,
+        otp: _enteredOtp,
+      );
     }
   }
 
   void _onResend() {
     if (_secondsRemaining == 0) {
-      context.read<OtpCubit>().resendOtp(email: widget.email);
+      context.read<OtpCubit>().resendOtp(
+        email: widget.email,
+      );
       _startTimer();
     }
   }
@@ -101,9 +109,13 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
           ),
           body: SafeArea(
             child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+                vertical: 16.h,
+              ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
                   // Logo / Icon section
                   Center(
@@ -112,10 +124,14 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                       height: 56.w,
                       decoration: BoxDecoration(
                         color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(16.r),
+                        borderRadius: BorderRadius.circular(
+                          16.r,
+                        ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.05),
+                            color: Colors.black.withValues(
+                              alpha: 0.05,
+                            ),
                             blurRadius: 2,
                             offset: const Offset(0, 1),
                           ),
@@ -161,18 +177,23 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                     padding: EdgeInsets.all(16.w),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(12.r),
+                      borderRadius: BorderRadius.circular(
+                        12.r,
+                      ),
                       border: Border.all(
                         color: AppColors.border,
                         width: 1,
                       ),
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
                       children: [
                         // Label
                         Text(
-                          S.of(context).verificationCodeLabel,
+                          S
+                              .of(context)
+                              .verificationCodeLabel,
                           style: TextStyle(
                             fontFamily: 'DM Sans',
                             fontSize: 11.sp,
@@ -187,10 +208,14 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                         OtpBoxesInput(
                           length: 6,
                           onChanged: (val) {
-                            setState(() => _enteredOtp = val);
+                            setState(
+                              () => _enteredOtp = val,
+                            );
                           },
                           onCompleted: (val) {
-                            setState(() => _enteredOtp = val);
+                            setState(
+                              () => _enteredOtp = val,
+                            );
                             _onVerify();
                           },
                         ),
@@ -198,30 +223,41 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
 
                         // Helper Row under OTP Boxes
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment:
+                              MainAxisAlignment
+                                  .spaceBetween,
                           children: [
                             Text(
                               _secondsRemaining > 0
-                                   ? '${S.of(context).resendCodeIn} $_secondsRemaining${S.of(context).secondsSuffix}'
+                                  ? '${S.of(context).resendCodeIn} $_secondsRemaining${S.of(context).secondsSuffix}'
                                   : '',
                               style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w400,
-                                color: AppColors.textSecondary,
+                                color:
+                                    AppColors.textSecondary,
                               ),
                             ),
                             InkWell(
-                              onTap: _secondsRemaining == 0 ? _onResend : null,
+                              onTap: _secondsRemaining == 0
+                                  ? _onResend
+                                  : null,
                               child: Text(
                                 S.of(context).resendCode,
                                 style: TextStyle(
                                   fontFamily: 'DM Sans',
                                   fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: _secondsRemaining == 0
+                                  fontWeight:
+                                      FontWeight.w600,
+                                  color:
+                                      _secondsRemaining == 0
                                       ? AppColors.secondary
-                                      : AppColors.textSecondary.withValues(alpha: 0.6),
+                                      : AppColors
+                                            .textSecondary
+                                            .withValues(
+                                              alpha: 0.6,
+                                            ),
                                 ),
                               ),
                             ),

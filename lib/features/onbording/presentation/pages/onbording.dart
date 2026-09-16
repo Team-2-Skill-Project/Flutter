@@ -39,7 +39,8 @@ class _Onb1State extends State<Onb1> {
   }
 
   Future<void> _finishOnboarding() async {
-    await getIt<SharedPreferencesService>().onBoardingViewed();
+    await getIt<SharedPreferencesService>()
+        .onBoardingViewed();
     if (mounted) {
       context.go(AppRoutes.kOtpVerificationView);
     }
@@ -71,30 +72,43 @@ class _Onb1State extends State<Onb1> {
                 children: [
                   // Step 1: Turn CV into Opportunities
                   _buildStep(
-                    centerVisual: const OpportunityHeroWidget(),
-                    bottomSection: OnboardingNarrativeSection(
-                      title: S.of(context).turnCvIntoOpportunities,
-                      subtitle: S.of(context).turnCvIntoOpportunitiesDesc,
-                      buttonText: S.of(context).next,
-                      onNext: () => _goToPage(1),
-                    ),
+                    centerVisual:
+                        const OpportunityHeroWidget(),
+                    bottomSection:
+                        OnboardingNarrativeSection(
+                          title: S
+                              .of(context)
+                              .turnCvIntoOpportunities,
+                          subtitle: S
+                              .of(context)
+                              .turnCvIntoOpportunitiesDesc,
+                          buttonText: S.of(context).next,
+                          onNext: () => _goToPage(1),
+                        ),
                   ),
 
                   // Step 2: Explainable Match
                   _buildStep(
-                    centerVisual: const JobMatchHeroWidget(),
-                    bottomSection: OnboardingNarrativeSection(
-                      title: S.of(context).getExplainableMatch,
-                      subtitle: S.of(context).getExplainableMatchDesc,
-                      titleFontSize: 26.sp,
-                      buttonText: S.of(context).next,
-                      onNext: () => _goToPage(2),
-                    ),
+                    centerVisual:
+                        const JobMatchHeroWidget(),
+                    bottomSection:
+                        OnboardingNarrativeSection(
+                          title: S
+                              .of(context)
+                              .getExplainableMatch,
+                          subtitle: S
+                              .of(context)
+                              .getExplainableMatchDesc,
+                          titleFontSize: 26.sp,
+                          buttonText: S.of(context).next,
+                          onNext: () => _goToPage(2),
+                        ),
                   ),
 
                   // Step 3: Career Profile Setup
                   _buildStep(
-                    centerVisual: const CareerPathHeroWidget(),
+                    centerVisual:
+                        const CareerPathHeroWidget(),
                     bottomSection: ProfileSetupCard(
                       onStart: _finishOnboarding,
                       onNotNow: _finishOnboarding,

@@ -16,7 +16,8 @@ class OtpBoxesInput extends StatefulWidget {
   final ValueChanged<String>? onCompleted;
 
   @override
-  State<OtpBoxesInput> createState() => _OtpBoxesInputState();
+  State<OtpBoxesInput> createState() =>
+      _OtpBoxesInputState();
 }
 
 class _OtpBoxesInputState extends State<OtpBoxesInput> {
@@ -53,16 +54,26 @@ class _OtpBoxesInputState extends State<OtpBoxesInput> {
     super.dispose();
   }
 
-  String get _currentOtp => _controllers.map((c) => c.text).join();
+  String get _currentOtp =>
+      _controllers.map((c) => c.text).join();
 
   void _onSlotChanged(int index, String value) {
     // Handling paste of multiple digits
     if (value.length > 1) {
-      final digits = value.replaceAll(RegExp(r'[^0-9]'), '');
-      for (int i = 0; i < widget.length && i < digits.length; i++) {
+      final digits = value.replaceAll(
+        RegExp(r'[^0-9]'),
+        '',
+      );
+      for (
+        int i = 0;
+        i < widget.length && i < digits.length;
+        i++
+      ) {
         _controllers[i].text = digits[i];
       }
-      final nextIndex = digits.length < widget.length ? digits.length : widget.length - 1;
+      final nextIndex = digits.length < widget.length
+          ? digits.length
+          : widget.length - 1;
       _focusNodes[nextIndex].requestFocus();
       _notifyChange();
       return;
@@ -81,7 +92,8 @@ class _OtpBoxesInputState extends State<OtpBoxesInput> {
   void _notifyChange() {
     final otp = _currentOtp;
     widget.onChanged(otp);
-    if (otp.length == widget.length && widget.onCompleted != null) {
+    if (otp.length == widget.length &&
+        widget.onCompleted != null) {
       widget.onCompleted!(otp);
     }
   }
@@ -95,7 +107,8 @@ class _OtpBoxesInputState extends State<OtpBoxesInput> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(widget.length, (index) {
           final isFocused = _focusNodes[index].hasFocus;
-          final isFilled = _controllers[index].text.isNotEmpty;
+          final isFilled =
+              _controllers[index].text.isNotEmpty;
 
           return Container(
             width: 47.33.w,
@@ -107,13 +120,17 @@ class _OtpBoxesInputState extends State<OtpBoxesInput> {
               border: Border.all(
                 color: isFocused
                     ? const Color(0xFF2563EB)
-                    : (isFilled ? AppColors.primary : AppColors.border),
+                    : (isFilled
+                          ? AppColors.primary
+                          : AppColors.border),
                 width: isFocused ? 2 : 1,
               ),
               boxShadow: isFocused
                   ? [
                       BoxShadow(
-                        color: AppColors.primary.withValues(alpha: 0.2),
+                        color: AppColors.primary.withValues(
+                          alpha: 0.2,
+                        ),
                         blurRadius: 4,
                         offset: const Offset(0, 1),
                       ),
@@ -121,11 +138,14 @@ class _OtpBoxesInputState extends State<OtpBoxesInput> {
                   : null,
             ),
             child: KeyboardListener(
-              focusNode: FocusNode(), // for backspace capture
+              focusNode:
+                  FocusNode(), // for backspace capture
               onKeyEvent: (event) {
                 if (event is KeyDownEvent &&
-                    event.logicalKey == LogicalKeyboardKey.backspace) {
-                  if (_controllers[index].text.isEmpty && index > 0) {
+                    event.logicalKey ==
+                        LogicalKeyboardKey.backspace) {
+                  if (_controllers[index].text.isEmpty &&
+                      index > 0) {
                     _controllers[index - 1].clear();
                     _focusNodes[index - 1].requestFocus();
                     _notifyChange();
@@ -138,7 +158,9 @@ class _OtpBoxesInputState extends State<OtpBoxesInput> {
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.number,
                 maxLength: 1,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
                 cursorColor: AppColors.primary,
                 style: TextStyle(
                   fontFamily: 'DM Sans',
@@ -153,7 +175,8 @@ class _OtpBoxesInputState extends State<OtpBoxesInput> {
                   focusedBorder: InputBorder.none,
                   contentPadding: EdgeInsets.zero,
                 ),
-                onChanged: (val) => _onSlotChanged(index, val),
+                onChanged: (val) =>
+                    _onSlotChanged(index, val),
               ),
             ),
           );

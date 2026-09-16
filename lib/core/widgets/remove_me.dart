@@ -1,47 +1,38 @@
 // TODO: Remove THIS FILE
 import 'package:flutter/material.dart';
 
-class HomeView extends StatelessWidget {
-  const new({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('HomeView'));
-  }
-}
-
 class AiChatView extends StatelessWidget {
-  const new({super.key});
+  const AiChatView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Text('AiChatView');
+    return const Center(child: Text('AiChatView'));
   }
 }
 
 class SavedJobsView extends StatelessWidget {
-  const new({super.key});
+  const SavedJobsView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Text('SavedJobsView');
+    return const Center(child: Text('SavedJobsView'));
   }
 }
 
 class RoadmapView extends StatelessWidget {
-  const new({super.key});
+  const RoadmapView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Text('RoadmapView');
+    return const Center(child: Text('RoadmapView'));
   }
 }
 
 class ProfileView extends StatelessWidget {
-  const new({super.key});
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Text('ProfileView');
+    return const Center(child: Text('ProfileView'));
   }
 }
