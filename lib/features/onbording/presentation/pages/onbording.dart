@@ -6,7 +6,7 @@ import 'package:MatchIn/features/onbording/presentation/widgets/career_path_hero
 import 'package:MatchIn/features/onbording/presentation/widgets/job_match_hero_widget.dart';
 import 'package:MatchIn/features/onbording/presentation/widgets/onboarding_narrative_section.dart';
 import 'package:MatchIn/features/onbording/presentation/widgets/onboarding_top_bar.dart';
-import 'package:MatchIn/features/onbording/presentation/widgets/opportunity_hero_widget.dart';
+import 'package:MatchIn/features/onbording/presentation/widgets/onboarding_indicator.dart';
 import 'package:MatchIn/features/onbording/presentation/widgets/profile_setup_card.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +71,15 @@ class _Onb1State extends State<Onb1> {
                 children: [
                   // Step 1: Turn CV into Opportunities
                   _buildStep(
-                    centerVisual: const OpportunityHeroWidget(),
+                    centerVisual: Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16.r),
+                        child: Image.asset(
+                          'assets/images/onboarding_1.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                     bottomSection: OnboardingNarrativeSection(
                       title: S.of(context).turnCvIntoOpportunities,
                       subtitle: S.of(context).turnCvIntoOpportunitiesDesc,
@@ -101,6 +109,15 @@ class _Onb1State extends State<Onb1> {
                     ),
                   ),
                 ],
+              ),
+            ),
+
+            // Fixed Bottom Indicator
+            Padding(
+              padding: EdgeInsets.only(bottom: 16.h, top: 8.h),
+              child: OnboardingIndicator(
+                currentPage: _currentPage,
+                itemCount: 3,
               ),
             ),
           ],

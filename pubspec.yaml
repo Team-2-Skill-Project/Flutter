@@ -64,12 +64,12 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-
-
+  generate: true
   uses-material-design: true  
   #! =============== Assets ===============
   assets:
     - assets/
+    - assets/images/
 
   #! =============== Fonts ===============
   # fonts:
@@ -96,3 +96,7 @@ flutter_assets:
   filename: app_assets.dart
   field_prefix: null
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/image.png"

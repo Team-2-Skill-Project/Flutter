@@ -18,10 +18,8 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(
-      _current != null,
-      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
-    );
+    assert(_current != null,
+        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
     return _current!;
   }
 
@@ -43,10 +41,8 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(
-      instance != null,
-      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
-    );
+    assert(instance != null,
+        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
     return instance!;
   }
 
@@ -76,7 +72,12 @@ class S {
 
   /// `Try Again`
   String get tryAgain {
-    return Intl.message('Try Again', name: 'tryAgain', desc: '', args: []);
+    return Intl.message(
+      'Try Again',
+      name: 'tryAgain',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Turn your CV into opportunities`
@@ -171,27 +172,52 @@ class S {
 
   /// `Start`
   String get start {
-    return Intl.message('Start', name: 'start', desc: '', args: []);
+    return Intl.message(
+      'Start',
+      name: 'start',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Get Started`
   String get getStarted {
-    return Intl.message('Get Started', name: 'getStarted', desc: '', args: []);
+    return Intl.message(
+      'Get Started',
+      name: 'getStarted',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Next`
   String get next {
-    return Intl.message('Next', name: 'next', desc: '', args: []);
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Skip`
   String get skip {
-    return Intl.message('Skip', name: 'skip', desc: '', args: []);
+    return Intl.message(
+      'Skip',
+      name: 'skip',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Not now`
   String get notNow {
-    return Intl.message('Not now', name: 'notNow', desc: '', args: []);
+    return Intl.message(
+      'Not now',
+      name: 'notNow',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Enter verification code`
@@ -226,7 +252,12 @@ class S {
 
   /// `Verify`
   String get verify {
-    return Intl.message('Verify', name: 'verify', desc: '', args: []);
+    return Intl.message(
+      'Verify',
+      name: 'verify',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Resend code in`
@@ -271,7 +302,12 @@ class S {
 
   /// `s`
   String get secondsSuffix {
-    return Intl.message('s', name: 'secondsSuffix', desc: '', args: []);
+    return Intl.message(
+      's',
+      name: 'secondsSuffix',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Create a new password`
@@ -379,6 +415,16 @@ class S {
     return Intl.message(
       'Reset password',
       name: 'resetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update password`
+  String get updatePassword {
+    return Intl.message(
+      'Update password',
+      name: 'updatePassword',
       desc: '',
       args: [],
     );

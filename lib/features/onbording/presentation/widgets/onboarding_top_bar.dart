@@ -1,5 +1,4 @@
 import 'package:MatchIn/core/utils/app_colors.dart';
-import 'package:MatchIn/features/onbording/presentation/widgets/onboarding_indicator.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,12 +21,12 @@ class OnboardingTopBar extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Stack(
+        alignment: Alignment.center,
         children: [
           // Brand Wordmark
           Text(
-            'SkillMatch',
+            'Match In',
             style: TextStyle(
               fontFamily: 'DM Sans',
               fontSize: 18.sp,
@@ -38,19 +37,13 @@ class OnboardingTopBar extends StatelessWidget {
             ),
           ),
 
-          // Animated Indicator Dots
-          OnboardingIndicator(
-            currentPage: currentPage,
-            itemCount: totalSteps,
-          ),
-
           // Trailing Action: Skip
-          SizedBox(
-            width: 50.w,
-            child: showSkip
-                ? Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
+          Align(
+            alignment: Alignment.centerRight,
+            child: SizedBox(
+              width: 50.w,
+              child: showSkip
+                  ? TextButton(
                       onPressed: onSkip,
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
@@ -67,9 +60,9 @@ class OnboardingTopBar extends StatelessWidget {
                           height: 20 / 14,
                         ),
                       ),
-                    ),
-                  )
-                : const SizedBox.shrink(),
+                    )
+                  : const SizedBox.shrink(),
+            ),
           ),
         ],
       ),

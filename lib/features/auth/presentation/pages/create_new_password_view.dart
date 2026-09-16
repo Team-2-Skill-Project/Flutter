@@ -93,154 +93,167 @@ class _CreateNewPasswordViewState extends State<CreateNewPasswordView> {
             title: S.of(context).createNewPassword,
           ),
           body: SafeArea(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Header Intro
-                  Text(
-                    S.of(context).createNewPassword,
-                    style: TextStyle(
-                      fontFamily: 'DM Sans',
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.textPrimary,
-                      letterSpacing: -0.6,
-                      height: 32 / 24,
-                    ),
-                  ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    S.of(context).chooseStrongPassword,
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.textSecondary,
-                      height: 20 / 14,
-                    ),
-                  ),
-                  SizedBox(height: 24.h),
-
-                  // Form Card Container
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(16.w),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12.r),
-                      border: Border.all(
-                        color: AppColors.border,
-                        width: 1,
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Field 1: New password
-                        CustomTextField(
-                          controller: _passwordController,
-                          labelText: S.of(context).newPassword,
-                          hintText: '••••••••',
-                          isPassword: true,
+            child: CustomScrollView(
+              slivers: [
+                SliverPadding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                  sliver: SliverList(
+                    delegate: SliverChildListDelegate([
+                      // Header Intro
+                      Text(
+                        S.of(context).createNewPassword,
+                        style: TextStyle(
+                          fontFamily: 'DM Sans',
+                          fontSize: 24.sp,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.textPrimary,
+                          letterSpacing: -0.6,
+                          height: 32 / 24,
                         ),
-                        SizedBox(height: 4.h),
-                        Text(
-                          S.of(context).passwordLengthHint,
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.textSecondary,
+                      ),
+                      SizedBox(height: 4.h),
+                      Text(
+                        S.of(context).chooseStrongPassword,
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.textSecondary,
+                          height: 20 / 14,
+                        ),
+                      ),
+                      SizedBox(height: 24.h),
+
+                      // Form Card Container
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(16.w),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12.r),
+                          border: Border.all(
+                            color: AppColors.border,
+                            width: 1,
                           ),
                         ),
-                        SizedBox(height: 12.h),
-
-                        // Divider
-                        const Divider(color: AppColors.border, thickness: 1),
-                        SizedBox(height: 12.h),
-
-                        // Field 2: Confirm new password
-                        CustomTextField(
-                          controller: _confirmPasswordController,
-                          labelText: S.of(context).confirmNewPassword,
-                          hintText: '••••••••',
-                          isPassword: true,
-                        ),
-                        SizedBox(height: 16.h),
-
-                        // Password Requirements Subsection
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.only(top: 12.h),
-                          decoration: const BoxDecoration(
-                            border: Border(
-                              top: BorderSide(
-                                color: AppColors.border,
-                                width: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Field 1: New password
+                            CustomTextField(
+                              controller: _passwordController,
+                              labelText: S.of(context).newPassword,
+                              hintText: '••••••••',
+                              isPassword: true,
+                            ),
+                            SizedBox(height: 4.h),
+                            Text(
+                              S.of(context).passwordLengthHint,
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.textSecondary,
                               ),
                             ),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                S.of(context).passwordRequirements,
-                                style: TextStyle(
-                                  fontFamily: 'DM Sans',
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.textPrimary,
+                            SizedBox(height: 12.h),
+
+                            // Divider
+                            const Divider(
+                                color: AppColors.border, thickness: 1),
+                            SizedBox(height: 12.h),
+
+                            // Field 2: Confirm new password
+                            CustomTextField(
+                              controller: _confirmPasswordController,
+                              labelText: S.of(context).confirmNewPassword,
+                              hintText: '••••••••',
+                              isPassword: true,
+                            ),
+                            SizedBox(height: 16.h),
+
+                            // Password Requirements Subsection
+                            Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.only(top: 12.h),
+                              decoration: const BoxDecoration(
+                                border: Border(
+                                  top: BorderSide(
+                                    color: AppColors.border,
+                                    width: 1,
+                                  ),
                                 ),
                               ),
-                              SizedBox(height: 8.h),
-                              PasswordRequirementTile(
-                                text: S.of(context).reqMin8Chars,
-                                isMet: _hasMinLength,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    S.of(context).passwordRequirements,
+                                    style: TextStyle(
+                                      fontFamily: 'DM Sans',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.textPrimary,
+                                    ),
+                                  ),
+                                  SizedBox(height: 8.h),
+                                  PasswordRequirementTile(
+                                    text: S.of(context).reqMin8Chars,
+                                    isMet: _hasMinLength,
+                                  ),
+                                  PasswordRequirementTile(
+                                    text: S.of(context).reqAtLeastOneNumber,
+                                    isMet: _hasNumber,
+                                  ),
+                                  PasswordRequirementTile(
+                                    text: S.of(context).reqAtLeastOneSpecial,
+                                    isMet: _hasSpecialChar,
+                                  ),
+                                ],
                               ),
-                              PasswordRequirementTile(
-                                text: S.of(context).reqAtLeastOneNumber,
-                                isMet: _hasNumber,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ]),
+                  ),
+                ),
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        // Action Stack
+                        CustomButton(
+                          text: S.of(context).updatePassword,
+                          onPressed: _onSubmit,
+                          isLoading: isLoading,
+                          isEnabled: _isValid,
+                        ),
+                        SizedBox(height: 12.h),
+
+                        // Link back to login
+                        Center(
+                          child: TextButton(
+                            onPressed: () => context.go(AppRoutes.kLoginView),
+                            child: Text(
+                              S.of(context).backToLogin,
+                              style: TextStyle(
+                                fontFamily: 'DM Sans',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.secondary,
                               ),
-                              PasswordRequirementTile(
-                                text: S.of(context).reqAtLeastOneSpecial,
-                                isMet: _hasSpecialChar,
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 24.h),
-
-                  // Action Stack
-                  CustomButton(
-                    text: S.of(context).resetPassword,
-                    onPressed: _onSubmit,
-                    isLoading: isLoading,
-                    isEnabled: _isValid,
-                  ),
-                  SizedBox(height: 12.h),
-
-                  // Link back to login
-                  Center(
-                    child: TextButton(
-                      onPressed: () => context.go(AppRoutes.kLoginView),
-                      child: Text(
-                        S.of(context).backToLogin,
-                        style: TextStyle(
-                          fontFamily: 'DM Sans',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.secondary,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );

@@ -40,6 +40,7 @@
     "reqAtLeastOneSpecial": "At least one special character",
     "passwordsDoNotMatch": "Passwords do not match",
     "resetPassword": "Reset password",
+    "updatePassword": "Update password",
     "backToLogin": "Back to login",
 
     "passwordChangedSuccessfully": "Password changed successfully",

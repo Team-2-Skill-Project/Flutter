@@ -108,23 +108,24 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                   // Logo / Icon section
                   Center(
                     child: Container(
-                      width: 56.w,
-                      height: 56.w,
+                      width: 72.w,
+                      height: 72.w,
                       decoration: BoxDecoration(
-                        color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(16.r),
+                        borderRadius: BorderRadius.circular(20.r),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.05),
-                            blurRadius: 2,
-                            offset: const Offset(0, 1),
+                            color: Colors.black.withValues(alpha: 0.08),
+                            blurRadius: 8,
+                            offset: const Offset(0, 4),
                           ),
                         ],
                       ),
-                      child: Icon(
-                        Icons.verified_user_outlined,
-                        color: Colors.white,
-                        size: 28.sp,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20.r),
+                        child: Image.asset(
+                          'assets/images/image.png',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -197,35 +198,34 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                         SizedBox(height: 12.h),
 
                         // Helper Row under OTP Boxes
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              _secondsRemaining > 0
-                                   ? '${S.of(context).resendCodeIn} $_secondsRemaining${S.of(context).secondsSuffix}'
-                                  : '',
-                              style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.textSecondary,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: _secondsRemaining == 0 ? _onResend : null,
-                              child: Text(
-                                S.of(context).resendCode,
-                                style: TextStyle(
-                                  fontFamily: 'DM Sans',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: _secondsRemaining == 0
-                                      ? AppColors.secondary
-                                      : AppColors.textSecondary.withValues(alpha: 0.6),
+                        Center(
+                          child: _secondsRemaining > 0
+                              ? Text(
+                                  '${S.of(context).resendCodeIn} $_secondsRemaining${S.of(context).secondsSuffix}',
+                                  style: TextStyle(
+                                    fontFamily: 'Inter',
+                                    fontSize: 13.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.textSecondary,
+                                  ),
+                                )
+                              : InkWell(
+                                  onTap: _onResend,
+                                  borderRadius: BorderRadius.circular(4.r),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 4.h, horizontal: 8.w),
+                                    child: Text(
+                                      S.of(context).resendCode,
+                                      style: TextStyle(
+                                        fontFamily: 'DM Sans',
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.primary,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ],
                         ),
                       ],
                     ),
