@@ -24,12 +24,21 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "aFewMoreQuestions": MessageLookupByLibrary.simpleMessage(
+      "A few more questions",
+    ),
     "account": MessageLookupByLibrary.simpleMessage("ACCOUNT"),
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "alreadySubmitted": MessageLookupByLibrary.simpleMessage(
       "Already submitted",
     ),
+    "answerEmployerQuestions": MessageLookupByLibrary.simpleMessage(
+      "Answer the employer’s questions to continue your application.",
+    ),
     "application": MessageLookupByLibrary.simpleMessage("Application"),
+    "applicationQuestions": MessageLookupByLibrary.simpleMessage(
+      "Application Questions",
+    ),
     "applicationStatus": MessageLookupByLibrary.simpleMessage(
       "Application status",
     ),
@@ -41,11 +50,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "applications": MessageLookupByLibrary.simpleMessage("Applications"),
     "applied": MessageLookupByLibrary.simpleMessage("Applied"),
+    "applyForRole": MessageLookupByLibrary.simpleMessage("Apply for Role"),
     "applyNow": MessageLookupByLibrary.simpleMessage("Apply Now"),
     "backToLogin": MessageLookupByLibrary.simpleMessage("Back to login"),
     "buildMyRoadmap": MessageLookupByLibrary.simpleMessage("Build My Roadmap"),
     "cairo": MessageLookupByLibrary.simpleMessage("Cairo"),
+    "change": MessageLookupByLibrary.simpleMessage("Change"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Change Password"),
+    "characters": MessageLookupByLibrary.simpleMessage("characters"),
     "chooseStrongPassword": MessageLookupByLibrary.simpleMessage(
       "Choose a strong password you haven’t used before.",
     ),
@@ -53,8 +65,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "Confirm new password",
     ),
     "contactUs": MessageLookupByLibrary.simpleMessage("Contact Us"),
+    "continueText": MessageLookupByLibrary.simpleMessage("Continue"),
     "copyright": MessageLookupByLibrary.simpleMessage(
       "© 2025 SkillMatch. All rights reserved.",
+    ),
+    "coverNote": MessageLookupByLibrary.simpleMessage("Cover Note"),
+    "coverNoteHint": MessageLookupByLibrary.simpleMessage(
+      "Add a short message about why you’re interested in this role.",
     ),
     "createNewPassword": MessageLookupByLibrary.simpleMessage(
       "Create a new password",
@@ -67,12 +84,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "cvAnalysisDescription": MessageLookupByLibrary.simpleMessage(
       "We extracted 12 skills and updated your career profile.",
     ),
+    "cvResume": MessageLookupByLibrary.simpleMessage("CV / Résumé"),
     "education": MessageLookupByLibrary.simpleMessage("Education"),
+    "emailAddress": MessageLookupByLibrary.simpleMessage("Email Address"),
     "english": MessageLookupByLibrary.simpleMessage("English"),
     "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
       "Enter verification code",
     ),
     "entryLevel": MessageLookupByLibrary.simpleMessage("Entry Level"),
+    "expectedMonthlySalary": MessageLookupByLibrary.simpleMessage(
+      "What is your expected monthly salary?",
+    ),
     "experience": MessageLookupByLibrary.simpleMessage("Experience"),
     "experienceWithBloc": MessageLookupByLibrary.simpleMessage(
       "Experience with Bloc",
@@ -92,6 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "fourHoursAgo": MessageLookupByLibrary.simpleMessage("4 hrs ago"),
     "fromYourCv": MessageLookupByLibrary.simpleMessage("From your CV"),
+    "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "fullTime": MessageLookupByLibrary.simpleMessage("Full-time"),
     "getExplainableMatch": MessageLookupByLibrary.simpleMessage(
       "Get an explainable match",
@@ -144,6 +167,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
     "next": MessageLookupByLibrary.simpleMessage("Next"),
+    "nextApplicationQuestions": MessageLookupByLibrary.simpleMessage(
+      "Next: Application questions",
+    ),
     "niceToHave": MessageLookupByLibrary.simpleMessage("Nice to have"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "No internet connection",
@@ -151,6 +177,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noJobsFound": MessageLookupByLibrary.simpleMessage("No jobs found"),
     "notNow": MessageLookupByLibrary.simpleMessage("Not now"),
     "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
+    "onSite": MessageLookupByLibrary.simpleMessage("On-site"),
     "onboardingBullet1": MessageLookupByLibrary.simpleMessage(
       "Upload your CV for instant AI parsing",
     ),
@@ -161,6 +188,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Get matched with high-fit opportunities",
     ),
     "opportunities": MessageLookupByLibrary.simpleMessage("opportunities"),
+    "optional": MessageLookupByLibrary.simpleMessage("Optional"),
     "passwordChangedSuccessDesc": MessageLookupByLibrary.simpleMessage(
       "Your password has been changed successfully. You can now log in with your new password.",
     ),
@@ -176,18 +204,30 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
       "Passwords do not match",
     ),
+    "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
     "pleaseCheckYourInternetConnection": MessageLookupByLibrary.simpleMessage(
       "Please check your internet connection and try again",
+    ),
+    "popular": MessageLookupByLibrary.simpleMessage("Popular"),
+    "portfolioLinkHint": MessageLookupByLibrary.simpleMessage(
+      "https://github.com/username or portfolio",
+    ),
+    "portfolioOrProjectLink": MessageLookupByLibrary.simpleMessage(
+      "Portfolio or Project Link (Optional)",
     ),
     "postedTwoDaysAgo": MessageLookupByLibrary.simpleMessage(
       "Posted 2 days ago",
     ),
     "preferences": MessageLookupByLibrary.simpleMessage("PREFERENCES"),
     "preferred": MessageLookupByLibrary.simpleMessage("Preferred"),
+    "preferredWorkMode": MessageLookupByLibrary.simpleMessage(
+      "Which work mode do you prefer?",
+    ),
     "privacyAndSupport": MessageLookupByLibrary.simpleMessage(
       "PRIVACY & SUPPORT",
     ),
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+    "ready": MessageLookupByLibrary.simpleMessage("Ready"),
     "readyToFindYourNextOpportunity": MessageLookupByLibrary.simpleMessage(
       "Ready to find your next opportunity?",
     ),
@@ -211,7 +251,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
     "resendCodeIn": MessageLookupByLibrary.simpleMessage("Resend code in"),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
+    "reviewApplication": MessageLookupByLibrary.simpleMessage(
+      "Review Application",
+    ),
+    "reviewBeforeSubmission": MessageLookupByLibrary.simpleMessage(
+      "You will review all details before final submission.",
+    ),
     "reviewCv": MessageLookupByLibrary.simpleMessage("Review CV"),
+    "reviewInformationBeforeContinuing": MessageLookupByLibrary.simpleMessage(
+      "Review your information before continuing.",
+    ),
     "roadmap": MessageLookupByLibrary.simpleMessage("Roadmap"),
     "roadmapBasedOnJob": MessageLookupByLibrary.simpleMessage(
       "Your roadmap will be based on this job and your current skills.",
@@ -222,6 +271,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "roadmapUpdated": MessageLookupByLibrary.simpleMessage(
       "Your roadmap has been updated",
     ),
+    "salaryHelper": MessageLookupByLibrary.simpleMessage(
+      "Enter your expected gross monthly salary.",
+    ),
+    "salaryHint": MessageLookupByLibrary.simpleMessage("e.g. 24,000"),
     "searchJobs": MessageLookupByLibrary.simpleMessage(
       "Search jobs, companies, or skills",
     ),
@@ -247,7 +300,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "source": MessageLookupByLibrary.simpleMessage("Source"),
     "start": MessageLookupByLibrary.simpleMessage("Start"),
+    "stepOf": MessageLookupByLibrary.simpleMessage("of"),
     "strongMatch": MessageLookupByLibrary.simpleMessage("Strong Match"),
+    "supportingDocumentOptional": MessageLookupByLibrary.simpleMessage(
+      "Supporting Document (Optional)",
+    ),
+    "technologiesWorkedWith": MessageLookupByLibrary.simpleMessage(
+      "Which technologies have you worked with?",
+    ),
     "tenMinutesAgo": MessageLookupByLibrary.simpleMessage("10 min ago"),
     "testingPrioritySkill": MessageLookupByLibrary.simpleMessage(
       "Testing is now one of your highest-priority skills.",
@@ -263,6 +323,13 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "twoDaysAgo": MessageLookupByLibrary.simpleMessage("2 days ago"),
     "twoHoursAgo": MessageLookupByLibrary.simpleMessage("2 hrs ago"),
+    "updatedFiveDaysAgo": MessageLookupByLibrary.simpleMessage(
+      "Updated 5 days ago",
+    ),
+    "uploadFile": MessageLookupByLibrary.simpleMessage("Upload File"),
+    "uploadFileHint": MessageLookupByLibrary.simpleMessage(
+      "PDF or DOCX • Max 5 MB",
+    ),
     "useDifferentEmail": MessageLookupByLibrary.simpleMessage(
       "Use a different email",
     ),
@@ -273,6 +340,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "VERIFICATION CODE",
     ),
     "verify": MessageLookupByLibrary.simpleMessage("Verify"),
+    "view": MessageLookupByLibrary.simpleMessage("View"),
     "viewApplication": MessageLookupByLibrary.simpleMessage("View Application"),
     "viewFullJobDescription": MessageLookupByLibrary.simpleMessage(
       "View full job description",
@@ -287,11 +355,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "whatYouAlreadyMatch": MessageLookupByLibrary.simpleMessage(
       "What you already match",
     ),
+    "whyInterestedHint": MessageLookupByLibrary.simpleMessage(
+      "Describe what excites you about TechNova and this position...",
+    ),
+    "whyInterestedRequired": MessageLookupByLibrary.simpleMessage(
+      "Why are you interested in this role? *",
+    ),
     "yesterday": MessageLookupByLibrary.simpleMessage("YESTERDAY"),
     "yesterdayTime": MessageLookupByLibrary.simpleMessage(
       "Yesterday • 3:45 PM",
     ),
+    "yourInformation": MessageLookupByLibrary.simpleMessage("Your Information"),
     "yourMatch": MessageLookupByLibrary.simpleMessage("Your Match"),
     "zeroToTwoYears": MessageLookupByLibrary.simpleMessage("0–2 years"),
+    "zeroToTwoYearsExp": MessageLookupByLibrary.simpleMessage("0–2 yrs exp"),
   };
 }

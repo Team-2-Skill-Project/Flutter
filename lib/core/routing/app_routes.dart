@@ -24,4 +24,9 @@ abstract final class AppRoutes {
   static const String jobDetails = '/jobs/details';
   static const String notifications = '/notifications';
   static const String settings = '/settings';
+
+  // Applications
+  static const String applyForRole = '/applications/apply';
+  static const String applicationQuestions =
+      '/applications/questions';
 }

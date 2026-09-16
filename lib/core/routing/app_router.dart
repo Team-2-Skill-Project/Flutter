@@ -1,6 +1,8 @@
 import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:MatchIn/core/widgets/main_navigation_screen.dart';
+import 'package:MatchIn/features/applications/presentation/views/application_questions_view.dart';
+import 'package:MatchIn/features/applications/presentation/views/apply_for_role_view.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/otp_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/reset_password_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/pages/create_new_password_view.dart';
@@ -127,7 +129,27 @@ abstract final class AppRouter {
         },
       ),
 
-      // TODO: Add application routes.
+      // Applications
+      GoRoute(
+        path: AppRoutes.applyForRole,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: const ApplyForRoleView(),
+          );
+        },
+      ),
+
+      // Application Questions
+      GoRoute(
+        path: AppRoutes.applicationQuestions,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: const ApplicationQuestionsView(),
+          );
+        },
+      ),
     ],
   );
 }

@@ -116,7 +116,12 @@ class JobCard extends StatelessWidget {
                   const Spacer(),
 
                   ElevatedButton(
-                    onPressed: onApply ?? () {},
+                    onPressed:
+                        onApply ??
+                        () {
+                          GoRouter.of(context)
+                              .push(AppRoutes.applyForRole);
+                        },
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(110.w, 42.h),
                       padding: EdgeInsets.symmetric(

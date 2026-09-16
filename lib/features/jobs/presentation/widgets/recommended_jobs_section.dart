@@ -1,8 +1,10 @@
+import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/job_card.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/matching_status.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class RecommendedJobsSection extends StatelessWidget {
   const RecommendedJobsSection({super.key});
@@ -25,7 +27,10 @@ class RecommendedJobsSection extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  GoRouter.of(context)
+                      .push(AppRoutes.jobsSearch);
+                },
                 child: Text(S.of(context).seeAll),
               ),
             ],
