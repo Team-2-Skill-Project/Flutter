@@ -3,15 +3,55 @@
   "pleaseCheckYourInternetConnection": "Please check your internet connection and try again",
   "tryAgain": "Try Again",
 
+  "turnCvIntoOpportunities": "Turn your CV into opportunities",
+  "turnCvIntoOpportunitiesDesc": "See why a job fits you, what you’re missing, and what to do next.",
+  "getExplainableMatch": "Get an explainable match",
+  "getExplainableMatchDesc": "Not just a score — strengths, gaps, and clear next actions.",
+  "setupCareerProfile": "Setup your career profile",
+  "setupCareerProfileDesc": "Tell us about your skills and goals to get better recommendations.",
+  "onboardingBullet1": "Upload your CV for instant AI parsing",
+  "onboardingBullet2": "Select target roles and skills",
+  "onboardingBullet3": "Get matched with high-fit opportunities",
+  "start": "Start",
+  "getStarted": "Get Started",
+  "next": "Next",
+  "skip": "Skip",
+  "notNow": "Not now",
+
+  "enterVerificationCode": "Enter verification code",
+  "sentCodeToEmail": "We sent a 6-digit code to your email.",
+  "verificationCodeLabel": "VERIFICATION CODE",
+  "verify": "Verify",
+  "resendCodeIn": "Resend code in",
+  "resendCode": "Resend Code",
+  "useDifferentEmail": "Use a different email",
+  "invalidVerificationCode": "Invalid verification code",
+  "secondsSuffix": "s",
+
+  "createNewPassword": "Create a new password",
+  "chooseStrongPassword": "Choose a strong password you haven’t used before.",
+  "newPassword": "New password",
+  "confirmNewPassword": "Confirm new password",
+  "passwordLengthHint": "Use at least 8 characters.",
+  "passwordRequirements": "Password requirements",
+  "reqMin8Chars": "At least 8 characters",
+  "reqAtLeastOneNumber": "At least one number",
+  "reqAtLeastOneSpecial": "At least one special character",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "resetPassword": "Reset password",
+  "backToLogin": "Back to login",
+  "passwordChangedSuccessfully": "Password changed successfully",
+  "passwordChangedSuccessDesc": "Your password has been changed successfully. You can now log in with your new password.",
+
   "greetingUser": "Hello, {name} 👋",
   "@greetingUser": {
-  "description": "Greeting message displayed on the home screen",
-  "placeholders": {
-    "name": {
-      "type": "String"
+    "description": "Greeting message displayed on the home screen",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
     }
-  }
-},
+  },
 
   "readyToFindYourNextOpportunity": "Ready to find your next opportunity?",
   "searchJobs": "Search jobs, companies, or skills",

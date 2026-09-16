@@ -53,4 +53,24 @@ abstract final class AppColors {
 
   static const Color white = Color(0xFFFFFFFF);
   static const Color transparent = Colors.transparent;
+
+  // =========================================================
+  // Legacy UI Aliases
+  // =========================================================
+
+  // These aliases keep the existing presentation widgets compatible with the
+  // current palette while they are migrated to theme-based colors.
+  static const Color primary = midnightBlue;
+  static const Color secondary = terracotta;
+  static const Color accent = goldenMustard;
+  static const Color success = forestGreen;
+
+  static const Color background = lightBackground;
+  static const Color surface = lightSurface;
+  static const Color surfaceVariant = lightSurfaceVariant;
+  static const Color greyBackground = lightSurfaceVariant;
+
+  static const Color textPrimary = lightTextPrimary;
+  static const Color textSecondary = lightTextSecondary;
+  static const Color border = lightBorder;
 }
