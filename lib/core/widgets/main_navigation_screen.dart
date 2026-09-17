@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/core/widgets/views/ai_chat_view.dart';
@@ -8,19 +9,27 @@ import 'package:MatchIn/features/jobs/presentation/views/home_view.dart';
 import 'package:MatchIn/features/roadmap/presentation/views/roadmap_view.dart';
 
 class MainNavigationScreen extends StatefulWidget {
-  const MainNavigationScreen({super.key});
+  const MainNavigationScreen({super.key, this.initialIndex = 2});
+
+  final int initialIndex;
 
   @override
   State<MainNavigationScreen> createState() => _MainNavigationScreenState();
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int currentIndex = 0;
+  late int currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = widget.initialIndex;
+  }
 
   final List<Widget> pages = const [
-    HomeView(),
     AiChatView(),
     SavedJobsView(),
+    HomeView(),
     RoadmapView(),
     ProfileView(),
   ];
@@ -28,32 +37,43 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final textTheme = context.textTheme;
     final l10n = context.l10n;
 
     return Scaffold(
       body: IndexedStack(index: currentIndex, children: pages),
       bottomNavigationBar: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: GNav(
-            selectedIndex: currentIndex,
-            onTabChange: (index) {
-              setState(() {
-                currentIndex = index;
-              });
-            },
-            gap: 8,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            color: colors.onSurface.withValues(alpha: 0.6),
-            activeColor: colors.primary,
-            tabBackgroundColor: colors.primary.withValues(alpha: 0.12),
-            tabs: [
-              GButton(icon: Icons.home_outlined, text: l10n.home),
-              GButton(icon: Icons.smart_toy_outlined, text: l10n.chatBot),
-              GButton(icon: Icons.bookmark_outline, text: l10n.savedJobs),
-              GButton(icon: Icons.route_outlined, text: l10n.roadMap),
-              GButton(icon: Icons.person_outline, text: l10n.profile),
-            ],
+          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: GNav(
+              selectedIndex: currentIndex,
+              onTabChange: (index) {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              gap: 4.w,
+              iconSize: 22.r,
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+              color: colors.onSurface.withValues(alpha: 0.6),
+              activeColor: colors.primary,
+              tabBackgroundColor: colors.primary.withValues(alpha: 0.12),
+              textStyle: textTheme.labelMedium?.copyWith(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w600,
+                color: colors.primary,
+              ),
+              tabs: [
+                GButton(icon: Icons.smart_toy_outlined, text: l10n.chatBot),
+                GButton(icon: Icons.bookmark_outline, text: l10n.savedJobs),
+                GButton(icon: Icons.home_outlined, text: l10n.home),
+                GButton(icon: Icons.route_outlined, text: l10n.roadMap),
+                GButton(icon: Icons.person_outline, text: l10n.profile),
+              ],
+            ),
           ),
         ),
       ),
