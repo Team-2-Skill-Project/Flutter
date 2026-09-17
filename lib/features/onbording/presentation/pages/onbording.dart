@@ -40,7 +40,7 @@ class _Onb1State extends State<Onb1> {
   Future<void> _finishOnboarding() async {
     await getIt<SharedPreferencesService>().onBoardingViewed();
     if (mounted) {
-      context.go(AppRoutes.kOtpVerificationView);
+      context.go(AppRoutes.kRegisterView);
     }
   }
 
