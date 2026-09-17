@@ -152,7 +152,7 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
             style: textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w700,
               fontSize: isActive ? 15.sp : 14.sp,
-              color: isLocked ? colors.onSurfaceVariant : colors.secondary,
+              color: isLocked ? colors.onSurfaceVariant : colors.onSurface,
             ),
           ),
         ),
@@ -166,7 +166,7 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
               style: textTheme.bodySmall?.copyWith(
                 fontSize: 11.sp,
                 fontWeight: FontWeight.w500,
-                color: colors.onSurfaceVariant.withValues(alpha: 0.8),
+                color: colors.onSurfaceVariant,
               ),
             ),
           ),

@@ -52,7 +52,7 @@ class SkillDetailsSheet extends StatelessWidget {
                       style: textTheme.headlineSmall?.copyWith(
                         fontSize: 22.sp,
                         fontWeight: FontWeight.bold,
-                        color: colors.secondary,
+                        color: colors.onSurface,
                       ),
                     ),
                     if (currentNode.subtitle != null &&
@@ -167,7 +167,7 @@ class _SkillDetailsProgressOverview extends StatelessWidget {
                 style: textTheme.titleSmall?.copyWith(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
-                  color: colors.secondary,
+                  color: colors.onSurface,
                 ),
               ),
               Text(
@@ -207,7 +207,7 @@ class _SkillDetailsSectionTitle extends StatelessWidget {
 
     return Row(
       children: [
-        Icon(Icons.task_alt_rounded, size: 18.r, color: colors.secondary),
+        Icon(Icons.task_alt_rounded, size: 18.r, color: colors.primary),
         SizedBox(width: 8.w),
         Text(
           l10n.learningTasks,
@@ -215,7 +215,7 @@ class _SkillDetailsSectionTitle extends StatelessWidget {
             fontSize: 13.sp,
             fontWeight: FontWeight.bold,
             letterSpacing: 0.8,
-            color: colors.secondary,
+            color: colors.primary,
           ),
         ),
       ],

@@ -84,7 +84,7 @@ class RoadmapXpBar extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w700,
-                      color: context.colors.secondary,
+                      color: context.colors.onSurface,
                     ),
                   ),
                 ],

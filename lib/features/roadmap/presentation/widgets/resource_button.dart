@@ -61,7 +61,7 @@ class ResourceButton extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w600,
-                  color: context.colors.secondary,
+                  color: context.colors.onSurface,
                 ),
               ),
               SizedBox(width: 6.w),

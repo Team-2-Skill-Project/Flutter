@@ -136,7 +136,7 @@ class _TaskHeaderRow extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: isCompleted
                       ? colors.onSurfaceVariant
-                      : colors.secondary,
+                      : colors.onSurface,
                   decoration: isCompleted
                       ? TextDecoration.lineThrough
                       : TextDecoration.none,
