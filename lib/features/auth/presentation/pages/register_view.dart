@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
 
@@ -37,7 +36,7 @@ class _RegisterViewState extends State<RegisterView> {
   Widget build(BuildContext context) {
     final isArabic = Localizations.localeOf(context).languageCode == 'ar';
     final theme = Theme.of(context);
-    final locale = S.of(context); 
+    final locale = S.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +45,7 @@ class _RegisterViewState extends State<RegisterView> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          locale.createAccount, 
+          locale.createAccount,
           style: AppTextStyles.heading18Bold(isArabic: isArabic),
         ),
         centerTitle: true,
@@ -77,7 +76,7 @@ class _RegisterViewState extends State<RegisterView> {
                   keyboardType: TextInputType.emailAddress,
                 ),
                 SizedBox(height: 16.h),
-                
+
                 CustomTextField(
                   controller: _phoneController,
                   labelText: locale.phoneNumber,
@@ -85,7 +84,7 @@ class _RegisterViewState extends State<RegisterView> {
                   keyboardType: TextInputType.phone,
                 ),
                 SizedBox(height: 16.h),
-                
+
                 CustomTextField(
                   controller: _passwordController,
                   labelText: locale.password,
@@ -93,7 +92,7 @@ class _RegisterViewState extends State<RegisterView> {
                   isPassword: true,
                 ),
                 SizedBox(height: 16.h),
-                
+
                 CustomTextField(
                   controller: _confirmPasswordController,
                   labelText: locale.confirmPassword,
@@ -132,22 +131,22 @@ class _RegisterViewState extends State<RegisterView> {
                   },
                 ),
                 SizedBox(height: 16.h),
-                
+
                 Row(
                   children: [
                     const Expanded(child: Divider()),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: Text(
-                        locale.or, 
-                        style: AppTextStyles.body14Regular(isArabic: isArabic)
+                        locale.or,
+                        style: AppTextStyles.body14Regular(isArabic: isArabic),
                       ),
                     ),
                     const Expanded(child: Divider()),
                   ],
                 ),
                 SizedBox(height: 16.h),
-                
+
                 SocialLoginButton(
                   text: locale.registerWithGoogle,
                   icon: const Icon(Icons.g_mobiledata, size: 32),
@@ -163,7 +162,9 @@ class _RegisterViewState extends State<RegisterView> {
                       style: AppTextStyles.body14SemiBold(isArabic: isArabic),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
                       child: Padding(
                         padding: EdgeInsets.all(4.w),
                         child: Text(

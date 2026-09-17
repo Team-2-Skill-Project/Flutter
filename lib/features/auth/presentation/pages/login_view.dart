@@ -3,6 +3,7 @@ import 'package:MatchIn/core/utils/app_text_styles.dart';
 import 'package:MatchIn/core/widgets/custom_button.dart';
 import 'package:MatchIn/core/widgets/custom_text_field.dart';
 import 'package:MatchIn/core/widgets/social_login_button.dart';
+import 'package:MatchIn/features/auth/presentation/pages/register_view.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -169,7 +170,9 @@ class _LoginViewState extends State<LoginView> {
                       style: AppTextStyles.body14SemiBold(isArabic: isArabic),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterView()));
+                      },
                       child: Padding(
                         padding: EdgeInsets.all(4.w),
                         child: Text(
@@ -177,6 +180,7 @@ class _LoginViewState extends State<LoginView> {
                           style: AppTextStyles.body14Bold(
                             isArabic: isArabic,
                             color: theme.colorScheme.secondary,
+                            
                           ),
                         ),
                       ),
