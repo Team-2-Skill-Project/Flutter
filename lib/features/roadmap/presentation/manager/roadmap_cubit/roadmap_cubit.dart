@@ -39,10 +39,12 @@ class RoadmapCubit extends Cubit<RoadmapState> {
 
       final normalized = _normalizeNodes(roadmapNodes, activeTaskIds);
 
-      emit(RoadmapSuccess(
-        nodes: normalized,
-        collectedTreasures: collectedTreasures,
-      ));
+      emit(
+        RoadmapSuccess(
+          nodes: normalized,
+          collectedTreasures: collectedTreasures,
+        ),
+      );
     } catch (e) {
       emit(RoadmapFailure(errorMessage: e.toString()));
     }
@@ -55,14 +57,17 @@ class RoadmapCubit extends Cubit<RoadmapState> {
         ..add(milestoneIndex);
 
       if (getIt.isRegistered<SharedPreferencesService>()) {
-        await getIt<SharedPreferencesService>()
-            .saveCollectedTreasures(updatedSet);
+        await getIt<SharedPreferencesService>().saveCollectedTreasures(
+          updatedSet,
+        );
       }
 
-      emit(RoadmapSuccess(
-        nodes: currentSuccess.nodes,
-        collectedTreasures: updatedSet,
-      ));
+      emit(
+        RoadmapSuccess(
+          nodes: currentSuccess.nodes,
+          collectedTreasures: updatedSet,
+        ),
+      );
     }
   }
 
@@ -92,17 +97,20 @@ class RoadmapCubit extends Cubit<RoadmapState> {
 
     // Persist updated completed task IDs
     if (getIt.isRegistered<SharedPreferencesService>()) {
-      await getIt<SharedPreferencesService>()
-          .saveCompletedTasks(completedTaskIds);
+      await getIt<SharedPreferencesService>().saveCompletedTasks(
+        completedTaskIds,
+      );
     }
 
     // Re-normalize nodes sequentially (marks completed & unlocks next node)
     final normalized = _normalizeNodes(currentSuccess.nodes, completedTaskIds);
 
-    emit(RoadmapSuccess(
-      nodes: normalized,
-      collectedTreasures: currentSuccess.collectedTreasures,
-    ));
+    emit(
+      RoadmapSuccess(
+        nodes: normalized,
+        collectedTreasures: currentSuccess.collectedTreasures,
+      ),
+    );
   }
 
   List<RoadmapNode> _normalizeNodes(
@@ -118,8 +126,8 @@ class RoadmapCubit extends Cubit<RoadmapState> {
         return task.copyWith(isCompleted: completedTaskIds.contains(task.id));
       }).toList();
 
-      final allTasksCompleted = updatedTasks.isNotEmpty &&
-          updatedTasks.every((t) => t.isCompleted);
+      final allTasksCompleted =
+          updatedTasks.isNotEmpty && updatedTasks.every((t) => t.isCompleted);
 
       // Determine node status sequentially
       RoadmapTaskStatus status;
@@ -133,10 +141,7 @@ class RoadmapCubit extends Cubit<RoadmapState> {
         status = RoadmapTaskStatus.locked;
       }
 
-      result.add(node.copyWith(
-        tasks: updatedTasks,
-        status: status,
-      ));
+      result.add(node.copyWith(tasks: updatedTasks, status: status));
     }
 
     return result;

@@ -82,5 +82,3 @@ class SharedPreferencesService {
     return list.toSet();
   }
 }
-
-

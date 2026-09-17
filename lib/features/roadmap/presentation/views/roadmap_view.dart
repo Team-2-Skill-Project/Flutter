@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_view_body.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RoadmapView extends StatelessWidget {
   const RoadmapView({super.key, this.nodes});
@@ -13,9 +14,9 @@ class RoadmapView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Learning Roadmap',
-          style: TextStyle(
+        title: Text(
+          context.l10n.myCareerRoadmap,
+          style: context.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
           ),
         ),

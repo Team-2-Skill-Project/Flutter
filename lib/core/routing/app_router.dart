@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:MatchIn/core/widgets/app_web_view.dart';
@@ -9,9 +12,6 @@ import 'package:MatchIn/features/auth/presentation/pages/otp_verification_view.d
 import 'package:MatchIn/features/auth/presentation/pages/password_changed_success_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/jobs_search_view.dart';
 import 'package:MatchIn/features/onbording/presentation/pages/onbording.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 abstract final class AppRouter {
   AppRouter._();
@@ -24,10 +24,7 @@ abstract final class AppRouter {
       key: state.pageKey,
       child: child,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(
-          opacity: animation,
-          child: child,
-        );
+        return FadeTransition(opacity: animation, child: child);
       },
     );
   }
@@ -38,21 +35,22 @@ abstract final class AppRouter {
       // Main Navigation
       GoRoute(
         path: AppRoutes.kHomeView,
-        builder: (context, state) {
-          return const MainNavigationScreen();
-        },
+        pageBuilder: (context, state) => _buildTransitionPage(
+          state: state,
+          child: const MainNavigationScreen(),
+        ),
       ),
 
       // Reusable WebView
       GoRoute(
         path: AppRoutes.kWebView,
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           final args = state.extra as Map<String, dynamic>? ?? {};
           final url = args['url'] as String? ?? '';
           final title = args['title'] as String?;
-          return AppWebView(
-            url: url,
-            title: title,
+          return _buildTransitionPage(
+            state: state,
+            child: AppWebView(url: url, title: title),
           );
         },
       ),
@@ -60,49 +58,50 @@ abstract final class AppRouter {
       // Onboarding
       GoRoute(
         path: AppRoutes.kOnboardingView,
-        builder: (context, state) {
-          return const Onb1();
-        },
+        pageBuilder: (context, state) =>
+            _buildTransitionPage(state: state, child: const Onb1()),
       ),
 
       // Jobs
       GoRoute(
         path: AppRoutes.jobsSearch,
-        builder: (context, state) {
-          return const JobsSearchView();
-        },
+        pageBuilder: (context, state) =>
+            _buildTransitionPage(state: state, child: const JobsSearchView()),
       ),
 
       // Authentication
       GoRoute(
         path: AppRoutes.kOtpVerificationView,
-        builder: (context, state) {
-          return BlocProvider(
+        pageBuilder: (context, state) => _buildTransitionPage(
+          state: state,
+          child: BlocProvider(
             create: (_) => getIt<OtpCubit>(),
             child: OtpVerificationView(
               email: state.extra as String? ?? 'user@example.com',
             ),
-          );
-        },
+          ),
+        ),
       ),
 
       GoRoute(
         path: AppRoutes.kCreateNewPasswordView,
-        builder: (context, state) {
-          return BlocProvider(
+        pageBuilder: (context, state) => _buildTransitionPage(
+          state: state,
+          child: BlocProvider(
             create: (_) => getIt<ResetPasswordCubit>(),
             child: CreateNewPasswordView(
               email: state.extra as String? ?? 'user@example.com',
             ),
-          );
-        },
+          ),
+        ),
       ),
 
       GoRoute(
         path: AppRoutes.kPasswordChangedSuccessView,
-        builder: (context, state) {
-          return const PasswordChangedSuccessView();
-        },
+        pageBuilder: (context, state) => _buildTransitionPage(
+          state: state,
+          child: const PasswordChangedSuccessView(),
+        ),
       ),
     ],
   );

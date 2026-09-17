@@ -3,11 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeSearchField extends StatelessWidget {
-  const HomeSearchField({
-    super.key,
-    this.onTap,
-    this.onFilterTap,
-  });
+  const HomeSearchField({super.key, this.onTap, this.onFilterTap});
 
   final VoidCallback? onTap;
   final VoidCallback? onFilterTap;
@@ -15,9 +11,7 @@ class HomeSearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.symmetric(
-        horizontal: 16.w,
-      ),
+      padding: EdgeInsetsDirectional.symmetric(horizontal: 16.w),
       child: TextField(
         readOnly: true,
         onTap: onTap,

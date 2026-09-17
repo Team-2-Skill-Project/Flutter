@@ -13,7 +13,8 @@ final roadmapNodes = [
       SkillTask(
         id: 'dart_1',
         title: 'Variables & Data Types',
-        description: 'Understand String, int, double, bool, lists, and maps in Dart.',
+        description:
+            'Understand String, int, double, bool, lists, and maps in Dart.',
         duration: '20 min',
         isCompleted: true,
         resources: [
@@ -241,7 +242,8 @@ final roadmapNodes = [
       SkillTask(
         id: 'api_2',
         title: 'JSON Parsing & Models',
-        description: 'Convert JSON payloads into strongly-typed Dart model classes.',
+        description:
+            'Convert JSON payloads into strongly-typed Dart model classes.',
         duration: '30 min',
         isCompleted: true,
         resources: [
@@ -334,7 +336,8 @@ final roadmapNodes = [
           TaskResource(
             type: TaskResourceType.documentation,
             title: 'Docs',
-            url: 'https://docs.flutter.dev/cookbook/testing/widget/introduction',
+            url:
+                'https://docs.flutter.dev/cookbook/testing/widget/introduction',
           ),
         ],
       ),
@@ -384,7 +387,8 @@ final roadmapNodes = [
       SkillTask(
         id: 'project_2',
         title: 'Feature Integration & Auth',
-        description: 'Build full login, registration, and persistent user sessions.',
+        description:
+            'Build full login, registration, and persistent user sessions.',
         duration: '90 min',
         isCompleted: false,
         resources: [
@@ -408,7 +412,8 @@ final roadmapNodes = [
       SkillTask(
         id: 'perf_1',
         title: 'Flutter DevTools Profiling',
-        description: 'Use DevTools timeline, memory inspector, and performance overlay.',
+        description:
+            'Use DevTools timeline, memory inspector, and performance overlay.',
         duration: '45 min',
         isCompleted: false,
         resources: [

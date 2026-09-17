@@ -23,8 +23,7 @@ class ProfileSetupCard extends StatelessWidget {
         color: Colors.white.withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(
-          color: const Color(0xFFC4C6CF)
-              .withValues(alpha: 0.4),
+          color: const Color(0xFFC4C6CF).withValues(alpha: 0.4),
           width: 1,
         ),
         boxShadow: [
@@ -71,10 +70,7 @@ class ProfileSetupCard extends StatelessWidget {
           SizedBox(height: 16.h),
 
           // Primary Button: Start
-          OnboardingActionButton(
-            text: S.of(context).start,
-            onPressed: onStart,
-          ),
+          OnboardingActionButton(text: S.of(context).start, onPressed: onStart),
           SizedBox(height: 8.h),
 
           // Secondary Text Button: Not now
@@ -83,10 +79,7 @@ class ProfileSetupCard extends StatelessWidget {
               onPressed: onNotNow,
               style: TextButton.styleFrom(
                 minimumSize: Size(56.w, 36.h),
-                padding: EdgeInsets.symmetric(
-                  horizontal: 8.w,
-                  vertical: 4.h,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
               ),
               child: Text(
                 S.of(context).notNow,
@@ -104,19 +97,13 @@ class ProfileSetupCard extends StatelessWidget {
     );
   }
 
-  Widget _buildBullet({
-    required Color dotColor,
-    required String text,
-  }) {
+  Widget _buildBullet({required Color dotColor, required String text}) {
     return Row(
       children: [
         Container(
           width: 6.w,
           height: 6.w,
-          decoration: BoxDecoration(
-            color: dotColor,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
         ),
         SizedBox(width: 10.w),
         Expanded(

@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -102,6 +103,76 @@ class S {
   /// `Profile`
   String get profile {
     return Intl.message('Profile', name: 'profile', desc: '', args: []);
+  }
+
+  /// `My Career Roadmap`
+  String get myCareerRoadmap {
+    return Intl.message(
+      'My Career Roadmap',
+      name: 'myCareerRoadmap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Track your progress and build essential skills`
+  String get roadmapSubtitle {
+    return Intl.message(
+      'Track your progress and build essential skills',
+      name: 'roadmapSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `LEARNING TASKS`
+  String get learningTasks {
+    return Intl.message(
+      'LEARNING TASKS',
+      name: 'learningTasks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skill Completed`
+  String get skillCompleted {
+    return Intl.message(
+      'Skill Completed',
+      name: 'skillCompleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skill In Progress`
+  String get skillInProgress {
+    return Intl.message(
+      'Skill In Progress',
+      name: 'skillInProgress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No learning tasks defined for this skill yet.`
+  String get noLearningTasks {
+    return Intl.message(
+      'No learning tasks defined for this skill yet.',
+      name: 'noLearningTasks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tasks completed`
+  String get tasksCompleted {
+    return Intl.message(
+      'Tasks completed',
+      name: 'tasksCompleted',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Turn your CV into opportunities`

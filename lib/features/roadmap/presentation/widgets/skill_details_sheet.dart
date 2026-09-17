@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:MatchIn/core/utils/app_colors.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/skill_task_card.dart';
@@ -13,6 +13,10 @@ class SkillDetailsSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+    final textTheme = context.textTheme;
+    final l10n = context.l10n;
+
     return DraggableScrollableSheet(
       expand: false,
       initialChildSize: 0.75,
@@ -38,7 +42,7 @@ class SkillDetailsSheet extends StatelessWidget {
 
             return Container(
               decoration: BoxDecoration(
-                color: AppColors.background,
+                color: colors.surface,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
               ),
               child: SafeArea(
@@ -49,13 +53,26 @@ class SkillDetailsSheet extends StatelessWidget {
                     vertical: 12.h,
                   ),
                   children: [
+                    // Top drag indicator line
+                    Center(
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 16.h),
+                        width: 36.w,
+                        height: 4.h,
+                        decoration: BoxDecoration(
+                          color: colors.onSurface.withValues(alpha: 0.2),
+                          borderRadius: BorderRadius.circular(2.r),
+                        ),
+                      ),
+                    ),
+
                     // Header Section
                     Text(
                       currentNode.title,
-                      style: TextStyle(
+                      style: textTheme.headlineSmall?.copyWith(
                         fontSize: 22.sp,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.secondary,
+                        color: colors.secondary,
                       ),
                     ),
 
@@ -64,9 +81,9 @@ class SkillDetailsSheet extends StatelessWidget {
                       SizedBox(height: 4.h),
                       Text(
                         currentNode.subtitle!,
-                        style: TextStyle(
+                        style: textTheme.bodyMedium?.copyWith(
                           fontSize: 14.sp,
-                          color: AppColors.textSecondary,
+                          color: colors.onSurfaceVariant,
                         ),
                       ),
                     ],
@@ -77,12 +94,11 @@ class SkillDetailsSheet extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.all(16.r),
                       decoration: BoxDecoration(
-                        color: AppColors.surfaceVariant.withValues(alpha: 0.7),
-                        borderRadius: BorderRadius.circular(16.r),
-                        border: Border.all(
-                          color: AppColors.darkDivider,
-                          width: 1.w,
+                        color: colors.surfaceContainerHighest.withValues(
+                          alpha: 0.7,
                         ),
+                        borderRadius: BorderRadius.circular(16.r),
+                        border: Border.all(color: colors.outline, width: 1.w),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,23 +108,23 @@ class SkillDetailsSheet extends StatelessWidget {
                             children: [
                               Text(
                                 totalCount > 0
-                                    ? '$completedCount / $totalCount Tasks completed'
+                                    ? '$completedCount / $totalCount ${l10n.tasksCompleted}'
                                     : (currentNode.status ==
                                               RoadmapTaskStatus.completed
-                                          ? 'Skill Completed'
-                                          : 'Skill In Progress'),
-                                style: TextStyle(
+                                          ? l10n.skillCompleted
+                                          : l10n.skillInProgress),
+                                style: textTheme.titleSmall?.copyWith(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w600,
-                                  color: AppColors.secondary,
+                                  color: colors.secondary,
                                 ),
                               ),
                               Text(
                                 '$percentageInt%',
-                                style: TextStyle(
+                                style: textTheme.titleSmall?.copyWith(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.bold,
-                                  color: AppColors.primary,
+                                  color: colors.primary,
                                 ),
                               ),
                             ],
@@ -121,9 +137,11 @@ class SkillDetailsSheet extends StatelessWidget {
                             child: LinearProgressIndicator(
                               value: progressRatio,
                               minHeight: 10.h,
-                              backgroundColor: AppColors.darkDivider,
-                              valueColor: const AlwaysStoppedAnimation<Color>(
-                                AppColors.primary,
+                              backgroundColor: colors.outline.withValues(
+                                alpha: 0.3,
+                              ),
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                colors.primary,
                               ),
                             ),
                           ),
@@ -139,16 +157,16 @@ class SkillDetailsSheet extends StatelessWidget {
                         Icon(
                           Icons.task_alt_rounded,
                           size: 18.r,
-                          color: AppColors.secondary,
+                          color: colors.secondary,
                         ),
                         SizedBox(width: 8.w),
                         Text(
-                          'LEARNING TASKS',
-                          style: TextStyle(
+                          l10n.learningTasks,
+                          style: textTheme.labelLarge?.copyWith(
                             fontSize: 13.sp,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 0.8,
-                            color: AppColors.secondary,
+                            color: colors.secondary,
                           ),
                         ),
                       ],
@@ -162,10 +180,10 @@ class SkillDetailsSheet extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 24.h),
                         child: Center(
                           child: Text(
-                            'No learning tasks defined for this skill yet.',
-                            style: TextStyle(
+                            l10n.noLearningTasks,
+                            style: textTheme.bodyMedium?.copyWith(
                               fontSize: 14.sp,
-                              color: AppColors.textSecondary,
+                              color: colors.onSurfaceVariant,
                             ),
                           ),
                         ),

@@ -18,9 +18,7 @@ class JobFilterChip extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Material(
-      color: isSelected
-          ? theme.colorScheme.primary
-          : theme.colorScheme.surface,
+      color: isSelected ? theme.colorScheme.primary : theme.colorScheme.surface,
       borderRadius: BorderRadius.circular(24.r),
       child: InkWell(
         onTap: onTap,
@@ -41,9 +39,7 @@ class JobFilterChip extends StatelessWidget {
             style: theme.textTheme.labelMedium?.copyWith(
               color: isSelected
                   ? theme.colorScheme.onPrimary
-                  : theme.colorScheme.onSurface.withValues(
-                      alpha: 0.65,
-                    ),
+                  : theme.colorScheme.onSurface.withValues(alpha: 0.65),
             ),
           ),
         ),

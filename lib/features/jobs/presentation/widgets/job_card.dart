@@ -115,9 +115,7 @@ class JobCard extends StatelessWidget {
                     onPressed: onApply ?? () {},
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(110.w, 42.h),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 18.w,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 18.w),
                     ),
                     child: Text(S.of(context).applyNow),
                   ),
@@ -161,8 +159,7 @@ class _JobHeader extends StatelessWidget {
           height: 48.r,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color:
-                theme.colorScheme.surfaceContainerHighest,
+            color: theme.colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(12.r),
             border: Border.all(color: theme.dividerColor),
           ),
@@ -183,8 +180,7 @@ class _JobHeader extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurface
-                      .withValues(alpha: 0.6),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
 
@@ -211,14 +207,10 @@ class _JobHeader extends StatelessWidget {
           onPressed: onSave ?? () {},
           visualDensity: VisualDensity.compact,
           icon: Icon(
-            isSaved
-                ? Icons.bookmark_rounded
-                : Icons.bookmark_border_rounded,
+            isSaved ? Icons.bookmark_rounded : Icons.bookmark_border_rounded,
             color: isSaved
                 ? theme.colorScheme.secondary
-                : theme.colorScheme.onSurface.withValues(
-                    alpha: 0.6,
-                  ),
+                : theme.colorScheme.onSurface.withValues(alpha: 0.6),
           ),
         ),
       ],
@@ -239,9 +231,7 @@ class _JobHeader extends StatelessWidget {
     if (words.length == 1) {
       final word = words.first;
 
-      return word
-          .substring(0, word.length >= 2 ? 2 : 1)
-          .toUpperCase();
+      return word.substring(0, word.length >= 2 ? 2 : 1).toUpperCase();
     }
 
     return '${words.first[0]}${words[1][0]}'.toUpperCase();
@@ -263,9 +253,7 @@ class _PostedDate extends StatelessWidget {
         Icon(
           Icons.schedule_rounded,
           size: 16.sp,
-          color: theme.colorScheme.onSurface.withValues(
-            alpha: 0.55,
-          ),
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.55),
         ),
 
         SizedBox(width: 4.w),
@@ -273,9 +261,7 @@ class _PostedDate extends StatelessWidget {
         Text(
           postedDate,
           style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurface.withValues(
-              alpha: 0.6,
-            ),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
           ),
         ),
       ],
@@ -298,21 +284,13 @@ class _SkillsSection extends StatelessWidget {
       children: skills
           .map(
             (skill) => Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 10.w,
-                vertical: 1.h,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 1.h),
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(6.r),
-                border: Border.all(
-                  color: theme.dividerColor,
-                ),
+                border: Border.all(color: theme.dividerColor),
               ),
-              child: Text(
-                skill,
-                style: theme.textTheme.labelMedium,
-              ),
+              child: Text(skill, style: theme.textTheme.labelMedium),
             ),
           )
           .toList(),

@@ -2,7 +2,18 @@
   "noInternetConnection": "لا يوجد اتصال بالإنترنت",
   "pleaseCheckYourInternetConnection": "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
   "tryAgain": "إعادة المحاولة",
-
+  "chatBot": "المساعد الذكي",
+  "roadMap": "خارطة الطريق",
+  "home": "الرئيسية",
+  "savedJobs": "الوظائف المحفوظة",
+  "profile": "الملف الشخصي",
+  "myCareerRoadmap": "خارطة طريقي المهنية",
+  "roadmapSubtitle": "تتبع تقدمك وطوّر مهاراتك الأساسية",
+  "learningTasks": "مهام التعلم",
+  "skillCompleted": "تم اكتمال المهارة",
+  "skillInProgress": "المهارة قيد التقدم",
+  "noLearningTasks": "لا توجد مهام تعلم محددة لهذه المهارة بعد.",
+  "tasksCompleted": "مهام مكتملة",
   "turnCvIntoOpportunities": "حوّل سيرتك الذاتية إلى فرص",
   "turnCvIntoOpportunitiesDesc": "اكتشف لماذا تناسبك الوظيفة، وما ينقصك، والخطوات التالية.",
   "getExplainableMatch": "احصل على توافق واضح ومفصل",
@@ -17,7 +28,6 @@
   "next": "التالي",
   "skip": "تخطي",
   "notNow": "ليس الآن",
-
   "enterVerificationCode": "أدخل رمز التحقق",
   "sentCodeToEmail": "لقد أرسلنا رمزاً مكوناً من 6 أرقام إلى بريدك الإلكتروني.",
   "verificationCodeLabel": "رمز التحقق",
@@ -27,7 +37,6 @@
   "useDifferentEmail": "استخدام بريد إلكتروني آخر",
   "invalidVerificationCode": "رمز التحقق غير صحيح",
   "secondsSuffix": "ث",
-
   "createNewPassword": "إنشاء كلمة مرور جديدة",
   "chooseStrongPassword": "اختر كلمة مرور قوية لم تستخدمها من قبل.",
   "newPassword": "كلمة المرور الجديدة",
@@ -42,7 +51,6 @@
   "backToLogin": "العودة لتسجيل الدخول",
   "passwordChangedSuccessfully": "تم تغيير كلمة المرور بنجاح",
   "passwordChangedSuccessDesc": "تم تغيير كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة.",
-
   "greetingUser": "مرحبًا، {name} 👋",
   "@greetingUser": {
     "description": "Greeting message displayed on the home screen",
@@ -52,7 +60,6 @@
       }
     }
   },
-
   "readyToFindYourNextOpportunity": "جاهز للعثور على فرصتك القادمة؟",
   "searchJobs": "ابحث عن وظيفة أو شركة أو مهارة",
   "jobsMatchYourProfile": "وجدنا وظائف تناسب ملفك الشخصي",

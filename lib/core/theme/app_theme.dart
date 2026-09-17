@@ -6,14 +6,10 @@ abstract final class AppTheme {
   AppTheme._();
 
   static ThemeData light({required Locale locale}) {
-    return getLightTheme(
-      isArabic: locale.languageCode == 'ar',
-    );
+    return getLightTheme(isArabic: locale.languageCode == 'ar');
   }
 
   static ThemeData dark({required Locale locale}) {
-    return getDarkTheme(
-      isArabic: locale.languageCode == 'ar',
-    );
+    return getDarkTheme(isArabic: locale.languageCode == 'ar');
   }
 }

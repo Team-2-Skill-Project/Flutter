@@ -1,10 +1,6 @@
 import 'package:MatchIn/features/roadmap/data/models/skill_task.dart';
 
-enum RoadmapTaskStatus {
-  completed,
-  active,
-  locked,
-}
+enum RoadmapTaskStatus { completed, active, locked }
 
 typedef RoadmapNodeStatus = RoadmapTaskStatus;
 

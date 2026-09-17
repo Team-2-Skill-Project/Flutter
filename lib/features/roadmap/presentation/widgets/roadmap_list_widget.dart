@@ -42,11 +42,11 @@ class RoadmapListWidget extends StatefulWidget {
 
 class _RoadmapItem {
   _RoadmapItem.node(this.node, this.taskIndex)
-      : milestoneIndex = null,
-        targetNodeIndex = null;
+    : milestoneIndex = null,
+      targetNodeIndex = null;
   _RoadmapItem.treasure(this.milestoneIndex, this.targetNodeIndex)
-      : node = null,
-        taskIndex = null;
+    : node = null,
+      taskIndex = null;
 
   final RoadmapNode? node;
   final int? taskIndex;
@@ -163,11 +163,13 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
                     if (item.isTreasure) {
                       final milestoneIndex = item.milestoneIndex!;
                       final targetIndex = item.targetNodeIndex!;
-                      final isUnlocked = targetIndex < widget.nodes.length &&
+                      final isUnlocked =
+                          targetIndex < widget.nodes.length &&
                           widget.nodes[targetIndex].status ==
                               RoadmapTaskStatus.completed;
-                      final isClaimed = widget.collectedTreasures
-                          .contains(milestoneIndex);
+                      final isClaimed = widget.collectedTreasures.contains(
+                        milestoneIndex,
+                      );
 
                       childWidget = TreasureBoxNodeWidget(
                         milestoneIndex: milestoneIndex,
@@ -201,9 +203,7 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
                           // Item positioned along organic path
                           Transform.translate(
                             offset: Offset(horizontalShift, 0),
-                            child: Center(
-                              child: childWidget,
-                            ),
+                            child: Center(child: childWidget),
                           ),
 
                           // Floating Lottie decoration in negative space

@@ -227,9 +227,17 @@
    ├── utils/          # AppColors, AppConstants, AppTextStyles, AppAssets
    └── widgets/        # Shared reusable widgets
    ```
-6. Do not add sub-folders inside any of these directories. Keep each sub-folder flat.
-7. Do not add a `di/`, `helpers/`, `constants/`, or `extensions/` folder. Use the existing structure.
-8. If adding a completely new concern (e.g., localization helpers), create a new flat sub-folder at the `core/` level.
+6. BuildContext Extensions (`core/extensions/context_extensions.dart`, `snack_bar_extensions.dart`, `bottom_sheet_extensions.dart`):
+   - `context.theme` → Access `ThemeData`
+   - `context.colors` → Access `ColorScheme`
+   - `context.textTheme` → Access `TextTheme`
+   - `context.l10n` → Access localized strings via `S.of(this)`
+   - `context.showSuccessSnackBar()`, `context.showErrorSnackBar()`, `context.showInfoSnackBar()`, `context.showWarningSnackBar()`
+   - `context.showAppBottomSheet()`
+7. Theme System & Color Scheme:
+   - Always derive colors using `context.colors` / `Theme.of(context).colorScheme`.
+   - Populated ColorScheme slots: `primary`, `secondary`, `tertiary`, `surface`, `surfaceContainerHighest`, `onSurface`, `onSurfaceVariant`, `outline`, `error`.
+   - Never reference raw `AppColors` directly in presentation widgets when theme extension access is available.
 
 ---
 

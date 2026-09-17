@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeCardViewMatchesJobs extends StatelessWidget {
-  const HomeCardViewMatchesJobs({
-    super.key,
-    required this.matchesCount,
-  });
+  const HomeCardViewMatchesJobs({super.key, required this.matchesCount});
 
   final int matchesCount;
 
@@ -17,16 +14,12 @@ class HomeCardViewMatchesJobs extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Padding(
-      padding: EdgeInsetsDirectional.symmetric(
-        horizontal: 16.w,
-      ),
+      padding: EdgeInsetsDirectional.symmetric(horizontal: 16.w),
       child: Container(
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(
-            color: theme.dividerColor.withAlpha(50),
-          ),
+          border: Border.all(color: theme.dividerColor.withAlpha(50)),
         ),
         child: Column(
           children: [
@@ -47,13 +40,10 @@ class HomeCardViewMatchesJobs extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(16.r),
               child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // View Matches header
-                  ViewMatchesCardHeader(
-                    matchesCount: matchesCount,
-                  ),
+                  ViewMatchesCardHeader(matchesCount: matchesCount),
 
                   SizedBox(height: 14.h),
 
@@ -66,11 +56,11 @@ class HomeCardViewMatchesJobs extends StatelessWidget {
 
                   Text(
                     S.of(context).jobsMatchDescription,
-                    style: theme.textTheme.bodySmall
-                        ?.copyWith(
-                          color: theme.colorScheme.onSurface
-                              .withValues(alpha: 0.60),
-                        ),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurface.withValues(
+                        alpha: 0.60,
+                      ),
+                    ),
                   ),
 
                   SizedBox(height: 18.h),

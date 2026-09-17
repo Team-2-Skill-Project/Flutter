@@ -45,12 +45,8 @@ abstract final class AppConstants {
   // Animation
   // =========================================================
 
-  static const Duration shortAnimation = Duration(
-    milliseconds: 200,
-  );
-  static const Duration mediumAnimation = Duration(
-    milliseconds: 300,
-  );
+  static const Duration shortAnimation = Duration(milliseconds: 200);
+  static const Duration mediumAnimation = Duration(milliseconds: 300);
 
   // =========================================================
   // Pagination

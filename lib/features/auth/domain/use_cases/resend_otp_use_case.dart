@@ -7,9 +7,7 @@ class ResendOtpUseCase {
 
   final AuthRepository repository;
 
-  Future<Either<Failure, Unit>> call({
-    required String email,
-  }) async {
+  Future<Either<Failure, Unit>> call({required String email}) async {
     return await repository.resendOtp(email: email);
   }
 }

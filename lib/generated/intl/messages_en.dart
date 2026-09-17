@@ -62,15 +62,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "jobsMatchYourProfile": MessageLookupByLibrary.simpleMessage(
       "We found jobs that match your profile",
     ),
+    "learningTasks": MessageLookupByLibrary.simpleMessage("LEARNING TASKS"),
     "match": MessageLookupByLibrary.simpleMessage("Match"),
     "matches": MessageLookupByLibrary.simpleMessage("matches"),
     "mostRelevant": MessageLookupByLibrary.simpleMessage("Most relevant"),
+    "myCareerRoadmap": MessageLookupByLibrary.simpleMessage(
+      "My Career Roadmap",
+    ),
     "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
     "next": MessageLookupByLibrary.simpleMessage("Next"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "No internet connection",
     ),
     "noJobsFound": MessageLookupByLibrary.simpleMessage("No jobs found"),
+    "noLearningTasks": MessageLookupByLibrary.simpleMessage(
+      "No learning tasks defined for this skill yet.",
+    ),
     "notNow": MessageLookupByLibrary.simpleMessage("Not now"),
     "onboardingBullet1": MessageLookupByLibrary.simpleMessage(
       "Upload your CV for instant AI parsing",
@@ -121,6 +128,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "resendCodeIn": MessageLookupByLibrary.simpleMessage("Resend code in"),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
     "roadMap": MessageLookupByLibrary.simpleMessage("RoadMap"),
+    "roadmapSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Track your progress and build essential skills",
+    ),
     "savedJobs": MessageLookupByLibrary.simpleMessage("Saved Jobs"),
     "searchJobs": MessageLookupByLibrary.simpleMessage(
       "Search jobs, companies, or skills",
@@ -137,12 +147,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "setupCareerProfileDesc": MessageLookupByLibrary.simpleMessage(
       "Tell us about your skills and goals to get better recommendations.",
     ),
+    "skillCompleted": MessageLookupByLibrary.simpleMessage("Skill Completed"),
+    "skillInProgress": MessageLookupByLibrary.simpleMessage(
+      "Skill In Progress",
+    ),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong",
     ),
     "start": MessageLookupByLibrary.simpleMessage("Start"),
     "strongMatch": MessageLookupByLibrary.simpleMessage("Strong Match"),
+    "tasksCompleted": MessageLookupByLibrary.simpleMessage("Tasks completed"),
     "tryAgain": MessageLookupByLibrary.simpleMessage("Try Again"),
     "turnCvIntoOpportunities": MessageLookupByLibrary.simpleMessage(
       "Turn your CV into opportunities",

@@ -19,15 +19,10 @@ class RecommendedJobsSection extends StatelessWidget {
               Expanded(
                 child: Text(
                   S.of(context).recommendedForYou,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
-              TextButton(
-                onPressed: () {},
-                child: Text(S.of(context).seeAll),
-              ),
+              TextButton(onPressed: () {}, child: Text(S.of(context).seeAll)),
             ],
           ),
 

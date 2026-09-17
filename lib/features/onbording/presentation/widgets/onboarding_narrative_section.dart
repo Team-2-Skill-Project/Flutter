@@ -48,10 +48,7 @@ class OnboardingNarrativeSection extends StatelessWidget {
           ),
         ),
         SizedBox(height: 24.h),
-        OnboardingActionButton(
-          text: buttonText,
-          onPressed: onNext,
-        ),
+        OnboardingActionButton(text: buttonText, onPressed: onNext),
       ],
     );
   }

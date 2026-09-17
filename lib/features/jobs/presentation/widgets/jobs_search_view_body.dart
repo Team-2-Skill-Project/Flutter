@@ -1,12 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/job_card.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/job_filter_chip.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/jobs_search_field.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/jobs_search_header.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/matching_status.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/search_results_header.dart';
-import 'package:MatchIn/generated/l10n.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class JobsSearchViewBody extends StatelessWidget {
   const JobsSearchViewBody({super.key});
@@ -19,27 +19,15 @@ class JobsSearchViewBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const JobsSearchHeader(),
-
           SizedBox(height: 12.h),
-
           const JobsSearchField(),
-
           SizedBox(height: 16.h),
-
           const _FiltersList(),
-
           SizedBox(height: 16.h),
-
-          const SearchResultsHeader(
-            opportunitiesCount: 124,
-          ),
-
+          const SearchResultsHeader(opportunitiesCount: 124),
           SizedBox(height: 16.h),
-
           Padding(
-            padding: EdgeInsetsDirectional.symmetric(
-              horizontal: 16.w,
-            ),
+            padding: EdgeInsetsDirectional.symmetric(horizontal: 16.w),
             child: Column(
               children: [
                 const JobCard(
@@ -54,9 +42,7 @@ class JobsSearchViewBody extends StatelessWidget {
                   matchStatus: MatchingStatusType.strong,
                   showShareButton: true,
                 ),
-
                 SizedBox(height: 12.h),
-
                 const JobCard(
                   title: 'Mobile Developer Intern',
                   company: 'CodeHub',
@@ -69,9 +55,7 @@ class JobsSearchViewBody extends StatelessWidget {
                   matchStatus: MatchingStatusType.good,
                   showShareButton: true,
                 ),
-
                 SizedBox(height: 12.h),
-
                 const JobCard(
                   title: 'Flutter UI Engineer',
                   company: 'AppStudio',
@@ -81,15 +65,13 @@ class JobsSearchViewBody extends StatelessWidget {
                   jobType: 'Full-time',
                   postedDate: '1 day ago',
                   skills: ['Dart', 'Flutter'],
-                  matchStatus:
-                      MatchingStatusType.percentage,
+                  matchStatus: MatchingStatusType.percentage,
                   matchPercentage: 75,
                   showShareButton: false,
                 ),
               ],
             ),
           ),
-
           SizedBox(height: 32.h),
         ],
       ),
@@ -102,45 +84,25 @@ class _FiltersList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return SizedBox(
       height: 40.h,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsetsDirectional.symmetric(
-          horizontal: 16.w,
-        ),
+        padding: EdgeInsetsDirectional.symmetric(horizontal: 16.w),
         children: [
-          JobFilterChip(
-            label: S.of(context).all,
-            isSelected: true,
-          ),
-
-          const _SizedBox(),
-
-          JobFilterChip(label: S.of(context).all),
-
-          const _SizedBox(),
-
-          JobFilterChip(label: S.of(context).all),
-
-          const _SizedBox(),
-
-          JobFilterChip(label: S.of(context).all),
-
-          const _SizedBox(),
-
-          JobFilterChip(label: S.of(context).all),
+          JobFilterChip(label: l10n.all, isSelected: true),
+          SizedBox(width: 8.w),
+          JobFilterChip(label: l10n.remote),
+          SizedBox(width: 8.w),
+          JobFilterChip(label: l10n.internship),
+          SizedBox(width: 8.w),
+          JobFilterChip(label: l10n.fullTime),
+          SizedBox(width: 8.w),
+          JobFilterChip(label: l10n.entryLevel),
         ],
       ),
     );
-  }
-}
-
-class _SizedBox extends StatelessWidget {
-  const _SizedBox();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(width: 8.w);
   }
 }

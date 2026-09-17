@@ -1,11 +1,4 @@
-enum TaskResourceType {
-  youtube,
-  documentation,
-  github,
-  article,
-  course,
-  quiz,
-}
+enum TaskResourceType { youtube, documentation, github, article, course, quiz }
 
 extension TaskResourceTypeExtension on TaskResourceType {
   String get displayName {

@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "all": MessageLookupByLibrary.simpleMessage("الكل"),
     "applyNow": MessageLookupByLibrary.simpleMessage("قدّم الآن"),
     "backToLogin": MessageLookupByLibrary.simpleMessage("العودة لتسجيل الدخول"),
+    "chatBot": MessageLookupByLibrary.simpleMessage("المساعد الذكي"),
     "chooseStrongPassword": MessageLookupByLibrary.simpleMessage(
       "اختر كلمة مرور قوية لم تستخدمها من قبل.",
     ),
@@ -50,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "getStarted": MessageLookupByLibrary.simpleMessage("ابدأ الآن"),
     "goodMatch": MessageLookupByLibrary.simpleMessage("توافق جيد"),
     "greetingUser": m0,
+    "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
     "internship": MessageLookupByLibrary.simpleMessage("تدريب"),
     "invalidVerificationCode": MessageLookupByLibrary.simpleMessage(
       "رمز التحقق غير صحيح",
@@ -60,15 +62,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "jobsMatchYourProfile": MessageLookupByLibrary.simpleMessage(
       "وجدنا وظائف تناسب ملفك الشخصي",
     ),
+    "learningTasks": MessageLookupByLibrary.simpleMessage("مهام التعلم"),
     "match": MessageLookupByLibrary.simpleMessage("توافق"),
     "matches": MessageLookupByLibrary.simpleMessage("وظيفة مناسبة"),
     "mostRelevant": MessageLookupByLibrary.simpleMessage("الأكثر ملاءمة"),
+    "myCareerRoadmap": MessageLookupByLibrary.simpleMessage(
+      "خارطة طريقي المهنية",
+    ),
     "newPassword": MessageLookupByLibrary.simpleMessage("كلمة المرور الجديدة"),
     "next": MessageLookupByLibrary.simpleMessage("التالي"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "لا يوجد اتصال بالإنترنت",
     ),
     "noJobsFound": MessageLookupByLibrary.simpleMessage("لا توجد وظائف متاحة"),
+    "noLearningTasks": MessageLookupByLibrary.simpleMessage(
+      "لا توجد مهام تعلم محددة لهذه المهارة بعد.",
+    ),
     "notNow": MessageLookupByLibrary.simpleMessage("ليس الآن"),
     "onboardingBullet1": MessageLookupByLibrary.simpleMessage(
       "ارفع سيرتك الذاتية لتحليل فوري بالذكاء الاصطناعي",
@@ -98,6 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pleaseCheckYourInternetConnection": MessageLookupByLibrary.simpleMessage(
       "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
     ),
+    "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
     "readyToFindYourNextOpportunity": MessageLookupByLibrary.simpleMessage(
       "جاهز للعثور على فرصتك القادمة؟",
     ),
@@ -117,6 +127,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "resetPassword": MessageLookupByLibrary.simpleMessage(
       "إعادة تعيين كلمة المرور",
     ),
+    "roadMap": MessageLookupByLibrary.simpleMessage("خارطة الطريق"),
+    "roadmapSubtitle": MessageLookupByLibrary.simpleMessage(
+      "تتبع تقدمك وطوّر مهاراتك الأساسية",
+    ),
+    "savedJobs": MessageLookupByLibrary.simpleMessage("الوظائف المحفوظة"),
     "searchJobs": MessageLookupByLibrary.simpleMessage(
       "ابحث عن وظيفة أو شركة أو مهارة",
     ),
@@ -132,10 +147,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "setupCareerProfileDesc": MessageLookupByLibrary.simpleMessage(
       "أخبرنا بمهاراتك وأهدافك للحصول على توصيات وظيفية أفضل.",
     ),
+    "skillCompleted": MessageLookupByLibrary.simpleMessage("تم اكتمال المهارة"),
+    "skillInProgress": MessageLookupByLibrary.simpleMessage(
+      "المهارة قيد التقدم",
+    ),
     "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
     "start": MessageLookupByLibrary.simpleMessage("ابدأ"),
     "strongMatch": MessageLookupByLibrary.simpleMessage("توافق قوي"),
+    "tasksCompleted": MessageLookupByLibrary.simpleMessage("مهام مكتملة"),
     "tryAgain": MessageLookupByLibrary.simpleMessage("إعادة المحاولة"),
     "turnCvIntoOpportunities": MessageLookupByLibrary.simpleMessage(
       "حوّل سيرتك الذاتية إلى فرص",

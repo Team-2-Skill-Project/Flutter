@@ -112,7 +112,8 @@ class _TreasureBoxNodeWidgetState extends State<TreasureBoxNodeWidget>
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFFFFD700).withValues(alpha: 0.45),
+                          color: const Color(0xFFFFD700)
+                              .withValues(alpha: 0.45),
                           blurRadius: 18.r,
                           spreadRadius: 4.r,
                         ),
@@ -122,7 +123,9 @@ class _TreasureBoxNodeWidgetState extends State<TreasureBoxNodeWidget>
 
                 // Lottie Treasure Box Artwork
                 Opacity(
-                  opacity: (!widget.isUnlocked && !widget.isClaimed) ? 0.7 : 1.0,
+                  opacity: (!widget.isUnlocked && !widget.isClaimed)
+                      ? 0.7
+                      : 1.0,
                   child: Lottie.asset(
                     Assets.lottieTreasureBox,
                     controller: _lottieController,
@@ -156,15 +159,15 @@ class _TreasureBoxNodeWidgetState extends State<TreasureBoxNodeWidget>
               color: widget.isClaimed
                   ? AppColors.success.withValues(alpha: 0.15)
                   : widget.isUnlocked
-                      ? const Color(0xFFFFF3CD)
-                      : AppColors.surfaceVariant.withValues(alpha: 0.6),
+                  ? const Color(0xFFFFF3CD)
+                  : AppColors.surfaceVariant.withValues(alpha: 0.6),
               borderRadius: BorderRadius.circular(12.r),
               border: Border.all(
                 color: widget.isClaimed
                     ? AppColors.success.withValues(alpha: 0.4)
                     : widget.isUnlocked
-                        ? const Color(0xFFFFD700)
-                        : AppColors.border.withValues(alpha: 0.3),
+                    ? const Color(0xFFFFD700)
+                    : AppColors.border.withValues(alpha: 0.3),
                 width: 1.w,
               ),
             ),
@@ -172,16 +175,16 @@ class _TreasureBoxNodeWidgetState extends State<TreasureBoxNodeWidget>
               widget.isClaimed
                   ? '✅ +50 XP Collected!'
                   : widget.isUnlocked
-                      ? '🎁 Claim +50 XP!'
-                      : '🔒 +50 XP Milestone',
+                  ? '🎁 Claim +50 XP!'
+                  : '🔒 +50 XP Milestone',
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 12.sp,
                 color: widget.isClaimed
                     ? AppColors.success
                     : widget.isUnlocked
-                        ? const Color(0xFF856404)
-                        : AppColors.textHint,
+                    ? const Color(0xFF856404)
+                    : AppColors.textHint,
               ),
             ),
           ),

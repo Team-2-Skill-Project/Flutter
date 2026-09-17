@@ -17,15 +17,11 @@ class SearchResultsHeader extends StatelessWidget {
     final theme = Theme.of(context);
 
     final style = theme.textTheme.bodyMedium?.copyWith(
-      color: theme.colorScheme.onSurface.withValues(
-        alpha: 0.6,
-      ),
+      color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
     );
 
     return Padding(
-      padding: EdgeInsetsDirectional.symmetric(
-        horizontal: 16.w,
-      ),
+      padding: EdgeInsetsDirectional.symmetric(horizontal: 16.w),
       child: Row(
         children: [
           Text(
@@ -43,14 +39,9 @@ class SearchResultsHeader extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    S.of(context).mostRelevant,
-                    style: style,
-                  ),
+                  Text(S.of(context).mostRelevant, style: style),
                   SizedBox(width: 2.w),
-                  const Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                  ),
+                  const Icon(Icons.keyboard_arrow_down_rounded),
                 ],
               ),
             ),
