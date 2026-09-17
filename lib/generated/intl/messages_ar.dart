@@ -20,14 +20,134 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
+  static String m0(name) => "مرحبًا، ${name} 👋";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "all": MessageLookupByLibrary.simpleMessage("الكل"),
+    "applyNow": MessageLookupByLibrary.simpleMessage("قدّم الآن"),
+    "backToLogin": MessageLookupByLibrary.simpleMessage("العودة لتسجيل الدخول"),
+    "chooseStrongPassword": MessageLookupByLibrary.simpleMessage(
+      "اختر كلمة مرور قوية لم تستخدمها من قبل.",
+    ),
+    "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
+      "تأكيد كلمة المرور الجديدة",
+    ),
+    "createNewPassword": MessageLookupByLibrary.simpleMessage(
+      "إنشاء كلمة مرور جديدة",
+    ),
+    "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
+      "أدخل رمز التحقق",
+    ),
+    "entryLevel": MessageLookupByLibrary.simpleMessage("مستوى مبتدئ"),
+    "fullTime": MessageLookupByLibrary.simpleMessage("دوام كامل"),
+    "getExplainableMatch": MessageLookupByLibrary.simpleMessage(
+      "احصل على توافق واضح ومفصل",
+    ),
+    "getExplainableMatchDesc": MessageLookupByLibrary.simpleMessage(
+      "ليس مجرد نسبة مئوية — بل نقاط قوة وفجوات وخطوات عمل واضحة.",
+    ),
+    "getStarted": MessageLookupByLibrary.simpleMessage("ابدأ الآن"),
+    "goodMatch": MessageLookupByLibrary.simpleMessage("توافق جيد"),
+    "greetingUser": m0,
+    "internship": MessageLookupByLibrary.simpleMessage("تدريب"),
+    "invalidVerificationCode": MessageLookupByLibrary.simpleMessage(
+      "رمز التحقق غير صحيح",
+    ),
+    "jobsMatchDescription": MessageLookupByLibrary.simpleMessage(
+      "استكشف الفرص المناسبة لمهاراتك وتفضيلاتك المهنية.",
+    ),
+    "jobsMatchYourProfile": MessageLookupByLibrary.simpleMessage(
+      "وجدنا وظائف تناسب ملفك الشخصي",
+    ),
+    "match": MessageLookupByLibrary.simpleMessage("توافق"),
+    "matches": MessageLookupByLibrary.simpleMessage("وظيفة مناسبة"),
+    "mostRelevant": MessageLookupByLibrary.simpleMessage("الأكثر ملاءمة"),
+    "newPassword": MessageLookupByLibrary.simpleMessage("كلمة المرور الجديدة"),
+    "next": MessageLookupByLibrary.simpleMessage("التالي"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "لا يوجد اتصال بالإنترنت",
+    ),
+    "noJobsFound": MessageLookupByLibrary.simpleMessage("لا توجد وظائف متاحة"),
+    "notNow": MessageLookupByLibrary.simpleMessage("ليس الآن"),
+    "onboardingBullet1": MessageLookupByLibrary.simpleMessage(
+      "ارفع سيرتك الذاتية لتحليل فوري بالذكاء الاصطناعي",
+    ),
+    "onboardingBullet2": MessageLookupByLibrary.simpleMessage(
+      "حدد المسميات الوظيفية والمهارات المستهدفة",
+    ),
+    "onboardingBullet3": MessageLookupByLibrary.simpleMessage(
+      "احصل على أفضل الفرص المتوافقة معك بدقة",
+    ),
+    "opportunities": MessageLookupByLibrary.simpleMessage("فرصة"),
+    "passwordChangedSuccessDesc": MessageLookupByLibrary.simpleMessage(
+      "تم تغيير كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة.",
+    ),
+    "passwordChangedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم تغيير كلمة المرور بنجاح",
+    ),
+    "passwordLengthHint": MessageLookupByLibrary.simpleMessage(
+      "استخدم 8 أحرف على الأقل.",
+    ),
+    "passwordRequirements": MessageLookupByLibrary.simpleMessage(
+      "متطلبات كلمة المرور",
+    ),
+    "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
+      "كلمتا المرور غير متطابقتين",
     ),
     "pleaseCheckYourInternetConnection": MessageLookupByLibrary.simpleMessage(
       "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
     ),
+    "readyToFindYourNextOpportunity": MessageLookupByLibrary.simpleMessage(
+      "جاهز للعثور على فرصتك القادمة؟",
+    ),
+    "recommendedForYou": MessageLookupByLibrary.simpleMessage("مقترحة لك"),
+    "remote": MessageLookupByLibrary.simpleMessage("عن بُعد"),
+    "reqAtLeastOneNumber": MessageLookupByLibrary.simpleMessage(
+      "رقم واحد على الأقل",
+    ),
+    "reqAtLeastOneSpecial": MessageLookupByLibrary.simpleMessage(
+      "رمز خاص واحد على الأقل",
+    ),
+    "reqMin8Chars": MessageLookupByLibrary.simpleMessage("8 أحرف على الأقل"),
+    "resendCode": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
+    "resendCodeIn": MessageLookupByLibrary.simpleMessage(
+      "إعادة إرسال الرمز خلال",
+    ),
+    "resetPassword": MessageLookupByLibrary.simpleMessage(
+      "إعادة تعيين كلمة المرور",
+    ),
+    "searchJobs": MessageLookupByLibrary.simpleMessage(
+      "ابحث عن وظيفة أو شركة أو مهارة",
+    ),
+    "searchJobsTitle": MessageLookupByLibrary.simpleMessage("البحث عن وظائف"),
+    "secondsSuffix": MessageLookupByLibrary.simpleMessage("ث"),
+    "seeAll": MessageLookupByLibrary.simpleMessage("عرض الكل"),
+    "sentCodeToEmail": MessageLookupByLibrary.simpleMessage(
+      "لقد أرسلنا رمزاً مكوناً من 6 أرقام إلى بريدك الإلكتروني.",
+    ),
+    "setupCareerProfile": MessageLookupByLibrary.simpleMessage(
+      "أكمل ملفك المهني",
+    ),
+    "setupCareerProfileDesc": MessageLookupByLibrary.simpleMessage(
+      "أخبرنا بمهاراتك وأهدافك للحصول على توصيات وظيفية أفضل.",
+    ),
+    "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
+    "somethingWentWrong": MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
+    "start": MessageLookupByLibrary.simpleMessage("ابدأ"),
+    "strongMatch": MessageLookupByLibrary.simpleMessage("توافق قوي"),
     "tryAgain": MessageLookupByLibrary.simpleMessage("إعادة المحاولة"),
+    "turnCvIntoOpportunities": MessageLookupByLibrary.simpleMessage(
+      "حوّل سيرتك الذاتية إلى فرص",
+    ),
+    "turnCvIntoOpportunitiesDesc": MessageLookupByLibrary.simpleMessage(
+      "اكتشف لماذا تناسبك الوظيفة، وما ينقصك، والخطوات التالية.",
+    ),
+    "useDifferentEmail": MessageLookupByLibrary.simpleMessage(
+      "استخدام بريد إلكتروني آخر",
+    ),
+    "verificationCodeLabel": MessageLookupByLibrary.simpleMessage("رمز التحقق"),
+    "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
+    "viewMatches": MessageLookupByLibrary.simpleMessage("عرض الوظائف المناسبة"),
   };
 }

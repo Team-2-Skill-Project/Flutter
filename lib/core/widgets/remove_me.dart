@@ -1,17 +1,8 @@
 // TODO: Remove THIS FILE
 import 'package:flutter/material.dart';
 
-class HomeView extends StatelessWidget {
-  const new({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('HomeView'));
-  }
-}
-
 class AiChatView extends StatelessWidget {
-  const new({super.key});
+  const AiChatView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +11,7 @@ class AiChatView extends StatelessWidget {
 }
 
 class SavedJobsView extends StatelessWidget {
-  const new({super.key});
+  const SavedJobsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +20,7 @@ class SavedJobsView extends StatelessWidget {
 }
 
 class ProfileView extends StatelessWidget {
-  const new({super.key});
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {

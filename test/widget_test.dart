@@ -13,5 +13,10 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MatchIn());
     expect(find.byType(MatchIn), findsOneWidget);
+    testWidgets('App smoke test', (WidgetTester tester) async {
+      // Verify that MatchIn app widget can be instantiated
+      const app = MatchIn();
+      expect(app, isNotNull);
+    });
   });
 }
