@@ -179,11 +179,27 @@ class SkillDetailsSheet extends StatelessWidget {
                         return SkillTaskCard(
                           key: ValueKey(task.id),
                           task: task,
-                          onToggleComplete: () {
+                          onToggleComplete: () async {
+                            final isCompletingTask = !task.isCompleted;
+                            final remainingIncompleteCount = currentNode.tasks
+                                .where((t) => !t.isCompleted)
+                                .length;
+
                             context.read<RoadmapCubit>().toggleTaskCompletion(
                                   nodeTitle: currentNode.title,
                                   taskId: task.id,
                                 );
+
+                            if (isCompletingTask &&
+                                remainingIncompleteCount == 1) {
+                              await Future.delayed(
+                                const Duration(milliseconds: 300),
+                              );
+                              if (context.mounted &&
+                                  Navigator.of(context).canPop()) {
+                                Navigator.of(context).pop();
+                              }
+                            }
                           },
                         );
                       }),

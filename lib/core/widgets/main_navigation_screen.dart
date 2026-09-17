@@ -1,5 +1,4 @@
 import 'package:MatchIn/core/widgets/remove_me.dart';
-import 'package:MatchIn/features/roadmap/data/models/mockup_roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/presentation/views/roadmap_view.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   final List<Widget> pages = [
     const AiChatView(),
-    RoadmapView(nodes: roadmapNodes),
+    const RoadmapView(),
     const HomeView(),
     const SavedJobsView(),
     const ProfileView(),
