@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:MatchIn/core/routing/app_routes.dart';
+import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/core/widgets/custom_app_bar.dart';
 import 'package:MatchIn/core/widgets/custom_button.dart';
@@ -70,7 +72,8 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
     return BlocConsumer<OtpCubit, OtpState>(
       listener: (context, state) {
         if (state is OtpVerificationSuccess) {
-          context.push(AppRoutes.kCreateNewPasswordView, extra: widget.email);
+          getIt<SharedPreferencesService>().setLoggedIn(true);
+          context.go(AppRoutes.kHomeView);
         } else if (state is OtpVerificationError) {
           CustomSnackBar.showError(context, message: state.message);
         } else if (state is OtpResendSuccess) {

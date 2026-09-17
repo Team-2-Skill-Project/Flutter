@@ -6,8 +6,10 @@ import 'package:MatchIn/core/widgets/main_navigation_screen.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/otp_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/reset_password_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/pages/create_new_password_view.dart';
+import 'package:MatchIn/features/auth/presentation/pages/login_view.dart';
 import 'package:MatchIn/features/auth/presentation/pages/otp_verification_view.dart';
 import 'package:MatchIn/features/auth/presentation/pages/password_changed_success_view.dart';
+import 'package:MatchIn/features/auth/presentation/pages/register_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/jobs_search_view.dart';
 import 'package:MatchIn/features/onbording/presentation/pages/onbording.dart';
 import 'package:flutter/material.dart';
@@ -101,28 +103,14 @@ abstract final class AppRouter {
       // Authentication Routes
       GoRoute(
         path: AppRoutes.kRegisterView,
-        pageBuilder: (context, state) => _buildTransitionPage(
-          state: state,
-          child: BlocProvider(
-            create: (_) => getIt<OtpCubit>(),
-            child: OtpVerificationView(
-              email: state.extra as String? ?? 'user@example.com',
-            ),
-          ),
-        ),
+        pageBuilder: (context, state) =>
+            _buildTransitionPage(state: state, child: const RegisterView()),
       ),
 
       GoRoute(
         path: AppRoutes.kLoginView,
-        pageBuilder: (context, state) => _buildTransitionPage(
-          state: state,
-          child: BlocProvider(
-            create: (_) => getIt<OtpCubit>(),
-            child: OtpVerificationView(
-              email: state.extra as String? ?? 'user@example.com',
-            ),
-          ),
-        ),
+        pageBuilder: (context, state) =>
+            _buildTransitionPage(state: state, child: const LoginView()),
       ),
 
       GoRoute(
