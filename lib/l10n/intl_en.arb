@@ -1,6 +1,25 @@
 {
-
-    "noInternetConnection": "No internet connection",
-    "pleaseCheckYourInternetConnection": "Please check your internet connection and try again",
-    "tryAgain": "Try Again"
+  "noInternetConnection": "No internet connection",
+  "pleaseCheckYourInternetConnection": "Please check your internet connection and try again",
+  "tryAgain": "Try Again",
+  "createAccount": "Create Account",
+  "smartCareerDiscoveryPlatform": "Smart Career Discovery Platform",
+  "email": "Email Address",
+  "emailHint": "example@email.com",
+  "phoneNumber": "Phone Number",
+  "phoneHint": "01xxxxxxxxx",
+  "password": "Password",
+  "passwordHint": "8 characters or more",
+  "confirmPassword": "Confirm Password",
+  "confirmPasswordHint": "Re-enter your password",
+  "termsAndConditions": "I agree to the Terms and Conditions and Privacy Policy",
+  "completeRegistration": "Complete Registration",
+  "or": "or",
+  "registerWithGoogle": "Continue with Google",
+  "alreadyHaveAccount": "Already have an account? ",
+  "login": "Log in",
+  "welcomeBack": "Welcome back",
+  "keepMeSignedIn": "Keep me signed in",
+  "forgotPassword": "Forgot password?",
+  "newHere": "New here? "
 }

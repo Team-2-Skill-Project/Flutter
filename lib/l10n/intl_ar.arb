@@ -1,7 +1,25 @@
 {
-
-    "noInternetConnection": "لا يوجد اتصال بالإنترنت",
-    "pleaseCheckYourInternetConnection": "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
-    "tryAgain": "إعادة المحاولة"
-
+  "noInternetConnection": "لا يوجد اتصال بالإنترنت",
+  "pleaseCheckYourInternetConnection": "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
+  "tryAgain": "إعادة المحاولة",
+  "createAccount": "إنشاء حساب",
+  "smartCareerDiscoveryPlatform": "منصة التوفيق الوظيفي الذكية",
+  "email": "البريد الإلكتروني",
+  "emailHint": "example@email.com",
+  "phoneNumber": "رقم الهاتف",
+  "phoneHint": "01xxxxxxxxx",
+  "password": "كلمة المرور",
+  "passwordHint": "8 حروف أو أكثر",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "confirmPasswordHint": "أعد كتابة كلمة المرور",
+  "termsAndConditions": "موافق على الشروط والأحكام وسياسة الخصوصية",
+  "completeRegistration": "إتمام التسجيل",
+  "or": "أو",
+  "registerWithGoogle": "التسجيل بواسطة Google",
+  "alreadyHaveAccount": "عندك حساب؟ ",
+  "login": "سجل دخول",
+  "welcomeBack": "أهلاً بعودتك",
+  "keepMeSignedIn": "خليني مسجل",
+  "forgotPassword": "نسيت كلمة المرور؟",
+  "newHere": "أول مرة هنا؟ "
 }
