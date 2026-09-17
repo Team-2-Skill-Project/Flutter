@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -680,6 +679,231 @@ class S {
     return Intl.message(
       'Most relevant',
       name: 'mostRelevant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AI Assistant`
+  String get aiAssistant {
+    return Intl.message(
+      'AI Assistant',
+      name: 'aiAssistant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Chat`
+  String get newChat {
+    return Intl.message('New Chat', name: 'newChat', desc: '', args: []);
+  }
+
+  /// `Ask anything...`
+  String get askAnything {
+    return Intl.message(
+      'Ask anything...',
+      name: 'askAnything',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chat History`
+  String get chatHistory {
+    return Intl.message(
+      'Chat History',
+      name: 'chatHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How can I help you today?`
+  String get howCanIHelpYouToday {
+    return Intl.message(
+      'How can I help you today?',
+      name: 'howCanIHelpYouToday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No conversations yet`
+  String get noConversationsYet {
+    return Intl.message(
+      'No conversations yet',
+      name: 'noConversationsYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start your first conversation below`
+  String get startFirstConversation {
+    return Intl.message(
+      'Start your first conversation below',
+      name: 'startFirstConversation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Today`
+  String get today {
+    return Intl.message('Today', name: 'today', desc: '', args: []);
+  }
+
+  /// `Yesterday`
+  String get yesterday {
+    return Intl.message('Yesterday', name: 'yesterday', desc: '', args: []);
+  }
+
+  /// `Older`
+  String get older {
+    return Intl.message('Older', name: 'older', desc: '', args: []);
+  }
+
+  /// `Failed to send message. Please try again.`
+  String get failedToSendMessage {
+    return Intl.message(
+      'Failed to send message. Please try again.',
+      name: 'failedToSendMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AI is thinking...`
+  String get aiIsTyping {
+    return Intl.message(
+      'AI is thinking...',
+      name: 'aiIsTyping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Explain Flutter BLoC pattern`
+  String get chatSuggestion1 {
+    return Intl.message(
+      'Explain Flutter BLoC pattern',
+      name: 'chatSuggestion1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help me prepare for an interview`
+  String get chatSuggestion2 {
+    return Intl.message(
+      'Help me prepare for an interview',
+      name: 'chatSuggestion2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Review my career roadmap`
+  String get chatSuggestion3 {
+    return Intl.message(
+      'Review my career roadmap',
+      name: 'chatSuggestion3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What skills should I learn next?`
+  String get chatSuggestion4 {
+    return Intl.message(
+      'What skills should I learn next?',
+      name: 'chatSuggestion4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copied to clipboard`
+  String get copiedToClipboard {
+    return Intl.message(
+      'Copied to clipboard',
+      name: 'copiedToClipboard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Suggested Questions`
+  String get suggestedQuestions {
+    return Intl.message(
+      'Suggested Questions',
+      name: 'suggestedQuestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to clear all chats? This action cannot be undone.`
+  String get confirmClearAllChats {
+    return Intl.message(
+      'Are you sure you want to clear all chats? This action cannot be undone.',
+      name: 'confirmClearAllChats',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear All Chats`
+  String get clearAllChats {
+    return Intl.message(
+      'Clear All Chats',
+      name: 'clearAllChats',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
+  }
+
+  /// `Confirm`
+  String get confirm {
+    return Intl.message('Confirm', name: 'confirm', desc: '', args: []);
+  }
+
+  /// `Clear`
+  String get clear {
+    return Intl.message('Clear', name: 'clear', desc: '', args: []);
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message('Delete', name: 'delete', desc: '', args: []);
+  }
+
+  /// `Are you sure you want to delete this chat? This action cannot be undone.`
+  String get confirmDeleteChat {
+    return Intl.message(
+      'Are you sure you want to delete this chat? This action cannot be undone.',
+      name: 'confirmDeleteChat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete Chat`
+  String get deleteChat {
+    return Intl.message('Delete Chat', name: 'deleteChat', desc: '', args: []);
+  }
+
+  /// `Previous 7 days`
+  String get previous7Days {
+    return Intl.message(
+      'Previous 7 days',
+      name: 'previous7Days',
       desc: '',
       args: [],
     );

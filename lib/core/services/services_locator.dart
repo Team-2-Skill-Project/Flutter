@@ -19,6 +19,20 @@ import 'package:MatchIn/features/auth/presentation/cubit/reset_password_cubit.da
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/skill_task_cubit/skill_task_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/treasure_cubit/treasure_cubit.dart';
+import 'package:MatchIn/features/chatbot/data/data_sources/chatbot_local_data_source.dart';
+import 'package:MatchIn/features/chatbot/data/data_sources/chatbot_local_data_source_impl.dart';
+import 'package:MatchIn/features/chatbot/data/data_sources/chatbot_mock_remote_data_source_impl.dart';
+import 'package:MatchIn/features/chatbot/data/data_sources/chatbot_remote_data_source.dart';
+// ignore: unused_import
+import 'package:MatchIn/features/chatbot/data/data_sources/chatbot_remote_data_source_impl.dart';
+import 'package:MatchIn/features/chatbot/data/repositories/chatbot_repository_impl.dart';
+import 'package:MatchIn/features/chatbot/domain/repositories/chatbot_repository.dart';
+import 'package:MatchIn/features/chatbot/domain/use_cases/clear_all_chats_use_case.dart';
+import 'package:MatchIn/features/chatbot/domain/use_cases/delete_chat_use_case.dart';
+import 'package:MatchIn/features/chatbot/domain/use_cases/get_chat_history_use_case.dart';
+import 'package:MatchIn/features/chatbot/domain/use_cases/save_chat_use_case.dart';
+import 'package:MatchIn/features/chatbot/domain/use_cases/send_message_use_case.dart';
+import 'package:MatchIn/features/chatbot/presentation/cubit/chatbot_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -69,6 +83,51 @@ Future<void> setupServiceLocator() async {
   );
   getIt.registerFactory<SkillTaskCubit>(
     () => SkillTaskCubit(sharedPreferencesService: getIt()),
+  );
+
+  // =========================================================================
+  // 🤖 Chatbot Feature (1-Line Toggle between Mock and Real Remote Data Source)
+  // =========================================================================
+  getIt.registerLazySingleton<ChatbotRemoteDataSource>(
+    () => ChatbotMockRemoteDataSourceImpl(),
+    // () => ChatbotRemoteDataSourceImpl(apiConsumer: getIt()),
+  );
+
+  getIt.registerLazySingleton<ChatbotLocalDataSource>(
+    () => ChatbotLocalDataSourceImpl(sharedPreferencesHelper: getIt()),
+  );
+
+  getIt.registerLazySingleton<ChatbotRepository>(
+    () => ChatbotRepositoryImpl(
+      remoteDataSource: getIt(),
+      localDataSource: getIt(),
+    ),
+  );
+
+  getIt.registerLazySingleton<GetChatHistoryUseCase>(
+    () => GetChatHistoryUseCase(repository: getIt()),
+  );
+  getIt.registerLazySingleton<SendMessageUseCase>(
+    () => SendMessageUseCase(repository: getIt()),
+  );
+  getIt.registerLazySingleton<SaveChatUseCase>(
+    () => SaveChatUseCase(repository: getIt()),
+  );
+  getIt.registerLazySingleton<DeleteChatUseCase>(
+    () => DeleteChatUseCase(repository: getIt()),
+  );
+  getIt.registerLazySingleton<ClearAllChatsUseCase>(
+    () => ClearAllChatsUseCase(repository: getIt()),
+  );
+
+  getIt.registerFactory<ChatbotCubit>(
+    () => ChatbotCubit(
+      getChatHistoryUseCase: getIt(),
+      sendMessageUseCase: getIt(),
+      saveChatUseCase: getIt(),
+      deleteChatUseCase: getIt(),
+      clearAllChatsUseCase: getIt(),
+    ),
   );
 
   //! ======== External =========

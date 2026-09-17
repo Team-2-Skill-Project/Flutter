@@ -81,5 +81,33 @@
   "fullTime": "دوام كامل",
   "entryLevel": "مستوى مبتدئ",
   "opportunities": "فرصة",
-  "mostRelevant": "الأكثر ملاءمة"
+  "mostRelevant": "الأكثر ملاءمة",
+  "aiAssistant": "المساعد الذكي",
+  "newChat": "محادثة جديدة",
+  "askAnything": "اسأل أي شيء...",
+  "chatHistory": "سجل المحادثات",
+  "howCanIHelpYouToday": "كيف يمكنني مساعدتك اليوم؟",
+  "noConversationsYet": "لا توجد محادثات بعد",
+  "startFirstConversation": "ابدأ محادثتك الأولى أدناه",
+  "today": "اليوم",
+  "yesterday": "أمس",
+  "older": "أقدم",
+  "failedToSendMessage": "فشل إرسال الرسالة. الرجاء المحاولة مرة أخرى.",
+  "aiIsTyping": "الذكاء الاصطناعي يفكر...",
+  "chatSuggestion1": "اشرح نمط Flutter BLoC",
+  "chatSuggestion2": "ساعدني في الاستعداد لمقابلة عمل",
+  "chatSuggestion3": "راجع خارطة طريقي المهنية",
+  "chatSuggestion4": "ما المهارات التي يجب أن أتعلمها؟",
+  "copiedToClipboard": "تم النسخ إلى الحافظة"
+
+  ,"suggestedQuestions":"أسئلة مقترحة",
+"confirmClearAllChats": "هل أنت متأكد أنك تريد مسح جميع المحادثات؟ لا يمكن التراجع عن هذا الإجراء.",
+"clearAllChats": "مسح جميع المحادثات",
+"cancel": "إلغاء",
+"confirm": "تأكيد",
+"clear": "مسح",
+"delete":"حذف",
+"confirmDeleteChat": "هل أنت متأكد أنك تريد حذف هذه المحادثة؟ لا يمكن التراجع عن هذا الإجراء.",
+"deleteChat": "حذف المحادثة"
+,"previous7Days": "السابق 7 يوما"
 }

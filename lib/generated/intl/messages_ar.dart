@@ -24,23 +24,59 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "aiAssistant": MessageLookupByLibrary.simpleMessage("المساعد الذكي"),
+    "aiIsTyping": MessageLookupByLibrary.simpleMessage(
+      "الذكاء الاصطناعي يفكر...",
+    ),
     "all": MessageLookupByLibrary.simpleMessage("الكل"),
     "applyNow": MessageLookupByLibrary.simpleMessage("قدّم الآن"),
+    "askAnything": MessageLookupByLibrary.simpleMessage("اسأل أي شيء..."),
     "backToLogin": MessageLookupByLibrary.simpleMessage("العودة لتسجيل الدخول"),
+    "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
     "chatBot": MessageLookupByLibrary.simpleMessage("المساعد الذكي"),
+    "chatHistory": MessageLookupByLibrary.simpleMessage("سجل المحادثات"),
+    "chatSuggestion1": MessageLookupByLibrary.simpleMessage(
+      "اشرح نمط Flutter BLoC",
+    ),
+    "chatSuggestion2": MessageLookupByLibrary.simpleMessage(
+      "ساعدني في الاستعداد لمقابلة عمل",
+    ),
+    "chatSuggestion3": MessageLookupByLibrary.simpleMessage(
+      "راجع خارطة طريقي المهنية",
+    ),
+    "chatSuggestion4": MessageLookupByLibrary.simpleMessage(
+      "ما المهارات التي يجب أن أتعلمها؟",
+    ),
     "chooseStrongPassword": MessageLookupByLibrary.simpleMessage(
       "اختر كلمة مرور قوية لم تستخدمها من قبل.",
+    ),
+    "clear": MessageLookupByLibrary.simpleMessage("مسح"),
+    "clearAllChats": MessageLookupByLibrary.simpleMessage("مسح جميع المحادثات"),
+    "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
+    "confirmClearAllChats": MessageLookupByLibrary.simpleMessage(
+      "هل أنت متأكد أنك تريد مسح جميع المحادثات؟ لا يمكن التراجع عن هذا الإجراء.",
+    ),
+    "confirmDeleteChat": MessageLookupByLibrary.simpleMessage(
+      "هل أنت متأكد أنك تريد حذف هذه المحادثة؟ لا يمكن التراجع عن هذا الإجراء.",
     ),
     "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
       "تأكيد كلمة المرور الجديدة",
     ),
+    "copiedToClipboard": MessageLookupByLibrary.simpleMessage(
+      "تم النسخ إلى الحافظة",
+    ),
     "createNewPassword": MessageLookupByLibrary.simpleMessage(
       "إنشاء كلمة مرور جديدة",
     ),
+    "delete": MessageLookupByLibrary.simpleMessage("حذف"),
+    "deleteChat": MessageLookupByLibrary.simpleMessage("حذف المحادثة"),
     "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
       "أدخل رمز التحقق",
     ),
     "entryLevel": MessageLookupByLibrary.simpleMessage("مستوى مبتدئ"),
+    "failedToSendMessage": MessageLookupByLibrary.simpleMessage(
+      "فشل إرسال الرسالة. الرجاء المحاولة مرة أخرى.",
+    ),
     "fullTime": MessageLookupByLibrary.simpleMessage("دوام كامل"),
     "getExplainableMatch": MessageLookupByLibrary.simpleMessage(
       "احصل على توافق واضح ومفصل",
@@ -52,6 +88,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "goodMatch": MessageLookupByLibrary.simpleMessage("توافق جيد"),
     "greetingUser": m0,
     "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
+    "howCanIHelpYouToday": MessageLookupByLibrary.simpleMessage(
+      "كيف يمكنني مساعدتك اليوم؟",
+    ),
     "internship": MessageLookupByLibrary.simpleMessage("تدريب"),
     "invalidVerificationCode": MessageLookupByLibrary.simpleMessage(
       "رمز التحقق غير صحيح",
@@ -69,8 +108,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "myCareerRoadmap": MessageLookupByLibrary.simpleMessage(
       "خارطة طريقي المهنية",
     ),
+    "newChat": MessageLookupByLibrary.simpleMessage("محادثة جديدة"),
     "newPassword": MessageLookupByLibrary.simpleMessage("كلمة المرور الجديدة"),
     "next": MessageLookupByLibrary.simpleMessage("التالي"),
+    "noConversationsYet": MessageLookupByLibrary.simpleMessage(
+      "لا توجد محادثات بعد",
+    ),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "لا يوجد اتصال بالإنترنت",
     ),
@@ -79,6 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "لا توجد مهام تعلم محددة لهذه المهارة بعد.",
     ),
     "notNow": MessageLookupByLibrary.simpleMessage("ليس الآن"),
+    "older": MessageLookupByLibrary.simpleMessage("أقدم"),
     "onboardingBullet1": MessageLookupByLibrary.simpleMessage(
       "ارفع سيرتك الذاتية لتحليل فوري بالذكاء الاصطناعي",
     ),
@@ -107,6 +151,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pleaseCheckYourInternetConnection": MessageLookupByLibrary.simpleMessage(
       "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
     ),
+    "previous7Days": MessageLookupByLibrary.simpleMessage("السابق 7 يوما"),
     "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
     "readyToFindYourNextOpportunity": MessageLookupByLibrary.simpleMessage(
       "جاهز للعثور على فرصتك القادمة؟",
@@ -154,8 +199,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
     "start": MessageLookupByLibrary.simpleMessage("ابدأ"),
+    "startFirstConversation": MessageLookupByLibrary.simpleMessage(
+      "ابدأ محادثتك الأولى أدناه",
+    ),
     "strongMatch": MessageLookupByLibrary.simpleMessage("توافق قوي"),
+    "suggestedQuestions": MessageLookupByLibrary.simpleMessage("أسئلة مقترحة"),
     "tasksCompleted": MessageLookupByLibrary.simpleMessage("مهام مكتملة"),
+    "today": MessageLookupByLibrary.simpleMessage("اليوم"),
     "tryAgain": MessageLookupByLibrary.simpleMessage("إعادة المحاولة"),
     "turnCvIntoOpportunities": MessageLookupByLibrary.simpleMessage(
       "حوّل سيرتك الذاتية إلى فرص",
@@ -169,5 +219,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "verificationCodeLabel": MessageLookupByLibrary.simpleMessage("رمز التحقق"),
     "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
     "viewMatches": MessageLookupByLibrary.simpleMessage("عرض الوظائف المناسبة"),
+    "yesterday": MessageLookupByLibrary.simpleMessage("أمس"),
   };
 }

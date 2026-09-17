@@ -24,23 +24,57 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "aiAssistant": MessageLookupByLibrary.simpleMessage("AI Assistant"),
+    "aiIsTyping": MessageLookupByLibrary.simpleMessage("AI is thinking..."),
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "applyNow": MessageLookupByLibrary.simpleMessage("Apply Now"),
+    "askAnything": MessageLookupByLibrary.simpleMessage("Ask anything..."),
     "backToLogin": MessageLookupByLibrary.simpleMessage("Back to login"),
+    "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "chatBot": MessageLookupByLibrary.simpleMessage("Chat Bot"),
+    "chatHistory": MessageLookupByLibrary.simpleMessage("Chat History"),
+    "chatSuggestion1": MessageLookupByLibrary.simpleMessage(
+      "Explain Flutter BLoC pattern",
+    ),
+    "chatSuggestion2": MessageLookupByLibrary.simpleMessage(
+      "Help me prepare for an interview",
+    ),
+    "chatSuggestion3": MessageLookupByLibrary.simpleMessage(
+      "Review my career roadmap",
+    ),
+    "chatSuggestion4": MessageLookupByLibrary.simpleMessage(
+      "What skills should I learn next?",
+    ),
     "chooseStrongPassword": MessageLookupByLibrary.simpleMessage(
       "Choose a strong password you haven’t used before.",
+    ),
+    "clear": MessageLookupByLibrary.simpleMessage("Clear"),
+    "clearAllChats": MessageLookupByLibrary.simpleMessage("Clear All Chats"),
+    "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+    "confirmClearAllChats": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to clear all chats? This action cannot be undone.",
+    ),
+    "confirmDeleteChat": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to delete this chat? This action cannot be undone.",
     ),
     "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
       "Confirm new password",
     ),
+    "copiedToClipboard": MessageLookupByLibrary.simpleMessage(
+      "Copied to clipboard",
+    ),
     "createNewPassword": MessageLookupByLibrary.simpleMessage(
       "Create a new password",
     ),
+    "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+    "deleteChat": MessageLookupByLibrary.simpleMessage("Delete Chat"),
     "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
       "Enter verification code",
     ),
     "entryLevel": MessageLookupByLibrary.simpleMessage("Entry Level"),
+    "failedToSendMessage": MessageLookupByLibrary.simpleMessage(
+      "Failed to send message. Please try again.",
+    ),
     "fullTime": MessageLookupByLibrary.simpleMessage("Full-time"),
     "getExplainableMatch": MessageLookupByLibrary.simpleMessage(
       "Get an explainable match",
@@ -52,6 +86,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "goodMatch": MessageLookupByLibrary.simpleMessage("Good Match"),
     "greetingUser": m0,
     "home": MessageLookupByLibrary.simpleMessage("Home"),
+    "howCanIHelpYouToday": MessageLookupByLibrary.simpleMessage(
+      "How can I help you today?",
+    ),
     "internship": MessageLookupByLibrary.simpleMessage("Internship"),
     "invalidVerificationCode": MessageLookupByLibrary.simpleMessage(
       "Invalid verification code",
@@ -69,8 +106,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "myCareerRoadmap": MessageLookupByLibrary.simpleMessage(
       "My Career Roadmap",
     ),
+    "newChat": MessageLookupByLibrary.simpleMessage("New Chat"),
     "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
     "next": MessageLookupByLibrary.simpleMessage("Next"),
+    "noConversationsYet": MessageLookupByLibrary.simpleMessage(
+      "No conversations yet",
+    ),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "No internet connection",
     ),
@@ -79,6 +120,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "No learning tasks defined for this skill yet.",
     ),
     "notNow": MessageLookupByLibrary.simpleMessage("Not now"),
+    "older": MessageLookupByLibrary.simpleMessage("Older"),
     "onboardingBullet1": MessageLookupByLibrary.simpleMessage(
       "Upload your CV for instant AI parsing",
     ),
@@ -107,6 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pleaseCheckYourInternetConnection": MessageLookupByLibrary.simpleMessage(
       "Please check your internet connection and try again",
     ),
+    "previous7Days": MessageLookupByLibrary.simpleMessage("Previous 7 days"),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "readyToFindYourNextOpportunity": MessageLookupByLibrary.simpleMessage(
       "Ready to find your next opportunity?",
@@ -156,8 +199,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "Something went wrong",
     ),
     "start": MessageLookupByLibrary.simpleMessage("Start"),
+    "startFirstConversation": MessageLookupByLibrary.simpleMessage(
+      "Start your first conversation below",
+    ),
     "strongMatch": MessageLookupByLibrary.simpleMessage("Strong Match"),
+    "suggestedQuestions": MessageLookupByLibrary.simpleMessage(
+      "Suggested Questions",
+    ),
     "tasksCompleted": MessageLookupByLibrary.simpleMessage("Tasks completed"),
+    "today": MessageLookupByLibrary.simpleMessage("Today"),
     "tryAgain": MessageLookupByLibrary.simpleMessage("Try Again"),
     "turnCvIntoOpportunities": MessageLookupByLibrary.simpleMessage(
       "Turn your CV into opportunities",
@@ -173,5 +223,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "verify": MessageLookupByLibrary.simpleMessage("Verify"),
     "viewMatches": MessageLookupByLibrary.simpleMessage("View Matches"),
+    "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday"),
   };
 }
