@@ -1,16 +1,18 @@
 import 'dart:math';
 
-import 'package:MatchIn/core/utils/app_colors.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:MatchIn/core/extensions/bottom_sheet_extensions.dart';
+import 'package:MatchIn/core/extensions/snack_bar_extensions.dart';
+import 'package:MatchIn/features/roadmap/data/models/roadmap_item_model.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
-import 'package:MatchIn/features/roadmap/presentation/widgets/floating_lottie_widget.dart';
+import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_lottie_decoration.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_path_painter.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/skill_details_sheet.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/treasure_box_node.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RoadmapListWidget extends StatefulWidget {
   const RoadmapListWidget({
@@ -22,56 +24,14 @@ class RoadmapListWidget extends StatefulWidget {
   final List<RoadmapNode> nodes;
   final Set<int> collectedTreasures;
 
-  /// Available Lottie animation assets for roadmap decoration
-  static const List<String> lottieAssets = [
-    'assets/lottie/graduation_hat.json',
-    'assets/lottie/books_1.lottie.json',
-    'assets/lottie/books_2.lottie.json',
-  ];
-
-  /// Normalized scale factors for each asset to maintain balanced visual footprint
-  static const Map<String, double> assetScaleFactors = {
-    'assets/lottie/graduation_hat.json': 2,
-    'assets/lottie/books_1.lottie.json': 2,
-    'assets/lottie/books_2.lottie.json': 2,
-  };
-
   @override
   State<RoadmapListWidget> createState() => _RoadmapListWidgetState();
-}
-
-class _RoadmapItem {
-  _RoadmapItem.node(this.node, this.taskIndex)
-    : milestoneIndex = null,
-      targetNodeIndex = null;
-  _RoadmapItem.treasure(this.milestoneIndex, this.targetNodeIndex)
-    : node = null,
-      taskIndex = null;
-
-  final RoadmapNode? node;
-  final int? taskIndex;
-  final int? milestoneIndex;
-  final int? targetNodeIndex;
-
-  bool get isTreasure => milestoneIndex != null;
 }
 
 class _RoadmapListWidgetState extends State<RoadmapListWidget> {
   final GlobalKey _stackKey = GlobalKey();
   List<GlobalKey> _circleKeys = [];
   List<Offset> _nodeCenters = [];
-
-  List<_RoadmapItem> _buildRoadmapItems(List<RoadmapNode> nodes) {
-    final List<_RoadmapItem> items = [];
-    for (int i = 0; i < nodes.length; i++) {
-      items.add(_RoadmapItem.node(nodes[i], i));
-      if ((i + 1) % 5 == 0) {
-        final milestoneIndex = (i + 1) ~/ 5;
-        items.add(_RoadmapItem.treasure(milestoneIndex, i));
-      }
-    }
-    return items;
-  }
 
   void _syncKeys(int count) {
     if (_circleKeys.length != count) {
@@ -117,7 +77,7 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final items = _buildRoadmapItems(widget.nodes);
+    final items = RoadmapItem.buildItems(widget.nodes);
     _syncKeys(items.length);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -137,26 +97,20 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
               key: _stackKey,
               clipBehavior: Clip.none,
               children: [
-                // Layer 1: Lighter theme path CustomPaint
+                // Layer 1: Curve Path CustomPaint
                 Positioned.fill(
                   child: CustomPaint(
                     painter: RoadmapPathPainter(nodeCenters: _nodeCenters),
                   ),
                 ),
 
-                // Layer 2 & 3: Lottie Decorations, Task Nodes & Treasure Milestones
+                // Layer 2 & 3: Nodes, Milestones & Floating Decorations
                 Column(
                   children: List.generate(items.length, (itemIndex) {
                     final item = items[itemIndex];
                     final horizontalShift = _calculateOrganicOffset(
                       itemIndex,
                       maxOffset,
-                    );
-                    final lottieWidget = _buildLottieDecoration(
-                      index: itemIndex,
-                      horizontalShift: horizontalShift,
-                      maxOffset: maxOffset,
-                      screenWidth: screenWidth,
                     );
 
                     Widget childWidget;
@@ -200,14 +154,16 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
                         alignment: Alignment.center,
                         clipBehavior: Clip.none,
                         children: [
-                          // Item positioned along organic path
                           Transform.translate(
                             offset: Offset(horizontalShift, 0),
                             child: Center(child: childWidget),
                           ),
-
-                          // Floating Lottie decoration in negative space
-                          ?lottieWidget,
+                          RoadmapLottieDecoration(
+                            index: itemIndex,
+                            horizontalShift: horizontalShift,
+                            maxOffset: maxOffset,
+                            screenWidth: screenWidth,
+                          ),
                         ],
                       ),
                     );
@@ -221,7 +177,6 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
     );
   }
 
-  /// Calculates a smooth, organic horizontal offset for each item along the curve.
   double _calculateOrganicOffset(int index, double maxOffset) {
     final t = index.toDouble();
     final rawOffset = 0.65 * sin(t * 0.85) + 0.35 * sin(t * 0.45 + 0.8);
@@ -229,101 +184,21 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
     return clamped * maxOffset;
   }
 
-  /// Builds a decorative Lottie animation centered in empty horizontal negative space.
-  Widget? _buildLottieDecoration({
-    required int index,
-    required double horizontalShift,
-    required double maxOffset,
-    required double screenWidth,
-  }) {
-    final minSpaceThreshold = maxOffset * 0.35;
-    if (horizontalShift.abs() < minSpaceThreshold) {
-      return null;
-    }
-
-    if (index % 2 != 1 && index % 5 != 0) {
-      return null;
-    }
-
-    final assetPath = RoadmapListWidget
-        .lottieAssets[(index ~/ 2) % RoadmapListWidget.lottieAssets.length];
-    final scaleFactor = RoadmapListWidget.assetScaleFactors[assetPath] ?? 1.0;
-
-    final lottieSize = (screenWidth * 0.18).clamp(65.0.r, 88.0.r);
-
-    final screenCenter = screenWidth / 2;
-    final taskCenterX = screenCenter + horizontalShift;
-    final taskHalfWidth = 70.0.w;
-
-    double lottieLeft;
-
-    if (horizontalShift > 0) {
-      final taskLeftEdge = (taskCenterX - taskHalfWidth).clamp(
-        0.0,
-        screenWidth,
-      );
-      final emptySpaceCenter = taskLeftEdge / 2;
-      lottieLeft = emptySpaceCenter - (lottieSize / 2);
-    } else {
-      final taskRightEdge = (taskCenterX + taskHalfWidth).clamp(
-        0.0,
-        screenWidth,
-      );
-      final emptySpaceCenter = (taskRightEdge + screenWidth) / 2;
-      lottieLeft = emptySpaceCenter - (lottieSize / 2);
-    }
-
-    final minMargin = 12.w;
-    final maxMargin = screenWidth - lottieSize - 12.w;
-    lottieLeft = lottieLeft.clamp(minMargin, maxMargin);
-
-    return Positioned(
-      left: lottieLeft,
-      child: IgnorePointer(
-        child: FloatingLottieWidget(
-          assetPath: assetPath,
-          size: lottieSize,
-          scaleFactor: scaleFactor,
-        ),
-      ),
-    );
-  }
-
   void _onNodeTap(BuildContext context, RoadmapNode node) {
     if (node.status == RoadmapTaskStatus.locked) {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Complete the previous task first to unlock!',
-            style: TextStyle(fontSize: 14.sp),
-          ),
-          backgroundColor: AppColors.secondary,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.r),
-          ),
-        ),
+      context.showWarningSnackBar(
+        'Complete the previous task first to unlock!',
       );
       return;
     }
 
     final roadmapCubit = context.read<RoadmapCubit>();
 
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      showDragHandle: true,
-      backgroundColor: AppColors.background,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
+    context.showAppBottomSheet(
+      child: BlocProvider.value(
+        value: roadmapCubit,
+        child: SkillDetailsSheet(node: node),
       ),
-      builder: (_) {
-        return BlocProvider.value(
-          value: roadmapCubit,
-          child: SkillDetailsSheet(node: node),
-        );
-      },
     );
   }
 
@@ -331,32 +206,8 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
     required BuildContext context,
     required int milestoneIndex,
   }) {
-    // Grant reward in Cubit & persistence
-    try {
-      context.read<RoadmapCubit>().claimTreasureReward(milestoneIndex);
-    } catch (_) {}
-
-    // Show SnackBar ONCE upon initial successful collection
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            Icon(Icons.card_giftcard_rounded, color: Colors.white, size: 20.r),
-            SizedBox(width: 8.w),
-            Text(
-              '🎉 Milestone Claimed! +50 XP Added!',
-              style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.primary,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.r),
-        ),
-      ),
-    );
+    context.read<RoadmapCubit>().claimTreasureReward(milestoneIndex);
+    context.showSuccessSnackBar('🎉 Milestone Claimed! +50 XP Added!');
   }
 
   void _onTreasureLockedTap({
@@ -364,27 +215,8 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
     required int targetNodeIndex,
   }) {
     final requiredNodeNumber = targetNodeIndex + 1;
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            Icon(Icons.lock_rounded, color: Colors.white, size: 20.r),
-            SizedBox(width: 8.w),
-            Expanded(
-              child: Text(
-                'Complete task #$requiredNodeNumber to unlock this +50 XP milestone!',
-                style: TextStyle(fontSize: 14.sp),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.secondary,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.r),
-        ),
-      ),
+    context.showWarningSnackBar(
+      'Complete task #$requiredNodeNumber to unlock this +50 XP milestone!',
     );
   }
 }

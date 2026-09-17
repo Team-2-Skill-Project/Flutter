@@ -238,6 +238,15 @@
    - Always derive colors using `context.colors` / `Theme.of(context).colorScheme`.
    - Populated ColorScheme slots: `primary`, `secondary`, `tertiary`, `surface`, `surfaceContainerHighest`, `onSurface`, `onSurfaceVariant`, `outline`, `error`.
    - Never reference raw `AppColors` directly in presentation widgets when theme extension access is available.
+8. App-wide Navigation Standard:
+   - Always navigate using `AppRoutes` constants (e.g., `AppRoutes.kHomeView`, `AppRoutes.kJobsSearchView`) with GoRouter (`context.push` or `context.go`).
+   - Never hardcode route paths or use direct `Navigator.push` for view transitions.
+9. Strict Cubit / UI Separation:
+   - Presentation widgets must only focus on rendering UI layout and capturing user inputs.
+   - All state mutations, data fetching, and business operations belong inside Cubits/Blocs.
+10. Granular Widget Decomposition:
+   - Break down complex presentation files into small, single-responsibility sub-widgets.
+   - Avoid monolithic `build()` methods by extracting inner sections into modular sub-widgets (e.g., `_TaskHeaderRow`, `_TaskExpandedDetails`, `_TreasureBoxArtwork`).
 
 ---
 

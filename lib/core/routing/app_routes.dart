@@ -17,9 +17,16 @@ abstract final class AppRoutes {
   static const String kHomeView = '/home';
 
   // Jobs
-  static const String jobsSearch = '/jobs/search';
-  static const String jobDetails = '/jobs/details';
+  static const String kJobsSearchView = '/jobs/search';
+  static const String kJobDetailsView = '/jobs/details';
 
   // WebView
   static const String kWebView = '/webView';
+
+  // Deprecated aliases kept for backwards compatibility
+  @Deprecated('Use kJobsSearchView instead')
+  static const String jobsSearch = kJobsSearchView;
+
+  @Deprecated('Use kJobDetailsView instead')
+  static const String jobDetails = kJobDetailsView;
 }

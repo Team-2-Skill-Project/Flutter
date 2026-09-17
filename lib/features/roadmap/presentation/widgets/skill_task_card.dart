@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:MatchIn/core/utils/app_colors.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/features/roadmap/data/models/skill_task.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/resource_button.dart';
 
@@ -18,18 +18,16 @@ class SkillTaskCard extends StatefulWidget {
   State<SkillTaskCard> createState() => _SkillTaskCardState();
 }
 
-class _SkillTaskCardState extends State<SkillTaskCard>
-    with SingleTickerProviderStateMixin {
+class _SkillTaskCardState extends State<SkillTaskCard> {
   bool _isExpanded = false;
 
   void _toggleExpanded() {
-    setState(() {
-      _isExpanded = !_isExpanded;
-    });
+    setState(() => _isExpanded = !_isExpanded);
   }
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     final isCompleted = widget.task.isCompleted;
 
     return AnimatedContainer(
@@ -38,13 +36,13 @@ class _SkillTaskCardState extends State<SkillTaskCard>
       margin: EdgeInsets.only(bottom: 12.h),
       decoration: BoxDecoration(
         color: isCompleted
-            ? AppColors.surfaceVariant.withValues(alpha: 0.6)
-            : AppColors.surface,
+            ? colors.surfaceContainerHighest.withValues(alpha: 0.6)
+            : colors.surface,
         borderRadius: BorderRadius.circular(14.r),
         border: Border.all(
           color: isCompleted
-              ? AppColors.success.withValues(alpha: 0.4)
-              : AppColors.darkDivider,
+              ? const Color(0xFF4F7A5A).withValues(alpha: 0.4)
+              : colors.outline,
           width: 1.w,
         ),
         boxShadow: [
@@ -66,141 +64,16 @@ class _SkillTaskCardState extends State<SkillTaskCard>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Collapsed Header Row
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // Completion Checkbox Indicator
-                    GestureDetector(
-                      onTap: widget.onToggleComplete,
-                      behavior: HitTestBehavior.opaque,
-                      child: Container(
-                        width: 26.r,
-                        height: 26.r,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: isCompleted
-                              ? AppColors.success
-                              : Colors.transparent,
-                          border: Border.all(
-                            color: isCompleted
-                                ? AppColors.success
-                                : AppColors.border,
-                            width: 2.w,
-                          ),
-                        ),
-                        child: isCompleted
-                            ? Icon(
-                                Icons.check_rounded,
-                                size: 16.r,
-                                color: Colors.white,
-                              )
-                            : null,
-                      ),
-                    ),
-                    SizedBox(width: 12.w),
-
-                    // Task Title & Duration
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.task.title,
-                            style: TextStyle(
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.bold,
-                              color: isCompleted
-                                  ? AppColors.textSecondary
-                                  : AppColors.secondary,
-                              decoration: isCompleted
-                                  ? TextDecoration.lineThrough
-                                  : TextDecoration.none,
-                            ),
-                          ),
-                          SizedBox(height: 4.h),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.access_time_rounded,
-                                size: 14.r,
-                                color: AppColors.textHint,
-                              ),
-                              SizedBox(width: 4.w),
-                              Text(
-                                widget.task.duration,
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: AppColors.textHint,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Expand / Collapse Chevron
-                    AnimatedRotation(
-                      turns: _isExpanded ? 0.25 : 0.0,
-                      duration: const Duration(milliseconds: 200),
-                      child: Icon(
-                        Icons.chevron_right_rounded,
-                        size: 24.r,
-                        color: AppColors.textSecondary,
-                      ),
-                    ),
-                  ],
+                _TaskHeaderRow(
+                  task: widget.task,
+                  isExpanded: _isExpanded,
+                  onToggleComplete: widget.onToggleComplete,
                 ),
-
-                // Expanded Section with AnimatedSize
                 AnimatedSize(
                   duration: const Duration(milliseconds: 250),
                   curve: Curves.easeInOut,
                   child: _isExpanded
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 12.h),
-                            Divider(color: AppColors.darkDivider, height: 1.h),
-                            SizedBox(height: 12.h),
-
-                            // Description
-                            if (widget.task.description != null &&
-                                widget.task.description!.isNotEmpty) ...[
-                              Text(
-                                widget.task.description!,
-                                style: TextStyle(
-                                  fontSize: 13.sp,
-                                  color: AppColors.textSecondary,
-                                  height: 1.4,
-                                ),
-                              ),
-                              SizedBox(height: 14.h),
-                            ],
-
-                            // Resources Section
-                            if (widget.task.resources.isNotEmpty) ...[
-                              Text(
-                                'Resources',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.textSecondary,
-                                  letterSpacing: 0.5,
-                                ),
-                              ),
-                              SizedBox(height: 8.h),
-                              Wrap(
-                                spacing: 8.w,
-                                runSpacing: 8.h,
-                                children: widget.task.resources.map((res) {
-                                  return ResourceButton(resource: res);
-                                }).toList(),
-                              ),
-                            ],
-                          ],
-                        )
+                      ? _TaskExpandedDetails(task: widget.task)
                       : const SizedBox.shrink(),
                 ),
               ],
@@ -208,6 +81,149 @@ class _SkillTaskCardState extends State<SkillTaskCard>
           ),
         ),
       ),
+    );
+  }
+}
+
+class _TaskHeaderRow extends StatelessWidget {
+  const _TaskHeaderRow({
+    required this.task,
+    required this.isExpanded,
+    required this.onToggleComplete,
+  });
+
+  final SkillTask task;
+  final bool isExpanded;
+  final VoidCallback onToggleComplete;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final textTheme = context.textTheme;
+    final isCompleted = task.isCompleted;
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: onToggleComplete,
+          behavior: HitTestBehavior.opaque,
+          child: Container(
+            width: 26.r,
+            height: 26.r,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: isCompleted ? const Color(0xFF4F7A5A) : Colors.transparent,
+              border: Border.all(
+                color: isCompleted ? const Color(0xFF4F7A5A) : colors.outline,
+                width: 2.w,
+              ),
+            ),
+            child: isCompleted
+                ? Icon(Icons.check_rounded, size: 16.r, color: Colors.white)
+                : null,
+          ),
+        ),
+        SizedBox(width: 12.w),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                task.title,
+                style: textTheme.titleMedium?.copyWith(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                  color: isCompleted
+                      ? colors.onSurfaceVariant
+                      : colors.secondary,
+                  decoration: isCompleted
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
+                ),
+              ),
+              SizedBox(height: 4.h),
+              Row(
+                children: [
+                  Icon(
+                    Icons.access_time_rounded,
+                    size: 14.r,
+                    color: colors.onSurfaceVariant,
+                  ),
+                  SizedBox(width: 4.w),
+                  Text(
+                    task.duration,
+                    style: textTheme.bodySmall?.copyWith(
+                      fontSize: 12.sp,
+                      color: colors.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        AnimatedRotation(
+          turns: isExpanded ? 0.25 : 0.0,
+          duration: const Duration(milliseconds: 200),
+          child: Icon(
+            Icons.chevron_right_rounded,
+            size: 24.r,
+            color: colors.onSurfaceVariant,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _TaskExpandedDetails extends StatelessWidget {
+  const _TaskExpandedDetails({required this.task});
+
+  final SkillTask task;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final textTheme = context.textTheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: 12.h),
+        Divider(color: colors.outline, height: 1.h),
+        SizedBox(height: 12.h),
+        if (task.description != null && task.description!.isNotEmpty) ...[
+          Text(
+            task.description!,
+            style: textTheme.bodyMedium?.copyWith(
+              fontSize: 13.sp,
+              color: colors.onSurfaceVariant,
+              height: 1.4,
+            ),
+          ),
+          SizedBox(height: 14.h),
+        ],
+        if (task.resources.isNotEmpty) ...[
+          Text(
+            'Resources',
+            style: textTheme.labelMedium?.copyWith(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.bold,
+              color: colors.onSurfaceVariant,
+              letterSpacing: 0.5,
+            ),
+          ),
+          SizedBox(height: 8.h),
+          Wrap(
+            spacing: 8.w,
+            runSpacing: 8.h,
+            children: task.resources.map((res) {
+              return ResourceButton(resource: res);
+            }).toList(),
+          ),
+        ],
+      ],
     );
   }
 }

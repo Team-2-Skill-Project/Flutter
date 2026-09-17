@@ -1,23 +1,22 @@
 import 'dart:math';
 
-import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 /// CustomPainter rendering a soft, subtle curve connecting task nodes.
 class RoadmapPathPainter extends CustomPainter {
   RoadmapPathPainter({
     required this.nodeCenters,
-    Color? pathColor,
+    this.pathColor,
     this.strokeWidth = 3.0,
     this.dashLength = 8.0,
     this.dashGap = 6.0,
-  }) : pathColor = pathColor ?? AppColors.primary.withValues(alpha: 0.28);
+  });
 
   /// Exact center coordinates for each task node
   final List<Offset> nodeCenters;
 
-  /// Soft, muted theme path color
-  final Color pathColor;
+  /// Theme path color
+  final Color? pathColor;
 
   /// Line thickness
   final double strokeWidth;
@@ -32,8 +31,11 @@ class RoadmapPathPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (nodeCenters.length < 2) return;
 
+    final effectiveColor =
+        pathColor ?? const Color(0xFF1F365C).withValues(alpha: 0.28);
+
     final paint = Paint()
-      ..color = pathColor
+      ..color = effectiveColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round
@@ -47,14 +49,12 @@ class RoadmapPathPainter extends CustomPainter {
       final p2 = nodeCenters[i + 1];
 
       final dy = p2.dy - p1.dy;
-      // Organic cubic bezier curve connecting node centers
       final c1 = Offset(p1.dx, p1.dy + dy * 0.5);
       final c2 = Offset(p2.dx, p2.dy - dy * 0.5);
 
       fullPath.cubicTo(c1.dx, c1.dy, c2.dx, c2.dy, p2.dx, p2.dy);
     }
 
-    // Render dashed path using PathMetrics
     final pathMetrics = fullPath.computeMetrics();
     for (final metric in pathMetrics) {
       double distance = 0.0;

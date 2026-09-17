@@ -25,20 +25,13 @@ class SkillDetailsSheet extends StatelessWidget {
       builder: (context, scrollController) {
         return BlocBuilder<RoadmapCubit, RoadmapState>(
           builder: (context, state) {
-            // Retrieve latest node state from RoadmapCubit if available
             RoadmapNode currentNode = node;
             if (state is RoadmapSuccess) {
-              final found = state.nodes.firstWhere(
+              currentNode = state.nodes.firstWhere(
                 (n) => n.title == node.title,
                 orElse: () => node,
               );
-              currentNode = found;
             }
-
-            final completedCount = currentNode.completedTasksCount;
-            final totalCount = currentNode.totalTasksCount;
-            final progressRatio = currentNode.progressRatio;
-            final percentageInt = (progressRatio * 100).toInt();
 
             return Container(
               decoration: BoxDecoration(
@@ -53,20 +46,6 @@ class SkillDetailsSheet extends StatelessWidget {
                     vertical: 12.h,
                   ),
                   children: [
-                    // Top drag indicator line
-                    Center(
-                      child: Container(
-                        margin: EdgeInsets.only(bottom: 16.h),
-                        width: 36.w,
-                        height: 4.h,
-                        decoration: BoxDecoration(
-                          color: colors.onSurface.withValues(alpha: 0.2),
-                          borderRadius: BorderRadius.circular(2.r),
-                        ),
-                      ),
-                    ),
-
-                    // Header Section
                     Text(
                       currentNode.title,
                       style: textTheme.headlineSmall?.copyWith(
@@ -75,7 +54,6 @@ class SkillDetailsSheet extends StatelessWidget {
                         color: colors.secondary,
                       ),
                     ),
-
                     if (currentNode.subtitle != null &&
                         currentNode.subtitle!.isNotEmpty) ...[
                       SizedBox(height: 4.h),
@@ -87,94 +65,11 @@ class SkillDetailsSheet extends StatelessWidget {
                         ),
                       ),
                     ],
-
                     SizedBox(height: 20.h),
-
-                    // Progress Overview Section
-                    Container(
-                      padding: EdgeInsets.all(16.r),
-                      decoration: BoxDecoration(
-                        color: colors.surfaceContainerHighest.withValues(
-                          alpha: 0.7,
-                        ),
-                        borderRadius: BorderRadius.circular(16.r),
-                        border: Border.all(color: colors.outline, width: 1.w),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                totalCount > 0
-                                    ? '$completedCount / $totalCount ${l10n.tasksCompleted}'
-                                    : (currentNode.status ==
-                                              RoadmapTaskStatus.completed
-                                          ? l10n.skillCompleted
-                                          : l10n.skillInProgress),
-                                style: textTheme.titleSmall?.copyWith(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: colors.secondary,
-                                ),
-                              ),
-                              Text(
-                                '$percentageInt%',
-                                style: textTheme.titleSmall?.copyWith(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: colors.primary,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10.h),
-
-                          // Dynamic Progress Bar
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8.r),
-                            child: LinearProgressIndicator(
-                              value: progressRatio,
-                              minHeight: 10.h,
-                              backgroundColor: colors.outline.withValues(
-                                alpha: 0.3,
-                              ),
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                colors.primary,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
+                    _SkillDetailsProgressOverview(node: currentNode),
                     SizedBox(height: 24.h),
-
-                    // Tasks Section Title
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.task_alt_rounded,
-                          size: 18.r,
-                          color: colors.secondary,
-                        ),
-                        SizedBox(width: 8.w),
-                        Text(
-                          l10n.learningTasks,
-                          style: textTheme.labelLarge?.copyWith(
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.8,
-                            color: colors.secondary,
-                          ),
-                        ),
-                      ],
-                    ),
-
+                    const _SkillDetailsSectionTitle(),
                     SizedBox(height: 12.h),
-
-                    // Tasks Vertical List
                     if (currentNode.tasks.isEmpty) ...[
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 24.h),
@@ -218,7 +113,6 @@ class SkillDetailsSheet extends StatelessWidget {
                         );
                       }),
                     ],
-
                     SizedBox(height: 20.h),
                   ],
                 ),
@@ -227,6 +121,100 @@ class SkillDetailsSheet extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+class _SkillDetailsProgressOverview extends StatelessWidget {
+  const _SkillDetailsProgressOverview({required this.node});
+
+  final RoadmapNode node;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final textTheme = context.textTheme;
+    final l10n = context.l10n;
+
+    final completedCount = node.completedTasksCount;
+    final totalCount = node.totalTasksCount;
+    final progressRatio = node.progressRatio;
+    final percentageInt = (progressRatio * 100).toInt();
+
+    return Container(
+      padding: EdgeInsets.all(16.r),
+      decoration: BoxDecoration(
+        color: colors.surfaceContainerHighest.withValues(alpha: 0.7),
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: colors.outline, width: 1.w),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                totalCount > 0
+                    ? '$completedCount / $totalCount ${l10n.tasksCompleted}'
+                    : (node.status == RoadmapTaskStatus.completed
+                          ? l10n.skillCompleted
+                          : l10n.skillInProgress),
+                style: textTheme.titleSmall?.copyWith(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                  color: colors.secondary,
+                ),
+              ),
+              Text(
+                '$percentageInt%',
+                style: textTheme.titleSmall?.copyWith(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.bold,
+                  color: colors.primary,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10.h),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8.r),
+            child: LinearProgressIndicator(
+              value: progressRatio,
+              minHeight: 10.h,
+              backgroundColor: colors.outline.withValues(alpha: 0.3),
+              valueColor: AlwaysStoppedAnimation<Color>(colors.primary),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SkillDetailsSectionTitle extends StatelessWidget {
+  const _SkillDetailsSectionTitle();
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final textTheme = context.textTheme;
+    final l10n = context.l10n;
+
+    return Row(
+      children: [
+        Icon(Icons.task_alt_rounded, size: 18.r, color: colors.secondary),
+        SizedBox(width: 8.w),
+        Text(
+          l10n.learningTasks,
+          style: textTheme.labelLarge?.copyWith(
+            fontSize: 13.sp,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.8,
+            color: colors.secondary,
+          ),
+        ),
+      ],
     );
   }
 }

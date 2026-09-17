@@ -64,7 +64,7 @@ abstract final class AppRouter {
 
       // Jobs
       GoRoute(
-        path: AppRoutes.jobsSearch,
+        path: AppRoutes.kJobsSearchView,
         pageBuilder: (context, state) =>
             _buildTransitionPage(state: state, child: const JobsSearchView()),
       ),
