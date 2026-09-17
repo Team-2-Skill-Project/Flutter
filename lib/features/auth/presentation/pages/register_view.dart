@@ -1,5 +1,4 @@
 import 'package:MatchIn/core/utils/app_assets.dart';
-import 'package:MatchIn/core/utils/app_text_styles.dart';
 import 'package:MatchIn/core/widgets/custom_button.dart';
 import 'package:MatchIn/core/widgets/custom_text_field.dart';
 import 'package:MatchIn/core/widgets/social_login_button.dart';
@@ -8,33 +7,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class RegisterView extends StatefulWidget {
-  const RegisterView({super.key});
+class RegisterView extends StatelessWidget {
+  RegisterView({super.key});
 
-  @override
-  State<RegisterView> createState() => _RegisterViewState();
-}
-
-class _RegisterViewState extends State<RegisterView> {
-  bool isTermsAccepted = false;
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _phoneController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    super.dispose();
-  }
+  
+  // استخدمنا ValueNotifier عشان ال Checkbox
+  final ValueNotifier<bool> _isTermsAccepted = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
-    final isArabic = Localizations.localeOf(context).languageCode == 'ar';
     final theme = Theme.of(context);
     final locale = S.of(context);
 
@@ -46,140 +32,144 @@ class _RegisterViewState extends State<RegisterView> {
         ),
         title: Text(
           locale.createAccount,
-          style: AppTextStyles.heading18Bold(isArabic: isArabic),
+          style: theme.textTheme.titleLarge,
         ),
         centerTitle: true,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SvgPicture.asset(Assets.imagesTextLogo, height: 40.h),
-                SizedBox(height: 8.h),
-                Text(
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+            children: [
+              Center(
+                child: SvgPicture.asset(Assets.imagesTextLogo, height: 40.h),
+              ),
+              SizedBox(height: 8.h),
+              Center(
+                child: Text(
                   locale.smartCareerDiscoveryPlatform,
-                  style: AppTextStyles.body14Regular(
-                    isArabic: isArabic,
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
-                SizedBox(height: 32.h),
+              ),
+              SizedBox(height: 32.h),
 
-                CustomTextField(
-                  controller: _emailController,
-                  labelText: locale.email,
-                  hintText: locale.emailHint,
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                SizedBox(height: 16.h),
+              CustomTextField(
+                controller: _emailController,
+                labelText: locale.email,
+                hintText: locale.emailHint,
+                keyboardType: TextInputType.emailAddress,
+              ),
+              SizedBox(height: 16.h),
 
-                CustomTextField(
-                  controller: _phoneController,
-                  labelText: locale.phoneNumber,
-                  hintText: locale.phoneHint,
-                  keyboardType: TextInputType.phone,
-                ),
-                SizedBox(height: 16.h),
+              CustomTextField(
+                controller: _phoneController,
+                labelText: locale.phoneNumber,
+                hintText: locale.phoneHint,
+                keyboardType: TextInputType.phone,
+              ),
+              SizedBox(height: 16.h),
 
-                CustomTextField(
-                  controller: _passwordController,
-                  labelText: locale.password,
-                  hintText: locale.passwordHint,
-                  isPassword: true,
-                ),
-                SizedBox(height: 16.h),
+              CustomTextField(
+                controller: _passwordController,
+                labelText: locale.password,
+                hintText: locale.passwordHint,
+                isPassword: true,
+              ),
+              SizedBox(height: 16.h),
 
-                CustomTextField(
-                  controller: _confirmPasswordController,
-                  labelText: locale.confirmPassword,
-                  hintText: locale.confirmPasswordHint,
-                  isPassword: true,
-                ),
-                SizedBox(height: 16.h),
+              CustomTextField(
+                controller: _confirmPasswordController,
+                labelText: locale.confirmPassword,
+                hintText: locale.confirmPasswordHint,
+                isPassword: true,
+              ),
+              SizedBox(height: 16.h),
 
-                Row(
-                  children: [
-                    Checkbox(
-                      value: isTermsAccepted,
-                      activeColor: theme.colorScheme.primary,
-                      onChanged: (value) {
-                        setState(() {
-                          isTermsAccepted = value ?? false;
-                        });
-                      },
+              Row(
+                children: [
+                  ValueListenableBuilder<bool>(
+                    valueListenable: _isTermsAccepted,
+                    builder: (context, value, child) {
+                      return Checkbox(
+                        value: value,
+                        activeColor: theme.colorScheme.primary,
+                        onChanged: (newValue) {
+                          _isTermsAccepted.value = newValue ?? false;
+                        },
+                      );
+                    },
+                  ),
+                  Expanded(
+                    child: Text(
+                      locale.termsAndConditions,
+                      style: theme.textTheme.bodySmall,
                     ),
-                    Expanded(
+                  ),
+                ],
+              ),
+              SizedBox(height: 24.h),
+
+              CustomButton(
+                text: locale.completeRegistration,
+                onPressed: () {
+                  // ضفنا شرط ان اليوزر يكون موافق علي الشروط عشان يكمل
+                  if (_formKey.currentState!.validate() && _isTermsAccepted.value) {
+                    // TODO: trigger register event
+                  }
+                },
+              ),
+              SizedBox(height: 16.h),
+
+              Row(
+                children: [
+                  const Expanded(child: Divider()),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Text(
+                      locale.or,
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                  ),
+                  const Expanded(child: Divider()),
+                ],
+              ),
+              SizedBox(height: 16.h),
+
+              SocialLoginButton(
+                text: locale.registerWithGoogle,
+                icon: const Icon(Icons.g_mobiledata, size: 32),
+                onPressed: () {},
+              ),
+              SizedBox(height: 32.h),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    locale.alreadyHaveAccount,
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.all(4.w),
                       child: Text(
-                        locale.termsAndConditions,
-                        style: AppTextStyles.body12Regular(isArabic: isArabic),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 24.h),
-
-                CustomButton(
-                  text: locale.completeRegistration,
-                  onPressed: () {
-                    if (_formKey.currentState!.validate() && isTermsAccepted) {
-                      // TODO: trigger register event
-                    }
-                  },
-                ),
-                SizedBox(height: 16.h),
-
-                Row(
-                  children: [
-                    const Expanded(child: Divider()),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: Text(
-                        locale.or,
-                        style: AppTextStyles.body14Regular(isArabic: isArabic),
-                      ),
-                    ),
-                    const Expanded(child: Divider()),
-                  ],
-                ),
-                SizedBox(height: 16.h),
-
-                SocialLoginButton(
-                  text: locale.registerWithGoogle,
-                  icon: const Icon(Icons.g_mobiledata, size: 32),
-                  onPressed: () {},
-                ),
-                SizedBox(height: 32.h),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      locale.alreadyHaveAccount,
-                      style: AppTextStyles.body14SemiBold(isArabic: isArabic),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(4.w),
-                        child: Text(
-                          locale.login,
-                          style: AppTextStyles.body14Bold(
-                            isArabic: isArabic,
-                            color: theme.colorScheme.secondary,
-                          ),
+                        locale.login,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.primary,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

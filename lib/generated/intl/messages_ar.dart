@@ -22,12 +22,41 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-    "noInternetConnection": MessageLookupByLibrary.simpleMessage(
-      "لا يوجد اتصال بالإنترنت",
-    ),
-    "pleaseCheckYourInternetConnection": MessageLookupByLibrary.simpleMessage(
-      "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
-    ),
-    "tryAgain": MessageLookupByLibrary.simpleMessage("إعادة المحاولة"),
-  };
+        "alreadyHaveAccount":
+            MessageLookupByLibrary.simpleMessage("عندك حساب؟ "),
+        "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+        "completeRegistration":
+            MessageLookupByLibrary.simpleMessage("إتمام التسجيل"),
+        "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
+        "confirmPassword":
+            MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
+        "confirmPasswordHint":
+            MessageLookupByLibrary.simpleMessage("أعد كتابة كلمة المرور"),
+        "createAccount": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
+        "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
+        "emailHint": MessageLookupByLibrary.simpleMessage("example@email.com"),
+        "forgotPassword":
+            MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
+        "keepMeSignedIn": MessageLookupByLibrary.simpleMessage("خليني مسجل"),
+        "login": MessageLookupByLibrary.simpleMessage("سجل دخول"),
+        "newHere": MessageLookupByLibrary.simpleMessage("أول مرة هنا؟ "),
+        "noInternetConnection":
+            MessageLookupByLibrary.simpleMessage("لا يوجد اتصال بالإنترنت"),
+        "or": MessageLookupByLibrary.simpleMessage("أو"),
+        "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
+        "passwordHint": MessageLookupByLibrary.simpleMessage("8 حروف أو أكثر"),
+        "phoneHint": MessageLookupByLibrary.simpleMessage("01xxxxxxxxx"),
+        "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
+        "pleaseCheckYourInternetConnection":
+            MessageLookupByLibrary.simpleMessage(
+                "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى"),
+        "registerWithGoogle":
+            MessageLookupByLibrary.simpleMessage("التسجيل بواسطة Google"),
+        "smartCareerDiscoveryPlatform":
+            MessageLookupByLibrary.simpleMessage("منصة التوفيق الوظيفي الذكية"),
+        "termsAndConditions": MessageLookupByLibrary.simpleMessage(
+            "موافق على الشروط والأحكام وسياسة الخصوصية"),
+        "tryAgain": MessageLookupByLibrary.simpleMessage("إعادة المحاولة"),
+        "welcomeBack": MessageLookupByLibrary.simpleMessage("أهلاً بعودتك")
+      };
 }

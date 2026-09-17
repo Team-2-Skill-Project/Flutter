@@ -1,5 +1,6 @@
 import 'package:MatchIn/features/auth/presentation/pages/login_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -31,8 +32,8 @@ class _SplashViewState extends State<SplashView> {
       body: Center(
         child: Image.asset(
           'assets/images/app_icon.jpg',
-          width: 150,
-          height: 150,
+          width: 150.w,
+          height: 150.h,
         ),
       ),
     );

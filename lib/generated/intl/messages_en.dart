@@ -22,12 +22,43 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-    "noInternetConnection": MessageLookupByLibrary.simpleMessage(
-      "No internet connection",
-    ),
-    "pleaseCheckYourInternetConnection": MessageLookupByLibrary.simpleMessage(
-      "Please check your internet connection and try again",
-    ),
-    "tryAgain": MessageLookupByLibrary.simpleMessage("Try Again"),
-  };
+        "alreadyHaveAccount":
+            MessageLookupByLibrary.simpleMessage("Already have an account? "),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "completeRegistration":
+            MessageLookupByLibrary.simpleMessage("Complete Registration"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "confirmPassword":
+            MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "confirmPasswordHint":
+            MessageLookupByLibrary.simpleMessage("Re-enter your password"),
+        "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
+        "email": MessageLookupByLibrary.simpleMessage("Email Address"),
+        "emailHint": MessageLookupByLibrary.simpleMessage("example@email.com"),
+        "forgotPassword":
+            MessageLookupByLibrary.simpleMessage("Forgot password?"),
+        "keepMeSignedIn":
+            MessageLookupByLibrary.simpleMessage("Keep me signed in"),
+        "login": MessageLookupByLibrary.simpleMessage("Log in"),
+        "newHere": MessageLookupByLibrary.simpleMessage("New here? "),
+        "noInternetConnection":
+            MessageLookupByLibrary.simpleMessage("No internet connection"),
+        "or": MessageLookupByLibrary.simpleMessage("or"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "passwordHint":
+            MessageLookupByLibrary.simpleMessage("8 characters or more"),
+        "phoneHint": MessageLookupByLibrary.simpleMessage("01xxxxxxxxx"),
+        "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+        "pleaseCheckYourInternetConnection":
+            MessageLookupByLibrary.simpleMessage(
+                "Please check your internet connection and try again"),
+        "registerWithGoogle":
+            MessageLookupByLibrary.simpleMessage("Continue with Google"),
+        "smartCareerDiscoveryPlatform": MessageLookupByLibrary.simpleMessage(
+            "Smart Career Discovery Platform"),
+        "termsAndConditions": MessageLookupByLibrary.simpleMessage(
+            "I agree to the Terms and Conditions and Privacy Policy"),
+        "tryAgain": MessageLookupByLibrary.simpleMessage("Try Again"),
+        "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome back")
+      };
 }
