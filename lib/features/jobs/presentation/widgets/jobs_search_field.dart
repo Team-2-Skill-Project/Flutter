@@ -17,7 +17,7 @@ class JobsSearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: .symmetric(horizontal: 16.w),
+      padding: EdgeInsetsGeometry.symmetric(horizontal: 16.w),
       child: TextField(
         controller: controller,
         onChanged: onChanged,

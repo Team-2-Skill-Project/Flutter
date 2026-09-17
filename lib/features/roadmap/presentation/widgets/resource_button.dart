@@ -8,10 +8,7 @@ import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/features/roadmap/data/models/skill_task.dart';
 
 class ResourceButton extends StatelessWidget {
-  const ResourceButton({
-    super.key,
-    required this.resource,
-  });
+  const ResourceButton({super.key, required this.resource});
 
   final TaskResource resource;
 
@@ -39,10 +36,7 @@ class ResourceButton extends StatelessWidget {
         onTap: () {
           context.push(
             AppRoutes.kWebView,
-            extra: {
-              'url': resource.url,
-              'title': label,
-            },
+            extra: {'url': resource.url, 'title': label},
           );
         },
         borderRadius: BorderRadius.circular(10.r),
@@ -51,10 +45,7 @@ class ResourceButton extends StatelessWidget {
           decoration: BoxDecoration(
             color: AppColors.surfaceVariant,
             borderRadius: BorderRadius.circular(10.r),
-            border: Border.all(
-              color: AppColors.divider,
-              width: 1,
-            ),
+            border: Border.all(color: AppColors.darkDivider, width: 1),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,

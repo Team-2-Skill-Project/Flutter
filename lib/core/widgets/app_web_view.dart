@@ -5,11 +5,7 @@ import 'package:MatchIn/core/utils/app_colors.dart';
 
 ///\* Generic reusable in-app WebView component located in `core/widgets/`.
 class AppWebView extends StatefulWidget {
-  const AppWebView({
-    super.key,
-    required this.url,
-    this.title,
-  });
+  const AppWebView({super.key, required this.url, this.title});
 
   final String url;
   final String? title;
@@ -95,22 +91,20 @@ class _AppWebViewState extends State<AppWebView> {
                 child: LinearProgressIndicator(
                   value: _progress,
                   backgroundColor: AppColors.surfaceVariant,
-                  valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                  valueColor: const AlwaysStoppedAnimation<Color>(
+                    AppColors.primary,
+                  ),
                 ),
               )
             : null,
       ),
-      body: SafeArea(
-        child: _hasError ? _buildErrorView() : _buildWebView(),
-      ),
+      body: SafeArea(child: _hasError ? _buildErrorView() : _buildWebView()),
     );
   }
 
   Widget _buildWebView() {
     return InAppWebView(
-      initialUrlRequest: URLRequest(
-        url: WebUri(widget.url),
-      ),
+      initialUrlRequest: URLRequest(url: WebUri(widget.url)),
       initialSettings: InAppWebViewSettings(
         useShouldOverrideUrlLoading: true,
         mediaPlaybackRequiresUserGesture: false,
@@ -137,7 +131,8 @@ class _AppWebViewState extends State<AppWebView> {
       },
       onReceivedHttpError: (controller, request, response) {
         if (!mounted) return;
-        if (request.isForMainFrame == true && (response.statusCode ?? 0) >= 400) {
+        if (request.isForMainFrame == true &&
+            (response.statusCode ?? 0) >= 400) {
           setState(() {
             _hasError = true;
             _errorMessage = 'HTTP Error ${response.statusCode}';
@@ -181,10 +176,7 @@ class _AppWebViewState extends State<AppWebView> {
               _errorMessage.isNotEmpty
                   ? _errorMessage
                   : 'Please check your internet connection.',
-              style: TextStyle(
-                fontSize: 14.sp,
-                color: AppColors.textSecondary,
-              ),
+              style: TextStyle(fontSize: 14.sp, color: AppColors.textSecondary),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 32.h),
@@ -214,7 +206,7 @@ class _AppWebViewState extends State<AppWebView> {
                   label: const Text('Open in Browser'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.secondary,
-                    foregroundColor: AppColors.onSecondary,
+                    foregroundColor: AppColors.textSecondary,
                     elevation: 0,
                     padding: EdgeInsets.symmetric(
                       horizontal: 16.w,

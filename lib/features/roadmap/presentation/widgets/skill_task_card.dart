@@ -42,7 +42,9 @@ class _SkillTaskCardState extends State<SkillTaskCard>
             : AppColors.surface,
         borderRadius: BorderRadius.circular(14.r),
         border: Border.all(
-          color: isCompleted ? AppColors.success.withValues(alpha: 0.4) : AppColors.divider,
+          color: isCompleted
+              ? AppColors.success.withValues(alpha: 0.4)
+              : AppColors.darkDivider,
           width: 1.w,
         ),
         boxShadow: [
@@ -160,10 +162,7 @@ class _SkillTaskCardState extends State<SkillTaskCard>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: 12.h),
-                            Divider(
-                              color: AppColors.divider,
-                              height: 1.h,
-                            ),
+                            Divider(color: AppColors.darkDivider, height: 1.h),
                             SizedBox(height: 12.h),
 
                             // Description

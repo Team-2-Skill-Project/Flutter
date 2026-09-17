@@ -25,9 +25,7 @@ abstract final class AppColors {
 
   static const Color lightBackground = Color(0xFFFAF8F4);
   static const Color lightSurface = Color(0xFFFFFFFF);
-  static const Color lightSurfaceVariant = Color(
-    0xFFF4F1EC,
-  );
+  static const Color lightSurfaceVariant = Color(0xFFF4F1EC);
 
   static const Color lightTextPrimary = Color(0xFF222831);
   static const Color lightTextSecondary = Color(0xFF707780);
@@ -64,6 +62,7 @@ abstract final class AppColors {
   static const Color secondary = terracotta;
   static const Color accent = goldenMustard;
   static const Color success = forestGreen;
+  static const Color error = Color(0xFFD32F2F);
 
   static const Color background = lightBackground;
   static const Color surface = lightSurface;
@@ -73,4 +72,5 @@ abstract final class AppColors {
   static const Color textPrimary = lightTextPrimary;
   static const Color textSecondary = lightTextSecondary;
   static const Color border = lightBorder;
+  static const Color textHint = textSecondary;
 }

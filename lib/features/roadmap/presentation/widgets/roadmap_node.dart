@@ -96,7 +96,7 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
     final Color baseColor = _getNodeColor(status);
     final Color depthColor = _getDepthColor(status);
 
-    final Color iconColor = isLocked ? AppColors.textHint : Colors.white;
+    final Color iconColor = isLocked ? AppColors.textSecondary : Colors.white;
 
     // ============================================================
     // ACTIVE RING
@@ -133,7 +133,6 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
         // ============================================================
         // START INDICATOR
         // ============================================================
-
         if (isActive) ...[const ActiveTaskIndicator(), SizedBox(height: 10.h)],
 
         // ============================================================
@@ -162,7 +161,6 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
                 // the top node surface so it stays centered while
                 // pressing.
                 // ======================================================
-
                 if (isActive)
                   AnimatedPositioned(
                     duration: const Duration(milliseconds: 80),
@@ -299,7 +297,7 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
             style: TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: isActive ? 15.sp : 14.sp,
-              color: isLocked ? AppColors.textHint : AppColors.secondary,
+              color: isLocked ? AppColors.textSecondary : AppColors.secondary,
             ),
           ),
         ),
@@ -318,7 +316,7 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
                 fontSize: 11.sp,
                 fontWeight: FontWeight.w500,
                 color: isLocked
-                    ? AppColors.textHint.withValues(alpha: 0.7)
+                    ? AppColors.textSecondary.withValues(alpha: 0.7)
                     : AppColors.textSecondary,
               ),
             ),

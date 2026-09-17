@@ -18,15 +18,13 @@ class JobsInfoJobCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     final content = Row(
-      mainAxisSize: .min,
+      mainAxisSize: MainAxisSize.min,
       children: [
         if (icon != null) ...[
           Icon(
             icon,
             size: 16.sp,
-            color: theme.colorScheme.onSurface.withValues(
-              alpha: 0.55,
-            ),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.55),
           ),
           SizedBox(width: 4.w),
         ],
@@ -34,9 +32,7 @@ class JobsInfoJobCard extends StatelessWidget {
         Text(
           label,
           style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurface.withValues(
-              alpha: 0.6,
-            ),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
           ),
         ),
       ],
@@ -47,10 +43,7 @@ class JobsInfoJobCard extends StatelessWidget {
     }
 
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 10.w,
-        vertical: 6.h,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
       decoration: BoxDecoration(
         border: Border.all(color: theme.dividerColor),
         borderRadius: BorderRadius.circular(6.r),

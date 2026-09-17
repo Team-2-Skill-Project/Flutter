@@ -7,10 +7,7 @@ import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/road
 import 'package:MatchIn/features/roadmap/presentation/widgets/skill_task_card.dart';
 
 class SkillDetailsSheet extends StatelessWidget {
-  const SkillDetailsSheet({
-    super.key,
-    required this.node,
-  });
+  const SkillDetailsSheet({super.key, required this.node});
 
   final RoadmapNode node;
 
@@ -42,9 +39,7 @@ class SkillDetailsSheet extends StatelessWidget {
             return Container(
               decoration: BoxDecoration(
                 color: AppColors.background,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(24.r),
-                ),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
               ),
               child: SafeArea(
                 child: ListView(
@@ -85,7 +80,7 @@ class SkillDetailsSheet extends StatelessWidget {
                         color: AppColors.surfaceVariant.withValues(alpha: 0.7),
                         borderRadius: BorderRadius.circular(16.r),
                         border: Border.all(
-                          color: AppColors.divider,
+                          color: AppColors.darkDivider,
                           width: 1.w,
                         ),
                       ),
@@ -98,9 +93,10 @@ class SkillDetailsSheet extends StatelessWidget {
                               Text(
                                 totalCount > 0
                                     ? '$completedCount / $totalCount Tasks completed'
-                                    : (currentNode.status == RoadmapTaskStatus.completed
-                                        ? 'Skill Completed'
-                                        : 'Skill In Progress'),
+                                    : (currentNode.status ==
+                                              RoadmapTaskStatus.completed
+                                          ? 'Skill Completed'
+                                          : 'Skill In Progress'),
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w600,
@@ -125,7 +121,7 @@ class SkillDetailsSheet extends StatelessWidget {
                             child: LinearProgressIndicator(
                               value: progressRatio,
                               minHeight: 10.h,
-                              backgroundColor: AppColors.divider,
+                              backgroundColor: AppColors.darkDivider,
                               valueColor: const AlwaysStoppedAnimation<Color>(
                                 AppColors.primary,
                               ),
@@ -169,7 +165,7 @@ class SkillDetailsSheet extends StatelessWidget {
                             'No learning tasks defined for this skill yet.',
                             style: TextStyle(
                               fontSize: 14.sp,
-                              color: AppColors.textHint,
+                              color: AppColors.textSecondary,
                             ),
                           ),
                         ),
@@ -186,9 +182,9 @@ class SkillDetailsSheet extends StatelessWidget {
                                 .length;
 
                             context.read<RoadmapCubit>().toggleTaskCompletion(
-                                  nodeTitle: currentNode.title,
-                                  taskId: task.id,
-                                );
+                              nodeTitle: currentNode.title,
+                              taskId: task.id,
+                            );
 
                             if (isCompletingTask &&
                                 remainingIncompleteCount == 1) {
