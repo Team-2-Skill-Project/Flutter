@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+import 'package:MatchIn/core/widgets/app_web_view.dart';
 import 'package:MatchIn/core/widgets/main_navigation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -26,6 +26,18 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kSplashView,
         builder: (context, state) => const MainNavigationScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.kWebView,
+        builder: (context, state) {
+          final args = state.extra as Map<String, dynamic>? ?? {};
+          final url = args['url'] as String? ?? '';
+          final title = args['title'] as String?;
+          return AppWebView(
+            url: url,
+            title: title,
+          );
+        },
       ),
     ],
   );

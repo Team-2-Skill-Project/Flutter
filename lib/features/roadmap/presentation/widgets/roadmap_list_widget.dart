@@ -308,15 +308,21 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
       return;
     }
 
+    final roadmapCubit = context.read<RoadmapCubit>();
+
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       showDragHandle: true,
       backgroundColor: AppColors.background,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
       ),
       builder: (_) {
-        return SkillDetailsSheet(node: node);
+        return BlocProvider.value(
+          value: roadmapCubit,
+          child: SkillDetailsSheet(node: node),
+        );
       },
     );
   }

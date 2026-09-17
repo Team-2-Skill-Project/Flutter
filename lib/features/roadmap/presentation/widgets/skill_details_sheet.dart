@@ -1,82 +1,202 @@
-import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
-import 'package:MatchIn/features/roadmap/presentation/widgets/info_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:MatchIn/core/utils/app_colors.dart';
+import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
+import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
+import 'package:MatchIn/features/roadmap/presentation/widgets/skill_task_card.dart';
 
 class SkillDetailsSheet extends StatelessWidget {
-  const SkillDetailsSheet({super.key, required this.node});
+  const SkillDetailsSheet({
+    super.key,
+    required this.node,
+  });
+
   final RoadmapNode node;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            node.title,
-            style: const TextStyle(
-              fontFamily: 'DM Sans',
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1F365C),
-            ),
-          ),
+    return DraggableScrollableSheet(
+      expand: false,
+      initialChildSize: 0.75,
+      minChildSize: 0.4,
+      maxChildSize: 0.95,
+      builder: (context, scrollController) {
+        return BlocBuilder<RoadmapCubit, RoadmapState>(
+          builder: (context, state) {
+            // Retrieve latest node state from RoadmapCubit if available
+            RoadmapNode currentNode = node;
+            if (state is RoadmapSuccess) {
+              final found = state.nodes.firstWhere(
+                (n) => n.title == node.title,
+                orElse: () => node,
+              );
+              currentNode = found;
+            }
 
-          if (node.subtitle != null) ...[
-            const SizedBox(height: 6),
-            Text(
-              node.subtitle!,
-              style: const TextStyle(
-                fontFamily: 'Inter',
-                color: Color(0xFF707780),
+            final completedCount = currentNode.completedTasksCount;
+            final totalCount = currentNode.totalTasksCount;
+            final progressRatio = currentNode.progressRatio;
+            final percentageInt = (progressRatio * 100).toInt();
+
+            return Container(
+              decoration: BoxDecoration(
+                color: AppColors.background,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(24.r),
+                ),
               ),
-            ),
-          ],
+              child: SafeArea(
+                child: ListView(
+                  controller: scrollController,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                    vertical: 12.h,
+                  ),
+                  children: [
+                    // Header Section
+                    Text(
+                      currentNode.title,
+                      style: TextStyle(
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.secondary,
+                      ),
+                    ),
 
-          const SizedBox(height: 24),
+                    if (currentNode.subtitle != null &&
+                        currentNode.subtitle!.isNotEmpty) ...[
+                      SizedBox(height: 4.h),
+                      Text(
+                        currentNode.subtitle!,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
 
-          const Text(
-            'Why you need it',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+                    SizedBox(height: 20.h),
 
-          const SizedBox(height: 8),
+                    // Progress Overview Section
+                    Container(
+                      padding: EdgeInsets.all(16.r),
+                      decoration: BoxDecoration(
+                        color: AppColors.surfaceVariant.withValues(alpha: 0.7),
+                        borderRadius: BorderRadius.circular(16.r),
+                        border: Border.all(
+                          color: AppColors.divider,
+                          width: 1.w,
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                totalCount > 0
+                                    ? '$completedCount / $totalCount Tasks completed'
+                                    : (currentNode.status == RoadmapTaskStatus.completed
+                                        ? 'Skill Completed'
+                                        : 'Skill In Progress'),
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.secondary,
+                                ),
+                              ),
+                              Text(
+                                '$percentageInt%',
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.primary,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10.h),
 
-          const Text(
-            'This skill is important for your target '
-            'Flutter Developer roles.',
-          ),
+                          // Dynamic Progress Bar
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8.r),
+                            child: LinearProgressIndicator(
+                              value: progressRatio,
+                              minHeight: 10.h,
+                              backgroundColor: AppColors.divider,
+                              valueColor: const AlwaysStoppedAnimation<Color>(
+                                AppColors.primary,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
 
-          const SizedBox(height: 24),
+                    SizedBox(height: 24.h),
 
-          Row(
-            children: [
-              InfoItem(title: 'Duration', value: node.duration ?? '-'),
-              const SizedBox(width: 24),
-              InfoItem(title: 'XP Reward', value: '+${node.xp ?? 0}'),
-            ],
-          ),
+                    // Tasks Section Title
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.task_alt_rounded,
+                          size: 18.r,
+                          color: AppColors.secondary,
+                        ),
+                        SizedBox(width: 8.w),
+                        Text(
+                          'LEARNING TASKS',
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.8,
+                            color: AppColors.secondary,
+                          ),
+                        ),
+                      ],
+                    ),
 
-          const SizedBox(height: 24),
+                    SizedBox(height: 12.h),
 
-          SizedBox(
-            width: double.infinity,
-            height: 52,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1F365C),
-                foregroundColor: Colors.white,
+                    // Tasks Vertical List
+                    if (currentNode.tasks.isEmpty) ...[
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 24.h),
+                        child: Center(
+                          child: Text(
+                            'No learning tasks defined for this skill yet.',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: AppColors.textHint,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ] else ...[
+                      ...currentNode.tasks.map((task) {
+                        return SkillTaskCard(
+                          key: ValueKey(task.id),
+                          task: task,
+                          onToggleComplete: () {
+                            context.read<RoadmapCubit>().toggleTaskCompletion(
+                                  nodeTitle: currentNode.title,
+                                  taskId: task.id,
+                                );
+                          },
+                        );
+                      }),
+                    ],
+
+                    SizedBox(height: 20.h),
+                  ],
+                ),
               ),
-              child: const Text('Start Learning'),
-            ),
-          ),
-
-          const SizedBox(height: 16),
-        ],
-      ),
+            );
+          },
+        );
+      },
     );
   }
 }

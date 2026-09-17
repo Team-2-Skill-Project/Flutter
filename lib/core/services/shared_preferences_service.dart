@@ -65,6 +65,22 @@ class SharedPreferencesService {
     if (list == null) return {};
     return list.map((e) => int.tryParse(e)).whereType<int>().toSet();
   }
+
+  // --- Roadmap completed tasks persistence ---
+  Future<void> saveCompletedTasks(Set<String> taskIds) async {
+    await _sharedPreferencesHelper.saveData(
+      key: CacheKey.completedTaskIds,
+      value: taskIds.toList(),
+    );
+  }
+
+  Set<String> getCompletedTasks() {
+    final list = _sharedPreferencesHelper.getStringList(
+      key: CacheKey.completedTaskIds,
+    );
+    if (list == null) return {};
+    return list.toSet();
+  }
 }
 
 

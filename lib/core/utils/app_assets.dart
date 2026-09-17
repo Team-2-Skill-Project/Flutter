@@ -17,5 +17,13 @@ class Assets {
   /// Assets for lottieTreasureBox
   /// assets/lottie/treasure_box.json
   static const String lottieTreasureBox = "assets/lottie/treasure_box.json";
+
+  /// Assets for iconsVideo
+  /// assets/images/video.svg
+  static const String videoIcon = "assets/images/video.svg";
+
+  /// Assets for iconsDocs
+  /// assets/images/docs.svg
+  static const String docsIcon = "assets/images/docs.svg";
 }
 
