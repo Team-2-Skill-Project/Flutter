@@ -247,6 +247,13 @@
 10. Granular Widget Decomposition:
    - Break down complex presentation files into small, single-responsibility sub-widgets.
    - Avoid monolithic `build()` methods by extracting inner sections into modular sub-widgets (e.g., `_TaskHeaderRow`, `_TaskExpandedDetails`, `_TreasureBoxArtwork`).
+11. Cubit vs. Widget Boundaries:
+   - **Cubit / State Management**: Business logic, roadmap state, node status/state changes, unlock logic, treasure claiming logic, data transformations, API/repository calls, state updates.
+   - **Widgets**: `BuildContext`, `GlobalKey`, `RenderBox`, `setState`, Layout calculations, `Positioned`, `Transform`, `CustomPaint`, Bottom Sheet presentation, SnackBar presentation, UI callbacks.
+   - Do NOT put Flutter rendering/layout concerns inside Cubits (`GlobalKey`, `RenderBox`, `BuildContext`, `setState`, `showBottomSheet`, `SnackBar`).
+12. Centralized Assets & Magic Numbers:
+   - Use centralized asset constants (`Assets.lottieGraduationHat`, `Assets.lottieBooks1Lottie`, etc.) instead of hardcoded asset string paths.
+   - Replace layout magic numbers with named, descriptive constants (e.g., `_minSpaceRatio`, `_lottieSizeRatio`, `_taskHalfWidth`).
 
 ---
 

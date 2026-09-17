@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,11 +6,11 @@ import 'package:MatchIn/core/extensions/snack_bar_extensions.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_item_model.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
+import 'package:MatchIn/features/roadmap/presentation/utils/roadmap_layout_utils.dart';
+import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_item_widget.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_lottie_decoration.dart';
-import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_path_painter.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/skill_details_sheet.dart';
-import 'package:MatchIn/features/roadmap/presentation/widgets/treasure_box_node.dart';
 
 class RoadmapListWidget extends StatefulWidget {
   const RoadmapListWidget({
@@ -97,56 +95,22 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
               key: _stackKey,
               clipBehavior: Clip.none,
               children: [
-                // Layer 1: Curve Path CustomPaint
+                // Layer 1: Winding curve Path CustomPaint
                 Positioned.fill(
                   child: CustomPaint(
                     painter: RoadmapPathPainter(nodeCenters: _nodeCenters),
                   ),
                 ),
 
-                // Layer 2 & 3: Nodes, Milestones & Floating Decorations
+                // Layer 2 & 3: Task Nodes, Milestone Treasures & Lottie Decorations
                 Column(
                   children: List.generate(items.length, (itemIndex) {
                     final item = items[itemIndex];
-                    final horizontalShift = _calculateOrganicOffset(
-                      itemIndex,
-                      maxOffset,
-                    );
-
-                    Widget childWidget;
-                    if (item.isTreasure) {
-                      final milestoneIndex = item.milestoneIndex!;
-                      final targetIndex = item.targetNodeIndex!;
-                      final isUnlocked =
-                          targetIndex < widget.nodes.length &&
-                          widget.nodes[targetIndex].status ==
-                              RoadmapTaskStatus.completed;
-                      final isClaimed = widget.collectedTreasures.contains(
-                        milestoneIndex,
-                      );
-
-                      childWidget = TreasureBoxNodeWidget(
-                        milestoneIndex: milestoneIndex,
-                        isUnlocked: isUnlocked,
-                        isClaimed: isClaimed,
-                        circleKey: _circleKeys[itemIndex],
-                        onClaimSuccess: () => _onTreasureClaimSuccess(
-                          context: context,
-                          milestoneIndex: milestoneIndex,
-                        ),
-                        onLockedTap: () => _onTreasureLockedTap(
-                          context: context,
-                          targetNodeIndex: targetIndex,
-                        ),
-                      );
-                    } else {
-                      final node = item.node!;
-                      childWidget = RoadmapTaskNode(
-                        node: node,
-                        circleKey: _circleKeys[itemIndex],
-                        onTap: () => _onNodeTap(context, node),
-                      );
-                    }
+                    final horizontalShift =
+                        RoadmapLayoutUtils.calculateOrganicOffset(
+                          itemIndex,
+                          maxOffset,
+                        );
 
                     return Padding(
                       padding: EdgeInsets.symmetric(vertical: 12.h),
@@ -156,7 +120,25 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
                         children: [
                           Transform.translate(
                             offset: Offset(horizontalShift, 0),
-                            child: Center(child: childWidget),
+                            child: Center(
+                              child: RoadmapItemWidget(
+                                item: item,
+                                nodes: widget.nodes,
+                                collectedTreasures: widget.collectedTreasures,
+                                circleKey: _circleKeys[itemIndex],
+                                onNodeTap: (node) => _onNodeTap(context, node),
+                                onTreasureClaimSuccess: (milestoneIndex) =>
+                                    _onTreasureClaimSuccess(
+                                      context: context,
+                                      milestoneIndex: milestoneIndex,
+                                    ),
+                                onTreasureLockedTap: (targetIndex) =>
+                                    _onTreasureLockedTap(
+                                      context: context,
+                                      targetNodeIndex: targetIndex,
+                                    ),
+                              ),
+                            ),
                           ),
                           RoadmapLottieDecoration(
                             index: itemIndex,
@@ -175,13 +157,6 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
         );
       },
     );
-  }
-
-  double _calculateOrganicOffset(int index, double maxOffset) {
-    final t = index.toDouble();
-    final rawOffset = 0.65 * sin(t * 0.85) + 0.35 * sin(t * 0.45 + 0.8);
-    final clamped = rawOffset.clamp(-1.0, 1.0);
-    return clamped * maxOffset;
   }
 
   void _onNodeTap(BuildContext context, RoadmapNode node) {
