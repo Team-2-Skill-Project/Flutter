@@ -237,6 +237,18 @@
 "needHelpWithNextSteps": "Need help with next steps?",
 "askCareerMentorDescription": "Ask your Career Mentor what to focus on while you wait.",
 "askChatBot": "Ask Chat Bot",
-"withdrawApplication": "Withdraw Application"
+"withdrawApplication": "Withdraw Application",
+"uploadYourCv": "Upload your CV",
+"cvUploadRequirements": "PDF or DOCX • Max 5 MB",
+"chooseFile": "Choose File",
+"noFileSelected": "No file selected",
+"viewCv": "View CV",
+"replaceCv": "Replace CV",
+"uploaded": "Uploaded",
+"analyzing": "Analyzing",
+"analyzed": "Analyzed",
+"failed": "Failed",
+"updatedJustNow": "Updated just now",
+"good": "Good"
 
 }

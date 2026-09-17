@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "alreadySubmitted": MessageLookupByLibrary.simpleMessage(
       "Already submitted",
     ),
+    "analyzed": MessageLookupByLibrary.simpleMessage("Analyzed"),
+    "analyzing": MessageLookupByLibrary.simpleMessage("Analyzing"),
     "answerEmployerQuestions": MessageLookupByLibrary.simpleMessage(
       "Answer the employer’s questions to continue your application.",
     ),
@@ -78,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "change": MessageLookupByLibrary.simpleMessage("Change"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Change Password"),
     "characters": MessageLookupByLibrary.simpleMessage("characters"),
+    "chooseFile": MessageLookupByLibrary.simpleMessage("Choose File"),
     "chooseStrongPassword": MessageLookupByLibrary.simpleMessage(
       "Choose a strong password you haven’t used before.",
     ),
@@ -106,6 +109,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "We extracted 12 skills and updated your career profile.",
     ),
     "cvResume": MessageLookupByLibrary.simpleMessage("CV / Résumé"),
+    "cvUploadRequirements": MessageLookupByLibrary.simpleMessage(
+      "PDF or DOCX • Max 5 MB",
+    ),
     "edit": MessageLookupByLibrary.simpleMessage("Edit"),
     "editNote": MessageLookupByLibrary.simpleMessage("Edit Note"),
     "education": MessageLookupByLibrary.simpleMessage("Education"),
@@ -123,6 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "experienceWithBloc": MessageLookupByLibrary.simpleMessage(
       "Experience with Bloc",
     ),
+    "failed": MessageLookupByLibrary.simpleMessage("Failed"),
     "finalConfirmation": MessageLookupByLibrary.simpleMessage(
       "Final Confirmation",
     ),
@@ -153,6 +160,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Not just a score — strengths, gaps, and clear next actions.",
     ),
     "getStarted": MessageLookupByLibrary.simpleMessage("Get Started"),
+    "good": MessageLookupByLibrary.simpleMessage("Good"),
     "goodMatch": MessageLookupByLibrary.simpleMessage("Good Match"),
     "greetingUser": m0,
     "helpfulAdvantage": MessageLookupByLibrary.simpleMessage(
@@ -212,6 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noCoverNoteAdded": MessageLookupByLibrary.simpleMessage(
       "No cover note added",
     ),
+    "noFileSelected": MessageLookupByLibrary.simpleMessage("No file selected"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "No internet connection",
     ),
@@ -285,6 +294,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "recruiterReview": MessageLookupByLibrary.simpleMessage("Recruiter review"),
     "remote": MessageLookupByLibrary.simpleMessage("Remote"),
+    "replaceCv": MessageLookupByLibrary.simpleMessage("Replace CV"),
     "reqAtLeastOneNumber": MessageLookupByLibrary.simpleMessage(
       "At least one number",
     ),
@@ -414,10 +424,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "updatedFiveDaysAgo": MessageLookupByLibrary.simpleMessage(
       "Updated 5 days ago",
     ),
+    "updatedJustNow": MessageLookupByLibrary.simpleMessage("Updated just now"),
     "uploadFile": MessageLookupByLibrary.simpleMessage("Upload File"),
     "uploadFileHint": MessageLookupByLibrary.simpleMessage(
       "PDF or DOCX • Max 5 MB",
     ),
+    "uploadYourCv": MessageLookupByLibrary.simpleMessage("Upload your CV"),
+    "uploaded": MessageLookupByLibrary.simpleMessage("Uploaded"),
     "useDifferentEmail": MessageLookupByLibrary.simpleMessage(
       "Use a different email",
     ),
@@ -430,6 +443,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "verify": MessageLookupByLibrary.simpleMessage("Verify"),
     "view": MessageLookupByLibrary.simpleMessage("View"),
     "viewApplication": MessageLookupByLibrary.simpleMessage("View Application"),
+    "viewCv": MessageLookupByLibrary.simpleMessage("View CV"),
     "viewFullJobDescription": MessageLookupByLibrary.simpleMessage(
       "View full job description",
     ),

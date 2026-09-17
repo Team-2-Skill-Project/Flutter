@@ -3,6 +3,7 @@ import 'package:MatchIn/core/cache/shared_preferences_helper.dart';
 import 'package:MatchIn/core/networking/api_consumer.dart';
 import 'package:MatchIn/core/networking/dio_consumer.dart';
 import 'package:MatchIn/core/networking/network_info.dart';
+import 'package:MatchIn/core/services/file_picker_service.dart';
 import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/features/auth/data/data_sources/auth_mock_remote_data_source_impl.dart';
@@ -58,21 +59,24 @@ Future<void> setupServiceLocator() async {
     ),
   );
   getIt.registerFactory<ResetPasswordCubit>(
-    () => ResetPasswordCubit(
-      resetPasswordUseCase: getIt(),
-    ),
+    () => ResetPasswordCubit(resetPasswordUseCase: getIt()),
   );
 
   //! ======== External =========
-  final sharedPreferences = await SharedPreferences.getInstance();
-  getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+  final sharedPreferences =
+      await SharedPreferences.getInstance();
+  getIt.registerLazySingleton<SharedPreferences>(
+    () => sharedPreferences,
+  );
 
   //! ======== Core Storage Helpers =========
   getIt.registerLazySingleton<SharedPreferencesHelper>(
     () => SharedPreferencesHelper(preferences: getIt()),
   );
 
-  getIt.registerLazySingleton<SecureStorageHelper>(() => SecureStorageHelper());
+  getIt.registerLazySingleton<SecureStorageHelper>(
+    () => SecureStorageHelper(),
+  );
 
   //! ======== Core Services =========
   getIt.registerLazySingleton<SharedPreferencesService>(
@@ -84,7 +88,9 @@ Future<void> setupServiceLocator() async {
   );
 
   // ---> Network Info <---
-  getIt.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
+  getIt.registerLazySingleton<NetworkInfo>(
+    () => NetworkInfoImpl(),
+  );
 
   // ---> Network Client <---
   getIt.registerLazySingleton<Dio>(() => Dio());
@@ -96,5 +102,9 @@ Future<void> setupServiceLocator() async {
       secureStorageService: getIt(),
       sharedPreferencesService: getIt(),
     ),
+  );
+
+  getIt.registerLazySingleton<FilePickerService>(
+    () => FilePickerService(),
   );
 }

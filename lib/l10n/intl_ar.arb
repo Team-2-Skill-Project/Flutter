@@ -237,5 +237,17 @@
 "needHelpWithNextSteps": "تحتاج مساعدة في الخطوات القادمة؟",
 "askCareerMentorDescription": "اسأل مرشدك المهني عما يمكنك التركيز عليه أثناء الانتظار.",
 "askChatBot": "اسأل المساعد",
-"withdrawApplication": "سحب طلب التقديم"
+"withdrawApplication": "سحب طلب التقديم",
+"uploadYourCv": "ارفع سيرتك الذاتية",
+"cvUploadRequirements": "PDF أو DOCX • بحد أقصى 5 MB",
+"chooseFile": "اختر ملفًا",
+"noFileSelected": "لم يتم اختيار ملف",
+"viewCv": "عرض السيرة الذاتية",
+"replaceCv": "استبدال السيرة الذاتية",
+"uploaded": "تم الرفع",
+"analyzing": "جارٍ التحليل",
+"analyzed": "تم التحليل",
+"failed": "فشل",
+"updatedJustNow": "تم التحديث الآن",
+"good": "جيد"
 }

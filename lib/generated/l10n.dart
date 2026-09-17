@@ -1929,6 +1929,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Upload your CV`
+  String get uploadYourCv {
+    return Intl.message(
+      'Upload your CV',
+      name: 'uploadYourCv',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PDF or DOCX • Max 5 MB`
+  String get cvUploadRequirements {
+    return Intl.message(
+      'PDF or DOCX • Max 5 MB',
+      name: 'cvUploadRequirements',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose File`
+  String get chooseFile {
+    return Intl.message('Choose File', name: 'chooseFile', desc: '', args: []);
+  }
+
+  /// `No file selected`
+  String get noFileSelected {
+    return Intl.message(
+      'No file selected',
+      name: 'noFileSelected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View CV`
+  String get viewCv {
+    return Intl.message('View CV', name: 'viewCv', desc: '', args: []);
+  }
+
+  /// `Replace CV`
+  String get replaceCv {
+    return Intl.message('Replace CV', name: 'replaceCv', desc: '', args: []);
+  }
+
+  /// `Uploaded`
+  String get uploaded {
+    return Intl.message('Uploaded', name: 'uploaded', desc: '', args: []);
+  }
+
+  /// `Analyzing`
+  String get analyzing {
+    return Intl.message('Analyzing', name: 'analyzing', desc: '', args: []);
+  }
+
+  /// `Analyzed`
+  String get analyzed {
+    return Intl.message('Analyzed', name: 'analyzed', desc: '', args: []);
+  }
+
+  /// `Failed`
+  String get failed {
+    return Intl.message('Failed', name: 'failed', desc: '', args: []);
+  }
+
+  /// `Updated just now`
+  String get updatedJustNow {
+    return Intl.message(
+      'Updated just now',
+      name: 'updatedJustNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good`
+  String get good {
+    return Intl.message('Good', name: 'good', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

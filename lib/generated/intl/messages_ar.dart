@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "alreadySubmitted": MessageLookupByLibrary.simpleMessage(
       "تم التقديم بالفعل",
     ),
+    "analyzed": MessageLookupByLibrary.simpleMessage("تم التحليل"),
+    "analyzing": MessageLookupByLibrary.simpleMessage("جارٍ التحليل"),
     "answerEmployerQuestions": MessageLookupByLibrary.simpleMessage(
       "أجب عن أسئلة صاحب العمل لمتابعة طلب التقديم.",
     ),
@@ -76,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "change": MessageLookupByLibrary.simpleMessage("تغيير"),
     "changePassword": MessageLookupByLibrary.simpleMessage("تغيير كلمة المرور"),
     "characters": MessageLookupByLibrary.simpleMessage("حرف"),
+    "chooseFile": MessageLookupByLibrary.simpleMessage("اختر ملفًا"),
     "chooseStrongPassword": MessageLookupByLibrary.simpleMessage(
       "اختر كلمة مرور قوية لم تستخدمها من قبل.",
     ),
@@ -106,6 +109,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "استخرجنا 12 مهارة وقمنا بتحديث ملفك المهني.",
     ),
     "cvResume": MessageLookupByLibrary.simpleMessage("السيرة الذاتية"),
+    "cvUploadRequirements": MessageLookupByLibrary.simpleMessage(
+      "PDF أو DOCX • بحد أقصى 5 MB",
+    ),
     "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
     "editNote": MessageLookupByLibrary.simpleMessage("تعديل الملاحظة"),
     "education": MessageLookupByLibrary.simpleMessage("التعليم"),
@@ -121,6 +127,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "expectedSalary": MessageLookupByLibrary.simpleMessage("الراتب المتوقع"),
     "experience": MessageLookupByLibrary.simpleMessage("الخبرة"),
     "experienceWithBloc": MessageLookupByLibrary.simpleMessage("خبرة في Bloc"),
+    "failed": MessageLookupByLibrary.simpleMessage("فشل"),
     "finalConfirmation": MessageLookupByLibrary.simpleMessage(
       "التأكيد النهائي",
     ),
@@ -151,6 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "ليس مجرد نسبة مئوية — بل نقاط قوة وفجوات وخطوات عمل واضحة.",
     ),
     "getStarted": MessageLookupByLibrary.simpleMessage("ابدأ الآن"),
+    "good": MessageLookupByLibrary.simpleMessage("جيد"),
     "goodMatch": MessageLookupByLibrary.simpleMessage("توافق جيد"),
     "greetingUser": m0,
     "helpfulAdvantage": MessageLookupByLibrary.simpleMessage(
@@ -210,6 +218,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noCoverNoteAdded": MessageLookupByLibrary.simpleMessage(
       "لم تتم إضافة رسالة تعريفية",
     ),
+    "noFileSelected": MessageLookupByLibrary.simpleMessage("لم يتم اختيار ملف"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "لا يوجد اتصال بالإنترنت",
     ),
@@ -281,6 +290,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "مراجعة مسؤول التوظيف",
     ),
     "remote": MessageLookupByLibrary.simpleMessage("عن بُعد"),
+    "replaceCv": MessageLookupByLibrary.simpleMessage("استبدال السيرة الذاتية"),
     "reqAtLeastOneNumber": MessageLookupByLibrary.simpleMessage(
       "رقم واحد على الأقل",
     ),
@@ -400,10 +410,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "updatedFiveDaysAgo": MessageLookupByLibrary.simpleMessage(
       "تم التحديث منذ 5 أيام",
     ),
+    "updatedJustNow": MessageLookupByLibrary.simpleMessage("تم التحديث الآن"),
     "uploadFile": MessageLookupByLibrary.simpleMessage("رفع ملف"),
     "uploadFileHint": MessageLookupByLibrary.simpleMessage(
       "PDF أو DOCX • بحد أقصى 5 MB",
     ),
+    "uploadYourCv": MessageLookupByLibrary.simpleMessage("ارفع سيرتك الذاتية"),
+    "uploaded": MessageLookupByLibrary.simpleMessage("تم الرفع"),
     "useDifferentEmail": MessageLookupByLibrary.simpleMessage(
       "استخدام بريد إلكتروني آخر",
     ),
@@ -414,6 +427,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
     "view": MessageLookupByLibrary.simpleMessage("عرض"),
     "viewApplication": MessageLookupByLibrary.simpleMessage("عرض التقديم"),
+    "viewCv": MessageLookupByLibrary.simpleMessage("عرض السيرة الذاتية"),
     "viewFullJobDescription": MessageLookupByLibrary.simpleMessage(
       "عرض الوصف الكامل للوظيفة",
     ),

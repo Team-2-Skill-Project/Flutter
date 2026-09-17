@@ -1,8 +1,10 @@
 import 'package:MatchIn/core/routing/app_routes.dart';
+import 'package:MatchIn/core/services/file_picker_service.dart';
+import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/core/widgets/cv_file_card.dart';
 import 'package:MatchIn/features/applications/presentation/widgets/apply_bottom_button.dart';
 import 'package:MatchIn/features/applications/presentation/widgets/apply_header.dart';
 import 'package:MatchIn/features/applications/presentation/widgets/cover_note.dart';
-import 'package:MatchIn/features/applications/presentation/widgets/cv_card.dart';
 import 'package:MatchIn/features/applications/presentation/widgets/job_summary_card.dart';
 import 'package:MatchIn/features/applications/presentation/widgets/user_info.dart';
 import 'package:MatchIn/generated/l10n.dart';
@@ -38,7 +40,19 @@ class ApplyForRoleViewBody extends StatelessWidget {
                 SizedBox(height: 24.h),
                 const UserInfo(),
                 SizedBox(height: 24.h),
-                const CvCard(),
+                CvFileCard(
+                  onUpload: () async {
+                    final file =
+                        await getIt<FilePickerService>()
+                            .pickCv();
+
+                    if (file == null) {
+                      return;
+                    }
+
+                    debugPrint('Selected CV: ${file.name}');
+                  },
+                ),
                 SizedBox(height: 24.h),
                 const CoverNote(),
                 SizedBox(height: 20.h),
