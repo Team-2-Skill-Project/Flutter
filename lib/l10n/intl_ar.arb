@@ -21,5 +21,8 @@
   "welcomeBack": "أهلاً بعودتك",
   "keepMeSignedIn": "خليني مسجل",
   "forgotPassword": "نسيت كلمة المرور؟",
-  "newHere": "أول مرة هنا؟ "
+  "newHere": "أول مرة هنا؟ ",
+
+  "cancel": "إلغاء",
+  "confirm": "تأكيد"
 }

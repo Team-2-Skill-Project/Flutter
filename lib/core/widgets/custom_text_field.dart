@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextField extends StatefulWidget {
-    //label ,hint , pre,suff ,ispass??
-  //TextEditingController contr..,  validator,  TextInputType keyboard
   final String? labelText;
   final String hintText;
   final Widget? prefixIcon;
@@ -46,22 +45,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
         if (widget.labelText != null) ...[
           Text(
             widget.labelText!,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
         ],
         TextFormField(
           controller: widget.controller,
           obscureText: _obscureText,
           validator: widget.validator,
           keyboardType: widget.keyboardType,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-          ),
           decoration: InputDecoration(
             hintText: widget.hintText,
             prefixIcon: widget.prefixIcon,

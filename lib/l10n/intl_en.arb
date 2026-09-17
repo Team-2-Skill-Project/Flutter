@@ -21,5 +21,8 @@
   "welcomeBack": "Welcome back",
   "keepMeSignedIn": "Keep me signed in",
   "forgotPassword": "Forgot password?",
-  "newHere": "New here? "
+  "newHere": "New here? ",
+
+  "cancel": "Cancel",
+  "confirm": "Confirm"
 }
