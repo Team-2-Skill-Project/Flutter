@@ -1,4 +1,4 @@
-import 'package:MatchIn/generated/l10n.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,7 +16,7 @@ class HomeSearchField extends StatelessWidget {
         readOnly: true,
         onTap: onTap,
         decoration: InputDecoration(
-          hintText: S.of(context).searchJobs,
+          hintText: context.l10n.searchJobs,
           prefixIcon: const Icon(Icons.search_rounded),
           suffixIcon: IconButton(
             onPressed: onFilterTap,

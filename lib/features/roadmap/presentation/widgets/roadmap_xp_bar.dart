@@ -1,3 +1,4 @@
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
 import 'package:flutter/material.dart';
@@ -42,10 +43,10 @@ class RoadmapXpBar extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
       decoration: BoxDecoration(
-        color: AppColors.surfaceVariant.withValues(alpha: 0.4),
+        color: context.colors.surfaceContainerHighest.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(
-          color: AppColors.border.withValues(alpha: 0.6),
+          color: context.theme.dividerColor.withValues(alpha: 0.6),
           width: 1.w,
         ),
         boxShadow: [
@@ -68,12 +69,12 @@ class RoadmapXpBar extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.all(6.r),
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withValues(alpha: 0.15),
+                      color: context.colors.primary.withValues(alpha: 0.15),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
                       Icons.bolt_rounded,
-                      color: AppColors.primary,
+                      color: context.colors.primary,
                       size: 20.r,
                     ),
                   ),
@@ -83,7 +84,7 @@ class RoadmapXpBar extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w700,
-                      color: AppColors.secondary,
+                      color: context.colors.secondary,
                     ),
                   ),
                 ],
@@ -98,7 +99,7 @@ class RoadmapXpBar extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 15.sp,
                         fontWeight: FontWeight.w800,
-                        color: AppColors.primary,
+                        color: context.colors.primary,
                       ),
                     ),
                     TextSpan(
@@ -106,7 +107,7 @@ class RoadmapXpBar extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 13.sp,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.textSecondary,
+                        color: context.colors.onSurfaceVariant,
                       ),
                     ),
                     TextSpan(
@@ -135,7 +136,7 @@ class RoadmapXpBar extends StatelessWidget {
                   // Track background
                   Container(
                     width: double.infinity,
-                    color: AppColors.border.withValues(alpha: 0.3),
+                    color: context.theme.dividerColor.withValues(alpha: 0.3),
                   ),
 
                   // Progress fill
@@ -145,8 +146,8 @@ class RoadmapXpBar extends StatelessWidget {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            AppColors.primary,
-                            AppColors.primary.withValues(alpha: 0.8),
+                            context.colors.primary,
+                            context.colors.primary.withValues(alpha: 0.8),
                           ],
                         ),
                         borderRadius: BorderRadius.circular(8.r),

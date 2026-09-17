@@ -1,6 +1,6 @@
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/core/utils/app_assets.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
-import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,8 +12,6 @@ class ViewMatchesCardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Row(
       children: [
         Container(
@@ -21,7 +19,7 @@ class ViewMatchesCardHeader extends StatelessWidget {
           height: 34.r,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: theme.colorScheme.primary.withValues(alpha: 0.08),
+            color: context.colors.primary.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(10.r),
           ),
           child: SvgPicture.asset(
@@ -40,8 +38,8 @@ class ViewMatchesCardHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.r),
           ),
           child: Text(
-            '$matchesCount ${S.of(context).matches}',
-            style: theme.textTheme.bodySmall?.copyWith(
+            '$matchesCount ${context.l10n.matches}',
+            style: context.textTheme.bodySmall?.copyWith(
               color: AppColors.forestGreen,
               fontWeight: FontWeight.w500,
             ),

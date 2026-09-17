@@ -1,17 +1,18 @@
-import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
+import 'package:MatchIn/core/utils/app_assets.dart';
 
 class JobMatchHeroWidget extends StatelessWidget {
-  const JobMatchHeroWidget({
-    super.key,
-    this.imagePath = 'assets/images/onb2_hero.png',
-  });
+  const JobMatchHeroWidget({super.key, this.imagePath = Assets.onb2Hero});
 
   final String imagePath;
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+    final textTheme = context.textTheme;
+
     return Center(
       child: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
@@ -23,17 +24,17 @@ class JobMatchHeroWidget extends StatelessWidget {
               width: 356.w,
               padding: EdgeInsets.all(8.w),
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.5),
+                color: colors.surface.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(16.r),
                 border: Border.all(
-                  color: AppColors.border.withValues(alpha: 0.6),
-                  width: 1,
+                  color: colors.outline.withValues(alpha: 0.6),
+                  width: 1.w,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withValues(alpha: 0.05),
-                    blurRadius: 20,
-                    offset: const Offset(0, 4),
+                    color: colors.primary.withValues(alpha: 0.05),
+                    blurRadius: 20.r,
+                    offset: Offset(0, 4.h),
                   ),
                 ],
               ),
@@ -42,12 +43,12 @@ class JobMatchHeroWidget extends StatelessWidget {
                 child: Container(
                   height: 240.h,
                   width: double.infinity,
-                  color: AppColors.greyBackground,
+                  color: colors.surfaceContainerHighest,
                   child: Image.asset(
                     imagePath,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
-                      return _buildFallback();
+                      return _buildFallback(context);
                     },
                   ),
                 ),
@@ -56,26 +57,25 @@ class JobMatchHeroWidget extends StatelessWidget {
 
             SizedBox(height: 10.h),
 
-            // Crisp Companion White Job Card
+            // Job Match Information Card
             Container(
               width: 340.w,
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
-                color: AppColors.surface,
+                color: colors.surface,
                 borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(color: AppColors.border),
+                border: Border.all(color: colors.outline),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.05),
-                    blurRadius: 2,
-                    offset: const Offset(0, 1),
+                    blurRadius: 2.r,
+                    offset: Offset(0, 1.h),
                   ),
                 ],
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Top Row: Dot + Job Title + Strong Match Badge
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -84,19 +84,18 @@ class JobMatchHeroWidget extends StatelessWidget {
                           Container(
                             width: 8.w,
                             height: 8.w,
-                            decoration: const BoxDecoration(
-                              color: AppColors.secondary,
+                            decoration: BoxDecoration(
+                              color: colors.secondary,
                               shape: BoxShape.circle,
                             ),
                           ),
                           SizedBox(width: 8.w),
                           Text(
                             'Flutter Developer Intern',
-                            style: TextStyle(
-                              fontFamily: 'DM Sans',
+                            style: textTheme.titleMedium?.copyWith(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
-                              color: AppColors.textPrimary,
+                              color: colors.onSurface,
                             ),
                           ),
                         ],
@@ -107,19 +106,19 @@ class JobMatchHeroWidget extends StatelessWidget {
                           vertical: 2.h,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.success.withValues(alpha: 0.1),
+                          color: const Color(0xFF4F7A5A).withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(9999.r),
                           border: Border.all(
-                            color: AppColors.success.withValues(alpha: 0.2),
+                            color: const Color(0xFF4F7A5A)
+                                .withValues(alpha: 0.2),
                           ),
                         ),
                         child: Text(
                           'Strong match',
-                          style: TextStyle(
-                            fontFamily: 'Inter',
+                          style: textTheme.bodySmall?.copyWith(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w500,
-                            color: AppColors.success,
+                            color: const Color(0xFF4F7A5A),
                           ),
                         ),
                       ),
@@ -128,23 +127,21 @@ class JobMatchHeroWidget extends StatelessWidget {
 
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 6.h),
-                    child: const Divider(
-                      height: 1,
-                      color: AppColors.background,
+                    child: Divider(
+                      height: 1.h,
+                      color: colors.outline.withValues(alpha: 0.3),
                     ),
                   ),
 
-                  // Bottom Row: Location Info + Top Badge
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'TechNova • Cairo • Hybrid',
-                        style: TextStyle(
-                          fontFamily: 'Inter',
+                        style: textTheme.bodySmall?.copyWith(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.textSecondary,
+                          color: colors.onSurfaceVariant,
                         ),
                       ),
                       Container(
@@ -153,19 +150,18 @@ class JobMatchHeroWidget extends StatelessWidget {
                           vertical: 2.h,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.accent.withValues(alpha: 0.15),
+                          color: colors.tertiary.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(4.r),
                           border: Border.all(
-                            color: AppColors.accent.withValues(alpha: 0.3),
+                            color: colors.tertiary.withValues(alpha: 0.3),
                           ),
                         ),
                         child: Text(
                           'Top',
-                          style: TextStyle(
-                            fontFamily: 'Inter',
+                          style: textTheme.labelSmall?.copyWith(
                             fontSize: 10.sp,
                             fontWeight: FontWeight.w500,
-                            color: const Color(0xFF8E6D18),
+                            color: colors.tertiary,
                           ),
                         ),
                       ),
@@ -180,15 +176,17 @@ class JobMatchHeroWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildFallback() {
+  Widget _buildFallback(BuildContext context) {
+    final colors = context.colors;
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppColors.background,
-            AppColors.surfaceVariant.withValues(alpha: 0.4),
+            colors.surface,
+            colors.surfaceContainerHighest.withValues(alpha: 0.4),
           ],
         ),
       ),
@@ -199,45 +197,45 @@ class JobMatchHeroWidget extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(14.w),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: colors.surface,
                 borderRadius: BorderRadius.circular(14.r),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withValues(alpha: 0.06),
-                    blurRadius: 10,
+                    color: colors.primary.withValues(alpha: 0.06),
+                    blurRadius: 10.r,
                   ),
                 ],
               ),
               child: Icon(
                 Icons.description_outlined,
-                size: 32.sp,
-                color: AppColors.primary,
+                size: 32.r,
+                color: colors.primary,
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Icon(
                 Icons.compare_arrows_rounded,
-                size: 28.sp,
-                color: AppColors.secondary,
+                size: 28.r,
+                color: colors.secondary,
               ),
             ),
             Container(
               padding: EdgeInsets.all(14.w),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: colors.surface,
                 borderRadius: BorderRadius.circular(14.r),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withValues(alpha: 0.06),
-                    blurRadius: 10,
+                    color: colors.primary.withValues(alpha: 0.06),
+                    blurRadius: 10.r,
                   ),
                 ],
               ),
               child: Icon(
                 Icons.work_outline_rounded,
-                size: 32.sp,
-                color: AppColors.accent,
+                size: 32.r,
+                color: colors.tertiary,
               ),
             ),
           ],

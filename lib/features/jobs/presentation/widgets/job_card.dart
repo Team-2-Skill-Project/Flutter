@@ -1,6 +1,6 @@
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/jobs_info_job_card.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/matching_status.dart';
-import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -117,7 +117,7 @@ class JobCard extends StatelessWidget {
                       minimumSize: Size(110.w, 42.h),
                       padding: EdgeInsets.symmetric(horizontal: 18.w),
                     ),
-                    child: Text(S.of(context).applyNow),
+                    child: Text(context.l10n.applyNow),
                   ),
                 ],
               ),
@@ -149,8 +149,6 @@ class _JobHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -159,13 +157,13 @@ class _JobHeader extends StatelessWidget {
           height: 48.r,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceContainerHighest,
+            color: context.colors.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(color: theme.dividerColor),
+            border: Border.all(color: context.theme.dividerColor),
           ),
           child: Text(
             _companyInitials(company),
-            style: theme.textTheme.titleMedium,
+            style: context.textTheme.titleMedium,
           ),
         ),
 
@@ -179,8 +177,8 @@ class _JobHeader extends StatelessWidget {
                 company,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                style: context.textTheme.bodyMedium?.copyWith(
+                  color: context.colors.onSurface.withValues(alpha: 0.6),
                 ),
               ),
 
@@ -190,7 +188,7 @@ class _JobHeader extends StatelessWidget {
                 title,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.titleLarge,
+                style: context.textTheme.titleLarge,
               ),
             ],
           ),
@@ -209,8 +207,8 @@ class _JobHeader extends StatelessWidget {
           icon: Icon(
             isSaved ? Icons.bookmark_rounded : Icons.bookmark_border_rounded,
             color: isSaved
-                ? theme.colorScheme.secondary
-                : theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                ? context.colors.secondary
+                : context.colors.onSurface.withValues(alpha: 0.6),
           ),
         ),
       ],
@@ -245,23 +243,21 @@ class _PostedDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(
           Icons.schedule_rounded,
           size: 16.sp,
-          color: theme.colorScheme.onSurface.withValues(alpha: 0.55),
+          color: context.colors.onSurface.withValues(alpha: 0.55),
         ),
 
         SizedBox(width: 4.w),
 
         Text(
           postedDate,
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+          style: context.textTheme.bodySmall?.copyWith(
+            color: context.colors.onSurface.withValues(alpha: 0.6),
           ),
         ),
       ],
@@ -276,8 +272,6 @@ class _SkillsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Wrap(
       spacing: 8.w,
       runSpacing: 8.h,
@@ -286,11 +280,11 @@ class _SkillsSection extends StatelessWidget {
             (skill) => Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 1.h),
               decoration: BoxDecoration(
-                color: theme.colorScheme.surface,
+                color: context.colors.surface,
                 borderRadius: BorderRadius.circular(6.r),
-                border: Border.all(color: theme.dividerColor),
+                border: Border.all(color: context.theme.dividerColor),
               ),
-              child: Text(skill, style: theme.textTheme.labelMedium),
+              child: Text(skill, style: context.textTheme.labelMedium),
             ),
           )
           .toList(),

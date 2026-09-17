@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/core/functions/show_image.dart';
 import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/utils/app_assets.dart';
-import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/features/roadmap/data/models/skill_task.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class ResourceButton extends StatelessWidget {
   const ResourceButton({super.key, required this.resource});
@@ -43,9 +43,9 @@ class ResourceButton extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
           decoration: BoxDecoration(
-            color: AppColors.surfaceVariant,
+            color: context.colors.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(10.r),
-            border: Border.all(color: AppColors.darkDivider, width: 1),
+            border: Border.all(color: context.theme.dividerColor, width: 1),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -61,14 +61,14 @@ class ResourceButton extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w600,
-                  color: AppColors.secondary,
+                  color: context.colors.secondary,
                 ),
               ),
               SizedBox(width: 6.w),
               Icon(
                 Icons.arrow_outward_rounded,
                 size: 14.r,
-                color: AppColors.textSecondary,
+                color: context.colors.onSurfaceVariant,
               ),
             ],
           ),

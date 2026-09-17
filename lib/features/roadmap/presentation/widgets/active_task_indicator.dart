@@ -1,4 +1,4 @@
-import 'package:MatchIn/core/utils/app_colors.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,11 +13,11 @@ class ActiveTaskIndicator extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
           decoration: BoxDecoration(
-            color: AppColors.primary,
+            color: context.colors.primary,
             borderRadius: BorderRadius.circular(16.r),
             boxShadow: [
               BoxShadow(
-                color: AppColors.primary.withValues(alpha: 0.3),
+                color: context.colors.primary.withValues(alpha: 0.3),
                 blurRadius: 6.r,
                 offset: Offset(0, 3.h),
               ),
@@ -26,7 +26,7 @@ class ActiveTaskIndicator extends StatelessWidget {
           child: Text(
             'START',
             style: TextStyle(
-              color: Colors.white,
+              color: context.colors.onPrimary,
               fontSize: 12.sp,
               fontWeight: FontWeight.bold,
               letterSpacing: 1.1,
@@ -35,7 +35,7 @@ class ActiveTaskIndicator extends StatelessWidget {
         ),
         CustomPaint(
           size: Size(12.w, 6.h),
-          painter: const _TrianglePainter(color: AppColors.primary),
+          painter: _TrianglePainter(color: context.colors.primary),
         ),
       ],
     );

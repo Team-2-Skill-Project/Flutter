@@ -1,4 +1,4 @@
-import 'package:MatchIn/generated/l10n.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,8 +10,6 @@ class JobsSearchHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(8.w, 8.h, 8.w, 0),
       child: Row(
@@ -23,17 +21,17 @@ class JobsSearchHeader extends StatelessWidget {
 
           Expanded(
             child: Text(
-              S.of(context).searchJobsTitle,
+              context.l10n.searchJobsTitle,
               textAlign: TextAlign.center,
-              style: theme.textTheme.titleLarge?.copyWith(
-                color: theme.colorScheme.primary,
+              style: context.textTheme.titleLarge?.copyWith(
+                color: context.colors.primary,
               ),
             ),
           ),
 
           IconButton(
             onPressed: onFiltersTap ?? () {},
-            icon: Icon(Icons.tune_rounded, color: theme.colorScheme.primary),
+            icon: Icon(Icons.tune_rounded, color: context.colors.primary),
           ),
         ],
       ),

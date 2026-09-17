@@ -1,4 +1,4 @@
-import 'package:MatchIn/generated/l10n.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,10 +14,8 @@ class SearchResultsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    final style = theme.textTheme.bodyMedium?.copyWith(
-      color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+    final style = context.textTheme.bodyMedium?.copyWith(
+      color: context.colors.onSurface.withValues(alpha: 0.6),
     );
 
     return Padding(
@@ -25,7 +23,7 @@ class SearchResultsHeader extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            '$opportunitiesCount ${S.of(context).opportunities}',
+            '$opportunitiesCount ${context.l10n.opportunities}',
             style: style,
           ),
 
@@ -39,7 +37,7 @@ class SearchResultsHeader extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(S.of(context).mostRelevant, style: style),
+                  Text(context.l10n.mostRelevant, style: style),
                   SizedBox(width: 2.w),
                   const Icon(Icons.keyboard_arrow_down_rounded),
                 ],

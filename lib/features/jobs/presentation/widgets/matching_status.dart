@@ -1,5 +1,5 @@
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
-import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,8 +13,6 @@ class MatchingStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     final data = _getStatusData(context);
 
     return Container(
@@ -39,7 +37,7 @@ class MatchingStatus extends StatelessWidget {
           ],
           Text(
             data.label,
-            style: theme.textTheme.labelMedium?.copyWith(color: data.color),
+            style: context.textTheme.labelMedium?.copyWith(color: data.color),
           ),
         ],
       ),
@@ -50,20 +48,20 @@ class MatchingStatus extends StatelessWidget {
     switch (type) {
       case MatchingStatusType.strong:
         return _MatchingStatusData(
-          label: S.of(context).strongMatch,
+          label: context.l10n.strongMatch,
           color: AppColors.forestGreen,
         );
 
       case MatchingStatusType.good:
         return _MatchingStatusData(
-          label: S.of(context).goodMatch,
+          label: context.l10n.goodMatch,
           color: AppColors.amber,
         );
 
       case MatchingStatusType.percentage:
         return _MatchingStatusData(
-          label: '${percentage ?? 0}% ${S.of(context).match}',
-          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+          label: '${percentage ?? 0}% ${context.l10n.match}',
+          color: context.colors.onSurface.withValues(alpha: 0.6),
         );
     }
   }

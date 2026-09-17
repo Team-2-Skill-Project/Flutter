@@ -1,3 +1,4 @@
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/core/functions/show_image.dart';
 import 'package:MatchIn/core/utils/app_assets.dart';
 import 'package:flutter/material.dart';
@@ -26,14 +27,11 @@ class HomeHeader extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 24.0.w),
-              Text(
-                'Hello, Name 👋',
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
+              Text('Hello, Name 👋', style: context.textTheme.headlineLarge),
               SizedBox(height: 4.0.w),
               Text(
                 'Ready to find your next opportunity?',
-                style: Theme.of(context).textTheme.titleSmall,
+                style: context.textTheme.titleSmall,
               ),
             ],
           ),

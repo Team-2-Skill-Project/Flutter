@@ -257,6 +257,52 @@
 
 ---
 
+## No Unnecessary Hardcoding
+
+> Do not hardcode reusable, shared, configurable, or semantic values directly inside widgets, screens, repositories, services, Cubits, or feature implementations when the project already has, or should have, a centralized source of truth.
+>
+> Reusable values must have a single source of truth.
+
+This applies to:
+* Asset paths
+* Route paths
+* Route names
+* API endpoints
+* API keys
+* API response keys
+* HTTP header keys
+* Cache keys
+* App-wide strings
+* Localization strings
+* Theme colors
+* Design-system colors
+* Shared text styles
+* Configuration values
+* Feature flags
+* Repeated animation values
+* Repeated durations
+* Repeated business constants
+* Repeated UI constants
+* Reusable Lottie configuration
+* Other duplicated configuration values
+
+Use the project's existing systems:
+- `Assets`
+- `AppConstants`
+- `AppColors`
+- `AppTextStyles`
+- `AppRoutes`
+- `EndPoint`
+- `ApiKey`
+- `ApiHeaderKey`
+- `CacheKey`
+- `Theme` / `ThemeExtensions`
+- `Localization`
+- Feature-specific constants / configuration
+when appropriate.
+
+---
+
 ### Naming Conventions
 
 9. Name abstract constant-holder classes: `abstract class App{Domain}` (e.g., `AppColors`, `AppConstants`, `AppTextStyles`, `AppTextStyles`).

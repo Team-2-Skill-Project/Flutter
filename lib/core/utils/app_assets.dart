@@ -127,4 +127,8 @@ class Assets {
   /// Assets for imagesTextLogo
   /// assets/images/TextLogo.svg
   static const String imagesTextLogo = "assets/images/TextLogo.svg";
+
+  /// Assets for onboarding hero images
+  static const String onb1Hero = "assets/images/onb1_hero.png";
+  static const String onb2Hero = "assets/images/onb2_hero.png";
 }

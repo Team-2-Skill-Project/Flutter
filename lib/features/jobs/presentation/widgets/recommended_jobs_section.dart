@@ -1,6 +1,6 @@
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/job_card.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/matching_status.dart';
-import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,11 +18,11 @@ class RecommendedJobsSection extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  S.of(context).recommendedForYou,
-                  style: Theme.of(context).textTheme.titleMedium,
+                  context.l10n.recommendedForYou,
+                  style: context.textTheme.titleMedium,
                 ),
               ),
-              TextButton(onPressed: () {}, child: Text(S.of(context).seeAll)),
+              TextButton(onPressed: () {}, child: Text(context.l10n.seeAll)),
             ],
           ),
 

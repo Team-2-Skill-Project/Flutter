@@ -1,3 +1,4 @@
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,8 +16,6 @@ class JobsInfoJobCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     final content = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -24,15 +23,15 @@ class JobsInfoJobCard extends StatelessWidget {
           Icon(
             icon,
             size: 16.sp,
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.55),
+            color: context.colors.onSurface.withValues(alpha: 0.55),
           ),
           SizedBox(width: 4.w),
         ],
 
         Text(
           label,
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+          style: context.textTheme.bodySmall?.copyWith(
+            color: context.colors.onSurface.withValues(alpha: 0.6),
           ),
         ),
       ],
@@ -45,7 +44,7 @@ class JobsInfoJobCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
       decoration: BoxDecoration(
-        border: Border.all(color: theme.dividerColor),
+        border: Border.all(color: context.theme.dividerColor),
         borderRadius: BorderRadius.circular(6.r),
       ),
       child: content,
