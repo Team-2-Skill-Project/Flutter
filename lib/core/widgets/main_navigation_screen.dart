@@ -42,11 +42,20 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
     return Scaffold(
       body: IndexedStack(index: currentIndex, children: pages),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: colors.surface,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 10.r,
+              offset: const Offset(0, -2),
+            ),
+          ],
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
             child: GNav(
               selectedIndex: currentIndex,
               onTabChange: (index) {
@@ -55,14 +64,14 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 });
               },
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              gap: 4.w,
-              iconSize: 22.r,
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+              gap: 6.w,
+              iconSize: 24.r,
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
               color: colors.onSurface.withValues(alpha: 0.6),
               activeColor: colors.primary,
               tabBackgroundColor: colors.primary.withValues(alpha: 0.12),
               textStyle: textTheme.labelMedium?.copyWith(
-                fontSize: 12.sp,
+                fontSize: 13.sp,
                 fontWeight: FontWeight.w600,
                 color: colors.primary,
               ),
