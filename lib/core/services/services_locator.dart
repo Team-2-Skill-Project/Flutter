@@ -16,6 +16,9 @@ import 'package:MatchIn/features/auth/domain/use_cases/reset_password_use_case.d
 import 'package:MatchIn/features/auth/domain/use_cases/verify_otp_use_case.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/otp_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/reset_password_cubit.dart';
+import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
+import 'package:MatchIn/features/roadmap/presentation/manager/skill_task_cubit/skill_task_cubit.dart';
+import 'package:MatchIn/features/roadmap/presentation/manager/treasure_cubit/treasure_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -53,6 +56,19 @@ Future<void> setupServiceLocator() async {
   );
   getIt.registerFactory<ResetPasswordCubit>(
     () => ResetPasswordCubit(resetPasswordUseCase: getIt()),
+  );
+
+  // =========================================================================
+  // 🗺️ Roadmap Feature
+  // =========================================================================
+  getIt.registerFactory<RoadmapCubit>(
+    () => RoadmapCubit(sharedPreferencesService: getIt()),
+  );
+  getIt.registerFactory<TreasureCubit>(
+    () => TreasureCubit(sharedPreferencesService: getIt()),
+  );
+  getIt.registerFactory<SkillTaskCubit>(
+    () => SkillTaskCubit(sharedPreferencesService: getIt()),
   );
 
   //! ======== External =========

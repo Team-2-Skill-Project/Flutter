@@ -1,16 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:MatchIn/core/extensions/bottom_sheet_extensions.dart';
 import 'package:MatchIn/core/extensions/snack_bar_extensions.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_item_model.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
+import 'package:MatchIn/features/roadmap/presentation/manager/skill_task_cubit/skill_task_cubit.dart';
+import 'package:MatchIn/features/roadmap/presentation/manager/treasure_cubit/treasure_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/utils/roadmap_layout_utils.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_item_widget.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_lottie_decoration.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_path_painter.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/skill_details_sheet.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RoadmapListWidget extends StatefulWidget {
   const RoadmapListWidget({
@@ -168,10 +170,14 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
     }
 
     final roadmapCubit = context.read<RoadmapCubit>();
+    final skillTaskCubit = context.read<SkillTaskCubit>();
 
     context.showAppBottomSheet(
-      child: BlocProvider.value(
-        value: roadmapCubit,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider.value(value: roadmapCubit),
+          BlocProvider.value(value: skillTaskCubit),
+        ],
         child: SkillDetailsSheet(node: node),
       ),
     );
@@ -181,7 +187,7 @@ class _RoadmapListWidgetState extends State<RoadmapListWidget> {
     required BuildContext context,
     required int milestoneIndex,
   }) {
-    context.read<RoadmapCubit>().claimTreasureReward(milestoneIndex);
+    context.read<TreasureCubit>().claimTreasureReward(milestoneIndex);
     context.showSuccessSnackBar('🎉 Milestone Claimed! +50 XP Added!');
   }
 

@@ -257,6 +257,34 @@
 
 ---
 
+## Cubit Responsibility & Dependency Injection Rules
+
+### 1. One Cubit = One Cohesive Responsibility
+- Never create a God Cubit.
+- Each Cubit must own one cohesive feature/state responsibility.
+- A Cubit may contain business logic, state transitions, validation, repository calls, service calls, and feature-specific state mutations.
+- Do not place unrelated feature logic in the same Cubit.
+
+### 2. Constructor Dependency Injection is Mandatory
+- All Cubit dependencies must be provided through the Cubit's constructor.
+- Cubits must never resolve their own dependencies using `getIt` inside business methods or class bodies.
+- `services_locator.dart` is the central composition root responsible for constructing Cubits and resolving their constructor dependencies.
+
+### 3. Centralized Services Locator Registration
+- All feature Cubits must be registered centrally in `lib/core/services/services_locator.dart`.
+- Do not instantiate feature Cubits manually throughout the application UI (avoid `SomeCubit()`).
+- Feature Cubits use `registerFactory` as their registration lifecycle strategy unless a documented exception exists.
+
+### 4. UI vs. Cubit vs. BlocProvider Boundaries
+- `services_locator.dart` constructs Cubits and injects dependencies via GetIt.
+- `BlocProvider` / `MultiBlocProvider` provides the Cubit instance to the widget subtree via `create: (_) => getIt<SomeCubit>()`.
+- Widgets access already-provided Cubits via `context.read<T>()`, `context.watch<T>()`, `BlocBuilder`, `BlocListener`, or `BlocConsumer`.
+- Do not call `getIt<T>()` inside descendant widgets when the Cubit is already available through `BlocProvider`.
+- Keep rendering, `BuildContext`, `GlobalKey`, `RenderBox`, navigation, `SnackBar`, `BottomSheet`, `Dialog`, `Positioned`, and `CustomPaint` in the UI layer.
+
+---
+
+
 ## No Unnecessary Hardcoding
 
 > Do not hardcode reusable, shared, configurable, or semantic values directly inside widgets, screens, repositories, services, Cubits, or feature implementations when the project already has, or should have, a centralized source of truth.

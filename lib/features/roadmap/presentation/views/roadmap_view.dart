@@ -1,9 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:MatchIn/core/extensions/context_extensions.dart';
+import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
+import 'package:MatchIn/features/roadmap/presentation/manager/skill_task_cubit/skill_task_cubit.dart';
+import 'package:MatchIn/features/roadmap/presentation/manager/treasure_cubit/treasure_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_view_body.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RoadmapView extends StatelessWidget {
   const RoadmapView({super.key, this.nodes});
@@ -24,8 +27,18 @@ class RoadmapView extends StatelessWidget {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: BlocProvider(
-          create: (context) => RoadmapCubit()..fetchRoadmapNodes(),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => getIt<RoadmapCubit>()..fetchRoadmapNodes(),
+            ),
+            BlocProvider(
+              create: (_) => getIt<TreasureCubit>()..loadCollectedTreasures(),
+            ),
+            BlocProvider(
+              create: (_) => getIt<SkillTaskCubit>()..loadCompletedTasks(),
+            ),
+          ],
           child: RoadmapViewBody(nodes: nodes),
         ),
       ),

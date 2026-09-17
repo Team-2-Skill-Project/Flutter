@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
+import 'package:MatchIn/features/roadmap/presentation/manager/skill_task_cubit/skill_task_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/skill_task_card.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SkillDetailsSheet extends StatelessWidget {
   const SkillDetailsSheet({super.key, required this.node});
@@ -94,10 +95,13 @@ class SkillDetailsSheet extends StatelessWidget {
                                 .where((t) => !t.isCompleted)
                                 .length;
 
-                            context.read<RoadmapCubit>().toggleTaskCompletion(
-                              nodeTitle: currentNode.title,
-                              taskId: task.id,
-                            );
+                            await context
+                                .read<SkillTaskCubit>()
+                                .toggleTaskCompletion(taskId: task.id);
+
+                            if (context.mounted) {
+                              context.read<RoadmapCubit>().fetchRoadmapNodes();
+                            }
 
                             if (isCompletingTask &&
                                 remainingIncompleteCount == 1) {
