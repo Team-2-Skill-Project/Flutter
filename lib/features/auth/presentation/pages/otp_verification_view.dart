@@ -102,7 +102,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
       }
     }
     if (status == OtpStatus.idle) {
-      // Returned to idle after error — allow re-verification
+      // Returned to idle after error ï¿½ allow re-verification
       setState(() => _isVerifying = false);
     }
   }
@@ -150,9 +150,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                   isSuccess: _showSuccessLottie,
                 ),
                 SizedBox(height: 24.h),
-                OtpBackButton(
-                  onPressed: () => context.pop(),
-                ),
+                OtpBackButton(onPressed: () => context.pop()),
               ],
             ),
           ),
