@@ -1,8 +1,10 @@
 import 'package:MatchIn/core/extensions/context_extensions.dart';
+import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/job_card.dart';
 import 'package:MatchIn/features/jobs/presentation/widgets/matching_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class RecommendedJobsSection extends StatelessWidget {
   const RecommendedJobsSection({super.key});
@@ -22,7 +24,12 @@ class RecommendedJobsSection extends StatelessWidget {
                   style: context.textTheme.titleMedium,
                 ),
               ),
-              TextButton(onPressed: () {}, child: Text(context.l10n.seeAll)),
+              TextButton(
+                onPressed: () {
+                  context.push(AppRoutes.kJobsSearchView);
+                },
+                child: Text(context.l10n.seeAll),
+              ),
             ],
           ),
 
@@ -42,6 +49,7 @@ class RecommendedJobsSection extends StatelessWidget {
             skills: ['Flutter', 'REST API', 'Bloc'],
             showShareButton: true,
           ),
+
           SizedBox(height: 12.h),
 
           const JobCard(

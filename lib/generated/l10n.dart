@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -684,6 +685,1426 @@ class S {
     );
   }
 
+  /// `Notifications`
+  String get notifications {
+    return Intl.message(
+      'Notifications',
+      name: 'notifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mark all read`
+  String get markAllRead {
+    return Intl.message(
+      'Mark all read',
+      name: 'markAllRead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Jobs`
+  String get jobs {
+    return Intl.message('Jobs', name: 'jobs', desc: '', args: []);
+  }
+
+  /// `Applications`
+  String get applications {
+    return Intl.message(
+      'Applications',
+      name: 'applications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Roadmap`
+  String get roadmap {
+    return Intl.message('Roadmap', name: 'roadmap', desc: '', args: []);
+  }
+
+  /// `CV`
+  String get cv {
+    return Intl.message('CV', name: 'cv', desc: '', args: []);
+  }
+
+  /// `TODAY`
+  String get today {
+    return Intl.message('TODAY', name: 'today', desc: '', args: []);
+  }
+
+  /// `YESTERDAY`
+  String get yesterday {
+    return Intl.message('YESTERDAY', name: 'yesterday', desc: '', args: []);
+  }
+
+  /// `New jobs match your profile`
+  String get newJobsMatchProfile {
+    return Intl.message(
+      'New jobs match your profile',
+      name: 'newJobsMatchProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We found 8 Flutter opportunities based on your skills.`
+  String get flutterOpportunities {
+    return Intl.message(
+      'We found 8 Flutter opportunities based on your skills.',
+      name: 'flutterOpportunities',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `10 min ago`
+  String get tenMinutesAgo {
+    return Intl.message(
+      '10 min ago',
+      name: 'tenMinutesAgo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Jobs`
+  String get viewJobs {
+    return Intl.message('View Jobs', name: 'viewJobs', desc: '', args: []);
+  }
+
+  /// `Your roadmap has been updated`
+  String get roadmapUpdated {
+    return Intl.message(
+      'Your roadmap has been updated',
+      name: 'roadmapUpdated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Testing is now one of your highest-priority skills.`
+  String get testingPrioritySkill {
+    return Intl.message(
+      'Testing is now one of your highest-priority skills.',
+      name: 'testingPrioritySkill',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2 hrs ago`
+  String get twoHoursAgo {
+    return Intl.message('2 hrs ago', name: 'twoHoursAgo', desc: '', args: []);
+  }
+
+  /// `View Roadmap`
+  String get viewRoadmap {
+    return Intl.message(
+      'View Roadmap',
+      name: 'viewRoadmap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CV analysis completed`
+  String get cvAnalysisCompleted {
+    return Intl.message(
+      'CV analysis completed',
+      name: 'cvAnalysisCompleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We extracted 12 skills and updated your career profile.`
+  String get cvAnalysisDescription {
+    return Intl.message(
+      'We extracted 12 skills and updated your career profile.',
+      name: 'cvAnalysisDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `4 hrs ago`
+  String get fourHoursAgo {
+    return Intl.message('4 hrs ago', name: 'fourHoursAgo', desc: '', args: []);
+  }
+
+  /// `Review CV`
+  String get reviewCv {
+    return Intl.message('Review CV', name: 'reviewCv', desc: '', args: []);
+  }
+
+  /// `Application status updated`
+  String get applicationStatusUpdated {
+    return Intl.message(
+      'Application status updated',
+      name: 'applicationStatusUpdated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your TechNova application is now In Review.`
+  String get applicationStatusDescription {
+    return Intl.message(
+      'Your TechNova application is now In Review.',
+      name: 'applicationStatusDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yesterday • 3:45 PM`
+  String get yesterdayTime {
+    return Intl.message(
+      'Yesterday • 3:45 PM',
+      name: 'yesterdayTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Application`
+  String get viewApplication {
+    return Intl.message(
+      'View Application',
+      name: 'viewApplication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
+  }
+
+  /// `ACCOUNT`
+  String get account {
+    return Intl.message('ACCOUNT', name: 'account', desc: '', args: []);
+  }
+
+  /// `Change Password`
+  String get changePassword {
+    return Intl.message(
+      'Change Password',
+      name: 'changePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PREFERENCES`
+  String get preferences {
+    return Intl.message('PREFERENCES', name: 'preferences', desc: '', args: []);
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message('Language', name: 'language', desc: '', args: []);
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message('English', name: 'english', desc: '', args: []);
+  }
+
+  /// `Theme`
+  String get theme {
+    return Intl.message('Theme', name: 'theme', desc: '', args: []);
+  }
+
+  /// `Light`
+  String get light {
+    return Intl.message('Light', name: 'light', desc: '', args: []);
+  }
+
+  /// `PRIVACY & SUPPORT`
+  String get privacyAndSupport {
+    return Intl.message(
+      'PRIVACY & SUPPORT',
+      name: 'privacyAndSupport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privacy Policy`
+  String get privacyPolicy {
+    return Intl.message(
+      'Privacy Policy',
+      name: 'privacyPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact Us`
+  String get contactUs {
+    return Intl.message('Contact Us', name: 'contactUs', desc: '', args: []);
+  }
+
+  /// `Follow Us`
+  String get followUs {
+    return Intl.message('Follow Us', name: 'followUs', desc: '', args: []);
+  }
+
+  /// `Log Out`
+  String get logOut {
+    return Intl.message('Log Out', name: 'logOut', desc: '', args: []);
+  }
+
+  /// `© 2025 SkillMatch. All rights reserved.`
+  String get copyright {
+    return Intl.message(
+      '© 2025 SkillMatch. All rights reserved.',
+      name: 'copyright',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Job Details`
+  String get jobDetails {
+    return Intl.message('Job Details', name: 'jobDetails', desc: '', args: []);
+  }
+
+  /// `Junior Flutter Developer`
+  String get juniorFlutterDeveloper {
+    return Intl.message(
+      'Junior Flutter Developer',
+      name: 'juniorFlutterDeveloper',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cairo`
+  String get cairo {
+    return Intl.message('Cairo', name: 'cairo', desc: '', args: []);
+  }
+
+  /// `0–2 years`
+  String get zeroToTwoYears {
+    return Intl.message(
+      '0–2 years',
+      name: 'zeroToTwoYears',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hybrid`
+  String get hybrid {
+    return Intl.message('Hybrid', name: 'hybrid', desc: '', args: []);
+  }
+
+  /// `Posted 2 days ago`
+  String get postedTwoDaysAgo {
+    return Intl.message(
+      'Posted 2 days ago',
+      name: 'postedTwoDaysAgo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Source`
+  String get source {
+    return Intl.message('Source', name: 'source', desc: '', args: []);
+  }
+
+  /// `Application status`
+  String get applicationStatus {
+    return Intl.message(
+      'Application status',
+      name: 'applicationStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Applied`
+  String get applied {
+    return Intl.message('Applied', name: 'applied', desc: '', args: []);
+  }
+
+  /// `2 days ago`
+  String get twoDaysAgo {
+    return Intl.message('2 days ago', name: 'twoDaysAgo', desc: '', args: []);
+  }
+
+  /// `View timeline`
+  String get viewTimeline {
+    return Intl.message(
+      'View timeline',
+      name: 'viewTimeline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Match`
+  String get yourMatch {
+    return Intl.message('Your Match', name: 'yourMatch', desc: '', args: []);
+  }
+
+  /// `You match 7 of 9 important requirements.`
+  String get matchSevenOfNine {
+    return Intl.message(
+      'You match 7 of 9 important requirements.',
+      name: 'matchSevenOfNine',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You’re a good fit for this role. Your Flutter and API experience match the core requirements, but testing and CI/CD are important gaps.`
+  String get matchExplanation {
+    return Intl.message(
+      'You’re a good fit for this role. Your Flutter and API experience match the core requirements, but testing and CI/CD are important gaps.',
+      name: 'matchExplanation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What you already match`
+  String get whatYouAlreadyMatch {
+    return Intl.message(
+      'What you already match',
+      name: 'whatYouAlreadyMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `From your CV`
+  String get fromYourCv {
+    return Intl.message('From your CV', name: 'fromYourCv', desc: '', args: []);
+  }
+
+  /// `Found in your CV and projects`
+  String get foundInCvAndProjects {
+    return Intl.message(
+      'Found in your CV and projects',
+      name: 'foundInCvAndProjects',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Used in 2 projects`
+  String get usedInTwoProjects {
+    return Intl.message(
+      'Used in 2 projects',
+      name: 'usedInTwoProjects',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Found in your skills`
+  String get foundInYourSkills {
+    return Intl.message(
+      'Found in your skills',
+      name: 'foundInYourSkills',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Experience with Bloc`
+  String get experienceWithBloc {
+    return Intl.message(
+      'Experience with Bloc',
+      name: 'experienceWithBloc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skills to improve`
+  String get skillsToImprove {
+    return Intl.message(
+      'Skills to improve',
+      name: 'skillsToImprove',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Required for this role`
+  String get requiredForThisRole {
+    return Intl.message(
+      'Required for this role',
+      name: 'requiredForThisRole',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mentioned in job requirements`
+  String get mentionedInJobRequirements {
+    return Intl.message(
+      'Mentioned in job requirements',
+      name: 'mentionedInJobRequirements',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Helpful advantage`
+  String get helpfulAdvantage {
+    return Intl.message(
+      'Helpful advantage',
+      name: 'helpfulAdvantage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `High priority`
+  String get highPriority {
+    return Intl.message(
+      'High priority',
+      name: 'highPriority',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nice to have`
+  String get niceToHave {
+    return Intl.message('Nice to have', name: 'niceToHave', desc: '', args: []);
+  }
+
+  /// `Job requirements`
+  String get jobRequirements {
+    return Intl.message(
+      'Job requirements',
+      name: 'jobRequirements',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Required skills`
+  String get requiredSkills {
+    return Intl.message(
+      'Required skills',
+      name: 'requiredSkills',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preferred`
+  String get preferred {
+    return Intl.message('Preferred', name: 'preferred', desc: '', args: []);
+  }
+
+  /// `Experience`
+  String get experience {
+    return Intl.message('Experience', name: 'experience', desc: '', args: []);
+  }
+
+  /// `Education`
+  String get education {
+    return Intl.message('Education', name: 'education', desc: '', args: []);
+  }
+
+  /// `CS or related`
+  String get csOrRelated {
+    return Intl.message(
+      'CS or related',
+      name: 'csOrRelated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View full job description`
+  String get viewFullJobDescription {
+    return Intl.message(
+      'View full job description',
+      name: 'viewFullJobDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Want to improve your match?`
+  String get wantToImproveYourMatch {
+    return Intl.message(
+      'Want to improve your match?',
+      name: 'wantToImproveYourMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Focus on 2 high-priority skills`
+  String get focusOnTwoHighPrioritySkills {
+    return Intl.message(
+      'Focus on 2 high-priority skills',
+      name: 'focusOnTwoHighPrioritySkills',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Build a personalized roadmap to work on Testing and CI/CD and become a stronger candidate for this role.`
+  String get roadmapMatchDescription {
+    return Intl.message(
+      'Build a personalized roadmap to work on Testing and CI/CD and become a stronger candidate for this role.',
+      name: 'roadmapMatchDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Build My Roadmap`
+  String get buildMyRoadmap {
+    return Intl.message(
+      'Build My Roadmap',
+      name: 'buildMyRoadmap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your roadmap will be based on this job and your current skills.`
+  String get roadmapBasedOnJob {
+    return Intl.message(
+      'Your roadmap will be based on this job and your current skills.',
+      name: 'roadmapBasedOnJob',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Already submitted`
+  String get alreadySubmitted {
+    return Intl.message(
+      'Already submitted',
+      name: 'alreadySubmitted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Application`
+  String get application {
+    return Intl.message('Application', name: 'application', desc: '', args: []);
+  }
+
+  /// `Apply for Role`
+  String get applyForRole {
+    return Intl.message(
+      'Apply for Role',
+      name: 'applyForRole',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `of`
+  String get stepOf {
+    return Intl.message('of', name: 'stepOf', desc: '', args: []);
+  }
+
+  /// `Your Information`
+  String get yourInformation {
+    return Intl.message(
+      'Your Information',
+      name: 'yourInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Review your information before continuing.`
+  String get reviewInformationBeforeContinuing {
+    return Intl.message(
+      'Review your information before continuing.',
+      name: 'reviewInformationBeforeContinuing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full Name`
+  String get fullName {
+    return Intl.message('Full Name', name: 'fullName', desc: '', args: []);
+  }
+
+  /// `Email Address`
+  String get emailAddress {
+    return Intl.message(
+      'Email Address',
+      name: 'emailAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone Number`
+  String get phoneNumber {
+    return Intl.message(
+      'Phone Number',
+      name: 'phoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CV / Résumé`
+  String get cvResume {
+    return Intl.message('CV / Résumé', name: 'cvResume', desc: '', args: []);
+  }
+
+  /// `Updated 5 days ago`
+  String get updatedFiveDaysAgo {
+    return Intl.message(
+      'Updated 5 days ago',
+      name: 'updatedFiveDaysAgo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ready`
+  String get ready {
+    return Intl.message('Ready', name: 'ready', desc: '', args: []);
+  }
+
+  /// `View`
+  String get view {
+    return Intl.message('View', name: 'view', desc: '', args: []);
+  }
+
+  /// `Change`
+  String get change {
+    return Intl.message('Change', name: 'change', desc: '', args: []);
+  }
+
+  /// `Cover Note`
+  String get coverNote {
+    return Intl.message('Cover Note', name: 'coverNote', desc: '', args: []);
+  }
+
+  /// `Optional`
+  String get optional {
+    return Intl.message('Optional', name: 'optional', desc: '', args: []);
+  }
+
+  /// `Add a short message about why you’re interested in this role.`
+  String get coverNoteHint {
+    return Intl.message(
+      'Add a short message about why you’re interested in this role.',
+      name: 'coverNoteHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `characters`
+  String get characters {
+    return Intl.message('characters', name: 'characters', desc: '', args: []);
+  }
+
+  /// `Continue`
+  String get continueText {
+    return Intl.message('Continue', name: 'continueText', desc: '', args: []);
+  }
+
+  /// `Next: Application questions`
+  String get nextApplicationQuestions {
+    return Intl.message(
+      'Next: Application questions',
+      name: 'nextApplicationQuestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `0–2 yrs exp`
+  String get zeroToTwoYearsExp {
+    return Intl.message(
+      '0–2 yrs exp',
+      name: 'zeroToTwoYearsExp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Application Questions`
+  String get applicationQuestions {
+    return Intl.message(
+      'Application Questions',
+      name: 'applicationQuestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A few more questions`
+  String get aFewMoreQuestions {
+    return Intl.message(
+      'A few more questions',
+      name: 'aFewMoreQuestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Answer the employer’s questions to continue your application.`
+  String get answerEmployerQuestions {
+    return Intl.message(
+      'Answer the employer’s questions to continue your application.',
+      name: 'answerEmployerQuestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Why are you interested in this role? *`
+  String get whyInterestedRequired {
+    return Intl.message(
+      'Why are you interested in this role? *',
+      name: 'whyInterestedRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Describe what excites you about TechNova and this position...`
+  String get whyInterestedHint {
+    return Intl.message(
+      'Describe what excites you about TechNova and this position...',
+      name: 'whyInterestedHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What is your expected monthly salary?`
+  String get expectedMonthlySalary {
+    return Intl.message(
+      'What is your expected monthly salary?',
+      name: 'expectedMonthlySalary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. 24,000`
+  String get salaryHint {
+    return Intl.message('e.g. 24,000', name: 'salaryHint', desc: '', args: []);
+  }
+
+  /// `Enter your expected gross monthly salary.`
+  String get salaryHelper {
+    return Intl.message(
+      'Enter your expected gross monthly salary.',
+      name: 'salaryHelper',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Which work mode do you prefer?`
+  String get preferredWorkMode {
+    return Intl.message(
+      'Which work mode do you prefer?',
+      name: 'preferredWorkMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Popular`
+  String get popular {
+    return Intl.message('Popular', name: 'popular', desc: '', args: []);
+  }
+
+  /// `On-site`
+  String get onSite {
+    return Intl.message('On-site', name: 'onSite', desc: '', args: []);
+  }
+
+  /// `Which technologies have you worked with?`
+  String get technologiesWorkedWith {
+    return Intl.message(
+      'Which technologies have you worked with?',
+      name: 'technologiesWorkedWith',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Supporting Document (Optional)`
+  String get supportingDocumentOptional {
+    return Intl.message(
+      'Supporting Document (Optional)',
+      name: 'supportingDocumentOptional',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload File`
+  String get uploadFile {
+    return Intl.message('Upload File', name: 'uploadFile', desc: '', args: []);
+  }
+
+  /// `PDF or DOCX • Max 5 MB`
+  String get uploadFileHint {
+    return Intl.message(
+      'PDF or DOCX • Max 5 MB',
+      name: 'uploadFileHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Portfolio or Project Link (Optional)`
+  String get portfolioOrProjectLink {
+    return Intl.message(
+      'Portfolio or Project Link (Optional)',
+      name: 'portfolioOrProjectLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `https://github.com/username or portfolio`
+  String get portfolioLinkHint {
+    return Intl.message(
+      'https://github.com/username or portfolio',
+      name: 'portfolioLinkHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Review Application`
+  String get reviewApplication {
+    return Intl.message(
+      'Review Application',
+      name: 'reviewApplication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will review all details before final submission.`
+  String get reviewBeforeSubmission {
+    return Intl.message(
+      'You will review all details before final submission.',
+      name: 'reviewBeforeSubmission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Applying for`
+  String get applyingFor {
+    return Intl.message(
+      'Applying for',
+      name: 'applyingFor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get edit {
+    return Intl.message('Edit', name: 'edit', desc: '', args: []);
+  }
+
+  /// `Review before submitting`
+  String get reviewBeforeSubmitting {
+    return Intl.message(
+      'Review before submitting',
+      name: 'reviewBeforeSubmitting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Make sure your information is correct. You can go back and edit anything before submitting.`
+  String get reviewBeforeSubmittingDescription {
+    return Intl.message(
+      'Make sure your information is correct. You can go back and edit anything before submitting.',
+      name: 'reviewBeforeSubmittingDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Step 3 of 3`
+  String get stepThreeOfThree {
+    return Intl.message(
+      'Step 3 of 3',
+      name: 'stepThreeOfThree',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Final Confirmation`
+  String get finalConfirmation {
+    return Intl.message(
+      'Final Confirmation',
+      name: 'finalConfirmation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No cover note added`
+  String get noCoverNoteAdded {
+    return Intl.message(
+      'No cover note added',
+      name: 'noCoverNoteAdded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preferred work mode`
+  String get preferredWorkModeLabel {
+    return Intl.message(
+      'Preferred work mode',
+      name: 'preferredWorkModeLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expected salary`
+  String get expectedSalary {
+    return Intl.message(
+      'Expected salary',
+      name: 'expectedSalary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Technologies`
+  String get technologies {
+    return Intl.message(
+      'Technologies',
+      name: 'technologies',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `By submitting, you confirm that the information provided is accurate and complies with our community guidelines.`
+  String get submissionConfirmationNotice {
+    return Intl.message(
+      'By submitting, you confirm that the information provided is accurate and complies with our community guidelines.',
+      name: 'submissionConfirmationNotice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submit Application`
+  String get submitApplication {
+    return Intl.message(
+      'Submit Application',
+      name: 'submitApplication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get back {
+    return Intl.message('Back', name: 'back', desc: '', args: []);
+  }
+
+  /// `STEP 4 OF 4 • CONFIRMATION`
+  String get stepFourConfirmation {
+    return Intl.message(
+      'STEP 4 OF 4 • CONFIRMATION',
+      name: 'stepFourConfirmation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Application submitted!`
+  String get applicationSubmitted {
+    return Intl.message(
+      'Application submitted!',
+      name: 'applicationSubmitted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your application for`
+  String get yourApplicationFor {
+    return Intl.message(
+      'Your application for',
+      name: 'yourApplicationFor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `at`
+  String get at {
+    return Intl.message('at', name: 'at', desc: '', args: []);
+  }
+
+  /// `has been submitted successfully.`
+  String get submittedSuccessfully {
+    return Intl.message(
+      'has been submitted successfully.',
+      name: 'submittedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Timeline`
+  String get timeline {
+    return Intl.message('Timeline', name: 'timeline', desc: '', args: []);
+  }
+
+  /// `Submitted just now`
+  String get submittedJustNow {
+    return Intl.message(
+      'Submitted just now',
+      name: 'submittedJustNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recruiter review`
+  String get recruiterReview {
+    return Intl.message(
+      'Recruiter review',
+      name: 'recruiterReview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Within 3 business days`
+  String get withinThreeBusinessDays {
+    return Intl.message(
+      'Within 3 business days',
+      name: 'withinThreeBusinessDays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Track Application`
+  String get trackApplication {
+    return Intl.message(
+      'Track Application',
+      name: 'trackApplication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back to Jobs`
+  String get backToJobs {
+    return Intl.message('Back to Jobs', name: 'backToJobs', desc: '', args: []);
+  }
+
+  /// `Tracking Application`
+  String get trackingApplication {
+    return Intl.message(
+      'Tracking Application',
+      name: 'trackingApplication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Job`
+  String get viewJob {
+    return Intl.message('View Job', name: 'viewJob', desc: '', args: []);
+  }
+
+  /// `CURRENT STATUS`
+  String get currentStatus {
+    return Intl.message(
+      'CURRENT STATUS',
+      name: 'currentStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submitted today at 10:32 AM`
+  String get submittedTodayTime {
+    return Intl.message(
+      'Submitted today at 10:32 AM',
+      name: 'submittedTodayTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Application Timeline`
+  String get applicationTimeline {
+    return Intl.message(
+      'Application Timeline',
+      name: 'applicationTimeline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Today • 10:32 AM`
+  String get todayAtTime {
+    return Intl.message(
+      'Today • 10:32 AM',
+      name: 'todayAtTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In Review`
+  String get inReview {
+    return Intl.message('In Review', name: 'inReview', desc: '', args: []);
+  }
+
+  /// `Pending employer screening`
+  String get pendingEmployerScreening {
+    return Intl.message(
+      'Pending employer screening',
+      name: 'pendingEmployerScreening',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Interview`
+  String get interview {
+    return Intl.message('Interview', name: 'interview', desc: '', args: []);
+  }
+
+  /// `Technical & culture fit stage`
+  String get technicalCultureFitStage {
+    return Intl.message(
+      'Technical & culture fit stage',
+      name: 'technicalCultureFitStage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Offer`
+  String get offer {
+    return Intl.message('Offer', name: 'offer', desc: '', args: []);
+  }
+
+  /// `Final decision and onboarding`
+  String get finalDecisionAndOnboarding {
+    return Intl.message(
+      'Final decision and onboarding',
+      name: 'finalDecisionAndOnboarding',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keep your tracker updated when you hear back from the employer.`
+  String get keepTrackerUpdated {
+    return Intl.message(
+      'Keep your tracker updated when you hear back from the employer.',
+      name: 'keepTrackerUpdated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Status`
+  String get updateStatus {
+    return Intl.message(
+      'Update Status',
+      name: 'updateStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Application Details`
+  String get applicationDetails {
+    return Intl.message(
+      'Application Details',
+      name: 'applicationDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Application method`
+  String get applicationMethod {
+    return Intl.message(
+      'Application method',
+      name: 'applicationMethod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notes`
+  String get notes {
+    return Intl.message('Notes', name: 'notes', desc: '', args: []);
+  }
+
+  /// `Edit Note`
+  String get editNote {
+    return Intl.message('Edit Note', name: 'editNote', desc: '', args: []);
+  }
+
+  /// `Waiting for a response from the recruiter.`
+  String get waitingForRecruiterResponse {
+    return Intl.message(
+      'Waiting for a response from the recruiter.',
+      name: 'waitingForRecruiterResponse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Need help with next steps?`
+  String get needHelpWithNextSteps {
+    return Intl.message(
+      'Need help with next steps?',
+      name: 'needHelpWithNextSteps',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ask your Career Mentor what to focus on while you wait.`
+  String get askCareerMentorDescription {
+    return Intl.message(
+      'Ask your Career Mentor what to focus on while you wait.',
+      name: 'askCareerMentorDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ask Chat Bot`
+  String get askChatBot {
+    return Intl.message('Ask Chat Bot', name: 'askChatBot', desc: '', args: []);
+  }
+
+  /// `Withdraw Application`
+  String get withdrawApplication {
+    return Intl.message(
+      'Withdraw Application',
+      name: 'withdrawApplication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload your CV`
+  String get uploadYourCv {
+    return Intl.message(
+      'Upload your CV',
+      name: 'uploadYourCv',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PDF or DOCX • Max 5 MB`
+  String get cvUploadRequirements {
+    return Intl.message(
+      'PDF or DOCX • Max 5 MB',
+      name: 'cvUploadRequirements',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose File`
+  String get chooseFile {
+    return Intl.message('Choose File', name: 'chooseFile', desc: '', args: []);
+  }
+
+  /// `No file selected`
+  String get noFileSelected {
+    return Intl.message(
+      'No file selected',
+      name: 'noFileSelected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View CV`
+  String get viewCv {
+    return Intl.message('View CV', name: 'viewCv', desc: '', args: []);
+  }
+
+  /// `Replace CV`
+  String get replaceCv {
+    return Intl.message('Replace CV', name: 'replaceCv', desc: '', args: []);
+  }
+
+  /// `Uploaded`
+  String get uploaded {
+    return Intl.message('Uploaded', name: 'uploaded', desc: '', args: []);
+  }
+
+  /// `Analyzing`
+  String get analyzing {
+    return Intl.message('Analyzing', name: 'analyzing', desc: '', args: []);
+  }
+
+  /// `Analyzed`
+  String get analyzed {
+    return Intl.message('Analyzed', name: 'analyzed', desc: '', args: []);
+  }
+
+  /// `Failed`
+  String get failed {
+    return Intl.message('Failed', name: 'failed', desc: '', args: []);
+  }
+
+  /// `Updated just now`
+  String get updatedJustNow {
+    return Intl.message(
+      'Updated just now',
+      name: 'updatedJustNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good`
+  String get good {
+    return Intl.message('Good', name: 'good', desc: '', args: []);
+  }
+
   /// `AI Assistant`
   String get aiAssistant {
     return Intl.message(
@@ -747,16 +2168,6 @@ class S {
       desc: '',
       args: [],
     );
-  }
-
-  /// `Today`
-  String get today {
-    return Intl.message('Today', name: 'today', desc: '', args: []);
-  }
-
-  /// `Yesterday`
-  String get yesterday {
-    return Intl.message('Yesterday', name: 'yesterday', desc: '', args: []);
   }
 
   /// `Older`

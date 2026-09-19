@@ -8,10 +8,13 @@ abstract final class AppRoutes {
   // Authentication
   static const String kLoginView = '/login';
   static const String kRegisterView = '/register';
-  static const String kForgetPasswordView = '/forgotPassword';
+  static const String kForgetPasswordView =
+      '/forgotPassword';
   static const String kOtpVerificationView = '/otp';
-  static const String kCreateNewPasswordView = '/createNewPassword';
-  static const String kPasswordChangedSuccessView = '/passwordChangedSuccess';
+  static const String kCreateNewPasswordView =
+      '/createNewPassword';
+  static const String kPasswordChangedSuccessView =
+      '/passwordChangedSuccess';
 
   // Main
   static const String kHomeView = '/home';
@@ -19,14 +22,20 @@ abstract final class AppRoutes {
   // Jobs
   static const String kJobsSearchView = '/jobs/search';
   static const String kJobDetailsView = '/jobs/details';
+  static const String knotifications = '/notifications';
+  static const String ksettings = '/settings';
+
+  // Applications
+  static const String kapplyForRole = '/applications/apply';
+  static const String kapplicationQuestions =
+      '/applications/questions';
+  static const String kreviewApplication =
+      '/applications/review';
+  static const String kapplicationSubmitted =
+      '/applications/submitted';
+  static const String ktrackingApplication =
+      '/applications/tracking';
 
   // WebView
   static const String kWebView = '/webView';
-
-  // Deprecated aliases kept for backwards compatibility
-  @Deprecated('Use kJobsSearchView instead')
-  static const String jobsSearch = kJobsSearchView;
-
-  @Deprecated('Use kJobDetailsView instead')
-  static const String jobDetails = kJobDetailsView;
 }
