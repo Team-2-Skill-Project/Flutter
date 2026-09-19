@@ -131,6 +131,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Get matched with high-fit opportunities",
     ),
     "opportunities": MessageLookupByLibrary.simpleMessage("opportunities"),
+    "otpCodeDidNotMatch": MessageLookupByLibrary.simpleMessage(
+      "That code didn't match. Check the message and try again.",
+    ),
+    "otpVerifying": MessageLookupByLibrary.simpleMessage("Verifying…"),
     "passwordChangedSuccessDesc": MessageLookupByLibrary.simpleMessage(
       "Your password has been changed successfully. You can now log in with your new password.",
     ),

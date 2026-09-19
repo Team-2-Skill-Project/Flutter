@@ -1,4 +1,4 @@
-{
+﻿{
   "noInternetConnection": "لا يوجد اتصال بالإنترنت",
   "pleaseCheckYourInternetConnection": "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
   "tryAgain": "إعادة المحاولة",
@@ -109,5 +109,7 @@
 "delete":"حذف",
 "confirmDeleteChat": "هل أنت متأكد أنك تريد حذف هذه المحادثة؟ لا يمكن التراجع عن هذا الإجراء.",
 "deleteChat": "حذف المحادثة"
-,"previous7Days": "السابق 7 يوما"
+,"previous7Days": "السابق 7 يوما",
+"otpVerifying": "جاري التحقق…",
+"otpCodeDidNotMatch": "لم يتطابق الرمز. تحقق من الرسالة وحاول مرة أخرى."
 }

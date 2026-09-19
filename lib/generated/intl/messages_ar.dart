@@ -132,7 +132,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingBullet3": MessageLookupByLibrary.simpleMessage(
       "احصل على أفضل الفرص المتوافقة معك بدقة",
     ),
-    "opportunities": MessageLookupByLibrary.simpleMessage("فرصة"),
+    "opportunities": MessageLookupByLibrary.simpleMessage("\u0641\u0631\u0635\u0629"),
+    "otpCodeDidNotMatch": MessageLookupByLibrary.simpleMessage(
+      "\u0644\u0645 \u064a\u062a\u0637\u0627\u0628\u0642 \u0627\u0644\u0631\u0645\u0632. \u062a\u062d\u0642\u0642 \u0645\u0646 \u0627\u0644\u0631\u0633\u0627\u0644\u0629 \u0648\u062d\u0627\u0648\u0644 \u0645\u0631\u0629 \u0623\u062e\u0631\u0649.",
+    ),
+    "otpVerifying": MessageLookupByLibrary.simpleMessage("\u062c\u0627\u0631\u064a \u0627\u0644\u062a\u062d\u0642\u0642\u2026"),
     "passwordChangedSuccessDesc": MessageLookupByLibrary.simpleMessage(
       "تم تغيير كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة.",
     ),

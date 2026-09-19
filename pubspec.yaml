@@ -66,6 +66,9 @@ dependencies:
   #--> web view
   flutter_inappwebview: ^6.1.5
 
+  #--> OTP animation fields
+  otp_animated_fields: ^0.1.1
+
 dev_dependencies:
   flutter_lints: ^6.0.0
   flutter_test:
