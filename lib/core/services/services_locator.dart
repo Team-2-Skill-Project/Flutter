@@ -6,10 +6,9 @@ import 'package:MatchIn/core/networking/network_info.dart';
 import 'package:MatchIn/core/services/file_picker_service.dart';
 import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
+import 'package:MatchIn/features/applications/presentation/cubit/cv_cubit.dart';
 import 'package:MatchIn/features/auth/data/data_sources/auth_mock_remote_data_source_impl.dart';
 import 'package:MatchIn/features/auth/data/data_sources/auth_remote_data_source.dart';
-// ignore: unused_import
-import 'package:MatchIn/features/auth/data/data_sources/auth_remote_data_source_impl.dart';
 import 'package:MatchIn/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:MatchIn/features/auth/domain/repositories/auth_repository.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/resend_otp_use_case.dart';
@@ -87,6 +86,10 @@ Future<void> setupServiceLocator() async {
     () => SecureStorageService(getIt()),
   );
 
+  getIt.registerLazySingleton<FilePickerService>(
+    () => FilePickerService(),
+  );
+
   // ---> Network Info <---
   getIt.registerLazySingleton<NetworkInfo>(
     () => NetworkInfoImpl(),
@@ -104,7 +107,11 @@ Future<void> setupServiceLocator() async {
     ),
   );
 
-  getIt.registerLazySingleton<FilePickerService>(
-    () => FilePickerService(),
+  //! ========= Applications Feature ==========
+
+  getIt.registerFactory<CvCubit>(
+    () => CvCubit(
+      filePickerService: getIt<FilePickerService>(),
+    ),
   );
 }

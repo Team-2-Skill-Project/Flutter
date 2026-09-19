@@ -1,7 +1,7 @@
 import 'package:MatchIn/core/routing/app_routes.dart';
-import 'package:MatchIn/core/services/file_picker_service.dart';
-import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:MatchIn/core/widgets/cv_file_card.dart';
+import 'package:MatchIn/features/applications/presentation/cubit/cv_cubit.dart';
+import 'package:MatchIn/features/applications/presentation/cubit/cv_state.dart';
 import 'package:MatchIn/features/applications/presentation/widgets/apply_bottom_button.dart';
 import 'package:MatchIn/features/applications/presentation/widgets/apply_header.dart';
 import 'package:MatchIn/features/applications/presentation/widgets/cover_note.dart';
@@ -9,6 +9,7 @@ import 'package:MatchIn/features/applications/presentation/widgets/job_summary_c
 import 'package:MatchIn/features/applications/presentation/widgets/user_info.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -40,17 +41,71 @@ class ApplyForRoleViewBody extends StatelessWidget {
                 SizedBox(height: 24.h),
                 const UserInfo(),
                 SizedBox(height: 24.h),
-                CvFileCard(
-                  onUpload: () async {
-                    final file =
-                        await getIt<FilePickerService>()
-                            .pickCv();
+                BlocBuilder<CvCubit, CvState>(
+                  buildWhen: (previous, current) {
+                    return previous.status !=
+                            current.status ||
+                        previous.file?.name !=
+                            current.file?.name;
+                  },
+                  builder: (context, state) {
+                    switch (state.status) {
+                      case CvStatus.empty:
+                        return CvFileCard(
+                          status: CvFileStatus.empty,
+                          onUpload: () {
+                            context
+                                .read<CvCubit>()
+                                .pickCv();
+                          },
+                        );
 
-                    if (file == null) {
-                      return;
+                      case CvStatus.picking:
+                        return const CvFileCard(
+                          status: CvFileStatus.empty,
+                        );
+
+                      case CvStatus.selected:
+                        return CvFileCard(
+                          status: CvFileStatus.uploaded,
+                          fileName: state.file?.name,
+                          updatedText: s.updatedJustNow,
+                          onReplace: () {
+                            context
+                                .read<CvCubit>()
+                                .pickCv();
+                          },
+                          onEdit: () {
+                            context
+                                .read<CvCubit>()
+                                .pickCv();
+                          },
+                          onView: () {
+                            // CV preview will be connected next.
+                          },
+                        );
+
+                      case CvStatus.failure:
+                        return CvFileCard(
+                          status: state.file == null
+                              ? CvFileStatus.empty
+                              : CvFileStatus.uploaded,
+                          fileName: state.file?.name,
+                          updatedText: state.file == null
+                              ? null
+                              : s.updatedJustNow,
+                          onUpload: () {
+                            context
+                                .read<CvCubit>()
+                                .pickCv();
+                          },
+                          onReplace: () {
+                            context
+                                .read<CvCubit>()
+                                .pickCv();
+                          },
+                        );
                     }
-
-                    debugPrint('Selected CV: ${file.name}');
                   },
                 ),
                 SizedBox(height: 24.h),
