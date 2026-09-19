@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/active_task_indicator.dart';
+import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_node_depth.dart';
+import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_node_surface.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RoadmapTaskNode extends StatefulWidget {
   const RoadmapTaskNode({
@@ -117,7 +119,7 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
                 // 3D Depth Layer
                 Positioned(
                   top: ringOffset + depthHeight,
-                  child: _RoadmapNodeDepth(
+                  child: RoadmapNodeDepth(
                     size: circleSize,
                     color: depthColor,
                     isActive: isActive,
@@ -130,7 +132,7 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
                   duration: const Duration(milliseconds: 80),
                   curve: Curves.easeOutCubic,
                   top: ringOffset + pressTranslation,
-                  child: _RoadmapNodeSurface(
+                  child: RoadmapNodeSurface(
                     size: circleSize,
                     baseColor: baseColor,
                     isActive: isActive,
@@ -209,104 +211,6 @@ class _RoadmapTaskNodeState extends State<RoadmapTaskNode> {
       return node.icon as IconData;
     }
     return Icons.play_arrow_rounded;
-  }
-}
-
-class _RoadmapNodeDepth extends StatelessWidget {
-  const _RoadmapNodeDepth({
-    required this.size,
-    required this.color,
-    required this.isActive,
-    required this.isPressed,
-  });
-
-  final double size;
-  final Color color;
-  final bool isActive;
-  final bool isPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-        border: isActive
-            ? Border.all(color: const Color(0xFF1F365C), width: 1.5.w)
-            : null,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: isPressed ? 0.08 : 0.26),
-            blurRadius: isPressed ? 2.r : 10.r,
-            offset: Offset(0, isPressed ? 1.h : 6.h),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _RoadmapNodeSurface extends StatelessWidget {
-  const _RoadmapNodeSurface({
-    required this.size,
-    required this.baseColor,
-    required this.isActive,
-    required this.isLocked,
-    required this.iconData,
-    required this.iconColor,
-  });
-
-  final double size;
-  final Color baseColor;
-  final bool isActive;
-  final bool isLocked;
-  final IconData iconData;
-  final Color iconColor;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: baseColor,
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: isLocked
-              ? colors.outline.withValues(alpha: 0.4)
-              : isActive
-              ? Colors.white.withValues(alpha: 0.6)
-              : Colors.white.withValues(alpha: 0.45),
-          width: isActive ? 2.5.w : 2.w,
-        ),
-        gradient: isLocked
-            ? null
-            : LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.white.withValues(alpha: 0.35),
-                  Colors.transparent,
-                ],
-                stops: const [0.0, 0.45],
-              ),
-      ),
-      child: Center(
-        child: Icon(
-          iconData,
-          color: iconColor,
-          size: isActive
-              ? 34.r
-              : isLocked
-              ? 26.r
-              : 32.r,
-        ),
-      ),
-    );
   }
 }
 

@@ -132,7 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "opportunities": MessageLookupByLibrary.simpleMessage("opportunities"),
     "otpCodeDidNotMatch": MessageLookupByLibrary.simpleMessage(
-      "That code didn't match. Check the message and try again.",
+      "That code didn\'t match. Check the message and try again.",
     ),
     "otpVerifying": MessageLookupByLibrary.simpleMessage("Verifying…"),
     "passwordChangedSuccessDesc": MessageLookupByLibrary.simpleMessage(

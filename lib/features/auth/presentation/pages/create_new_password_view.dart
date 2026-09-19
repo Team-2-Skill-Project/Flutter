@@ -2,10 +2,11 @@ import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/widgets/custom_app_bar.dart';
 import 'package:MatchIn/core/widgets/custom_button.dart';
 import 'package:MatchIn/core/widgets/custom_snack_bar.dart';
-import 'package:MatchIn/core/widgets/custom_text_field.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/reset_password_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/reset_password_state.dart';
-import 'package:MatchIn/features/auth/presentation/widgets/password_requirement_tile.dart';
+import 'package:MatchIn/features/auth/presentation/widgets/create_password_back_button.dart';
+import 'package:MatchIn/features/auth/presentation/widgets/create_password_form_card.dart';
+import 'package:MatchIn/features/auth/presentation/widgets/create_password_header.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -89,131 +90,16 @@ class _CreateNewPasswordViewState extends State<CreateNewPasswordView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Header Intro
-                  Text(
-                    S.of(context).createNewPassword,
-                    style: TextStyle(
-                      fontFamily: 'DM Sans',
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w700,
-                      color: Theme.of(context).colorScheme.primary,
-                      letterSpacing: -0.6,
-                      height: 32 / 24,
-                    ),
-                  ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    S.of(context).chooseStrongPassword,
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                      color: Theme.of(context).colorScheme.onSurface
-                          .withValues(alpha: 0.6),
-                      height: 20 / 14,
-                    ),
+                  const CreatePasswordHeader(),
+                  SizedBox(height: 24.h),
+                  CreatePasswordFormCard(
+                    passwordController: _passwordController,
+                    confirmPasswordController: _confirmPasswordController,
+                    hasMinLength: _hasMinLength,
+                    hasNumber: _hasNumber,
+                    hasSpecialChar: _hasSpecialChar,
                   ),
                   SizedBox(height: 24.h),
-
-                  // Form Card Container
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(16.w),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
-                      borderRadius: BorderRadius.circular(12.r),
-                      border: Border.all(
-                        color: Theme.of(context).dividerColor,
-                        width: 1,
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Field 1: New password
-                        CustomTextField(
-                          controller: _passwordController,
-                          labelText: S.of(context).newPassword,
-                          hintText: '••••••••',
-                          isPassword: true,
-                        ),
-                        SizedBox(height: 4.h),
-                        Text(
-                          S.of(context).passwordLengthHint,
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Theme.of(context).colorScheme.onSurface
-                                .withValues(alpha: 0.6),
-                          ),
-                        ),
-                        SizedBox(height: 12.h),
-
-                        // Divider
-                        Divider(
-                          color: Theme.of(context).dividerColor,
-                          thickness: 1,
-                        ),
-                        SizedBox(height: 12.h),
-
-                        // Field 2: Confirm new password
-                        CustomTextField(
-                          controller: _confirmPasswordController,
-                          labelText: S.of(context).confirmNewPassword,
-                          hintText: '••••••••',
-                          isPassword: true,
-                        ),
-                        SizedBox(height: 16.h),
-
-                        // Password Requirements Subsection
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.only(top: 12.h),
-                          decoration: BoxDecoration(
-                            border: Border(
-                              top: BorderSide(
-                                color: Theme.of(context).dividerColor,
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                S.of(context).passwordRequirements,
-                                style: TextStyle(
-                                  fontFamily: 'DM Sans',
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurface,
-                                ),
-                              ),
-                              SizedBox(height: 8.h),
-                              PasswordRequirementTile(
-                                text: S.of(context).reqMin8Chars,
-                                isMet: _hasMinLength,
-                              ),
-                              PasswordRequirementTile(
-                                text: S.of(context).reqAtLeastOneNumber,
-                                isMet: _hasNumber,
-                              ),
-                              PasswordRequirementTile(
-                                text: S.of(context).reqAtLeastOneSpecial,
-                                isMet: _hasSpecialChar,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 24.h),
-
-                  // Action Stack
                   CustomButton(
                     text: S.of(context).resetPassword,
                     onPressed: _onSubmit,
@@ -221,21 +107,8 @@ class _CreateNewPasswordViewState extends State<CreateNewPasswordView> {
                     isEnabled: _isValid,
                   ),
                   SizedBox(height: 12.h),
-
-                  // Link back to login
-                  Center(
-                    child: TextButton(
-                      onPressed: () => context.go(AppRoutes.kLoginView),
-                      child: Text(
-                        S.of(context).backToLogin,
-                        style: TextStyle(
-                          fontFamily: 'DM Sans',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                      ),
-                    ),
+                  CreatePasswordBackButton(
+                    onPressed: () => context.go(AppRoutes.kLoginView),
                   ),
                 ],
               ),

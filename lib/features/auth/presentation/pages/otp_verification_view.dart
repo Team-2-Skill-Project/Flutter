@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
-import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/core/widgets/custom_app_bar.dart';
 import 'package:MatchIn/core/widgets/custom_snack_bar.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/otp_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/otp_state.dart';
+import 'package:MatchIn/features/auth/presentation/widgets/otp_back_button.dart';
+import 'package:MatchIn/features/auth/presentation/widgets/otp_header.dart';
+import 'package:MatchIn/features/auth/presentation/widgets/otp_input_card.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -98,16 +100,12 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
     return BlocListener<OtpCubit, OtpState>(
       listener: (context, state) {
         if (state is OtpVerificationSuccess) {
-          // Trigger success animation; navigation happens in onStatusChanged
-          // after the animation finishes.
           _otpController.succeed();
         } else if (state is OtpVerificationError) {
-          // Trigger error (shake) animation, then re-enable input.
           _otpController.fail();
           CustomSnackBar.showError(context, message: state.message);
         } else if (state is OtpResendSuccess) {
@@ -129,142 +127,20 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // ── Header icon ──────────────────────────────────────────
-                Center(
-                  child: Container(
-                    width: 56.w,
-                    height: 56.w,
-                    decoration: BoxDecoration(
-                      color: colorScheme.primary,
-                      borderRadius: BorderRadius.circular(16.r),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.05),
-                          blurRadius: 2,
-                          offset: const Offset(0, 1),
-                        ),
-                      ],
-                    ),
-                    child: Icon(
-                      Icons.verified_user_outlined,
-                      color: colorScheme.onPrimary,
-                      size: 28.sp,
-                    ),
-                  ),
+                const OtpHeader(),
+                SizedBox(height: 24.h),
+                OtpInputCard(
+                  controller: _otpController,
+                  otpLength: _kOtpLength,
+                  onCompleted: _onCompleted,
+                  onStatusChanged: _onOtpStatusChanged,
+                  secondsRemaining: _secondsRemaining,
+                  canResend: !_isVerifying,
+                  onResend: _onResend,
                 ),
                 SizedBox(height: 24.h),
-
-                // ── Heading & subtitle ───────────────────────────────────
-                Text(
-                  S.of(context).enterVerificationCode,
-                  style: theme.textTheme.headlineLarge,
-                ),
-                SizedBox(height: 4.h),
-                Text(
-                  S.of(context).sentCodeToEmail,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
-                SizedBox(height: 24.h),
-
-                // ── OTP input card ───────────────────────────────────────
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(16.w),
-                  decoration: BoxDecoration(
-                    color: colorScheme.surface,
-                    borderRadius: BorderRadius.circular(12.r),
-                    border: Border.all(color: colorScheme.outline, width: 1),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // ── Code label ────────────────────────────────────
-                      Text(
-                        S.of(context).verificationCodeLabel,
-                        style: theme.textTheme.labelSmall?.copyWith(
-                          color: colorScheme.onSurface,
-                          letterSpacing: 0.55,
-                        ),
-                      ),
-                      SizedBox(height: 12.h),
-
-                      // ── Animated OTP field ────────────────────────────
-                      // Digits stay LTR inside an RTL locale automatically;
-                      // the package handles that internally.
-                      Center(
-                        child: OtpAnimatedField(
-                          controller: _otpController,
-                          length: _kOtpLength,
-                          autofocus: true,
-                          keyboardType: TextInputType.number,
-                          onCompleted: _onCompleted,
-                          onStatusChanged: _onOtpStatusChanged,
-                          semanticLabels: OtpSemanticLabels(
-                            field: S.of(context).verificationCodeLabel,
-                          ),
-                          // Let the field follow the surrounding Material
-                          // theme: brightness selects light/dark preset,
-                          // colorScheme.primary becomes the accent color,
-                          // colorScheme.error becomes the error color.
-                        ),
-                      ),
-                      SizedBox(height: 12.h),
-
-                      // ── Resend row ────────────────────────────────────
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            _secondsRemaining > 0
-                                ? '${S.of(context).resendCodeIn} $_secondsRemaining${S.of(context).secondsSuffix}'
-                                : '',
-                            style: theme.textTheme.bodySmall?.copyWith(
-                              color: colorScheme.onSurfaceVariant,
-                            ),
-                          ),
-                          InkWell(
-                            onTap: _secondsRemaining == 0 && !_isVerifying
-                                ? _onResend
-                                : null,
-                            borderRadius: BorderRadius.circular(4.r),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 4.w,
-                                vertical: 2.h,
-                              ),
-                              child: Text(
-                                S.of(context).resendCode,
-                                style: theme.textTheme.labelSmall?.copyWith(
-                                  color: _secondsRemaining == 0 && !_isVerifying
-                                      ? colorScheme.secondary
-                                      : colorScheme.onSurfaceVariant.withValues(
-                                          alpha: 0.6,
-                                        ),
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 24.h),
-
-                // ── Back link ────────────────────────────────────────────
-                Center(
-                  child: TextButton(
-                    onPressed: () => context.pop(),
-                    child: Text(
-                      S.of(context).useDifferentEmail,
-                      style: theme.textTheme.labelLarge?.copyWith(
-                        color: AppColors.secondary,
-                      ),
-                    ),
-                  ),
+                OtpBackButton(
+                  onPressed: () => context.pop(),
                 ),
               ],
             ),

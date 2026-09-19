@@ -909,20 +909,15 @@ class S {
     );
   }
 
-  /// `Verifying\u2026`
+  /// `Verifying…`
   String get otpVerifying {
-    return Intl.message(
-      'Verifying\u2026',
-      name: 'otpVerifying',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Verifying…', name: 'otpVerifying', desc: '', args: []);
   }
 
   /// `That code didn't match. Check the message and try again.`
   String get otpCodeDidNotMatch {
     return Intl.message(
-      "That code didn't match. Check the message and try again.",
+      'That code didn\'t match. Check the message and try again.',
       name: 'otpCodeDidNotMatch',
       desc: '',
       args: [],

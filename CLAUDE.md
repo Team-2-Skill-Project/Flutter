@@ -926,11 +926,32 @@ These rules apply to code inside `lib/features`.
 15. Name split Blocs `Get<Feature>Bloc` (read) and `AddDeleteUpdate<Feature>Bloc` (write), not a single monolithic `<Feature>Bloc`.
 16. Name remote data source implementations with an explicit client suffix when the client could be swapped, e.g., `<Feature>RemoteDataSourceImplWithDio`.
 17. Name local data source implementations `<Feature>LocalDataSourceImpl`, injecting the shared `CacheHelper`.
-18. Name the abstract data source interfaces `<Feature>RemoteDataSource` and `<Feature>LocalDataSource`.
-
-### What to Avoid in This Variant
-
-- **AVOID** registering Blocs with anything other than `registerFactory`.
-- **AVOID** registering `SharedPreferences` before awaiting `getInstance()`.
-- **AVOID** collapsing remote and local data sources into the repository implementation directly — keep them as separate injected classes so the repository stays a pure coordinator.
-- **AVOID** mixing this variant's three-block (`Features` / `Core` / `External`) section structure with the leaner `core/` convention's seven-step flat ordering in the same file — pick one structure per project and apply it consistently.
+930: 18. Name the abstract data source interfaces `<Feature>RemoteDataSource` and `<Feature>LocalDataSource`.
+931: 
+932: ### What to Avoid in This Variant
+933: 
+934: - **AVOID** registering Blocs with anything other than `registerFactory`.
+935: - **AVOID** registering `SharedPreferences` before awaiting `getInstance()`.
+936: - **AVOID** collapsing remote and local data sources into the repository implementation directly — keep them as separate injected classes so the repository stays a pure coordinator.
+937: - **AVOID** mixing this variant's three-block (`Features` / `Core` / `External`) section structure with the leaner `core/` convention's seven-step flat ordering in the same file — pick one structure per project and apply it consistently.
+938: 
+939: ---
+940: 
+941: ## File Size & Widget Separation Rules
+942: 
+943: - **Small Files**: Keep Dart files small and focused.
+944: - **One Responsibility Per File**: A file should primarily represent one meaningful widget/component or one focused responsibility.
+945: - **Extract Meaningful Widgets**: If a UI section has a meaningful name or independent responsibility, extract it into its own file in `widgets/`.
+946: - **Avoid Giant `build()` Methods**: Avoid large `build()` methods and deeply nested widget trees by extracting child sections into modular widgets.
+947: - **Avoid Widget Dump Files**: Do not put many private widgets into a single large screen file. Move meaningful sub-widgets to separate files.
+948: - **Do Not Over-Split**: Do not create separate files for meaningless tiny fragments or simple inline UI details. The goal is small meaningful files, not maximum file count.
+949: - **Separate UI From Business Logic**: Keep Cubit/Bloc/domain business logic separate from reusable presentation widgets.
+950: - **Reusable Widgets Must Be Decoupled**: Reusable widgets must receive data and callbacks via constructor parameters rather than directly accessing feature-specific Cubits.
+951: - **Use File Size as a Warning Signal**:
+952:   - Files approaching **150–200 lines** should be reviewed for extraction opportunities.
+953:   - Files over **250 lines** should generally be refactored unless there is a clear architectural reason.
+954: - **Follow Project Architecture & System Patterns**:
+955:   - New widgets must follow the feature-based folder structure (`presentation/widgets/`).
+956:   - Preserve Clean Architecture, SOLID principles, localization (`S.of(context)`), theme system (`Theme.of(context)`), and responsive layout (`flutter_screenutil`).
+957: - **Composition-First Views**: Top-level page views should primarily act as screen composers, composing extracted sub-widgets rather than implementing long UI trees inline.
+958: - **Before Modifying Large Files**: Check whether new or existing UI sections should be extracted into separate files rather than increasing file complexity.
