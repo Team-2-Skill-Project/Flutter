@@ -117,9 +117,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   @override
-  void didUpdateWidget(
-    covariant CustomTextField oldWidget,
-  ) {
+  void didUpdateWidget(covariant CustomTextField oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.obscureText != widget.obscureText &&
@@ -141,21 +139,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
     final effectiveRadius = widget.borderRadius ?? 8.r;
 
-    final effectiveBorderColor =
-        widget.borderColor ?? theme.dividerColor;
+    final effectiveBorderColor = widget.borderColor ?? theme.dividerColor;
 
     final effectiveFocusedColor =
         widget.focusedBorderColor ?? colorScheme.primary;
 
-    final effectiveErrorColor =
-        widget.errorBorderColor ?? colorScheme.error;
+    final effectiveErrorColor = widget.errorBorderColor ?? colorScheme.error;
 
     final outlineBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(effectiveRadius),
-      borderSide: BorderSide(
-        color: effectiveBorderColor,
-        width: 1,
-      ),
+      borderSide: BorderSide(color: effectiveBorderColor, width: 1),
     );
 
     Widget? effectiveSuffixIcon = widget.suffixIcon;
@@ -168,9 +161,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ? Icons.visibility_off_outlined
               : Icons.visibility_outlined,
           size: 20.sp,
-          color: colorScheme.onSurface.withValues(
-            alpha: 0.6,
-          ),
+          color: colorScheme.onSurface.withValues(alpha: 0.6),
         ),
       );
     }
@@ -182,9 +173,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         if (widget.labelText != null) ...[
           Text(
             widget.labelText!,
-            style:
-                widget.labelStyle ??
-                theme.textTheme.labelLarge,
+            style: widget.labelStyle ?? theme.textTheme.labelLarge,
           ),
 
           SizedBox(height: 6.h),
@@ -217,12 +206,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
           minLines: widget.minLines,
           maxLength: widget.maxLength,
 
-          cursorColor:
-              widget.cursorColor ?? colorScheme.primary,
+          cursorColor: widget.cursorColor ?? colorScheme.primary,
 
-          style:
-              widget.textStyle ??
-              theme.textTheme.bodyMedium,
+          style: widget.textStyle ?? theme.textTheme.bodyMedium,
 
           decoration: InputDecoration(
             hintText: widget.hintText,
@@ -230,17 +216,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
             hintStyle:
                 widget.hintStyle ??
                 theme.textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onSurface.withValues(
-                    alpha: 0.6,
-                  ),
+                  color: colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
 
             helperText: widget.helperText,
             errorText: widget.errorText,
 
             filled: widget.filled,
-            fillColor:
-                widget.fillColor ?? colorScheme.surface,
+            fillColor: widget.fillColor ?? colorScheme.surface,
 
             prefixIcon: widget.prefixIcon,
             suffixIcon: effectiveSuffixIcon,
@@ -250,42 +233,24 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
             contentPadding:
                 widget.contentPadding ??
-                EdgeInsets.symmetric(
-                  horizontal: 14.w,
-                  vertical: 14.h,
-                ),
+                EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
 
             border: outlineBorder,
             enabledBorder: outlineBorder,
 
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                effectiveRadius,
-              ),
-              borderSide: BorderSide(
-                color: effectiveFocusedColor,
-                width: 1.5,
-              ),
+              borderRadius: BorderRadius.circular(effectiveRadius),
+              borderSide: BorderSide(color: effectiveFocusedColor, width: 1.5),
             ),
 
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                effectiveRadius,
-              ),
-              borderSide: BorderSide(
-                color: effectiveErrorColor,
-                width: 1,
-              ),
+              borderRadius: BorderRadius.circular(effectiveRadius),
+              borderSide: BorderSide(color: effectiveErrorColor, width: 1),
             ),
 
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                effectiveRadius,
-              ),
-              borderSide: BorderSide(
-                color: effectiveErrorColor,
-                width: 1.5,
-              ),
+              borderRadius: BorderRadius.circular(effectiveRadius),
+              borderSide: BorderSide(color: effectiveErrorColor, width: 1.5),
             ),
           ),
         ),

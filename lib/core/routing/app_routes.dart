@@ -20,23 +20,22 @@ abstract final class AppRoutes {
   static const String kHomeView = '/home';
 
   // Jobs
-  static const String jobsSearch = '/jobs/search';
-  static const String jobDetails = '/jobs/details';
-  static const String notifications = '/notifications';
-  static const String settings = '/settings';
+  static const String kJobsSearchView = '/jobs/search';
+  static const String kJobDetailsView = '/jobs/details';
+  static const String knotifications = '/notifications';
+  static const String ksettings = '/settings';
 
   // Applications
-  static const String applyForRole = '/applications/apply';
-
-  static const String applicationQuestions =
+  static const String kapplyForRole = '/applications/apply';
+  static const String kapplicationQuestions =
       '/applications/questions';
-
-  static const String reviewApplication =
+  static const String kreviewApplication =
       '/applications/review';
-
-  static const String applicationSubmitted =
+  static const String kapplicationSubmitted =
       '/applications/submitted';
-
-  static const String trackingApplication =
+  static const String ktrackingApplication =
       '/applications/tracking';
+
+  // WebView
+  static const String kWebView = '/webView';
 }

@@ -3,8 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-class CustomAppBar extends StatelessWidget
-    implements PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     super.key,
     this.title,
@@ -49,16 +48,12 @@ class CustomAppBar extends StatelessWidget
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    final effectiveLeading = _buildLeading(
-      context,
-      colorScheme,
-    );
+    final effectiveLeading = _buildLeading(context, colorScheme);
 
     final effectiveTitle = _buildTitle(context);
 
     return AppBar(
-      backgroundColor:
-          backgroundColor ?? theme.scaffoldBackgroundColor,
+      backgroundColor: backgroundColor ?? theme.scaffoldBackgroundColor,
       foregroundColor: colorScheme.onSurface,
 
       elevation: elevation,
@@ -72,18 +67,13 @@ class CustomAppBar extends StatelessWidget
       title: effectiveTitle,
       actions: actions,
 
-      systemOverlayStyle:
-          systemOverlayStyle ??
-          _getSystemOverlayStyle(theme),
+      systemOverlayStyle: systemOverlayStyle ?? _getSystemOverlayStyle(theme),
 
       toolbarHeight: height ?? 56.h,
     );
   }
 
-  Widget? _buildLeading(
-    BuildContext context,
-    ColorScheme colorScheme,
-  ) {
+  Widget? _buildLeading(BuildContext context, ColorScheme colorScheme) {
     if (leading != null) {
       return leading;
     }
@@ -129,19 +119,13 @@ class CustomAppBar extends StatelessWidget
       title!,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
-      style:
-          titleStyle ??
-          Theme.of(context).textTheme.titleMedium,
+      style: titleStyle ?? Theme.of(context).textTheme.titleMedium,
     );
   }
 
-  SystemUiOverlayStyle _getSystemOverlayStyle(
-    ThemeData theme,
-  ) {
+  SystemUiOverlayStyle _getSystemOverlayStyle(ThemeData theme) {
     final isDark = theme.brightness == Brightness.dark;
 
-    return isDark
-        ? SystemUiOverlayStyle.light
-        : SystemUiOverlayStyle.dark;
+    return isDark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark;
   }
 }

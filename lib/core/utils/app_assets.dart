@@ -2,6 +2,39 @@
 class Assets {
   Assets._();
 
+  /// Assets for lottieBooks1Lottie
+  /// assets/lottie/books_1.lottie.json
+  static const String lottieBooks1Lottie =
+      "assets/lottie/books_1.lottie.json";
+
+  /// Assets for lottieBooks2Lottie
+  /// assets/lottie/books_2.lottie.json
+  static const String lottieBooks2Lottie =
+      "assets/lottie/books_2.lottie.json";
+
+  /// Assets for lottieGraduationHat
+  /// assets/lottie/graduation_hat.json
+  static const String lottieGraduationHat =
+      "assets/lottie/graduation_hat.json";
+
+  /// Assets for lottieTreasureBox
+  /// assets/lottie/treasure_box.json
+  static const String lottieTreasureBox =
+      "assets/lottie/treasure_box.json";
+
+  /// Assets for lottieCorrect
+  /// assets/lottie/correct.json
+  static const String lottieCorrect =
+      "assets/lottie/correct.json";
+
+  /// Assets for iconsVideo
+  /// assets/images/video.svg
+  static const String videoIcon = "assets/images/video.svg";
+
+  /// Assets for iconsDocs
+  /// assets/images/docs.svg
+  static const String docsIcon = "assets/images/docs.svg";
+
   /// Assets for fontsAlexandriaAlexandriaBold
   /// assets/fonts/alexandria/Alexandria-Bold.ttf
   static const String fontsAlexandriaAlexandriaBold =
@@ -106,4 +139,10 @@ class Assets {
   /// assets/images/TextLogo.svg
   static const String imagesTextLogo =
       "assets/images/TextLogo.svg";
+
+  /// Assets for onboarding hero images
+  static const String onb1Hero =
+      "assets/images/onb1_hero.png";
+  static const String onb2Hero =
+      "assets/images/onb2_hero.png";
 }

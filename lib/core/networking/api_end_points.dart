@@ -8,6 +8,7 @@ abstract class EndPoint {
   static const String verifyOtp = 'auth/verify-otp';
   static const String resendOtp = 'auth/resend-otp';
   static const String resetPassword = 'auth/reset-password';
+  static const String chatMessage = 'chatbot/chat';
 }
 
 ///* ApiKeys: the keys of the api

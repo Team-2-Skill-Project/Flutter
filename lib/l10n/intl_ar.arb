@@ -1,8 +1,19 @@
-{
+﻿{
   "noInternetConnection": "لا يوجد اتصال بالإنترنت",
   "pleaseCheckYourInternetConnection": "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
   "tryAgain": "إعادة المحاولة",
-
+  "chatBot": "المساعد الذكي",
+  "roadMap": "خارطة الطريق",
+  "home": "الرئيسية",
+  "savedJobs": "الوظائف المحفوظة",
+  "profile": "الملف الشخصي",
+  "myCareerRoadmap": "خارطة طريقي المهنية",
+  "roadmapSubtitle": "تتبع تقدمك وطوّر مهاراتك الأساسية",
+  "learningTasks": "مهام التعلم",
+  "skillCompleted": "تم اكتمال المهارة",
+  "skillInProgress": "المهارة قيد التقدم",
+  "noLearningTasks": "لا توجد مهام تعلم محددة لهذه المهارة بعد.",
+  "tasksCompleted": "مهام مكتملة",
   "turnCvIntoOpportunities": "حوّل سيرتك الذاتية إلى فرص",
   "turnCvIntoOpportunitiesDesc": "اكتشف لماذا تناسبك الوظيفة، وما ينقصك، والخطوات التالية.",
   "getExplainableMatch": "احصل على توافق واضح ومفصل",
@@ -17,7 +28,6 @@
   "next": "التالي",
   "skip": "تخطي",
   "notNow": "ليس الآن",
-
   "enterVerificationCode": "أدخل رمز التحقق",
   "sentCodeToEmail": "لقد أرسلنا رمزاً مكوناً من 6 أرقام إلى بريدك الإلكتروني.",
   "verificationCodeLabel": "رمز التحقق",
@@ -27,7 +37,6 @@
   "useDifferentEmail": "استخدام بريد إلكتروني آخر",
   "invalidVerificationCode": "رمز التحقق غير صحيح",
   "secondsSuffix": "ث",
-
   "createNewPassword": "إنشاء كلمة مرور جديدة",
   "chooseStrongPassword": "اختر كلمة مرور قوية لم تستخدمها من قبل.",
   "newPassword": "كلمة المرور الجديدة",
@@ -42,7 +51,6 @@
   "backToLogin": "العودة لتسجيل الدخول",
   "passwordChangedSuccessfully": "تم تغيير كلمة المرور بنجاح",
   "passwordChangedSuccessDesc": "تم تغيير كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة.",
-
   "greetingUser": "مرحبًا، {name} 👋",
   "@greetingUser": {
     "description": "Greeting message displayed on the home screen",
@@ -52,7 +60,6 @@
       }
     }
   },
-
   "readyToFindYourNextOpportunity": "جاهز للعثور على فرصتك القادمة؟",
   "searchJobs": "ابحث عن وظيفة أو شركة أو مهارة",
   "jobsMatchYourProfile": "وجدنا وظائف تناسب ملفك الشخصي",
@@ -249,5 +256,33 @@
 "analyzed": "تم التحليل",
 "failed": "فشل",
 "updatedJustNow": "تم التحديث الآن",
-"good": "جيد"
+"good": "جيد",
+  "aiAssistant": "المساعد الذكي",
+  "newChat": "محادثة جديدة",
+  "askAnything": "اسأل أي شيء...",
+  "chatHistory": "سجل المحادثات",
+  "howCanIHelpYouToday": "كيف يمكنني مساعدتك اليوم؟",
+  "noConversationsYet": "لا توجد محادثات بعد",
+  "startFirstConversation": "ابدأ محادثتك الأولى أدناه",
+  "older": "أقدم",
+  "failedToSendMessage": "فشل إرسال الرسالة. الرجاء المحاولة مرة أخرى.",
+  "aiIsTyping": "الذكاء الاصطناعي يفكر...",
+  "chatSuggestion1": "اشرح نمط Flutter BLoC",
+  "chatSuggestion2": "ساعدني في الاستعداد لمقابلة عمل",
+  "chatSuggestion3": "راجع خارطة طريقي المهنية",
+  "chatSuggestion4": "ما المهارات التي يجب أن أتعلمها؟",
+  "copiedToClipboard": "تم النسخ إلى الحافظة"
+
+  ,"suggestedQuestions":"أسئلة مقترحة",
+"confirmClearAllChats": "هل أنت متأكد أنك تريد مسح جميع المحادثات؟ لا يمكن التراجع عن هذا الإجراء.",
+"clearAllChats": "مسح جميع المحادثات",
+"cancel": "إلغاء",
+"confirm": "تأكيد",
+"clear": "مسح",
+"delete":"حذف",
+"confirmDeleteChat": "هل أنت متأكد أنك تريد حذف هذه المحادثة؟ لا يمكن التراجع عن هذا الإجراء.",
+"deleteChat": "حذف المحادثة"
+,"previous7Days": "السابق 7 يوما",
+"otpVerifying": "جاري التحقق…",
+"otpCodeDidNotMatch": "لم يتطابق الرمز. تحقق من الرسالة وحاول مرة أخرى."
 }

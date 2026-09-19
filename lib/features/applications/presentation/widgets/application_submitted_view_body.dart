@@ -125,7 +125,9 @@ class ApplicationSubmittedViewBody extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                context.push(AppRoutes.trackingApplication);
+                context.push(
+                  AppRoutes.ktrackingApplication,
+                );
               },
               child: Row(
                 mainAxisSize: MainAxisSize.min,

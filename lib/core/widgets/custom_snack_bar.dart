@@ -46,9 +46,7 @@ abstract final class CustomSnackBar {
     _show(
       context,
       message: message,
-      backgroundColor: Theme.of(context)
-          .colorScheme
-          .primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       icon: Icons.info_outline_rounded,
       duration: duration,
       action: action,
@@ -94,27 +92,19 @@ abstract final class CustomSnackBar {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.r),
           ),
-          margin: EdgeInsets.symmetric(
-            horizontal: 16.w,
-            vertical: 14.h,
-          ),
+          margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
           action: action,
           content: Row(
             children: [
-              Icon(
-                icon,
-                color: AppColors.white,
-                size: 20.sp,
-              ),
+              Icon(icon, color: AppColors.white, size: 20.sp),
               SizedBox(width: 10.w),
               Expanded(
                 child: Text(
                   message,
-                  style: theme.textTheme.bodyMedium
-                      ?.copyWith(
-                        color: AppColors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: AppColors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ],

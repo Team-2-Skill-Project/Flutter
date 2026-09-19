@@ -1,5 +1,7 @@
 import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/core/services/shared_preferences_service.dart';
+import 'package:MatchIn/core/widgets/app_web_view.dart';
 import 'package:MatchIn/core/widgets/main_navigation_screen.dart';
 import 'package:MatchIn/features/applications/presentation/views/application_questions_view.dart';
 import 'package:MatchIn/features/applications/presentation/views/application_submitted_view.dart';
@@ -9,8 +11,10 @@ import 'package:MatchIn/features/applications/presentation/views/tracking_applic
 import 'package:MatchIn/features/auth/presentation/cubit/otp_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/reset_password_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/pages/create_new_password_view.dart';
+import 'package:MatchIn/features/auth/presentation/pages/login_view.dart';
 import 'package:MatchIn/features/auth/presentation/pages/otp_verification_view.dart';
 import 'package:MatchIn/features/auth/presentation/pages/password_changed_success_view.dart';
+import 'package:MatchIn/features/auth/presentation/pages/register_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/job_details_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/jobs_search_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/notifications_view.dart';
@@ -23,107 +27,106 @@ import 'package:go_router/go_router.dart';
 abstract final class AppRouter {
   AppRouter._();
 
-  static CustomTransitionPage<dynamic>
-  _buildTransitionPage({
+  static CustomTransitionPage<dynamic> _buildTransitionPage({
     required GoRouterState state,
     required Widget child,
   }) {
     return CustomTransitionPage(
       key: state.pageKey,
       child: child,
-      transitionsBuilder:
-          (context, animation, secondaryAnimation, child) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
-          },
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(opacity: animation, child: child);
+      },
     );
   }
 
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.kHomeView,
+    initialLocation: AppRoutes.kOnboardingView,
+    redirect: (context, state) {
+      if (!getIt.isRegistered<SharedPreferencesService>()) {
+        return null;
+      }
+
+      final prefs = getIt<SharedPreferencesService>();
+
+      final isOnboarded = prefs.isOnBoardingViewed();
+      final isLoggedIn = prefs.isLoggedIn();
+
+      final location = state.uri.path;
+
+      if (location == AppRoutes.kSplashView ||
+          location == AppRoutes.kOnboardingView) {
+        if (!isOnboarded) {
+          return AppRoutes.kOnboardingView;
+        }
+
+        if (isLoggedIn) {
+          return AppRoutes.kHomeView;
+        }
+
+        return AppRoutes.kRegisterView;
+      }
+
+      return null;
+    },
     routes: [
-      // Main Navigation
+      // Splash / Root
       GoRoute(
-        path: AppRoutes.kHomeView,
-        builder: (context, state) {
-          return const MainNavigationScreen();
+        path: AppRoutes.kSplashView,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(state: state, child: const Onb1());
         },
       ),
 
       // Onboarding
       GoRoute(
         path: AppRoutes.kOnboardingView,
-        builder: (context, state) {
-          return const Onb1();
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(state: state, child: const Onb1());
         },
       ),
 
-      // JobsSearch
+      // Main Navigation
       GoRoute(
-        path: AppRoutes.jobsSearch,
-        builder: (context, state) {
-          return const JobsSearchView();
-        },
-      ),
-
-      // Authentication
-      GoRoute(
-        path: AppRoutes.kOtpVerificationView,
-        builder: (context, state) {
-          return BlocProvider(
-            create: (_) => getIt<OtpCubit>(),
-            child: OtpVerificationView(
-              email:
-                  state.extra as String? ??
-                  'user@example.com',
-            ),
+        path: AppRoutes.kHomeView,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: const MainNavigationScreen(),
           );
         },
       ),
 
-      // Reset Password
+      // WebView
       GoRoute(
-        path: AppRoutes.kCreateNewPasswordView,
-        builder: (context, state) {
-          return BlocProvider(
-            create: (_) => getIt<ResetPasswordCubit>(),
-            child: CreateNewPasswordView(
-              email:
-                  state.extra as String? ??
-                  'user@example.com',
-            ),
+        path: AppRoutes.kWebView,
+        pageBuilder: (context, state) {
+          final args = state.extra as Map<String, dynamic>? ?? {};
+
+          final url = args['url'] as String? ?? '';
+          final title = args['title'] as String?;
+
+          return _buildTransitionPage(
+            state: state,
+            child: AppWebView(url: url, title: title),
           );
         },
       ),
 
-      // Password Changed Success
+      // Jobs Search
       GoRoute(
-        path: AppRoutes.kPasswordChangedSuccessView,
-        builder: (context, state) {
-          return const PasswordChangedSuccessView();
+        path: AppRoutes.kJobsSearchView,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: const JobsSearchView(),
+          );
         },
       ),
 
-      // Notifications
+      // Job Details
       GoRoute(
-        path: AppRoutes.notifications,
-        builder: (context, state) {
-          return const NotificationsView();
-        },
-      ),
-
-      // Settings
-      GoRoute(
-        path: AppRoutes.settings,
-        builder: (context, state) {
-          return const SettingsView();
-        },
-      ),
-
-      GoRoute(
-        path: AppRoutes.jobDetails,
+        path: AppRoutes.kJobDetailsView,
         pageBuilder: (context, state) {
           return _buildTransitionPage(
             state: state,
@@ -132,9 +135,109 @@ abstract final class AppRouter {
         },
       ),
 
-      // Applications
+      // Notifications
       GoRoute(
-        path: AppRoutes.applyForRole,
+        path: AppRoutes.knotifications,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: const NotificationsView(),
+          );
+        },
+      ),
+
+      // Settings
+      GoRoute(
+        path: AppRoutes.ksettings,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: const SettingsView(),
+          );
+        },
+      ),
+
+      // Register
+      GoRoute(
+        path: AppRoutes.kRegisterView,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: const RegisterView(),
+          );
+        },
+      ),
+
+      // Login
+      GoRoute(
+        path: AppRoutes.kLoginView,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(state: state, child: const LoginView());
+        },
+      ),
+
+      // Forget Password
+      GoRoute(
+        path: AppRoutes.kForgetPasswordView,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: BlocProvider(
+              create: (_) => getIt<OtpCubit>(),
+              child: OtpVerificationView(
+                email: state.extra as String? ?? 'user@example.com',
+              ),
+            ),
+          );
+        },
+      ),
+
+      // OTP
+      GoRoute(
+        path: AppRoutes.kOtpVerificationView,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: BlocProvider(
+              create: (_) => getIt<OtpCubit>(),
+              child: OtpVerificationView(
+                email: state.extra as String? ?? 'user@example.com',
+              ),
+            ),
+          );
+        },
+      ),
+
+      // Create New Password
+      GoRoute(
+        path: AppRoutes.kCreateNewPasswordView,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: BlocProvider(
+              create: (_) => getIt<ResetPasswordCubit>(),
+              child: CreateNewPasswordView(
+                email: state.extra as String? ?? 'user@example.com',
+              ),
+            ),
+          );
+        },
+      ),
+
+      // Password Changed Success
+      GoRoute(
+        path: AppRoutes.kPasswordChangedSuccessView,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: const PasswordChangedSuccessView(),
+          );
+        },
+      ),
+
+      // Apply For Role
+      GoRoute(
+        path: AppRoutes.kapplyForRole,
         pageBuilder: (context, state) {
           return _buildTransitionPage(
             state: state,
@@ -145,7 +248,7 @@ abstract final class AppRouter {
 
       // Application Questions
       GoRoute(
-        path: AppRoutes.applicationQuestions,
+        path: AppRoutes.kapplicationQuestions,
         pageBuilder: (context, state) {
           return _buildTransitionPage(
             state: state,
@@ -156,7 +259,7 @@ abstract final class AppRouter {
 
       // Review Application
       GoRoute(
-        path: AppRoutes.reviewApplication,
+        path: AppRoutes.kreviewApplication,
         pageBuilder: (context, state) {
           return _buildTransitionPage(
             state: state,
@@ -167,7 +270,7 @@ abstract final class AppRouter {
 
       // Application Submitted
       GoRoute(
-        path: AppRoutes.applicationSubmitted,
+        path: AppRoutes.kapplicationSubmitted,
         pageBuilder: (context, state) {
           return _buildTransitionPage(
             state: state,
@@ -178,7 +281,7 @@ abstract final class AppRouter {
 
       // Tracking Application
       GoRoute(
-        path: AppRoutes.trackingApplication,
+        path: AppRoutes.ktrackingApplication,
         pageBuilder: (context, state) {
           return _buildTransitionPage(
             state: state,

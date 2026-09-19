@@ -6,8 +6,6 @@ class JobsSearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(child: JobsSearchViewBody()),
-    );
+    return const Scaffold(body: SafeArea(child: JobsSearchViewBody()));
   }
 }

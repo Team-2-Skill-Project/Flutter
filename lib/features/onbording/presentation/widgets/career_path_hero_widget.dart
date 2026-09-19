@@ -1,4 +1,4 @@
-import 'package:MatchIn/core/utils/app_colors.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/features/onbording/presentation/widgets/dashed_line_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,12 +19,10 @@ class CareerPathHeroWidget extends StatelessWidget {
             height: 288.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color(0xFFEAE8E4)
-                  .withValues(alpha: 0.4),
+              color: const Color(0xFFEAE8E4).withValues(alpha: 0.4),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFFEAE8E4)
-                      .withValues(alpha: 0.5),
+                  color: const Color(0xFFEAE8E4).withValues(alpha: 0.5),
                   blurRadius: 32,
                   spreadRadius: 8,
                 ),
@@ -55,22 +53,24 @@ class CareerPathHeroWidget extends StatelessWidget {
 
                 // The 3 Flat Cards
                 Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _buildFeatureCard(
+                      context: context,
                       icon: Icons.description_outlined,
-                      iconColor: AppColors.primary,
+                      iconColor: context.colors.primary,
                       label: 'CV',
                     ),
                     _buildFeatureCard(
+                      context: context,
                       icon: Icons.work_outline_rounded,
-                      iconColor: AppColors.secondary,
+                      iconColor: context.colors.secondary,
                       label: 'Target',
                     ),
                     _buildFeatureCard(
+                      context: context,
                       icon: Icons.flag_outlined,
-                      iconColor: AppColors.accent,
+                      iconColor: context.colors.tertiary,
                       label: 'Path',
                     ),
                   ],
@@ -84,6 +84,7 @@ class CareerPathHeroWidget extends StatelessWidget {
   }
 
   Widget _buildFeatureCard({
+    required BuildContext context,
     required IconData icon,
     required Color iconColor,
     required String label,
@@ -92,11 +93,10 @@ class CareerPathHeroWidget extends StatelessWidget {
       width: 80.w,
       height: 80.w,
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: context.colors.surface,
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(
-          color: const Color(0xFFC4C6CF)
-              .withValues(alpha: 0.6),
+          color: const Color(0xFFC4C6CF).withValues(alpha: 0.6),
           width: 1,
         ),
         boxShadow: [
@@ -118,7 +118,7 @@ class CareerPathHeroWidget extends StatelessWidget {
               fontFamily: 'DM Sans',
               fontSize: 10.sp,
               fontWeight: FontWeight.w500,
-              color: AppColors.textSecondary,
+              color: context.colors.onSurfaceVariant,
             ),
           ),
         ],

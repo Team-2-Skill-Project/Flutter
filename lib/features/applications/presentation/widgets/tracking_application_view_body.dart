@@ -35,7 +35,7 @@ class TrackingApplicationViewBody extends StatelessWidget {
               children: [
                 TrackingJobCard(
                   onViewJob: () {
-                    context.push(AppRoutes.jobDetails);
+                    context.push(AppRoutes.kJobDetailsView);
                   },
                 ),
 

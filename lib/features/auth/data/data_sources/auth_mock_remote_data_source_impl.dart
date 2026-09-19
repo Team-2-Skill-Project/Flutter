@@ -1,14 +1,12 @@
 import 'dart:async';
+
 import 'package:MatchIn/core/errors/error_model.dart';
 import 'package:MatchIn/core/errors/exceptions.dart';
 import 'package:MatchIn/features/auth/data/data_sources/auth_remote_data_source.dart';
 
 class AuthMockRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
-  Future<void> verifyOtp({
-    required String email,
-    required String otp,
-  }) async {
+  Future<void> verifyOtp({required String email, required String otp}) async {
     await Future.delayed(const Duration(milliseconds: 800));
 
     // Simulated error for testing invalid OTP:
@@ -23,9 +21,7 @@ class AuthMockRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<void> resendOtp({
-    required String email,
-  }) async {
+  Future<void> resendOtp({required String email}) async {
     await Future.delayed(const Duration(milliseconds: 500));
   }
 

@@ -8,29 +8,16 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final ApiConsumer apiConsumer;
 
   @override
-  Future<void> verifyOtp({
-    required String email,
-    required String otp,
-  }) async {
+  Future<void> verifyOtp({required String email, required String otp}) async {
     await apiConsumer.post(
       EndPoint.verifyOtp,
-      data: {
-        ApiKey.email: email,
-        ApiKey.otp: otp,
-      },
+      data: {ApiKey.email: email, ApiKey.otp: otp},
     );
   }
 
   @override
-  Future<void> resendOtp({
-    required String email,
-  }) async {
-    await apiConsumer.post(
-      EndPoint.resendOtp,
-      data: {
-        ApiKey.email: email,
-      },
-    );
+  Future<void> resendOtp({required String email}) async {
+    await apiConsumer.post(EndPoint.resendOtp, data: {ApiKey.email: email});
   }
 
   @override
@@ -40,10 +27,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }) async {
     await apiConsumer.post(
       EndPoint.resetPassword,
-      data: {
-        ApiKey.email: email,
-        ApiKey.newPassword: newPassword,
-      },
+      data: {ApiKey.email: email, ApiKey.newPassword: newPassword},
     );
   }
 }

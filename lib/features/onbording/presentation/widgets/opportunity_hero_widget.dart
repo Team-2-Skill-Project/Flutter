@@ -1,40 +1,39 @@
-import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
+import 'package:MatchIn/core/utils/app_assets.dart';
 
 class OpportunityHeroWidget extends StatelessWidget {
-  const OpportunityHeroWidget({
-    super.key,
-    this.imagePath = 'assets/images/onb1_hero.png',
-  });
+  const OpportunityHeroWidget({super.key, this.imagePath = Assets.onb1Hero});
 
   final String imagePath;
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return Center(
       child: Container(
         width: 326.w,
         height: 326.w,
         padding: EdgeInsets.all(8.w),
         decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.6),
+          color: colors.surface.withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
-            color: const Color(0xFFC4C6CF)
-                .withValues(alpha: 0.6),
-            width: 1,
+            color: colors.outline.withValues(alpha: 0.6),
+            width: 1.w,
           ),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16.r),
           child: Container(
-            color: AppColors.greyBackground,
+            color: colors.surfaceContainerHighest,
             child: Image.asset(
               imagePath,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
-                return _buildFallback();
+                return _buildFallback(context);
               },
             ),
           ),
@@ -43,15 +42,18 @@ class OpportunityHeroWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildFallback() {
+  Widget _buildFallback(BuildContext context) {
+    final colors = context.colors;
+    final textTheme = context.textTheme;
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppColors.background,
-            AppColors.surfaceVariant.withValues(alpha: 0.5),
+            colors.surface,
+            colors.surfaceContainerHighest.withValues(alpha: 0.5),
           ],
         ),
       ),
@@ -63,48 +65,38 @@ class OpportunityHeroWidget extends StatelessWidget {
               width: 90.w,
               height: 90.w,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: colors.surface,
                 borderRadius: BorderRadius.circular(20.r),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withValues(
-                      alpha: 0.08,
-                    ),
-                    blurRadius: 16,
-                    offset: const Offset(0, 6),
+                    color: colors.primary.withValues(alpha: 0.08),
+                    blurRadius: 16.r,
+                    offset: Offset(0, 6.h),
                   ),
                 ],
               ),
               child: Icon(
                 Icons.auto_awesome_rounded,
-                size: 42.sp,
-                color: AppColors.primary,
+                size: 42.r,
+                color: colors.primary,
               ),
             ),
             SizedBox(height: 16.h),
             Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 14.w,
-                vertical: 6.h,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
               decoration: BoxDecoration(
-                color: AppColors.secondary.withValues(
-                  alpha: 0.1,
-                ),
+                color: colors.secondary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(20.r),
                 border: Border.all(
-                  color: AppColors.secondary.withValues(
-                    alpha: 0.25,
-                  ),
+                  color: colors.secondary.withValues(alpha: 0.25),
                 ),
               ),
               child: Text(
                 'AI Career Matcher',
-                style: TextStyle(
-                  fontFamily: 'DM Sans',
+                style: textTheme.labelMedium?.copyWith(
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w600,
-                  color: AppColors.secondary,
+                  color: colors.secondary,
                 ),
               ),
             ),

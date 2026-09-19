@@ -36,9 +36,7 @@ class CustomLoadingWidget extends StatelessWidget {
             height: effectiveSize,
             child: CircularProgressIndicator(
               strokeWidth: strokeWidth,
-              valueColor: AlwaysStoppedAnimation<Color>(
-                effectiveColor,
-              ),
+              valueColor: AlwaysStoppedAnimation<Color>(effectiveColor),
             ),
           ),
 
@@ -51,9 +49,7 @@ class CustomLoadingWidget extends StatelessWidget {
               style:
                   messageStyle ??
                   theme.textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSurface.withValues(
-                      alpha: 0.6,
-                    ),
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
             ),
           ],

@@ -48,6 +48,37 @@ class SharedPreferencesService {
   String? getFcmToken() {
     return _sharedPreferencesHelper.getString(key: CacheKey.fcmToken);
   }
+
+  // --- Roadmap collected treasure milestones persistence ---
+  Future<void> saveCollectedTreasures(Set<int> milestoneIndices) async {
+    final list = milestoneIndices.map((e) => e.toString()).toList();
+    await _sharedPreferencesHelper.saveData(
+      key: CacheKey.collectedTreasures,
+      value: list,
+    );
+  }
+
+  Set<int> getCollectedTreasures() {
+    final list = _sharedPreferencesHelper.getStringList(
+      key: CacheKey.collectedTreasures,
+    );
+    if (list == null) return {};
+    return list.map((e) => int.tryParse(e)).whereType<int>().toSet();
+  }
+
+  // --- Roadmap completed tasks persistence ---
+  Future<void> saveCompletedTasks(Set<String> taskIds) async {
+    await _sharedPreferencesHelper.saveData(
+      key: CacheKey.completedTaskIds,
+      value: taskIds.toList(),
+    );
+  }
+
+  Set<String> getCompletedTasks() {
+    final list = _sharedPreferencesHelper.getStringList(
+      key: CacheKey.completedTaskIds,
+    );
+    if (list == null) return {};
+    return list.toSet();
+  }
 }
-
-

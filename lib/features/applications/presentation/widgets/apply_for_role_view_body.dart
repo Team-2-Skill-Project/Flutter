@@ -119,7 +119,7 @@ class ApplyForRoleViewBody extends StatelessWidget {
           label: s.continueText,
           helperText: s.nextApplicationQuestions,
           onPressed: () {
-            context.push(AppRoutes.applicationQuestions);
+            context.push(AppRoutes.kapplicationQuestions);
           },
         ),
       ],

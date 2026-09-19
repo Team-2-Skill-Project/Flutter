@@ -188,7 +188,7 @@ class ReviewApplicationViewBody extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       context.push(
-                        AppRoutes.applicationSubmitted,
+                        AppRoutes.kapplicationSubmitted,
                       );
                     },
                     child: Row(

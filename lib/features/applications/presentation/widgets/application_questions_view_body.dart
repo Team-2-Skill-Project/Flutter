@@ -164,7 +164,7 @@ class ApplicationQuestionsViewBody extends StatelessWidget {
           label: s.reviewApplication,
           helperText: s.reviewBeforeSubmission,
           onPressed: () {
-            context.push(AppRoutes.reviewApplication);
+            context.push(AppRoutes.kreviewApplication);
           },
         ),
       ],

@@ -2,7 +2,18 @@
   "noInternetConnection": "No internet connection",
   "pleaseCheckYourInternetConnection": "Please check your internet connection and try again",
   "tryAgain": "Try Again",
-
+  "chatBot": "Chat Bot",
+  "roadMap": "RoadMap",
+  "home": "Home",
+  "savedJobs": "Saved Jobs",
+  "profile": "Profile",
+  "myCareerRoadmap": "My Career Roadmap",
+  "roadmapSubtitle": "Track your progress and build essential skills",
+  "learningTasks": "LEARNING TASKS",
+  "skillCompleted": "Skill Completed",
+  "skillInProgress": "Skill In Progress",
+  "noLearningTasks": "No learning tasks defined for this skill yet.",
+  "tasksCompleted": "Tasks completed",
   "turnCvIntoOpportunities": "Turn your CV into opportunities",
   "turnCvIntoOpportunitiesDesc": "See why a job fits you, what you’re missing, and what to do next.",
   "getExplainableMatch": "Get an explainable match",
@@ -17,7 +28,6 @@
   "next": "Next",
   "skip": "Skip",
   "notNow": "Not now",
-
   "enterVerificationCode": "Enter verification code",
   "sentCodeToEmail": "We sent a 6-digit code to your email.",
   "verificationCodeLabel": "VERIFICATION CODE",
@@ -27,7 +37,6 @@
   "useDifferentEmail": "Use a different email",
   "invalidVerificationCode": "Invalid verification code",
   "secondsSuffix": "s",
-
   "createNewPassword": "Create a new password",
   "chooseStrongPassword": "Choose a strong password you haven’t used before.",
   "newPassword": "New password",
@@ -42,7 +51,6 @@
   "backToLogin": "Back to login",
   "passwordChangedSuccessfully": "Password changed successfully",
   "passwordChangedSuccessDesc": "Your password has been changed successfully. You can now log in with your new password.",
-
   "greetingUser": "Hello, {name} 👋",
   "@greetingUser": {
     "description": "Greeting message displayed on the home screen",
@@ -52,7 +60,6 @@
       }
     }
   },
-
   "readyToFindYourNextOpportunity": "Ready to find your next opportunity?",
   "searchJobs": "Search jobs, companies, or skills",
   "jobsMatchYourProfile": "We found jobs that match your profile",
@@ -249,6 +256,33 @@
 "analyzed": "Analyzed",
 "failed": "Failed",
 "updatedJustNow": "Updated just now",
-"good": "Good"
+"good": "Good",
+  "aiAssistant": "AI Assistant",
+  "newChat": "New Chat",
+  "askAnything": "Ask anything...",
+  "chatHistory": "Chat History",
+  "howCanIHelpYouToday": "How can I help you today?",
+  "noConversationsYet": "No conversations yet",
+  "startFirstConversation": "Start your first conversation below",
+  "older": "Older",
+  "failedToSendMessage": "Failed to send message. Please try again.",
+  "aiIsTyping": "AI is thinking...",
+  "chatSuggestion1": "Explain Flutter BLoC pattern",
+  "chatSuggestion2": "Help me prepare for an interview",
+  "chatSuggestion3": "Review my career roadmap",
+  "chatSuggestion4": "What skills should I learn next?",
+  "copiedToClipboard": "Copied to clipboard",
+  "suggestedQuestions": "Suggested Questions",
+"confirmClearAllChats": "Are you sure you want to clear all chats? This action cannot be undone.",
+"clearAllChats": "Clear All Chats",
+"cancel": "Cancel",
+"confirm": "Confirm",
+"clear": "Clear",
+"delete":"Delete",
+"confirmDeleteChat": "Are you sure you want to delete this chat? This action cannot be undone.",
+"deleteChat": "Delete Chat",
+"previous7Days": "Previous 7 days",
+"otpVerifying": "Verifying…",
+"otpCodeDidNotMatch": "That code didn't match. Check the message and try again."
 
 }

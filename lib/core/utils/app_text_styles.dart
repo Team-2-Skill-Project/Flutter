@@ -11,10 +11,7 @@ abstract final class AppTextStyles {
   // Arabic  → Alexandria
   // =========================================================
 
-  static TextStyle heading24Bold({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle heading24Bold({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _headingFont(isArabic),
       fontSize: 24.sp,
@@ -23,10 +20,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle heading18Bold({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle heading18Bold({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _headingFont(isArabic),
       fontSize: 18.sp,
@@ -35,10 +29,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle heading18SemiBold({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle heading18SemiBold({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _headingFont(isArabic),
       fontSize: 18.sp,
@@ -47,10 +38,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle heading16Bold({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle heading16Bold({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _headingFont(isArabic),
       fontSize: 16.sp,
@@ -59,10 +47,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle heading16SemiBold({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle heading16SemiBold({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _headingFont(isArabic),
       fontSize: 16.sp,
@@ -71,10 +56,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle heading14Bold({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle heading14Bold({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _headingFont(isArabic),
       fontSize: 14.sp,
@@ -83,10 +65,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle heading14SemiBold({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle heading14SemiBold({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _headingFont(isArabic),
       fontSize: 14.sp,
@@ -95,10 +74,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle heading12Bold({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle heading12Bold({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _headingFont(isArabic),
       fontSize: 12.sp,
@@ -107,10 +83,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle heading12SemiBold({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle heading12SemiBold({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _headingFont(isArabic),
       fontSize: 12.sp,
@@ -125,10 +98,7 @@ abstract final class AppTextStyles {
   // Arabic  → Tajawal
   // =========================================================
 
-  static TextStyle body16Bold({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle body16Bold({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _bodyFont(isArabic),
       fontSize: 16.sp,
@@ -137,10 +107,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle body16SemiBold({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle body16SemiBold({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _bodyFont(isArabic),
       fontSize: 16.sp,
@@ -149,10 +116,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle body16Regular({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle body16Regular({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _bodyFont(isArabic),
       fontSize: 16.sp,
@@ -161,10 +125,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle body14Bold({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle body14Bold({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _bodyFont(isArabic),
       fontSize: 14.sp,
@@ -173,10 +134,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle body14SemiBold({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle body14SemiBold({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _bodyFont(isArabic),
       fontSize: 14.sp,
@@ -185,10 +143,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle body14Regular({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle body14Regular({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _bodyFont(isArabic),
       fontSize: 14.sp,
@@ -197,10 +152,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle body12Bold({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle body12Bold({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _bodyFont(isArabic),
       fontSize: 12.sp,
@@ -209,10 +161,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle body12SemiBold({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle body12SemiBold({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _bodyFont(isArabic),
       fontSize: 12.sp,
@@ -221,10 +170,7 @@ abstract final class AppTextStyles {
     );
   }
 
-  static TextStyle body12Regular({
-    required bool isArabic,
-    Color? color,
-  }) {
+  static TextStyle body12Regular({required bool isArabic, Color? color}) {
     return TextStyle(
       fontFamily: _bodyFont(isArabic),
       fontSize: 12.sp,

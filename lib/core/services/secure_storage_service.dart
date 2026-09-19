@@ -37,4 +37,3 @@ class SecureStorageService {
     await _secureStorageHelper.deleteSecureData(key: CacheKey.refreshToken);
   }
 }
-

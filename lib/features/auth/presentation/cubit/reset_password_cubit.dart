@@ -20,9 +20,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     );
 
     result.fold(
-      (failure) => emit(
-        ResetPasswordError(message: failure.message),
-      ),
+      (failure) => emit(ResetPasswordError(message: failure.message)),
       (_) => emit(const ResetPasswordSuccess()),
     );
   }

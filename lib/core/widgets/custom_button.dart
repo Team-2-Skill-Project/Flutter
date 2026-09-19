@@ -80,12 +80,10 @@ class CustomButton extends StatelessWidget {
     final effectiveRadius = borderRadius ?? 12.r;
     final effectiveHeight = height ?? 48.h;
 
-    final effectiveBorderColor =
-        borderColor ?? colorScheme.primary;
+    final effectiveBorderColor = borderColor ?? colorScheme.primary;
 
     final effectiveBorderWidth =
-        borderWidth ??
-        (buttonType == CustomButtonType.outlined ? 1.5 : 0);
+        borderWidth ?? (buttonType == CustomButtonType.outlined ? 1.5 : 0);
 
     final colors = _resolveColors(colorScheme: colorScheme);
 
@@ -100,25 +98,16 @@ class CustomButton extends StatelessWidget {
       foregroundColor: colors.foreground,
       disabledBackgroundColor: colors.disabledBackground,
       disabledForegroundColor: colors.disabledForeground,
-      elevation: buttonType == CustomButtonType.filled
-          ? elevation
-          : 0,
-      shadowColor: colorScheme.shadow.withValues(
-        alpha: 0.25,
-      ),
-      padding:
-          padding ?? EdgeInsets.symmetric(horizontal: 16.w),
+      elevation: buttonType == CustomButtonType.filled ? elevation : 0,
+      shadowColor: colorScheme.shadow.withValues(alpha: 0.25),
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 16.w),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(
-          effectiveRadius,
-        ),
+        borderRadius: BorderRadius.circular(effectiveRadius),
         side: effectiveBorderWidth > 0
             ? BorderSide(
                 color: active
                     ? effectiveBorderColor
-                    : effectiveBorderColor.withValues(
-                        alpha: 0.4,
-                      ),
+                    : effectiveBorderColor.withValues(alpha: 0.4),
                 width: effectiveBorderWidth,
               )
             : BorderSide.none,
@@ -142,29 +131,24 @@ class CustomButton extends StatelessWidget {
     return button;
   }
 
-  _ButtonColors _resolveColors({
-    required ColorScheme colorScheme,
-  }) {
+  _ButtonColors _resolveColors({required ColorScheme colorScheme}) {
     switch (buttonType) {
       case CustomButtonType.filled:
         return _ButtonColors(
-          background:
-              backgroundColor ?? colorScheme.primary,
+          background: backgroundColor ?? colorScheme.primary,
           foreground: textColor ?? colorScheme.onPrimary,
           disabledBackground:
               disabledBackgroundColor ??
               colorScheme.primary.withValues(alpha: 0.45),
           disabledForeground:
-              disabledTextColor ??
-              colorScheme.onPrimary.withValues(alpha: 0.8),
+              disabledTextColor ?? colorScheme.onPrimary.withValues(alpha: 0.8),
         );
 
       case CustomButtonType.outlined:
         return _ButtonColors(
           background: backgroundColor ?? Colors.transparent,
           foreground: textColor ?? colorScheme.primary,
-          disabledBackground:
-              disabledBackgroundColor ?? Colors.transparent,
+          disabledBackground: disabledBackgroundColor ?? Colors.transparent,
           disabledForeground:
               disabledTextColor ??
               colorScheme.onSurface.withValues(alpha: 0.38),
@@ -174,8 +158,7 @@ class CustomButton extends StatelessWidget {
         return _ButtonColors(
           background: backgroundColor ?? Colors.transparent,
           foreground: textColor ?? colorScheme.primary,
-          disabledBackground:
-              disabledBackgroundColor ?? Colors.transparent,
+          disabledBackground: disabledBackgroundColor ?? Colors.transparent,
           disabledForeground:
               disabledTextColor ??
               colorScheme.onSurface.withValues(alpha: 0.38),
@@ -199,9 +182,7 @@ class CustomButton extends StatelessWidget {
               loadingColor ??
                   (buttonType == CustomButtonType.filled
                       ? colors.foreground
-                      : Theme.of(context)
-                            .colorScheme
-                            .primary),
+                      : Theme.of(context).colorScheme.primary),
             ),
           ),
         ),
@@ -230,12 +211,11 @@ class CustomButton extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style:
                   textStyle ??
-                  Theme.of(context).textTheme.labelLarge
-                      ?.copyWith(
-                        color: active
-                            ? colors.foreground
-                            : colors.disabledForeground,
-                      ),
+                  Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: active
+                        ? colors.foreground
+                        : colors.disabledForeground,
+                  ),
             ),
           ),
 

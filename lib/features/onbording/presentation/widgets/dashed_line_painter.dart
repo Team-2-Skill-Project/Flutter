@@ -24,19 +24,13 @@ class DashedLinePainter extends CustomPainter {
     final y = size.height / 2;
 
     while (startX < size.width) {
-      canvas.drawLine(
-        Offset(startX, y),
-        Offset(startX + dashWidth, y),
-        paint,
-      );
+      canvas.drawLine(Offset(startX, y), Offset(startX + dashWidth, y), paint);
       startX += dashWidth + dashSpace;
     }
   }
 
   @override
-  bool shouldRepaint(
-    covariant DashedLinePainter oldDelegate,
-  ) {
+  bool shouldRepaint(covariant DashedLinePainter oldDelegate) {
     return oldDelegate.color != color ||
         oldDelegate.dashWidth != dashWidth ||
         oldDelegate.dashSpace != dashSpace ||

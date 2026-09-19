@@ -25,7 +25,7 @@ class HomeViewBody extends StatelessWidget {
 
           HomeSearchField(
             onTap: () {
-              context.push(AppRoutes.jobsSearch);
+              context.push(AppRoutes.kJobsSearchView);
             },
           ),
 

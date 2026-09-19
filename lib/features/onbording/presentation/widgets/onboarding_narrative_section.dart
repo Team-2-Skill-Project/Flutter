@@ -1,4 +1,4 @@
-import 'package:MatchIn/core/utils/app_colors.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/features/onbording/presentation/widgets/onboarding_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +31,7 @@ class OnboardingNarrativeSection extends StatelessWidget {
             fontFamily: 'DM Sans',
             fontSize: titleFontSize ?? 24.sp,
             fontWeight: FontWeight.w700,
-            color: AppColors.textPrimary,
+            color: context.colors.onSurface,
             letterSpacing: -0.6,
             height: 30 / 24,
           ),
@@ -43,15 +43,12 @@ class OnboardingNarrativeSection extends StatelessWidget {
             fontFamily: 'Inter',
             fontSize: 16.sp,
             fontWeight: FontWeight.w400,
-            color: AppColors.textSecondary,
+            color: context.colors.onSurfaceVariant,
             height: 26 / 16,
           ),
         ),
         SizedBox(height: 24.h),
-        OnboardingActionButton(
-          text: buttonText,
-          onPressed: onNext,
-        ),
+        OnboardingActionButton(text: buttonText, onPressed: onNext),
       ],
     );
   }
