@@ -2,8 +2,8 @@ import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomSnackBar {
-  const CustomSnackBar._();
+abstract final class CustomSnackBar {
+  CustomSnackBar._();
 
   static void showSuccess(
     BuildContext context, {
@@ -14,7 +14,7 @@ class CustomSnackBar {
     _show(
       context,
       message: message,
-      backgroundColor: AppColors.success,
+      backgroundColor: AppColors.forestGreen,
       icon: Icons.check_circle_outline_rounded,
       duration: duration,
       action: action,
@@ -30,7 +30,7 @@ class CustomSnackBar {
     _show(
       context,
       message: message,
-      backgroundColor: AppColors.error,
+      backgroundColor: AppColors.mutedRed,
       icon: Icons.error_outline_rounded,
       duration: duration,
       action: action,
@@ -46,7 +46,7 @@ class CustomSnackBar {
     _show(
       context,
       message: message,
-      backgroundColor: AppColors.primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       icon: Icons.info_outline_rounded,
       duration: duration,
       action: action,
@@ -62,7 +62,7 @@ class CustomSnackBar {
     _show(
       context,
       message: message,
-      backgroundColor: Colors.amber.shade800,
+      backgroundColor: AppColors.amber,
       icon: Icons.warning_amber_rounded,
       duration: duration,
       action: action,
@@ -77,36 +77,39 @@ class CustomSnackBar {
     required Duration duration,
     SnackBarAction? action,
   }) {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: backgroundColor,
-        duration: duration,
-        elevation: 3,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.r),
-        ),
-        margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-        action: action,
-        content: Row(
-          children: [
-            Icon(icon, color: Colors.white, size: 20.sp),
-            SizedBox(width: 10.w),
-            Expanded(
-              child: Text(
-                message,
-                style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
+    final theme = Theme.of(context);
+
+    final messenger = ScaffoldMessenger.of(context);
+
+    messenger
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: backgroundColor,
+          duration: duration,
+          elevation: 3,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+          action: action,
+          content: Row(
+            children: [
+              Icon(icon, color: AppColors.white, size: 20.sp),
+              SizedBox(width: 10.w),
+              Expanded(
+                child: Text(
+                  message,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: AppColors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
   }
 }

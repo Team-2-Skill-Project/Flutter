@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:MatchIn/generated/l10n.dart';
-import 'package:MatchIn/core/utils/app_colors.dart';
-import 'package:MatchIn/core/utils/app_text_styles.dart';
 
 Future<void> showCustomDialog({
   required BuildContext context,
@@ -48,9 +46,13 @@ Future<void> showCustomDialog({
                 // --- dialog icon ---
                 CircleAvatar(
                   radius: 30.r,
-                  backgroundColor: AppColors.primary,
+                  backgroundColor: Theme.of(context).primaryColor,
 
-                  child: Icon(icon, color: AppColors.onPrimary, size: 35.sp),
+                  child: Icon(
+                    icon,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    size: 35.sp,
+                  ),
                 ),
 
                 SizedBox(height: 20.h),
@@ -58,8 +60,10 @@ Future<void> showCustomDialog({
                 // --- dialog title ---
                 Text(
                   title,
-                  style: AppTextStyles.semiBold20.copyWith(
-                    color: AppColors.textPrimary,
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
 
@@ -69,7 +73,9 @@ Future<void> showCustomDialog({
                 Text(
                   message,
                   textAlign: TextAlign.center,
-                  style: AppTextStyles.regular14,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
 
                 SizedBox(height: 24.h),

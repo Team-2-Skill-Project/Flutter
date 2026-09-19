@@ -1,12 +1,7 @@
-import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-enum CustomButtonType {
-  filled,
-  outlined,
-  text,
-}
+enum CustomButtonType { filled, outlined, text }
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -39,133 +34,87 @@ class CustomButton extends StatelessWidget {
 
   final String? text;
   final VoidCallback? onPressed;
+
   final bool isLoading;
   final bool isEnabled;
+
   final CustomButtonType buttonType;
+
   final double? width;
   final double? height;
+
   final Color? backgroundColor;
   final Color? textColor;
+
   final Color? disabledBackgroundColor;
   final Color? disabledTextColor;
+
   final Color? borderColor;
   final double? borderWidth;
   final double? borderRadius;
+
   final double elevation;
+
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+
   final double? iconSpacing;
+
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
+
   final TextStyle? textStyle;
+
   final Color? loadingColor;
   final double loadingStrokeWidth;
+
   final Widget? customChild;
 
   @override
   Widget build(BuildContext context) {
-    final bool active = isEnabled && !isLoading;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    final active = isEnabled && !isLoading;
+
     final effectiveRadius = borderRadius ?? 12.r;
     final effectiveHeight = height ?? 48.h;
-    final effectiveBorderColor = borderColor ?? (buttonType == CustomButtonType.outlined ? AppColors.primary : Colors.transparent);
-    final effectiveBorderWidth = borderWidth ?? (buttonType == CustomButtonType.outlined ? 1.5 : 0.0);
 
-    Color defaultBg;
-    Color defaultFg;
-    Color defaultDisabledBg;
-    Color defaultDisabledFg;
+    final effectiveBorderColor = borderColor ?? colorScheme.primary;
 
-    switch (buttonType) {
-      case CustomButtonType.filled:
-        defaultBg = backgroundColor ?? AppColors.primary;
-        defaultFg = textColor ?? Colors.white;
-        defaultDisabledBg = disabledBackgroundColor ?? AppColors.primary.withValues(alpha: 0.45);
-        defaultDisabledFg = disabledTextColor ?? Colors.white.withValues(alpha: 0.8);
-        break;
-      case CustomButtonType.outlined:
-        defaultBg = backgroundColor ?? Colors.transparent;
-        defaultFg = textColor ?? AppColors.primary;
-        defaultDisabledBg = disabledBackgroundColor ?? Colors.transparent;
-        defaultDisabledFg = disabledTextColor ?? Colors.grey;
-        break;
-      case CustomButtonType.text:
-        defaultBg = backgroundColor ?? Colors.transparent;
-        defaultFg = textColor ?? AppColors.primary;
-        defaultDisabledBg = disabledBackgroundColor ?? Colors.transparent;
-        defaultDisabledFg = disabledTextColor ?? Colors.grey;
-        break;
-    }
+    final effectiveBorderWidth =
+        borderWidth ?? (buttonType == CustomButtonType.outlined ? 1.5 : 0);
 
-    Widget content;
-    if (isLoading) {
-      content = Center(
-        child: SizedBox(
-          width: 22.w,
-          height: 22.w,
-          child: CircularProgressIndicator(
-            strokeWidth: loadingStrokeWidth,
-            valueColor: AlwaysStoppedAnimation<Color>(
-              loadingColor ?? (buttonType == CustomButtonType.filled ? Colors.white : AppColors.primary),
-            ),
-          ),
-        ),
-      );
-    } else if (customChild != null) {
-      content = customChild!;
-    } else {
-      content = Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (prefixIcon != null) ...[
-            prefixIcon!,
-            SizedBox(width: iconSpacing ?? 8.w),
-          ],
-          if (text != null)
-            Flexible(
-              child: Text(
-                text!,
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: textStyle ??
-                    TextStyle(
-                      fontFamily: 'DM Sans',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                      color: active ? defaultFg : defaultDisabledFg,
-                      letterSpacing: 0.15,
-                    ),
-              ),
-            ),
-          if (suffixIcon != null) ...[
-            SizedBox(width: iconSpacing ?? 8.w),
-            suffixIcon!,
-          ],
-        ],
-      );
-    }
+    final colors = _resolveColors(colorScheme: colorScheme);
+
+    final content = _buildContent(
+      context: context,
+      active: active,
+      colors: colors,
+    );
 
     final buttonStyle = ElevatedButton.styleFrom(
-      backgroundColor: defaultBg,
-      foregroundColor: defaultFg,
-      disabledBackgroundColor: defaultDisabledBg,
-      disabledForegroundColor: defaultDisabledFg,
+      backgroundColor: colors.background,
+      foregroundColor: colors.foreground,
+      disabledBackgroundColor: colors.disabledBackground,
+      disabledForegroundColor: colors.disabledForeground,
       elevation: buttonType == CustomButtonType.filled ? elevation : 0,
-      shadowColor: Colors.black26,
+      shadowColor: colorScheme.shadow.withValues(alpha: 0.25),
       padding: padding ?? EdgeInsets.symmetric(horizontal: 16.w),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(effectiveRadius),
         side: effectiveBorderWidth > 0
             ? BorderSide(
-                color: active ? effectiveBorderColor : effectiveBorderColor.withValues(alpha: 0.4),
+                color: active
+                    ? effectiveBorderColor
+                    : effectiveBorderColor.withValues(alpha: 0.4),
                 width: effectiveBorderWidth,
               )
             : BorderSide.none,
       ),
     );
 
-    Widget buttonWidget = SizedBox(
+    Widget button = SizedBox(
       width: width ?? double.infinity,
       height: effectiveHeight,
       child: ElevatedButton(
@@ -176,9 +125,119 @@ class CustomButton extends StatelessWidget {
     );
 
     if (margin != null) {
-      buttonWidget = Padding(padding: margin!, child: buttonWidget);
+      button = Padding(padding: margin!, child: button);
     }
 
-    return buttonWidget;
+    return button;
   }
+
+  _ButtonColors _resolveColors({required ColorScheme colorScheme}) {
+    switch (buttonType) {
+      case CustomButtonType.filled:
+        return _ButtonColors(
+          background: backgroundColor ?? colorScheme.primary,
+          foreground: textColor ?? colorScheme.onPrimary,
+          disabledBackground:
+              disabledBackgroundColor ??
+              colorScheme.primary.withValues(alpha: 0.45),
+          disabledForeground:
+              disabledTextColor ?? colorScheme.onPrimary.withValues(alpha: 0.8),
+        );
+
+      case CustomButtonType.outlined:
+        return _ButtonColors(
+          background: backgroundColor ?? Colors.transparent,
+          foreground: textColor ?? colorScheme.primary,
+          disabledBackground: disabledBackgroundColor ?? Colors.transparent,
+          disabledForeground:
+              disabledTextColor ??
+              colorScheme.onSurface.withValues(alpha: 0.38),
+        );
+
+      case CustomButtonType.text:
+        return _ButtonColors(
+          background: backgroundColor ?? Colors.transparent,
+          foreground: textColor ?? colorScheme.primary,
+          disabledBackground: disabledBackgroundColor ?? Colors.transparent,
+          disabledForeground:
+              disabledTextColor ??
+              colorScheme.onSurface.withValues(alpha: 0.38),
+        );
+    }
+  }
+
+  Widget _buildContent({
+    required BuildContext context,
+    required bool active,
+    required _ButtonColors colors,
+  }) {
+    if (isLoading) {
+      return Center(
+        child: SizedBox(
+          width: 22.r,
+          height: 22.r,
+          child: CircularProgressIndicator(
+            strokeWidth: loadingStrokeWidth,
+            valueColor: AlwaysStoppedAnimation<Color>(
+              loadingColor ??
+                  (buttonType == CustomButtonType.filled
+                      ? colors.foreground
+                      : Theme.of(context).colorScheme.primary),
+            ),
+          ),
+        ),
+      );
+    }
+
+    if (customChild != null) {
+      return customChild!;
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (prefixIcon != null) ...[
+          prefixIcon!,
+          SizedBox(width: iconSpacing ?? 8.w),
+        ],
+
+        if (text != null)
+          Flexible(
+            child: Text(
+              text!,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style:
+                  textStyle ??
+                  Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: active
+                        ? colors.foreground
+                        : colors.disabledForeground,
+                  ),
+            ),
+          ),
+
+        if (suffixIcon != null) ...[
+          SizedBox(width: iconSpacing ?? 8.w),
+          suffixIcon!,
+        ],
+      ],
+    );
+  }
+}
+
+class _ButtonColors {
+  const _ButtonColors({
+    required this.background,
+    required this.foreground,
+    required this.disabledBackground,
+    required this.disabledForeground,
+  });
+
+  final Color background;
+  final Color foreground;
+  final Color disabledBackground;
+  final Color disabledForeground;
 }

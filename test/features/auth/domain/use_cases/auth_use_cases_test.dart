@@ -49,9 +49,7 @@ void main() {
     });
 
     test('resendOtp returns Right(unit)', () async {
-      final result = await resendOtpUseCase(
-        email: 'test@example.com',
-      );
+      final result = await resendOtpUseCase(email: 'test@example.com');
 
       expect(result.isRight(), isTrue);
     });
@@ -65,13 +63,16 @@ void main() {
       expect(result.isRight(), isTrue);
     });
 
-    test('resetPassword returns Left(ServerFailure) when password is short', () async {
-      final result = await resetPasswordUseCase(
-        email: 'test@example.com',
-        newPassword: 'short',
-      );
+    test(
+      'resetPassword returns Left(ServerFailure) when password is short',
+      () async {
+        final result = await resetPasswordUseCase(
+          email: 'test@example.com',
+          newPassword: 'short',
+        );
 
-      expect(result.isLeft(), isTrue);
-    });
+        expect(result.isLeft(), isTrue);
+      },
+    );
   });
 }

@@ -4,18 +4,13 @@ import 'package:MatchIn/features/auth/presentation/cubit/otp_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OtpCubit extends Cubit<OtpState> {
-  OtpCubit({
-    required this.verifyOtpUseCase,
-    required this.resendOtpUseCase,
-  }) : super(const OtpInitial());
+  OtpCubit({required this.verifyOtpUseCase, required this.resendOtpUseCase})
+    : super(const OtpInitial());
 
   final VerifyOtpUseCase verifyOtpUseCase;
   final ResendOtpUseCase resendOtpUseCase;
 
-  Future<void> verifyOtp({
-    required String email,
-    required String otp,
-  }) async {
+  Future<void> verifyOtp({required String email, required String otp}) async {
     emit(const OtpLoading());
 
     final result = await verifyOtpUseCase(email: email, otp: otp);

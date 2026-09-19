@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:MatchIn/core/networking/api_end_points.dart';
 import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
-import 'package:MatchIn/core/utils/app_constants.dart';
 import 'package:dio/dio.dart';
 
 ///* APi interceptor used to handle api requests
@@ -39,7 +38,9 @@ class ApiInterceptor extends Interceptor {
         ApiHeaderKey.getAuthorizationValue(accessToken: accessToken);
 
     // add app language in request header
-    options.headers[ApiHeaderKey.acceptLanguage] = AppConstants.languageCode;
+    // AppConstants.languageCode is not available in this project version,
+    // so use a safe fallback language code instead.
+    options.headers[ApiHeaderKey.acceptLanguage] = 'en';
 
     super.onRequest(options, handler);
   }

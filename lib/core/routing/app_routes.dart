@@ -1,11 +1,41 @@
 abstract final class AppRoutes {
-  static const kSplashView = '/';
-  static const kOnboardingView = '/onboarding';
-  static const kHomeView = '/home';
-  static const kLoginView = '/login';
-  static const kRegisterView = '/register';
-  static const kForgetPasswordView = '/forgotPassword';
-  static const kOtpVerificationView = '/otp';
-  static const kCreateNewPasswordView = '/createNewPassword';
-  static const kPasswordChangedSuccessView = '/passwordChangedSuccess';
+  AppRoutes._();
+
+  // Splash & Onboarding
+  static const String kSplashView = '/';
+  static const String kOnboardingView = '/onboarding';
+
+  // Authentication
+  static const String kLoginView = '/login';
+  static const String kRegisterView = '/register';
+  static const String kForgetPasswordView =
+      '/forgotPassword';
+  static const String kOtpVerificationView = '/otp';
+  static const String kCreateNewPasswordView =
+      '/createNewPassword';
+  static const String kPasswordChangedSuccessView =
+      '/passwordChangedSuccess';
+
+  // Main
+  static const String kHomeView = '/home';
+
+  // Jobs
+  static const String kJobsSearchView = '/jobs/search';
+  static const String kJobDetailsView = '/jobs/details';
+  static const String knotifications = '/notifications';
+  static const String ksettings = '/settings';
+
+  // Applications
+  static const String kapplyForRole = '/applications/apply';
+  static const String kapplicationQuestions =
+      '/applications/questions';
+  static const String kreviewApplication =
+      '/applications/review';
+  static const String kapplicationSubmitted =
+      '/applications/submitted';
+  static const String ktrackingApplication =
+      '/applications/tracking';
+
+  // WebView
+  static const String kWebView = '/webView';
 }

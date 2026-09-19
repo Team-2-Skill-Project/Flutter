@@ -9,9 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 Widget _wrapWithScreenUtil(Widget child) {
   return ScreenUtilInit(
     designSize: const Size(390, 844),
-    builder: (context, _) => MaterialApp(
-      home: Scaffold(body: child),
-    ),
+    builder: (context, _) => MaterialApp(home: Scaffold(body: child)),
   );
 }
 
@@ -21,10 +19,7 @@ void main() {
       bool tapped = false;
       await tester.pumpWidget(
         _wrapWithScreenUtil(
-          CustomButton(
-            text: 'Submit',
-            onPressed: () => tapped = true,
-          ),
+          CustomButton(text: 'Submit', onPressed: () => tapped = true),
         ),
       );
 
@@ -33,27 +28,32 @@ void main() {
       expect(tapped, isTrue);
     });
 
-    testWidgets('displays loading indicator and ignores tap when isLoading is true', (tester) async {
-      bool tapped = false;
-      await tester.pumpWidget(
-        _wrapWithScreenUtil(
-          CustomButton(
-            text: 'Submit',
-            isLoading: true,
-            onPressed: () => tapped = true,
+    testWidgets(
+      'displays loading indicator and ignores tap when isLoading is true',
+      (tester) async {
+        bool tapped = false;
+        await tester.pumpWidget(
+          _wrapWithScreenUtil(
+            CustomButton(
+              text: 'Submit',
+              isLoading: true,
+              onPressed: () => tapped = true,
+            ),
           ),
-        ),
-      );
+        );
 
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
-      expect(find.text('Submit'), findsNothing);
-      await tester.tap(find.byType(CustomButton));
-      expect(tapped, isFalse);
-    });
+        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+        expect(find.text('Submit'), findsNothing);
+        await tester.tap(find.byType(CustomButton));
+        expect(tapped, isFalse);
+      },
+    );
   });
 
   group('CustomTextField Tests', () {
-    testWidgets('renders label and hint, and toggles password visibility', (tester) async {
+    testWidgets('renders label and hint, and toggles password visibility', (
+      tester,
+    ) async {
       final controller = TextEditingController(text: 'secret123');
 
       await tester.pumpWidget(
@@ -83,11 +83,7 @@ void main() {
   group('CustomAppBar Tests', () {
     testWidgets('renders title and back button', (tester) async {
       await tester.pumpWidget(
-        _wrapWithScreenUtil(
-          const CustomAppBar(
-            title: 'Verify Code',
-          ),
-        ),
+        _wrapWithScreenUtil(const CustomAppBar(title: 'Verify Code')),
       );
 
       expect(find.text('Verify Code'), findsOneWidget);
@@ -96,12 +92,12 @@ void main() {
   });
 
   group('CustomLoadingWidget Tests', () {
-    testWidgets('renders loading indicator and optional message', (tester) async {
+    testWidgets('renders loading indicator and optional message', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _wrapWithScreenUtil(
-          const CustomLoadingWidget(
-            message: 'Loading data...',
-          ),
+          const CustomLoadingWidget(message: 'Loading data...'),
         ),
       );
 

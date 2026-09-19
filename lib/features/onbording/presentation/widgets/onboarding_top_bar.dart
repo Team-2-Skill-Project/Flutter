@@ -1,5 +1,5 @@
-import 'package:MatchIn/core/utils/app_colors.dart';
-import 'package:MatchIn/generated/l10n.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
+import 'package:MatchIn/features/onbording/presentation/widgets/onboarding_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,29 +21,32 @@ class OnboardingTopBar extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-      child: Stack(
-        alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // Brand Wordmark
           Text(
-            'Match In',
+            'SkillMatch',
             style: TextStyle(
               fontFamily: 'DM Sans',
               fontSize: 18.sp,
               fontWeight: FontWeight.w700,
-              color: AppColors.primary,
+              color: context.colors.primary,
               letterSpacing: -0.45,
               height: 24 / 18,
             ),
           ),
 
+          // Animated Indicator Dots
+          OnboardingIndicator(currentPage: currentPage, itemCount: totalSteps),
+
           // Trailing Action: Skip
-          Align(
-            alignment: Alignment.centerRight,
-            child: SizedBox(
-              width: 50.w,
-              child: showSkip
-                  ? TextButton(
+          SizedBox(
+            width: 50.w,
+            child: showSkip
+                ? Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
                       onPressed: onSkip,
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
@@ -51,18 +54,18 @@ class OnboardingTopBar extends StatelessWidget {
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
                       child: Text(
-                        S.of(context).skip,
+                        context.l10n.skip,
                         style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
-                          color: AppColors.secondary,
+                          color: context.colors.secondary,
                           height: 20 / 14,
                         ),
                       ),
-                    )
-                  : const SizedBox.shrink(),
-            ),
+                    ),
+                  )
+                : const SizedBox.shrink(),
           ),
         ],
       ),

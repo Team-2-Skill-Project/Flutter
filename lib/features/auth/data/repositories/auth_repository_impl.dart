@@ -32,9 +32,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> resendOtp({
-    required String email,
-  }) async {
+  Future<Either<Failure, Unit>> resendOtp({required String email}) async {
     try {
       await remoteDataSource.resendOtp(email: email);
       return const Right(unit);

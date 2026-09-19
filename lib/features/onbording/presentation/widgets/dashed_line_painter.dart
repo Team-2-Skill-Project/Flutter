@@ -24,11 +24,7 @@ class DashedLinePainter extends CustomPainter {
     final y = size.height / 2;
 
     while (startX < size.width) {
-      canvas.drawLine(
-        Offset(startX, y),
-        Offset(startX + dashWidth, y),
-        paint,
-      );
+      canvas.drawLine(Offset(startX, y), Offset(startX + dashWidth, y), paint);
       startX += dashWidth + dashSpace;
     }
   }

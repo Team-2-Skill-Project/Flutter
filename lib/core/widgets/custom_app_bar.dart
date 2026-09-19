@@ -1,4 +1,3 @@
-import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,73 +22,110 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   final String? title;
   final Widget? titleWidget;
+
   final bool centerTitle;
   final bool showBackButton;
+
   final VoidCallback? onBack;
+
   final Widget? leading;
   final List<Widget>? actions;
+
   final Color? backgroundColor;
   final double elevation;
   final double? height;
+
   final TextStyle? titleStyle;
   final SystemUiOverlayStyle? systemOverlayStyle;
 
   @override
-  Size get preferredSize => Size.fromHeight(height ?? 56.h);
+  Size get preferredSize {
+    return Size.fromHeight(height ?? 56.h);
+  }
 
   @override
   Widget build(BuildContext context) {
-    Widget? effectiveLeading = leading;
-    if (effectiveLeading == null && showBackButton) {
-      effectiveLeading = SizedBox(
-        width: 40.w,
-        height: 40.h,
-        child: IconButton(
-          onPressed: onBack ??
-              () {
-                if (context.canPop()) {
-                  context.pop();
-                } else {
-                  Navigator.maybePop(context);
-                }
-              },
-          icon: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            size: 18.sp,
-            color: AppColors.textPrimary,
-          ),
-          splashRadius: 20.r,
-          padding: EdgeInsets.zero,
-        ),
-      );
-    }
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
-    Widget? effectiveTitle = titleWidget;
-    if (effectiveTitle == null && title != null) {
-      effectiveTitle = Text(
-        title!,
-        style: titleStyle ??
-            TextStyle(
-              fontFamily: 'DM Sans',
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w700,
-              color: AppColors.textPrimary,
-              letterSpacing: -0.45,
-            ),
-      );
-    }
+    final effectiveLeading = _buildLeading(context, colorScheme);
+
+    final effectiveTitle = _buildTitle(context);
 
     return AppBar(
-      backgroundColor: backgroundColor ?? AppColors.background,
+      backgroundColor: backgroundColor ?? theme.scaffoldBackgroundColor,
+      foregroundColor: colorScheme.onSurface,
+
       elevation: elevation,
       scrolledUnderElevation: 0,
+
       centerTitle: centerTitle,
+
       leading: effectiveLeading,
       automaticallyImplyLeading: false,
+
       title: effectiveTitle,
       actions: actions,
-      systemOverlayStyle: systemOverlayStyle ?? SystemUiOverlayStyle.dark,
+
+      systemOverlayStyle: systemOverlayStyle ?? _getSystemOverlayStyle(theme),
+
       toolbarHeight: height ?? 56.h,
     );
+  }
+
+  Widget? _buildLeading(BuildContext context, ColorScheme colorScheme) {
+    if (leading != null) {
+      return leading;
+    }
+
+    if (!showBackButton) {
+      return null;
+    }
+
+    return SizedBox(
+      width: 40.w,
+      height: 40.h,
+      child: IconButton(
+        onPressed:
+            onBack ??
+            () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                Navigator.maybePop(context);
+              }
+            },
+        icon: Icon(
+          Icons.arrow_back_ios_new_rounded,
+          size: 18.sp,
+          color: colorScheme.onSurface,
+        ),
+        splashRadius: 20.r,
+        padding: EdgeInsets.zero,
+      ),
+    );
+  }
+
+  Widget? _buildTitle(BuildContext context) {
+    if (titleWidget != null) {
+      return titleWidget;
+    }
+
+    if (title == null) {
+      return null;
+    }
+
+    return Text(
+      title!,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: titleStyle ?? Theme.of(context).textTheme.titleMedium,
+    );
+  }
+
+  SystemUiOverlayStyle _getSystemOverlayStyle(ThemeData theme) {
+    final isDark = theme.brightness == Brightness.dark;
+
+    return isDark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark;
   }
 }
