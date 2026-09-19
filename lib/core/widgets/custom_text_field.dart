@@ -10,6 +10,7 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final TextInputType keyboardType;
+  final TextInputAction? textInputAction;
 
   const CustomTextField({
     super.key,
@@ -21,6 +22,7 @@ class CustomTextField extends StatefulWidget {
     this.controller,
     this.validator,
     this.keyboardType = TextInputType.text,
+    this.textInputAction,
   });
 
   @override
@@ -53,6 +55,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           obscureText: _obscureText,
           validator: widget.validator,
           keyboardType: widget.keyboardType,
+          textInputAction: widget.textInputAction,
           decoration: InputDecoration(
             hintText: widget.hintText,
             prefixIcon: widget.prefixIcon,
