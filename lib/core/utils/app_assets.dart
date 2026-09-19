@@ -18,6 +18,11 @@ class Assets {
   /// assets/lottie/treasure_box.json
   static const String lottieTreasureBox = "assets/lottie/treasure_box.json";
 
+  /// Assets for lottieCorrect
+  /// assets/lottie/correct.json
+  static const String lottieCorrect = "assets/lottie/correct.json";
+
+
   /// Assets for iconsVideo
   /// assets/images/video.svg
   static const String videoIcon = "assets/images/video.svg";

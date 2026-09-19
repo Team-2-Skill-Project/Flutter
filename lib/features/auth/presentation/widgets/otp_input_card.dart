@@ -1,7 +1,9 @@
+import 'package:MatchIn/core/utils/app_assets.dart';
 import 'package:MatchIn/features/auth/presentation/widgets/otp_resend_row.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:otp_animated_fields/otp_animated_fields.dart';
 
 class OtpInputCard extends StatelessWidget {
@@ -14,6 +16,7 @@ class OtpInputCard extends StatelessWidget {
     required this.secondsRemaining,
     required this.canResend,
     required this.onResend,
+    this.isSuccess = false,
   });
 
   final OtpAnimatedController controller;
@@ -23,6 +26,7 @@ class OtpInputCard extends StatelessWidget {
   final int secondsRemaining;
   final bool canResend;
   final VoidCallback onResend;
+  final bool isSuccess;
 
   @override
   Widget build(BuildContext context) {
@@ -49,17 +53,25 @@ class OtpInputCard extends StatelessWidget {
           ),
           SizedBox(height: 12.h),
           Center(
-            child: OtpAnimatedField(
-              controller: controller,
-              length: otpLength,
-              autofocus: true,
-              keyboardType: TextInputType.number,
-              onCompleted: onCompleted,
-              onStatusChanged: onStatusChanged,
-              semanticLabels: OtpSemanticLabels(
-                field: S.of(context).verificationCodeLabel,
-              ),
-            ),
+            child: isSuccess
+                ? SizedBox(
+                    height: 80.h,
+                    child: Lottie.asset(
+                      Assets.lottieCorrect,
+                      repeat: false,
+                    ),
+                  )
+                : OtpAnimatedField(
+                    controller: controller,
+                    length: otpLength,
+                    autofocus: true,
+                    keyboardType: TextInputType.number,
+                    onCompleted: onCompleted,
+                    onStatusChanged: onStatusChanged,
+                    semanticLabels: OtpSemanticLabels(
+                      field: S.of(context).verificationCodeLabel,
+                    ),
+                  ),
           ),
           SizedBox(height: 12.h),
           OtpResendRow(

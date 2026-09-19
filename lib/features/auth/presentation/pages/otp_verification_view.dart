@@ -30,15 +30,18 @@ class OtpVerificationView extends StatefulWidget {
 }
 
 class _OtpVerificationViewState extends State<OtpVerificationView> {
-  // ── OTP animated field controller ──────────────────────────────────────
+  // -- OTP animated field controller --------------------------------------
   final OtpAnimatedController _otpController = OtpAnimatedController();
 
-  // ── Resend countdown timer ─────────────────────────────────────────────
+  // -- Resend countdown timer ---------------------------------------------
   int _secondsRemaining = 60;
   Timer? _countdownTimer;
 
-  // ── Tracks whether a verification is already in flight ────────────────
+  // -- Tracks whether a verification is already in flight ----------------
   bool _isVerifying = false;
+
+  // -- Controls the in-card Lottie success animation ----------------------
+  bool _showSuccessLottie = false;
 
   @override
   void initState() {
@@ -53,7 +56,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
     super.dispose();
   }
 
-  // ── Timer helpers ───────────────────────────────────────────────────────
+  // -- Timer helpers -------------------------------------------------------
 
   void _startTimer() {
     _countdownTimer?.cancel();
@@ -67,7 +70,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
     });
   }
 
-  // ── Resend handler ──────────────────────────────────────────────────────
+  // -- Resend handler ------------------------------------------------------
 
   void _onResend() {
     if (_secondsRemaining == 0 && !_isVerifying) {
@@ -76,7 +79,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
     }
   }
 
-  // ── OTP submission ──────────────────────────────────────────────────────
+  // -- OTP submission ------------------------------------------------------
 
   void _onCompleted(String code) {
     if (_isVerifying) return; // prevent duplicate requests
@@ -84,15 +87,22 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
     context.read<OtpCubit>().verifyOtp(email: widget.email, otp: code);
   }
 
-  // ── Navigation after success animation ─────────────────────────────────
+  // -- Navigation after success Lottie plays ------------------------------
 
-  void _onOtpStatusChanged(OtpStatus status) {
+  Future<void> _onOtpStatusChanged(OtpStatus status) async {
     if (status == OtpStatus.success) {
-      getIt<SharedPreferencesService>().setLoggedIn(true);
-      context.go(AppRoutes.kHomeView);
+      // Replace OTP fields with success Lottie inside the card, then navigate.
+      setState(() => _showSuccessLottie = true);
+      await Future.delayed(const Duration(seconds: 1));
+      if (mounted) {
+        await getIt<SharedPreferencesService>().setLoggedIn(true);
+        if (mounted) {
+          context.go(AppRoutes.kHomeView);
+        }
+      }
     }
     if (status == OtpStatus.idle) {
-      // Returned to idle after error — allow re-verification
+      // Returned to idle after error � allow re-verification
       setState(() => _isVerifying = false);
     }
   }
@@ -137,6 +147,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                   secondsRemaining: _secondsRemaining,
                   canResend: !_isVerifying,
                   onResend: _onResend,
+                  isSuccess: _showSuccessLottie,
                 ),
                 SizedBox(height: 24.h),
                 OtpBackButton(
