@@ -1,5 +1,5 @@
 import 'package:MatchIn/core/extensions/context_extensions.dart';
-import 'package:MatchIn/features/onbording/presentation/widgets/dashed_line_painter.dart';
+import 'package:MatchIn/features/onboarding/presentation/widgets/dashed_line_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

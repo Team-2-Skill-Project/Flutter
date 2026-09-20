@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ExperienceCard extends StatelessWidget {
-  final String jobTitle;
-  final String companyName;
-  final String duration;
-
   const ExperienceCard({
     super.key,
     required this.jobTitle,
     required this.companyName,
     required this.duration,
   });
+  final String jobTitle;
+  final String companyName;
+  final String duration;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,8 @@ class ExperienceCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment:
+                MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'Experience',
@@ -54,10 +54,7 @@ class ExperienceCard extends StatelessWidget {
             style: theme.textTheme.bodyMedium,
           ),
           SizedBox(height: 4.h),
-          Text(
-            duration,
-            style: theme.textTheme.bodySmall,
-          ),
+          Text(duration, style: theme.textTheme.bodySmall),
         ],
       ),
     );

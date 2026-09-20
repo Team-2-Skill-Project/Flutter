@@ -28,9 +28,7 @@ class WorkModeOption extends StatelessWidget {
           color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(10.r),
           border: Border.all(
-            color: isSelected
-                ? theme.colorScheme.primary
-                : theme.dividerColor,
+            color: isSelected ? theme.colorScheme.primary : theme.dividerColor,
           ),
         ),
         child: Row(
@@ -41,12 +39,11 @@ class WorkModeOption extends StatelessWidget {
                   Flexible(
                     child: Text(
                       label,
-                      style: theme.textTheme.bodyMedium
-                          ?.copyWith(
-                            fontWeight: isSelected
-                                ? FontWeight.w700
-                                : FontWeight.w400,
-                          ),
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        fontWeight: isSelected
+                            ? FontWeight.w700
+                            : FontWeight.w400,
+                      ),
                     ),
                   ),
                   if (badge != null) ...[
@@ -57,16 +54,12 @@ class WorkModeOption extends StatelessWidget {
                         vertical: 3.h,
                       ),
                       decoration: BoxDecoration(
-                        color: theme.colorScheme.tertiary
-                            .withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(
-                          5.r,
+                        color: theme.colorScheme.tertiary.withValues(
+                          alpha: 0.2,
                         ),
+                        borderRadius: BorderRadius.circular(5.r),
                       ),
-                      child: Text(
-                        badge!,
-                        style: theme.textTheme.labelSmall,
-                      ),
+                      child: Text(badge!, style: theme.textTheme.labelSmall),
                     ),
                   ],
                 ],
@@ -78,9 +71,7 @@ class WorkModeOption extends StatelessWidget {
                   : Icons.radio_button_unchecked,
               color: isSelected
                   ? theme.colorScheme.primary
-                  : theme.colorScheme.onSurface.withValues(
-                      alpha: 0.25,
-                    ),
+                  : theme.colorScheme.onSurface.withValues(alpha: 0.25),
             ),
           ],
         ),

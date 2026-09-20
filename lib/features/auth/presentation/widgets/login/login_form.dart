@@ -10,7 +10,8 @@ class LoginForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final ValueNotifier<bool> _isKeepSignedIn = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> _isKeepSignedIn =
+      ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,9 @@ class LoginForm extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             validator: (value) {
-              if (value == null || value.isEmpty) return locale.email;
+              if (value == null || value.isEmpty) {
+                return locale.email;
+              }
               if (!value.contains('@')) return locale.email;
               return null;
             },
@@ -41,14 +44,17 @@ class LoginForm extends StatelessWidget {
             isPassword: true,
             textInputAction: TextInputAction.done,
             validator: (value) {
-              if (value == null || value.isEmpty) return locale.password;
+              if (value == null || value.isEmpty) {
+                return locale.password;
+              }
               if (value.length < 6) return locale.password;
               return null;
             },
           ),
           SizedBox(height: 16.h),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment:
+                MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
@@ -57,23 +63,29 @@ class LoginForm extends StatelessWidget {
                     builder: (context, value, child) {
                       return Switch(
                         value: value,
-                        activeColor: theme.colorScheme.primary,
+                        activeThumbColor:
+                            theme.colorScheme.primary,
                         onChanged: (newValue) {
                           _isKeepSignedIn.value = newValue;
                         },
                       );
                     },
                   ),
-                  Text(locale.keepMeSignedIn, style: theme.textTheme.bodyMedium),
+                  Text(
+                    locale.keepMeSignedIn,
+                    style: theme.textTheme.bodyMedium,
+                  ),
                 ],
               ),
               TextButton(
                 onPressed: () {},
                 child: Text(
                   locale.forgotPassword,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                  ),
+                  style: theme.textTheme.bodyMedium
+                      ?.copyWith(
+                        color: theme.colorScheme.onSurface
+                            .withValues(alpha: 0.6),
+                      ),
                 ),
               ),
             ],

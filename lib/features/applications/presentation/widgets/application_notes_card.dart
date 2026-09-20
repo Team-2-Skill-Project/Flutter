@@ -23,18 +23,14 @@ class ApplicationNotesCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     s.notes,
-                    style: theme.textTheme.titleLarge
-                        ?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
                 TextButton.icon(
                   onPressed: onEdit ?? () {},
-                  icon: const Icon(
-                    Icons.edit_outlined,
-                    size: 17,
-                  ),
+                  icon: const Icon(Icons.edit_outlined, size: 17),
                   label: Text(s.editNote),
                 ),
               ],
@@ -44,14 +40,11 @@ class ApplicationNotesCard extends StatelessWidget {
               width: double.infinity,
               padding: EdgeInsets.all(14.r),
               decoration: BoxDecoration(
-                color: theme
-                    .colorScheme
-                    .surfaceContainerHighest
-                    .withValues(alpha: 0.4),
-                borderRadius: BorderRadius.circular(8.r),
-                border: Border.all(
-                  color: theme.dividerColor,
+                color: theme.colorScheme.surfaceContainerHighest.withValues(
+                  alpha: 0.4,
                 ),
+                borderRadius: BorderRadius.circular(8.r),
+                border: Border.all(color: theme.dividerColor),
               ),
               child: Text(
                 s.waitingForRecruiterResponse,

@@ -27,10 +27,7 @@ class TrackingApplicationViewBody extends StatelessWidget {
         Expanded(
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(
-              horizontal: 16.w,
-              vertical: 16.h,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
             child: Column(
               children: [
                 TrackingJobCard(
@@ -54,20 +51,15 @@ class TrackingApplicationViewBody extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(16.r),
                     child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           s.keepTrackerUpdated,
-                          style: theme.textTheme.bodyMedium
-                              ?.copyWith(
-                                color: theme
-                                    .colorScheme
-                                    .onSurface
-                                    .withValues(
-                                      alpha: 0.75,
-                                    ),
-                              ),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onSurface.withValues(
+                              alpha: 0.75,
+                            ),
+                          ),
                         ),
                         SizedBox(height: 14.h),
                         SizedBox(
@@ -77,9 +69,7 @@ class TrackingApplicationViewBody extends StatelessWidget {
                               // UI Only:
                               // Status update flow later.
                             },
-                            icon: const Icon(
-                              Icons.edit_calendar_outlined,
-                            ),
+                            icon: const Icon(Icons.edit_calendar_outlined),
                             label: Text(s.updateStatus),
                           ),
                         ),
@@ -113,9 +103,7 @@ class TrackingApplicationViewBody extends StatelessWidget {
                   ),
                   label: Text(
                     s.withdrawApplication,
-                    style: TextStyle(
-                      color: theme.colorScheme.error,
-                    ),
+                    style: TextStyle(color: theme.colorScheme.error),
                   ),
                 ),
 

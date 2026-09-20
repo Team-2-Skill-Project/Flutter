@@ -11,8 +11,10 @@ class RegisterForm extends StatelessWidget {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
-  final ValueNotifier<bool> _isTermsAccepted = ValueNotifier<bool>(false);
+  final _confirmPasswordController =
+      TextEditingController();
+  final ValueNotifier<bool> _isTermsAccepted =
+      ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,9 @@ class RegisterForm extends StatelessWidget {
             isPassword: true,
             textInputAction: TextInputAction.next,
             validator: (value) {
-              if (value == null || value.isEmpty) return locale.password;
+              if (value == null || value.isEmpty) {
+                return locale.password;
+              }
               return null;
             },
           ),
@@ -58,8 +62,12 @@ class RegisterForm extends StatelessWidget {
             isPassword: true,
             textInputAction: TextInputAction.done,
             validator: (value) {
-              if (value == null || value.isEmpty) return locale.confirmPassword;
-              if (value != _passwordController.text) return locale.confirmPassword;
+              if (value == null || value.isEmpty) {
+                return locale.confirmPassword;
+              }
+              if (value != _passwordController.text) {
+                return locale.confirmPassword;
+              }
               return null;
             },
           ),
@@ -72,7 +80,9 @@ class RegisterForm extends StatelessWidget {
                   return Checkbox(
                     value: value,
                     activeColor: theme.colorScheme.primary,
-                    onChanged: (newValue) => _isTermsAccepted.value = newValue ?? false,
+                    onChanged: (newValue) =>
+                        _isTermsAccepted.value =
+                            newValue ?? false,
                   );
                 },
               ),
@@ -88,7 +98,8 @@ class RegisterForm extends StatelessWidget {
           CustomButton(
             text: locale.completeRegistration,
             onPressed: () {
-              if (_formKey.currentState!.validate() && _isTermsAccepted.value) {}
+              if (_formKey.currentState!.validate() &&
+                  _isTermsAccepted.value) {}
             },
           ),
         ],
