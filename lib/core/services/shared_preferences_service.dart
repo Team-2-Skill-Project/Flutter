@@ -1,5 +1,6 @@
-import 'package:MatchIn/core/cache/cache_key.dart';
-import 'package:MatchIn/core/cache/shared_preferences_helper.dart';
+
+import '../cache/cache_key.dart';
+import '../cache/shared_preferences_helper.dart';
 
 class SharedPreferencesService {
   const SharedPreferencesService(this._sharedPreferencesHelper);
