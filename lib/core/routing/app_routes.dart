@@ -38,4 +38,10 @@ abstract final class AppRoutes {
 
   // WebView
   static const String kWebView = '/webView';
+
+  // Profile
+  static const String kSkillsView = '/profile/skills';
+  static const String kProjectsView = '/profile/projects';
+  static const String kcareerPrefView =
+      '/profile/careerPref';
 }
