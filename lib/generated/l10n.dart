@@ -2490,10 +2490,10 @@ class S {
     );
   }
 
-  /// `+ Add New Project`
+  /// ` Add New Project`
   String get addNewProject {
     return Intl.message(
-      '+ Add New Project',
+      ' Add New Project',
       name: 'addNewProject',
       desc: '',
       args: [],

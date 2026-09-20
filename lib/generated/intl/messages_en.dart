@@ -31,7 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "account": MessageLookupByLibrary.simpleMessage("ACCOUNT"),
     "add": MessageLookupByLibrary.simpleMessage("Add"),
-    "addNewProject": MessageLookupByLibrary.simpleMessage("+ Add New Project"),
+    "addNewProject": MessageLookupByLibrary.simpleMessage(" Add New Project"),
     "addNewSkill": MessageLookupByLibrary.simpleMessage("Add New Skill"),
     "addProjectDetails": MessageLookupByLibrary.simpleMessage(
       "Add Project Details",

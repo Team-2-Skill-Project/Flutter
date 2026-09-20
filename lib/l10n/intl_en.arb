@@ -302,7 +302,7 @@
   "projectsImprovementHint": "Add project links and measurable outcomes to strengthen your profile.",
   "viewLiveProject": "View live project",
   "viewGithubRepository": "View GitHub repository",
-  "addNewProject": "+ Add New Project",
+  "addNewProject": " Add New Project",
   "addProjectDetails": "Add Project Details",
   "draft": "Draft",
   "projectName": "Project Name",

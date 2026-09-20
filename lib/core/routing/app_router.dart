@@ -19,7 +19,7 @@ import 'package:MatchIn/features/jobs/presentation/views/job_details_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/jobs_search_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/notifications_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/settings_view.dart';
-import 'package:MatchIn/features/onbording/presentation/pages/onbording.dart';
+import 'package:MatchIn/features/onboarding/presentation/pages/onbording.dart';
 import 'package:MatchIn/features/profile/presentation/views/career_preferences_view.dart';
 import 'package:MatchIn/features/profile/presentation/views/projects_view.dart';
 import 'package:MatchIn/features/profile/presentation/views/skills_view.dart';
