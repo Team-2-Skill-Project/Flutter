@@ -1,3 +1,4 @@
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,12 +16,8 @@ class JobFilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Material(
-      color: isSelected
-          ? theme.colorScheme.primary
-          : theme.colorScheme.surface,
+      color: isSelected ? context.colors.primary : context.colors.surface,
       borderRadius: BorderRadius.circular(24.r),
       child: InkWell(
         onTap: onTap,
@@ -32,18 +29,16 @@ class JobFilterChip extends StatelessWidget {
             borderRadius: BorderRadius.circular(24.r),
             border: Border.all(
               color: isSelected
-                  ? theme.colorScheme.primary
-                  : theme.dividerColor,
+                  ? context.colors.primary
+                  : context.theme.dividerColor,
             ),
           ),
           child: Text(
             label,
-            style: theme.textTheme.labelMedium?.copyWith(
+            style: context.textTheme.labelMedium?.copyWith(
               color: isSelected
-                  ? theme.colorScheme.onPrimary
-                  : theme.colorScheme.onSurface.withValues(
-                      alpha: 0.65,
-                    ),
+                  ? context.colors.onPrimary
+                  : context.colors.onSurface.withValues(alpha: 0.65),
             ),
           ),
         ),

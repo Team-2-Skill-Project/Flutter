@@ -1,4 +1,4 @@
-import 'package:MatchIn/generated/l10n.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,7 +18,7 @@ class ViewMatchesButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(S.of(context).viewMatches),
+            Text(context.l10n.viewMatches),
             SizedBox(width: 6.w),
             Icon(Icons.arrow_forward_rounded, size: 17.sp),
           ],
