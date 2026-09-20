@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lottie/lottie.dart';
 
-///* This method is used to show image in app with different types of image formats
-///* and handle loading and error states
+///* This method is used to show images and animations in the app with different formats
+///* (SVG, Network, Lottie, Asset) and handle loading and error states.
 Widget showImage({
   required String image,
   BoxFit? fit,
@@ -42,6 +43,26 @@ Widget showImage({
         );
       },
       // Show a broken image icon if loading fails
+      errorBuilder: (context, error, stackTrace) {
+        return SizedBox(
+          width: width,
+          height: height,
+          child: const Center(
+            child: Icon(Icons.broken_image_outlined, color: Colors.grey),
+          ),
+        );
+      },
+    );
+  }
+  // in the case of lottie file animations (.json, .lottie, .lottie.json)
+  else if (image.endsWith('.json') ||
+      image.endsWith('.lottie') ||
+      image.contains('.lottie')) {
+    return Lottie.asset(
+      image,
+      fit: fit ?? BoxFit.contain,
+      width: width,
+      height: height,
       errorBuilder: (context, error, stackTrace) {
         return SizedBox(
           width: width,

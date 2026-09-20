@@ -1,6 +1,7 @@
+import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:MatchIn/core/utils/app_colors.dart';
+import 'package:MatchIn/core/utils/app_constants.dart';
 
 abstract class AppTextStyles {
   // TODO: change these values
@@ -14,7 +15,7 @@ abstract class AppTextStyles {
   static TextStyle semiBold20 = TextStyle(
     fontWeight: FontWeight.w600,
     fontSize: 20.sp,
-    color: AppColors.onPrimary,
+    color: AppColors.primary,
   );
 
   static TextStyle regular14 = TextStyle(
@@ -103,4 +104,27 @@ abstract class AppTextStyles {
         fontWeight: FontWeight.w400,
         color: color ?? AppColors.textPrimary,
       );
+
+  // ── TextTheme builder ─────────────────────────────────────────────────────
+
+  static TextTheme textTheme({bool isArabic = false}) {
+    final font = _font(isArabic);
+    return TextTheme(
+      displayLarge: TextStyle(fontFamily: font, fontSize: 57.sp, fontWeight: FontWeight.w400),
+      displayMedium: TextStyle(fontFamily: font, fontSize: 45.sp, fontWeight: FontWeight.w400),
+      displaySmall: TextStyle(fontFamily: font, fontSize: 36.sp, fontWeight: FontWeight.w400),
+      headlineLarge: TextStyle(fontFamily: font, fontSize: 32.sp, fontWeight: FontWeight.w700),
+      headlineMedium: TextStyle(fontFamily: font, fontSize: 28.sp, fontWeight: FontWeight.w700),
+      headlineSmall: TextStyle(fontFamily: font, fontSize: 24.sp, fontWeight: FontWeight.w700),
+      titleLarge: TextStyle(fontFamily: font, fontSize: 22.sp, fontWeight: FontWeight.w600),
+      titleMedium: TextStyle(fontFamily: font, fontSize: 16.sp, fontWeight: FontWeight.w600),
+      titleSmall: TextStyle(fontFamily: font, fontSize: 14.sp, fontWeight: FontWeight.w500),
+      bodyLarge: TextStyle(fontFamily: font, fontSize: 16.sp, fontWeight: FontWeight.w400),
+      bodyMedium: TextStyle(fontFamily: font, fontSize: 14.sp, fontWeight: FontWeight.w400),
+      bodySmall: TextStyle(fontFamily: font, fontSize: 12.sp, fontWeight: FontWeight.w400),
+      labelLarge: TextStyle(fontFamily: font, fontSize: 14.sp, fontWeight: FontWeight.w600),
+      labelMedium: TextStyle(fontFamily: font, fontSize: 12.sp, fontWeight: FontWeight.w500),
+      labelSmall: TextStyle(fontFamily: font, fontSize: 11.sp, fontWeight: FontWeight.w500),
+    );
+  }
 }

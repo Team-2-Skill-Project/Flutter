@@ -1,138 +1,93 @@
 import 'package:flutter/material.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
-import 'package:MatchIn/core/utils/app_constants.dart';
+import 'package:MatchIn/core/utils/app_text_styles.dart';
 
-final ThemeData lightTheme = ThemeData(
-  //TODO: change these values
+ThemeData getLightTheme({bool isArabic = false}) {
+  final textTheme = AppTextStyles.textTheme(isArabic: isArabic);
 
-  useMaterial3: true,
-  fontFamily: AppConstants.appFamilyFont,
+  const colorScheme = ColorScheme.light(
+    primary: AppColors.midnightBlue,
+    onPrimary: AppColors.white,
+    secondary: AppColors.terracotta,
+    onSecondary: AppColors.white,
+    tertiary: AppColors.goldenMustard,
+    onTertiary: AppColors.midnightBlue,
+    surface: AppColors.lightSurface,
+    onSurface: AppColors.lightTextPrimary,
+    surfaceContainerHighest: AppColors.lightSurfaceVariant,
+    onSurfaceVariant: AppColors.lightTextSecondary,
+    outline: AppColors.lightBorder,
+    error: AppColors.mutedRed,
+    onError: AppColors.white,
+  );
 
-  scaffoldBackgroundColor: AppColors.background,
-
-  colorScheme: const ColorScheme.light(
-    primary: AppColors.primary,
-    onPrimary: AppColors.onPrimary,
-
-    secondary: AppColors.secondary,
-    onSecondary: AppColors.onSecondary,
-
-    surface: AppColors.surface,
-    onSurface: AppColors.textPrimary,
-
-    error: AppColors.error,
-    onError: Colors.white,
-  ),
-
-  // AppBar
-  appBarTheme: const AppBarTheme(
-    backgroundColor: AppColors.background,
-    foregroundColor: AppColors.textPrimary,
-    elevation: 0,
-    centerTitle: true,
-  ),
-
-  // Text
-  textTheme: const TextTheme(
-    displayLarge: TextStyle(
-      fontSize: 40,
-      fontWeight: FontWeight.w700,
-      color: AppColors.textPrimary,
+  final themedTextTheme = textTheme.copyWith(
+    titleSmall: textTheme.titleSmall?.copyWith(
+      color: colorScheme.onSurface.withValues(alpha: 0.6),
     ),
+  );
 
-    headlineLarge: TextStyle(
-      fontSize: 32,
-      fontWeight: FontWeight.w700,
-      color: AppColors.textPrimary,
-    ),
+  return ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.light,
+    colorScheme: colorScheme,
+    scaffoldBackgroundColor: AppColors.lightBackground,
+    textTheme: themedTextTheme,
 
-    headlineMedium: TextStyle(
-      fontSize: 24,
-      fontWeight: FontWeight.w700,
-      color: AppColors.textPrimary,
-    ),
-
-    titleLarge: TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.w600,
-      color: AppColors.textPrimary,
-    ),
-
-    bodyLarge: TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w500,
-      color: AppColors.textPrimary,
-    ),
-
-    bodyMedium: TextStyle(fontSize: 14, color: AppColors.textSecondary),
-
-    bodySmall: TextStyle(fontSize: 12, color: AppColors.textHint),
-  ),
-
-  // Elevated Button (Login / Save)
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      backgroundColor: AppColors.primary,
-      foregroundColor: AppColors.onPrimary,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppColors.lightBackground,
+      foregroundColor: AppColors.lightTextPrimary,
+      surfaceTintColor: Colors.transparent,
       elevation: 0,
-      minimumSize: const Size(double.infinity, 56),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-    ),
-  ),
-
-  // TextField
-  inputDecorationTheme: InputDecorationTheme(
-    filled: true,
-    fillColor: AppColors.surface,
-    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-
-    hintStyle: const TextStyle(color: AppColors.textSecondary),
-
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
-      borderSide: const BorderSide(color: AppColors.border),
+      centerTitle: false,
     ),
 
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
-      borderSide: const BorderSide(color: AppColors.border),
+    cardTheme: CardThemeData(
+      color: AppColors.lightSurface,
+      surfaceTintColor: Colors.transparent,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(color: AppColors.lightBorder),
+        borderRadius: BorderRadius.circular(16),
+      ),
     ),
 
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
-      borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+    dividerTheme: const DividerThemeData(
+      color: AppColors.lightBorder,
+      thickness: 1,
     ),
 
-    errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
-      borderSide: const BorderSide(color: AppColors.error),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: AppColors.lightSurface,
+      hintStyle: const TextStyle(color: AppColors.lightTextSecondary),
+      border: _lightInputBorder,
+      enabledBorder: _lightInputBorder,
+      focusedBorder: _lightInputBorder.copyWith(
+        borderSide: const BorderSide(color: AppColors.midnightBlue, width: 1.5),
+      ),
+      errorBorder: _lightInputBorder.copyWith(
+        borderSide: const BorderSide(color: AppColors.mutedRed),
+      ),
     ),
-  ),
 
-  // Text Button (Forgot Password / Sign Up)
-  textButtonTheme: TextButtonThemeData(
-    style: TextButton.styleFrom(
-      foregroundColor: AppColors.primary,
-      textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.midnightBlue,
+        foregroundColor: AppColors.white,
+        elevation: 0,
+        minimumSize: const Size(double.infinity, 56),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
     ),
-  ),
 
-  // Divider
-  dividerTheme: const DividerThemeData(color: AppColors.divider, thickness: 1),
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: AppColors.midnightBlue,
+    ),
+  );
+}
 
-  // Icons
-  iconTheme: const IconThemeData(color: AppColors.textSecondary, size: 24),
-
-  // Card
-  cardTheme: CardThemeData(
-    color: AppColors.surface,
-    elevation: 0,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-  ),
-
-  // Progress Indicator
-  progressIndicatorTheme: const ProgressIndicatorThemeData(
-    color: AppColors.primary,
-  ),
+final _lightInputBorder = OutlineInputBorder(
+  borderRadius: BorderRadius.circular(12),
+  borderSide: const BorderSide(color: AppColors.lightBorder),
 );

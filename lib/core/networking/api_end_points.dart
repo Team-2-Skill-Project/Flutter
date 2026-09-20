@@ -5,6 +5,10 @@ abstract class EndPoint {
   static const String login = 'auth/login';
   static const String register = 'users/';
   static const String refreshToken = 'auth/refresh-token';
+  static const String verifyOtp = 'auth/verify-otp';
+  static const String resendOtp = 'auth/resend-otp';
+  static const String resetPassword = 'auth/reset-password';
+  static const String chatMessage = 'chatbot/chat';
 }
 
 ///* ApiKeys: the keys of the api
@@ -14,7 +18,9 @@ abstract class ApiKey {
   static const String errorMessage = 'message';
   static const String accessToken = 'access_token';
   static const String refreshToken = 'refresh_token';
-  // static const String email = 'email';
+  static const String email = 'email';
+  static const String otp = 'otp';
+  static const String newPassword = 'new_password';
   // static const String password = 'password';
   // static const String id = 'id';
 }
