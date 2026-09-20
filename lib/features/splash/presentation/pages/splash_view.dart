@@ -31,7 +31,7 @@ class _SplashViewState extends State<SplashView> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: Image.asset(
-          'assets/images/app_icon.jpg',
+          'assets/images/app_icon.png',
           width: 150.w,
           height: 150.h,
         ),

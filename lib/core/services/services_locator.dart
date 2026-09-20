@@ -11,9 +11,12 @@ import 'package:MatchIn/features/auth/data/data_sources/auth_mock_remote_data_so
 import 'package:MatchIn/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:MatchIn/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:MatchIn/features/auth/domain/repositories/auth_repository.dart';
+import 'package:MatchIn/features/auth/domain/use_cases/login_use_case.dart';
+import 'package:MatchIn/features/auth/domain/use_cases/register_use_case.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/resend_otp_use_case.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/reset_password_use_case.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/verify_otp_use_case.dart';
+import 'package:MatchIn/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/otp_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/reset_password_cubit.dart';
 import 'package:MatchIn/features/chatbot/data/data_sources/chatbot_local_data_source.dart';
@@ -56,6 +59,14 @@ Future<void> setupServiceLocator() async {
     ),
   );
 
+  getIt.registerLazySingleton<RegisterUseCase>(
+    () => RegisterUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<LoginUseCase>(
+    () => LoginUseCase(repository: getIt()),
+  );
+
   getIt.registerLazySingleton<VerifyOtpUseCase>(
     () => VerifyOtpUseCase(repository: getIt()),
   );
@@ -66,6 +77,13 @@ Future<void> setupServiceLocator() async {
 
   getIt.registerLazySingleton<ResetPasswordUseCase>(
     () => ResetPasswordUseCase(repository: getIt()),
+  );
+
+  getIt.registerFactory<AuthCubit>(
+    () => AuthCubit(
+      loginUseCase: getIt(),
+      registerUseCase: getIt(),
+    ),
   );
 
   getIt.registerFactory<OtpCubit>(
