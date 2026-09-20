@@ -8,6 +8,8 @@ import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:MatchIn/features/saved/data/repositories/applied_jobs_repository.dart';
+import 'package:MatchIn/features/saved/presentation/models/applied_job_ui_model.dart';
 
 class ReviewApplicationViewBody extends StatelessWidget {
   const ReviewApplicationViewBody({super.key});
@@ -187,6 +189,20 @@ class ReviewApplicationViewBody extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
+                      AppliedJobsRepository.instance.addApplication(
+                        const AppliedJobUiModel(
+                          id: 'app_technova_flutter',
+                          title: 'Junior Flutter Developer',
+                          company: 'TechNova',
+                          companyInitials: 'TN',
+                          logoBgColor: Color(0xFFEDE7F6),
+                          logoTextColor: Color(0xFF512DA8),
+                          tags: ['Cairo, Egypt', 'Hybrid', 'Full-time'],
+                          appliedTime: 'Applied just now',
+                          footerStatus: 'Application submitted successfully',
+                          status: ApplicationStatus.applied,
+                        ),
+                      );
                       context.push(
                         AppRoutes.kapplicationSubmitted,
                       );

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onPressed;
-  final bool isLoading;
-
   const CustomButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.isLoading = false,
   });
+
+  final String text;
+  final VoidCallback onPressed;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +27,7 @@ class CustomButton extends StatelessWidget {
             )
           : Text(
               text,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
             ),
     );
   }

@@ -2,8 +2,8 @@ import 'package:MatchIn/features/splash/data/data_source/splash_local_data_sourc
 import 'package:MatchIn/features/splash/domain/repositories/splash_repo.dart';
 
 class SplashRepoImple implements SplashRepo {
-  final SplashLocalDataSource localDataSource;
   SplashRepoImple({required this.localDataSource});
+  final SplashLocalDataSource localDataSource;
   @override
   bool isboardingviewed() {
     // TODO: implement isboardingviewed

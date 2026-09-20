@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:MatchIn/core/utils/app_colors.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/features/saved/presentation/models/applied_job_ui_model.dart';
-import 'package:MatchIn/features/saved/presentation/widgets/match_badge.dart';
 
 class AppliedJobCard extends StatelessWidget {
   const AppliedJobCard({
@@ -20,227 +19,223 @@ class AppliedJobCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isInterview = application.status == ApplicationStatus.interview;
 
-    return InkWell(
-      onTap: onCardTap,
-      borderRadius: BorderRadius.circular(12.r),
+    return Card(
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAlias,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.r),
+        side: BorderSide(
+          color: isInterview
+              ? const Color(0xFFC88A26).withValues(alpha: 0.35)
+              : context.theme.dividerColor,
+          width: 1,
+        ),
+      ),
       child: Container(
-        padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: isInterview ? null : Colors.white,
+          color: isInterview ? null : context.colors.surface,
           gradient: isInterview
-              ? const LinearGradient(
-                  colors: [Colors.white, Color(0xFFFAF8F4)],
+              ? LinearGradient(
+                  colors: [
+                    context.colors.surface,
+                    const Color(0xFFC88A26).withValues(alpha: 0.05),
+                  ],
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                 )
               : null,
-          border: Border.all(
-            color: isInterview
-                ? const Color(0x4DC88A26) // rgba(200, 138, 38, 0.3)
-                : AppColors.border,
-            width: 1,
-          ),
-          borderRadius: BorderRadius.circular(12.r),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Top Row: Logo + Title/Company + Status Chip
-            Row(
+        child: InkWell(
+          onTap: onCardTap ?? onViewApplicationTap,
+          child: Padding(
+            padding: EdgeInsets.all(16.r),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                // Logo/Avatar
-                Container(
-                  width: 40.w,
-                  height: 40.w,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: application.logoBgColor,
-                    borderRadius: BorderRadius.circular(8.r),
-                    border: Border.all(
-                      color: application.logoTextColor.withValues(alpha: 0.2),
-                      width: 1,
-                    ),
-                  ),
-                  child: Text(
-                    application.companyInitials,
-                    style: TextStyle(
-                      fontFamily: 'DM Sans',
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w700,
-                      color: application.logoTextColor,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 12.w),
-
-                // Title and Company
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        application.title,
-                        style: TextStyle(
-                          fontFamily: 'DM Sans',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textPrimary,
-                          height: 19 / 14,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(height: 2.h),
-                      Text(
-                        application.company,
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.textSecondary,
-                          height: 16 / 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // Status Chip
-                _buildStatusChip(application.status),
-              ],
-            ),
-            SizedBox(height: 12.h),
-
-            // Metadata Tags + Applied Time
-            Wrap(
-              spacing: 6.w,
-              runSpacing: 6.h,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                ...application.tags.map((tag) => _buildTag(tag)),
-                Padding(
-                  padding: EdgeInsets.only(left: 2.w),
-                  child: Text(
-                    application.appliedTime,
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.textSecondary,
-                      height: 16 / 11,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            // Match Badge if available
-            if (application.matchLevel != null) ...[
-              SizedBox(height: 10.h),
-              MatchBadge(matchLevel: application.matchLevel!),
-            ],
-
-            // Highlight Note (e.g. Interview scheduled)
-            if (application.highlightNote != null) ...[
-              SizedBox(height: 12.h),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-                decoration: BoxDecoration(
-                  color: const Color(0x1AC88A26), // rgba(200, 138, 38, 0.1)
-                  border: Border.all(
-                    color: const Color(0x33C88A26), // rgba(200, 138, 38, 0.2)
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                child: Row(
+                // Top Row: Logo + Title/Company + Status Chip
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(
-                      Icons.calendar_today_outlined,
-                      size: 16.sp,
-                      color: const Color(0xFFC88A26),
+                    Container(
+                      width: 44.r,
+                      height: 44.r,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: application.logoBgColor,
+                        borderRadius: BorderRadius.circular(10.r),
+                        border: Border.all(
+                          color: application.logoTextColor.withValues(
+                            alpha: 0.25,
+                          ),
+                          width: 1,
+                        ),
+                      ),
+                      child: Text(
+                        application.companyInitials,
+                        style: context.textTheme.titleMedium?.copyWith(
+                          color: application.logoTextColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 12.w),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            application.title,
+                            style: context.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(height: 3.h),
+                          Text(
+                            application.company,
+                            style: context.textTheme.bodyMedium?.copyWith(
+                              color: context.colors.onSurface.withValues(
+                                alpha: 0.65,
+                              ),
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(width: 8.w),
-                    Expanded(
+                    _buildStatusChip(context, application.status),
+                  ],
+                ),
+
+                SizedBox(height: 12.h),
+
+                // Metadata Tags + Applied Time (Wrap ensures NO horizontal overflow)
+                Wrap(
+                  spacing: 6.w,
+                  runSpacing: 6.h,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    ...application.tags.map((tag) => _buildTag(context, tag)),
+                    Padding(
+                      padding: EdgeInsets.only(left: 4.w),
                       child: Text(
-                        application.highlightNote!,
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 11.sp,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xFF8F610E),
-                          height: 16 / 11,
+                        application.appliedTime,
+                        style: context.textTheme.bodySmall?.copyWith(
+                          color: context.colors.onSurface.withValues(
+                            alpha: 0.55,
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
 
-            SizedBox(height: 12.h),
-
-            // Bottom Action Row
-            Container(
-              padding: EdgeInsets.only(top: 8.h),
-              decoration: const BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: Color(0xFFFAF8F4),
-                    width: 1,
-                  ),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    application.footerStatus,
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.textSecondary,
-                      height: 16 / 11,
+                // Highlight Note (e.g. Interview scheduled)
+                if (application.highlightNote != null) ...[
+                  SizedBox(height: 12.h),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 8.h,
                     ),
-                  ),
-                  InkWell(
-                    onTap: onViewApplicationTap,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFC88A26).withValues(alpha: 0.08),
+                      border: Border.all(
+                        color: const Color(0xFFC88A26).withValues(alpha: 0.25),
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
                     child: Row(
-                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          'View application',
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.primary,
-                            height: 16 / 12,
-                          ),
-                        ),
-                        SizedBox(width: 4.w),
                         Icon(
-                          Icons.chevron_right,
+                          Icons.calendar_today_outlined,
                           size: 16.sp,
-                          color: AppColors.primary,
+                          color: const Color(0xFFC88A26),
+                        ),
+                        SizedBox(width: 8.w),
+                        Expanded(
+                          child: Text(
+                            application.highlightNote!,
+                            style: context.textTheme.bodySmall?.copyWith(
+                              color: const Color(0xFF8F610E),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ],
-              ),
+
+                SizedBox(height: 12.h),
+                Divider(height: 1.h, color: context.theme.dividerColor),
+                SizedBox(height: 10.h),
+
+                // Bottom Action Row: footer status + View application
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        application.footerStatus,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: context.textTheme.bodySmall?.copyWith(
+                          color: context.colors.onSurface.withValues(
+                            alpha: 0.6,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 8.w),
+                    InkWell(
+                      onTap: onViewApplicationTap,
+                      borderRadius: BorderRadius.circular(8.r),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 4.w,
+                          vertical: 4.h,
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'View Application',
+                              style: context.textTheme.labelLarge?.copyWith(
+                                color: context.colors.primary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(width: 2.w),
+                            Icon(
+                              Icons.chevron_right,
+                              size: 18.sp,
+                              color: context.colors.primary,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildStatusChip(ApplicationStatus status) {
+  Widget _buildStatusChip(BuildContext context, ApplicationStatus status) {
     Color textColor;
     Color bgColor;
     Color borderColor;
@@ -248,39 +243,39 @@ class AppliedJobCard extends StatelessWidget {
 
     switch (status) {
       case ApplicationStatus.applied:
-        textColor = AppColors.primary;
-        bgColor = const Color(0x1A1F365C); // rgba(31, 54, 92, 0.1)
-        borderColor = const Color(0x261F365C); // rgba(31, 54, 92, 0.15)
+        textColor = context.colors.primary;
+        bgColor = context.colors.primary.withValues(alpha: 0.10);
+        borderColor = context.colors.primary.withValues(alpha: 0.20);
         label = 'Applied';
         break;
       case ApplicationStatus.inReview:
-        textColor = AppColors.secondary;
-        bgColor = const Color(0x1AD06B4F); // rgba(208, 107, 79, 0.1)
-        borderColor = const Color(0x33D06B4F); // rgba(208, 107, 79, 0.2)
+        textColor = context.colors.secondary;
+        bgColor = context.colors.secondary.withValues(alpha: 0.10);
+        borderColor = context.colors.secondary.withValues(alpha: 0.20);
         label = 'In Review';
         break;
       case ApplicationStatus.interview:
-        textColor = const Color(0xFF9E6E18);
-        bgColor = const Color(0x26C88A26); // rgba(200, 138, 38, 0.15)
-        borderColor = const Color(0x4DC88A26); // rgba(200, 138, 38, 0.3)
+        textColor = const Color(0xFFC88A26);
+        bgColor = const Color(0xFFC88A26).withValues(alpha: 0.12);
+        borderColor = const Color(0xFFC88A26).withValues(alpha: 0.30);
         label = 'Interview';
         break;
     }
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
       decoration: BoxDecoration(
         color: bgColor,
         border: Border.all(color: borderColor, width: 1),
-        borderRadius: BorderRadius.circular(9999),
+        borderRadius: BorderRadius.circular(16.r),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 6.w,
-            height: 6.w,
+            width: 6.r,
+            height: 6.r,
             decoration: BoxDecoration(
               color: textColor,
               shape: BoxShape.circle,
@@ -289,12 +284,9 @@ class AppliedJobCard extends StatelessWidget {
           SizedBox(width: 4.w),
           Text(
             label,
-            style: TextStyle(
-              fontFamily: 'Inter',
-              fontSize: 11.sp,
-              fontWeight: FontWeight.w600,
+            style: context.textTheme.labelSmall?.copyWith(
               color: textColor,
-              height: 16 / 11,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
@@ -302,25 +294,21 @@ class AppliedJobCard extends StatelessWidget {
     );
   }
 
-  Widget _buildTag(String text) {
+  Widget _buildTag(BuildContext context, String text) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: context.colors.surfaceContainerHighest.withValues(alpha: 0.5),
         border: Border.all(
-          color: AppColors.border,
+          color: context.theme.dividerColor,
           width: 1,
         ),
         borderRadius: BorderRadius.circular(6.r),
       ),
       child: Text(
         text,
-        style: TextStyle(
-          fontFamily: 'Inter',
-          fontSize: 11.sp,
-          fontWeight: FontWeight.w400,
-          color: AppColors.textSecondary,
-          height: 16 / 11,
+        style: context.textTheme.labelSmall?.copyWith(
+          color: context.colors.onSurface.withValues(alpha: 0.7),
         ),
       ),
     );

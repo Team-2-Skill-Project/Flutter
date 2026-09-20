@@ -4,9 +4,9 @@
 import 'package:MatchIn/features/splash/domain/repositories/splash_repo.dart';
 
 class CheckUserStatusUseCase {
-  final SplashRepo repository;
-
   CheckUserStatusUseCase({required this.repository});
+
+  final SplashRepo repository;
 
   bool checkOnboarding() {
     return repository.isboardingviewed();
