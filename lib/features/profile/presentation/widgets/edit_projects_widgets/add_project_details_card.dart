@@ -1,8 +1,8 @@
 import 'package:MatchIn/core/extensions/context_extensions.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/projects_widgets/ongoing_project_checkbox.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/projects_widgets/project_date_fields.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/projects_widgets/project_text_field.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/projects_widgets/technologies_field.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_projects_widgets/ongoing_project_checkbox.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_projects_widgets/project_date_fields.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_projects_widgets/project_text_field.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_projects_widgets/technologies_field.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -85,9 +85,7 @@ class AddProjectDetailsCard extends StatelessWidget {
             hint: locale.projectDescriptionHint,
             maxLines: 4,
           ),
-
           SizedBox(height: 6.h),
-
           Text(
             locale.projectDescriptionHelper,
             style: theme.textTheme.bodySmall?.copyWith(

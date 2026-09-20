@@ -6,8 +6,6 @@ class NotificationsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(child: NotificationsViewBody()),
-    );
+    return const Scaffold(body: SafeArea(child: NotificationsViewBody()));
   }
 }

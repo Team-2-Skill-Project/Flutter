@@ -2854,6 +2854,181 @@ class S {
       args: [],
     );
   }
+
+  /// `Login`
+  String get login {
+    return Intl.message('Login', name: 'login', desc: '', args: []);
+  }
+
+  /// `Create Account`
+  String get createAccount {
+    return Intl.message(
+      'Create Account',
+      name: 'createAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get email {
+    return Intl.message('Email', name: 'email', desc: '', args: []);
+  }
+
+  /// `Enter your email address`
+  String get emailHint {
+    return Intl.message(
+      'Enter your email address',
+      name: 'emailHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message('Password', name: 'password', desc: '', args: []);
+  }
+
+  /// `Enter your password`
+  String get passwordHint {
+    return Intl.message(
+      'Enter your password',
+      name: 'passwordHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keep me signed in`
+  String get keepMeSignedIn {
+    return Intl.message(
+      'Keep me signed in',
+      name: 'keepMeSignedIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot password?`
+  String get forgotPassword {
+    return Intl.message(
+      'Forgot password?',
+      name: 'forgotPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `or`
+  String get or {
+    return Intl.message('or', name: 'or', desc: '', args: []);
+  }
+
+  /// `Continue with Google`
+  String get registerWithGoogle {
+    return Intl.message(
+      'Continue with Google',
+      name: 'registerWithGoogle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New here?`
+  String get newHere {
+    return Intl.message('New here?', name: 'newHere', desc: '', args: []);
+  }
+
+  /// `Already have an account?`
+  String get alreadyHaveAccount {
+    return Intl.message(
+      'Already have an account?',
+      name: 'alreadyHaveAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your phone number`
+  String get phoneHint {
+    return Intl.message(
+      'Enter your phone number',
+      name: 'phoneHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Password`
+  String get confirmPassword {
+    return Intl.message(
+      'Confirm Password',
+      name: 'confirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Re-enter your password`
+  String get confirmPasswordHint {
+    return Intl.message(
+      'Re-enter your password',
+      name: 'confirmPasswordHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terms & Conditions`
+  String get termsAndConditions {
+    return Intl.message(
+      'Terms & Conditions',
+      name: 'termsAndConditions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Complete Registration`
+  String get completeRegistration {
+    return Intl.message(
+      'Complete Registration',
+      name: 'completeRegistration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome Back!`
+  String get welcomeBack {
+    return Intl.message(
+      'Welcome Back!',
+      name: 'welcomeBack',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your smart career discovery platform`
+  String get smartCareerDiscoveryPlatform {
+    return Intl.message(
+      'Your smart career discovery platform',
+      name: 'smartCareerDiscoveryPlatform',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Candidate Profile`
+  String get candidateProfile {
+    return Intl.message(
+      'Candidate Profile',
+      name: 'candidateProfile',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

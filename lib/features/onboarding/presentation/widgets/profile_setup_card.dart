@@ -69,20 +69,14 @@ class ProfileSetupCard extends StatelessWidget {
             text: l10n.onboardingBullet3,
           ),
           SizedBox(height: 16.h),
-          OnboardingActionButton(
-            text: l10n.start,
-            onPressed: onStart,
-          ),
+          OnboardingActionButton(text: l10n.start, onPressed: onStart),
           SizedBox(height: 8.h),
           Center(
             child: TextButton(
               onPressed: onNotNow,
               style: TextButton.styleFrom(
                 minimumSize: Size(56.w, 36.h),
-                padding: EdgeInsets.symmetric(
-                  horizontal: 8.w,
-                  vertical: 4.h,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
               ),
               child: Text(
                 l10n.notNow,
@@ -112,10 +106,7 @@ class ProfileSetupCard extends StatelessWidget {
         Container(
           width: 6.w,
           height: 6.w,
-          decoration: BoxDecoration(
-            color: dotColor,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
         ),
         SizedBox(width: 10.w),
         Expanded(

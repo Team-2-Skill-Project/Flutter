@@ -1,4 +1,4 @@
-import 'package:MatchIn/features/profile/presentation/widgets/career_preferences_widgets/preference_section_card.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/preference_section_card.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

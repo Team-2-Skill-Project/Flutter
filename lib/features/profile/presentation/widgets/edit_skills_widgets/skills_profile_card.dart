@@ -1,5 +1,5 @@
 import 'package:MatchIn/core/extensions/context_extensions.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/skills_widgets/profile_match_quality_row.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_skills_widgets/profile_match_quality_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:MatchIn/generated/l10n.dart';

@@ -30,10 +30,9 @@ class JobMatchCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     s.yourMatch,
-                    style: theme.textTheme.titleMedium
-                        ?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
                 const MatchingStatus(
@@ -64,8 +63,7 @@ class JobMatchCard extends StatelessWidget {
               s.matchExplanation,
               style: theme.textTheme.bodyMedium?.copyWith(
                 height: 1.5,
-                color: theme.colorScheme.onSurface
-                    .withValues(alpha: 0.6),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
               ),
             ),
           ],

@@ -1,12 +1,12 @@
-import 'package:MatchIn/features/profile/presentation/widgets/career_preferences_widgets/career_goal_section.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/career_preferences_widgets/career_preferences_actions.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/career_preferences_widgets/career_preferences_header.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/career_preferences_widgets/career_preferences_intro_card.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/career_preferences_widgets/experience_level_section.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/career_preferences_widgets/job_type_section.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/career_preferences_widgets/preferred_location_section.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/career_preferences_widgets/target_role_section.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/career_preferences_widgets/work_mode_section.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/career_goal_section.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/career_preferences_actions.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/career_preferences_header.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/career_preferences_intro_card.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/experience_level_section.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/job_type_section.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/preferred_location_section.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/target_role_section.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/work_mode_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

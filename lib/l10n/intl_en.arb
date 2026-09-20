@@ -348,7 +348,26 @@
   "careerGoal": "Career Goal",
   "careerGoalHint": "e.g. Gain professional Flutter experience and contribute to high-impact mobile products.",
   "careerGoalHelper": "Tell us briefly what you want to achieve next.",
-  "savePreferences": "Save Preferences"
-  
+  "savePreferences": "Save Preferences",
+  "login": "Login",
+  "createAccount": "Create Account",
+  "email": "Email",
+  "emailHint": "Enter your email address",
+  "password": "Password",
+  "passwordHint": "Enter your password",
+  "keepMeSignedIn": "Keep me signed in",
+  "forgotPassword": "Forgot password?",
+  "or": "or",
+  "registerWithGoogle": "Continue with Google",
+  "newHere": "New here?",
+  "alreadyHaveAccount": "Already have an account?",
+  "phoneHint": "Enter your phone number",
+  "confirmPassword": "Confirm Password",
+  "confirmPasswordHint": "Re-enter your password",
+  "termsAndConditions": "Terms & Conditions",
+  "completeRegistration": "Complete Registration",
+  "welcomeBack": "Welcome Back!",
+  "smartCareerDiscoveryPlatform": "Your smart career discovery platform",
+  "candidateProfile": "Candidate Profile"
 
 }

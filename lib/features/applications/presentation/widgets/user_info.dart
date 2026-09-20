@@ -31,9 +31,7 @@ class UserInfo extends StatelessWidget {
         Text(
           s.reviewInformationBeforeContinuing,
           style: theme.textTheme.bodyMedium?.copyWith(
-            color: theme.colorScheme.onSurface.withValues(
-              alpha: 0.6,
-            ),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
           ),
         ),
         SizedBox(height: 14.h),
@@ -43,20 +41,11 @@ class UserInfo extends StatelessWidget {
             padding: EdgeInsets.all(16.r),
             child: Column(
               children: [
-                UserInfoField(
-                  label: s.fullName,
-                  value: 'Ahmed Mohamed',
-                ),
+                UserInfoField(label: s.fullName, value: 'Ahmed Mohamed'),
                 SizedBox(height: 16.h),
-                UserInfoField(
-                  label: s.emailAddress,
-                  value: 'ahmed@email.com',
-                ),
+                UserInfoField(label: s.emailAddress, value: 'ahmed@email.com'),
                 SizedBox(height: 16.h),
-                UserInfoField(
-                  label: s.phoneNumber,
-                  value: '+20 100 000 0000',
-                ),
+                UserInfoField(label: s.phoneNumber, value: '+20 100 000 0000'),
               ],
             ),
           ),

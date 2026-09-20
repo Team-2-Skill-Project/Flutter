@@ -1,5 +1,5 @@
-import 'package:MatchIn/features/profile/presentation/widgets/skills_widgets/skill_search_field.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/skills_widgets/skill_suggestions.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_skills_widgets/skill_search_field.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_skills_widgets/skill_suggestions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:MatchIn/generated/l10n.dart';

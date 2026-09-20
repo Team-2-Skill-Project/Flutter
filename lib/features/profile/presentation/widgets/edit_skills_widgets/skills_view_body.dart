@@ -1,8 +1,8 @@
-import 'package:MatchIn/features/profile/presentation/widgets/skills_widgets/add_skill_section.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/skills_widgets/cv_skills_card.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/skills_widgets/manage_skills_button.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/skills_widgets/manual_skills_card.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/skills_widgets/skills_profile_card.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_skills_widgets/add_skill_section.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_skills_widgets/cv_skills_card.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_skills_widgets/manage_skills_button.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_skills_widgets/manual_skills_card.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_skills_widgets/skills_profile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:MatchIn/generated/l10n.dart';

@@ -20,10 +20,7 @@ class OnboardingTopBar extends StatelessWidget {
     final bool showSkip = currentPage < totalSteps - 1;
 
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: 16.w,
-        vertical: 12.h,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -41,10 +38,7 @@ class OnboardingTopBar extends StatelessWidget {
           ),
 
           // Animated Indicator Dots
-          OnboardingIndicator(
-            currentPage: currentPage,
-            itemCount: totalSteps,
-          ),
+          OnboardingIndicator(currentPage: currentPage, itemCount: totalSteps),
 
           // Trailing Action: Skip
           SizedBox(
@@ -57,8 +51,7 @@ class OnboardingTopBar extends StatelessWidget {
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
                         minimumSize: Size(40.w, 24.h),
-                        tapTargetSize: MaterialTapTargetSize
-                            .shrinkWrap,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
                       child: Text(
                         context.l10n.skip,

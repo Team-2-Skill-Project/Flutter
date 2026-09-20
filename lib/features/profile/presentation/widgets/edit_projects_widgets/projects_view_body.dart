@@ -1,7 +1,7 @@
-import 'package:MatchIn/features/profile/presentation/widgets/projects_widgets/add_project_button.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/projects_widgets/add_project_details_card.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/projects_widgets/project_card.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/projects_widgets/projects_profile_card.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_projects_widgets/add_project_button.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_projects_widgets/add_project_details_card.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_projects_widgets/project_card.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_projects_widgets/projects_profile_card.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

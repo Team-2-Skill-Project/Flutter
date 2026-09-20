@@ -26,15 +26,9 @@ class TrackingJobCard extends StatelessWidget {
                   height: 52.w,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: theme
-                        .colorScheme
-                        .surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(
-                      10.r,
-                    ),
-                    border: Border.all(
-                      color: theme.dividerColor,
-                    ),
+                    color: theme.colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(10.r),
+                    border: Border.all(color: theme.dividerColor),
                   ),
                   child: Icon(
                     Icons.apartment_rounded,
@@ -44,26 +38,22 @@ class TrackingJobCard extends StatelessWidget {
                 SizedBox(width: 14.w),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         s.juniorFlutterDeveloper,
-                        style: theme.textTheme.titleLarge
-                            ?.copyWith(
-                              fontWeight: FontWeight.w700,
-                            ),
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       SizedBox(height: 2.h),
                       Text(
                         'TechNova',
-                        style: theme.textTheme.bodyLarge
-                            ?.copyWith(
-                              color: theme
-                                  .colorScheme
-                                  .onSurface
-                                  .withValues(alpha: 0.65),
-                            ),
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.65,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -80,8 +70,7 @@ class TrackingJobCard extends StatelessWidget {
             Text(
               '${s.cairo} • ${s.hybrid} • ${s.fullTime}',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface
-                    .withValues(alpha: 0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
 
@@ -92,10 +81,7 @@ class TrackingJobCard extends StatelessWidget {
               child: TextButton.icon(
                 onPressed: onViewJob ?? () {},
                 iconAlignment: IconAlignment.end,
-                icon: const Icon(
-                  Icons.arrow_forward,
-                  size: 18,
-                ),
+                icon: const Icon(Icons.arrow_forward, size: 18),
                 label: Text(s.viewJob),
               ),
             ),

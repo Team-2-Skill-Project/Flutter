@@ -20,9 +20,9 @@ import 'package:MatchIn/features/jobs/presentation/views/jobs_search_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/notifications_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/settings_view.dart';
 import 'package:MatchIn/features/onboarding/presentation/pages/onbording.dart';
-import 'package:MatchIn/features/profile/presentation/views/career_preferences_view.dart';
-import 'package:MatchIn/features/profile/presentation/views/projects_view.dart';
-import 'package:MatchIn/features/profile/presentation/views/skills_view.dart';
+import 'package:MatchIn/features/profile/presentation/views/edit_career_preferences_view.dart';
+import 'package:MatchIn/features/profile/presentation/views/edit_projects_view.dart';
+import 'package:MatchIn/features/profile/presentation/views/edit_skills_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -49,7 +49,7 @@ abstract final class AppRouter {
   }
 
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.kcareerPrefView,
+    initialLocation: AppRoutes.kSplashView,
     redirect: (context, state) {
       if (!getIt.isRegistered<SharedPreferencesService>()) {
         return null;
@@ -111,7 +111,7 @@ abstract final class AppRouter {
         },
       ),
 
-      // WebView
+      // Reusable WebView
       GoRoute(
         path: AppRoutes.kWebView,
         pageBuilder: (context, state) {
@@ -212,7 +212,7 @@ abstract final class AppRouter {
         },
       ),
 
-      // OTP
+      // OTP Verification
       GoRoute(
         path: AppRoutes.kOtpVerificationView,
         pageBuilder: (context, state) {
@@ -314,35 +314,35 @@ abstract final class AppRouter {
         },
       ),
 
-      // Skills View
+      // Edit Skills
       GoRoute(
-        path: AppRoutes.kSkillsView,
+        path: AppRoutes.keditSkillsView,
         pageBuilder: (context, state) {
           return _buildTransitionPage(
             state: state,
-            child: const SkillsView(),
+            child: const EditSkillsView(),
           );
         },
       ),
 
-      // Projects View
+      // Edit Projects
       GoRoute(
-        path: AppRoutes.kProjectsView,
+        path: AppRoutes.keditProjectsView,
         pageBuilder: (context, state) {
           return _buildTransitionPage(
             state: state,
-            child: const ProjectsView(),
+            child: const EditProjectsView(),
           );
         },
       ),
 
-      //Career Pref View
+      // Edit Career Preferences
       GoRoute(
-        path: AppRoutes.kcareerPrefView,
+        path: AppRoutes.keditcareerPrefView,
         pageBuilder: (context, state) {
           return _buildTransitionPage(
             state: state,
-            child: const CareerPreferencesView(),
+            child: const EditCareerPreferencesView(),
           );
         },
       ),

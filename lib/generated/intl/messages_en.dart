@@ -43,6 +43,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "aiAssistant": MessageLookupByLibrary.simpleMessage("AI Assistant"),
     "aiIsTyping": MessageLookupByLibrary.simpleMessage("AI is thinking..."),
     "all": MessageLookupByLibrary.simpleMessage("All"),
+    "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
+      "Already have an account?",
+    ),
     "alreadySubmitted": MessageLookupByLibrary.simpleMessage(
       "Already submitted",
     ),
@@ -93,6 +96,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "buildMyRoadmap": MessageLookupByLibrary.simpleMessage("Build My Roadmap"),
     "cairo": MessageLookupByLibrary.simpleMessage("Cairo"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "candidateProfile": MessageLookupByLibrary.simpleMessage(
+      "Candidate Profile",
+    ),
     "careerGoal": MessageLookupByLibrary.simpleMessage("Career Goal"),
     "careerGoalHelper": MessageLookupByLibrary.simpleMessage(
       "Tell us briefly what you want to achieve next.",
@@ -133,6 +139,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "city": MessageLookupByLibrary.simpleMessage("City"),
     "clear": MessageLookupByLibrary.simpleMessage("Clear"),
     "clearAllChats": MessageLookupByLibrary.simpleMessage("Clear All Chats"),
+    "completeRegistration": MessageLookupByLibrary.simpleMessage(
+      "Complete Registration",
+    ),
     "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
     "confirmClearAllChats": MessageLookupByLibrary.simpleMessage(
       "Are you sure you want to clear all chats? This action cannot be undone.",
@@ -142,6 +151,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
       "Confirm new password",
+    ),
+    "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
+    "confirmPasswordHint": MessageLookupByLibrary.simpleMessage(
+      "Re-enter your password",
     ),
     "contactUs": MessageLookupByLibrary.simpleMessage("Contact Us"),
     "continueText": MessageLookupByLibrary.simpleMessage("Continue"),
@@ -157,6 +170,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "coverNoteHint": MessageLookupByLibrary.simpleMessage(
       "Add a short message about why you’re interested in this role.",
     ),
+    "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
     "createNewPassword": MessageLookupByLibrary.simpleMessage(
       "Create a new password",
     ),
@@ -183,7 +197,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "edit": MessageLookupByLibrary.simpleMessage("Edit"),
     "editNote": MessageLookupByLibrary.simpleMessage("Edit Note"),
     "education": MessageLookupByLibrary.simpleMessage("Education"),
+    "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailAddress": MessageLookupByLibrary.simpleMessage("Email Address"),
+    "emailHint": MessageLookupByLibrary.simpleMessage(
+      "Enter your email address",
+    ),
     "endDate": MessageLookupByLibrary.simpleMessage("End Date"),
     "english": MessageLookupByLibrary.simpleMessage("English"),
     "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
@@ -218,6 +236,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Focus on 2 high-priority skills",
     ),
     "followUs": MessageLookupByLibrary.simpleMessage("Follow Us"),
+    "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot password?"),
     "foundInCvAndProjects": MessageLookupByLibrary.simpleMessage(
       "Found in your CV and projects",
     ),
@@ -271,6 +290,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "juniorFlutterDeveloper": MessageLookupByLibrary.simpleMessage(
       "Junior Flutter Developer",
     ),
+    "keepMeSignedIn": MessageLookupByLibrary.simpleMessage("Keep me signed in"),
     "keepTrackerUpdated": MessageLookupByLibrary.simpleMessage(
       "Keep your tracker updated when you hear back from the employer.",
     ),
@@ -285,6 +305,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "learningTasks": MessageLookupByLibrary.simpleMessage("LEARNING TASKS"),
     "light": MessageLookupByLibrary.simpleMessage("Light"),
     "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
+    "login": MessageLookupByLibrary.simpleMessage("Login"),
     "manageAllSkills": MessageLookupByLibrary.simpleMessage(
       "Manage all skills",
     ),
@@ -314,6 +335,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Needs Improvement",
     ),
     "newChat": MessageLookupByLibrary.simpleMessage("New Chat"),
+    "newHere": MessageLookupByLibrary.simpleMessage("New here?"),
     "newJobsMatchProfile": MessageLookupByLibrary.simpleMessage(
       "New jobs match your profile",
     ),
@@ -358,17 +380,20 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "opportunities": MessageLookupByLibrary.simpleMessage("opportunities"),
     "optional": MessageLookupByLibrary.simpleMessage("Optional"),
+    "or": MessageLookupByLibrary.simpleMessage("or"),
     "otpCodeDidNotMatch": MessageLookupByLibrary.simpleMessage(
       "That code didn\'t match. Check the message and try again.",
     ),
     "otpVerifying": MessageLookupByLibrary.simpleMessage("Verifying…"),
     "partTime": MessageLookupByLibrary.simpleMessage("Part-time"),
+    "password": MessageLookupByLibrary.simpleMessage("Password"),
     "passwordChangedSuccessDesc": MessageLookupByLibrary.simpleMessage(
       "Your password has been changed successfully. You can now log in with your new password.",
     ),
     "passwordChangedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Password changed successfully",
     ),
+    "passwordHint": MessageLookupByLibrary.simpleMessage("Enter your password"),
     "passwordLengthHint": MessageLookupByLibrary.simpleMessage(
       "Use at least 8 characters.",
     ),
@@ -380,6 +405,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "pendingEmployerScreening": MessageLookupByLibrary.simpleMessage(
       "Pending employer screening",
+    ),
+    "phoneHint": MessageLookupByLibrary.simpleMessage(
+      "Enter your phone number",
     ),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
     "pleaseCheckYourInternetConnection": MessageLookupByLibrary.simpleMessage(
@@ -438,6 +466,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Recommended for you",
     ),
     "recruiterReview": MessageLookupByLibrary.simpleMessage("Recruiter review"),
+    "registerWithGoogle": MessageLookupByLibrary.simpleMessage(
+      "Continue with Google",
+    ),
     "remote": MessageLookupByLibrary.simpleMessage("Remote"),
     "replaceCv": MessageLookupByLibrary.simpleMessage("Replace CV"),
     "reqAtLeastOneNumber": MessageLookupByLibrary.simpleMessage(
@@ -525,6 +556,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Skills to improve",
     ),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+    "smartCareerDiscoveryPlatform": MessageLookupByLibrary.simpleMessage(
+      "Your smart career discovery platform",
+    ),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong",
     ),
@@ -583,6 +617,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Which technologies have you worked with?",
     ),
     "tenMinutesAgo": MessageLookupByLibrary.simpleMessage("10 min ago"),
+    "termsAndConditions": MessageLookupByLibrary.simpleMessage(
+      "Terms & Conditions",
+    ),
     "testingPrioritySkill": MessageLookupByLibrary.simpleMessage(
       "Testing is now one of your highest-priority skills.",
     ),
@@ -649,6 +686,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wantToImproveYourMatch": MessageLookupByLibrary.simpleMessage(
       "Want to improve your match?",
     ),
+    "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back!"),
     "whatYouAlreadyMatch": MessageLookupByLibrary.simpleMessage(
       "What you already match",
     ),
