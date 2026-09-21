@@ -1,4 +1,4 @@
-import 'package:MatchIn/features/jobs/presentation/widgets/matching_status.dart';
+import 'package:MatchIn/core/widgets/matching_status/matching_status_type.dart';
 
 class SavedJobItemModel {
   const SavedJobItemModel({
@@ -73,7 +73,7 @@ class SavedJobItemModel {
       experience: '0–2 years',
       jobType: 'Full-time',
       postedDate: 'Posted 2 days ago',
-      matchStatus: MatchingStatusType.percentage,
+      matchStatus: MatchingStatusType.excellent,
       matchPercentage: 92,
       skills: ['Flutter', 'REST API', 'Bloc'],
       isSaved: true,
@@ -88,7 +88,7 @@ class SavedJobItemModel {
       experience: 'Entry Level',
       jobType: 'Internship',
       postedDate: 'Posted today',
-      matchStatus: MatchingStatusType.percentage,
+      matchStatus: MatchingStatusType.excellent,
       matchPercentage: 86,
       skills: ['Flutter', 'Firebase', 'Git'],
       isSaved: true,
@@ -121,7 +121,7 @@ class SavedJobItemModel {
       experience: '1-3 years',
       jobType: 'Full-time',
       postedDate: 'Applied 3 days ago',
-      matchStatus: MatchingStatusType.strong,
+      matchStatus: MatchingStatusType.excellent,
       matchPercentage: 95,
       skills: ['Flutter', 'State Management', 'Clean Architecture'],
       isSaved: true,

@@ -12,10 +12,6 @@ class SocialLoginButton extends StatelessWidget {
   final Widget icon;
   final VoidCallback onPressed;
 
-  final String text;
-  final Widget icon;
-  final VoidCallback onPressed;
-
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(

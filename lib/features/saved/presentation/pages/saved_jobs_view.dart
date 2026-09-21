@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
-import 'package:MatchIn/features/jobs/presentation/widgets/job_card.dart';
-import 'package:MatchIn/features/jobs/presentation/widgets/matching_status.dart';
+import 'package:MatchIn/core/widgets/matching_status/matching_status_type.dart';
+import 'package:MatchIn/features/saved/presentation/widgets/job_card.dart';
 import 'package:MatchIn/features/saved/data/repositories/applied_jobs_repository.dart';
 import 'package:MatchIn/features/saved/domain/entities/saved_job_entity.dart';
 import 'package:MatchIn/features/saved/presentation/cubit/saved_jobs_cubit.dart';
@@ -256,7 +256,7 @@ class _SavedJobsContentState extends State<_SavedJobsContent> {
               postedDate: job.postedDate,
               skills: job.skills,
               matchStatus: job.matchPercentage != null
-                  ? MatchingStatusType.percentage
+                  ? MatchingStatusType.fromPercentage(job.matchPercentage!)
                   : MatchingStatusType.good,
               matchPercentage: job.matchPercentage,
               isSaved: job.isSaved,
