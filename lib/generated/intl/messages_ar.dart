@@ -20,9 +20,27 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
-  static String m0(name) => "مرحبًا، ${name} 👋";
+  static String m0(count) =>
+      "${Intl.plural(count, one: 'منذ يوم', two: 'منذ يومين', few: 'منذ ${count} أيام', other: 'منذ ${count} يوم')}";
 
-  static String m1(count) => "${count} مهارات";
+  static String m1(name) => "مرحبًا، ${name} 👋";
+
+  static String m2(count) =>
+      "${Intl.plural(count, one: 'منذ ساعة', two: 'منذ ساعتين', few: 'منذ ${count} ساعات', other: 'منذ ${count} ساعة')}";
+
+  static String m3(count) =>
+      "${Intl.plural(count, one: 'منذ دقيقة', two: 'منذ دقيقتين', few: 'منذ ${count} دقائق', other: 'منذ ${count} دقيقة')}";
+
+  static String m4(count) =>
+      "${Intl.plural(count, one: 'منذ شهر', two: 'منذ شهرين', few: 'منذ ${count} أشهر', other: 'منذ ${count} شهر')}";
+
+  static String m5(count) => "${count} مهارات";
+
+  static String m6(count) =>
+      "${Intl.plural(count, one: 'منذ أسبوع', two: 'منذ أسبوعين', few: 'منذ ${count} أسابيع', other: 'منذ ${count} أسبوع')}";
+
+  static String m7(count) =>
+      "${Intl.plural(count, one: 'منذ سنة', two: 'منذ سنتين', few: 'منذ ${count} سنوات', other: 'منذ ${count} سنة')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -192,6 +210,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "cvUploadRequirements": MessageLookupByLibrary.simpleMessage(
       "PDF أو DOCX • بحد أقصى 5 MB",
     ),
+    "daysAgo": m0,
     "delete": MessageLookupByLibrary.simpleMessage("حذف"),
     "deleteChat": MessageLookupByLibrary.simpleMessage("حذف المحادثة"),
     "description": MessageLookupByLibrary.simpleMessage("الوصف"),
@@ -220,6 +239,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "failedToSendMessage": MessageLookupByLibrary.simpleMessage(
       "فشل إرسال الرسالة. الرجاء المحاولة مرة أخرى.",
     ),
+    "fairMatch": MessageLookupByLibrary.simpleMessage("تطابق متوسط"),
     "finalConfirmation": MessageLookupByLibrary.simpleMessage(
       "التأكيد النهائي",
     ),
@@ -258,12 +278,13 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "good": MessageLookupByLibrary.simpleMessage("جيد"),
     "goodMatch": MessageLookupByLibrary.simpleMessage("توافق جيد"),
-    "greetingUser": m0,
+    "greetingUser": m1,
     "helpfulAdvantage": MessageLookupByLibrary.simpleMessage(
       "ميزة إضافية مفيدة",
     ),
     "highPriority": MessageLookupByLibrary.simpleMessage("أولوية عالية"),
     "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
+    "hoursAgo": m2,
     "howCanIHelpYouToday": MessageLookupByLibrary.simpleMessage(
       "كيف يمكنني مساعدتك اليوم؟",
     ),
@@ -288,6 +309,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "juniorFlutterDeveloper": MessageLookupByLibrary.simpleMessage(
       "مطور Flutter مبتدئ",
     ),
+    "justNow": MessageLookupByLibrary.simpleMessage("الآن"),
     "keepMeSignedIn": MessageLookupByLibrary.simpleMessage("ابقَ متصلاً"),
     "keepTrackerUpdated": MessageLookupByLibrary.simpleMessage(
       "حدّث حالة طلبك عندما يصلك رد من صاحب العمل.",
@@ -320,7 +342,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "مذكورة في متطلبات الوظيفة",
     ),
     "midLevel": MessageLookupByLibrary.simpleMessage("Mid-Level"),
+    "minutesAgo": m3,
     "monthYearHint": MessageLookupByLibrary.simpleMessage("شهر / سنة"),
+    "monthsAgo": m4,
     "mostRelevant": MessageLookupByLibrary.simpleMessage("الأكثر ملاءمة"),
     "multiSelect": MessageLookupByLibrary.simpleMessage("اختيارات متعددة"),
     "myCareerRoadmap": MessageLookupByLibrary.simpleMessage(
@@ -537,7 +561,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "المهارة قيد التقدم",
     ),
     "skills": MessageLookupByLibrary.simpleMessage("المهارات"),
-    "skillsCount": m1,
+    "skillsCount": m5,
     "skillsProfile": MessageLookupByLibrary.simpleMessage("ملف المهارات"),
     "skillsProfileDescription": MessageLookupByLibrary.simpleMessage(
       "مهاراتك بتساعد SkillMatch يحدد الفرص الأنسب ليك.",
@@ -658,6 +682,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wantToImproveYourMatch": MessageLookupByLibrary.simpleMessage(
       "هل تريد تحسين توافقك؟",
     ),
+    "weeksAgo": m6,
     "welcomeBack": MessageLookupByLibrary.simpleMessage("مرحباً بعودتك!"),
     "whatYouAlreadyMatch": MessageLookupByLibrary.simpleMessage(
       "المهارات المتوافقة لديك",
@@ -675,6 +700,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "خلال 3 أيام عمل",
     ),
     "workMode": MessageLookupByLibrary.simpleMessage("نظام العمل"),
+    "yearsAgo": m7,
     "yesterday": MessageLookupByLibrary.simpleMessage("أمس"),
     "yesterdayTime": MessageLookupByLibrary.simpleMessage("أمس • 3:45 م"),
     "yourApplicationFor": MessageLookupByLibrary.simpleMessage(

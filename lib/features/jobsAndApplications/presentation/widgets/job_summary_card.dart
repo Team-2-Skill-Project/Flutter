@@ -1,4 +1,4 @@
-import 'package:MatchIn/features/home/presentation/widgets/home_view_widgets/matching_status.dart';
+import 'package:MatchIn/core/widgets/matching_status/matching_status.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -71,10 +71,7 @@ class JobSummaryCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 8.w),
-                const MatchingStatus(
-                  type: MatchingStatusType.good,
-                  percentage: 78,
-                ),
+                const MatchingStatus(percentage: 78),
               ],
             ),
             SizedBox(height: 16.h),

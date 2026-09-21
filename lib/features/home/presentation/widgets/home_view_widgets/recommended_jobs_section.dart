@@ -1,7 +1,7 @@
 import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/core/routing/app_routes.dart';
-import 'package:MatchIn/features/home/presentation/widgets/jobs_search_view_widgets/job_card.dart';
-import 'package:MatchIn/features/home/presentation/widgets/home_view_widgets/matching_status.dart';
+import 'package:MatchIn/features/jobsAndApplications/domain/entities/job_entity.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/widgets/job_details_widgets/job_card_widgets/job_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +11,51 @@ class RecommendedJobsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: دي dummy data مؤقتة لحد ما نربط الـ Cubit بالباك إند
+    final dummyJobs = [
+      JobEntity(
+        id: '1',
+        title: 'Junior Flutter Developer',
+        companyName: 'TechNova',
+        location: 'Cairo',
+        workMode: 'Hybrid',
+        experienceLevel: '0–2 years',
+        employmentType: 'Full-time',
+        postedDate: DateTime.now().subtract(
+          const Duration(days: 2),
+        ),
+        skills: const ['Flutter', 'REST API', 'Bloc'],
+        matchPercentage: 92,
+        isSaved: true,
+      ),
+      JobEntity(
+        id: '2',
+        title: 'Mobile Developer Intern',
+        companyName: 'CodeHub',
+        location: 'Remote',
+        workMode: 'Remote',
+        experienceLevel: 'Entry Level',
+        employmentType: 'Internship',
+        postedDate: DateTime.now(),
+        skills: const ['Flutter', 'Firebase', 'Git'],
+        matchPercentage: 86,
+      ),
+      JobEntity(
+        id: '3',
+        title: 'Junior Software Engineer',
+        companyName: 'NextStack',
+        location: 'Giza',
+        workMode: 'On-site',
+        experienceLevel: 'Entry Level',
+        employmentType: 'Full-time',
+        postedDate: DateTime.now().subtract(
+          const Duration(days: 3),
+        ),
+        skills: const ['Dart', 'Flutter'],
+        matchPercentage: 74,
+      ),
+    ];
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16).w,
       child: Column(
@@ -25,62 +70,17 @@ class RecommendedJobsSection extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {
-                  context.push(AppRoutes.kJobsSearchView);
-                },
+                onPressed: () =>
+                    context.push(AppRoutes.kJobsSearchView),
                 child: Text(context.l10n.seeAll),
               ),
             ],
           ),
-
           SizedBox(height: 12.h),
-
-          const JobCard(
-            title: 'Junior Flutter Developer',
-            company: 'TechNova',
-            location: 'Cairo',
-            workMode: 'Hybrid',
-            experience: '0–2 years',
-            jobType: 'Full-time',
-            postedDate: 'Posted 2 days ago',
-            matchPercentage: 92,
-            matchStatus: MatchingStatusType.percentage,
-            isSaved: true,
-            skills: ['Flutter', 'REST API', 'Bloc'],
-            showShareButton: true,
-          ),
-
-          SizedBox(height: 12.h),
-
-          const JobCard(
-            title: 'Mobile Developer Intern',
-            company: 'CodeHub',
-            location: 'Remote',
-            workMode: 'Remote',
-            experience: 'Entry Level',
-            jobType: 'Internship',
-            postedDate: 'Posted today',
-            matchPercentage: 86,
-            matchStatus: MatchingStatusType.percentage,
-            showShareButton: true,
-            skills: ['Flutter', 'Firebase', 'Git'],
-          ),
-
-          SizedBox(height: 12.h),
-
-          const JobCard(
-            title: 'Junior Software Engineer',
-            company: 'NextStack',
-            location: 'Giza',
-            workMode: 'On-site',
-            experience: 'Entry Level',
-            jobType: 'Full-time',
-            postedDate: 'Posted 3 days ago',
-            matchPercentage: 74,
-            matchStatus: MatchingStatusType.percentage,
-            showShareButton: true,
-            skills: ['Dart', 'Flutter'],
-          ),
+          for (final job in dummyJobs) ...[
+            JobCard(job: job, showShareButton: true),
+            SizedBox(height: 12.h),
+          ],
         ],
       ),
     );

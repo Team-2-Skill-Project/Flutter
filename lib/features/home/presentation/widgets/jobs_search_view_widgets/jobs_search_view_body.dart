@@ -1,18 +1,64 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:MatchIn/core/extensions/context_extensions.dart';
-import 'package:MatchIn/features/home/presentation/widgets/jobs_search_view_widgets/job_card.dart';
+import 'package:MatchIn/features/jobsAndApplications/domain/entities/job_entity.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/widgets/job_details_widgets/job_card_widgets/job_card.dart';
 import 'package:MatchIn/features/home/presentation/widgets/jobs_search_view_widgets/job_filter_chip.dart';
 import 'package:MatchIn/features/home/presentation/widgets/jobs_search_view_widgets/jobs_search_field.dart';
 import 'package:MatchIn/features/home/presentation/widgets/jobs_search_view_widgets/jobs_search_header.dart';
-import 'package:MatchIn/features/home/presentation/widgets/home_view_widgets/matching_status.dart';
 import 'package:MatchIn/features/home/presentation/widgets/jobs_search_view_widgets/search_results_header.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class JobsSearchViewBody extends StatelessWidget {
   const JobsSearchViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // TODO: دي dummy data مؤقتة لحد ما نربط الـ Cubit بالباك إند
+    final dummyJobs = [
+      JobEntity(
+        id: '1',
+        title: 'Junior Flutter Developer',
+        companyName: 'TechNova',
+        location: 'Cairo',
+        workMode: 'Hybrid',
+        experienceLevel: '0–2 years',
+        employmentType: 'Full-time',
+        postedDate: DateTime.now().subtract(
+          const Duration(hours: 2),
+        ),
+        skills: const ['Flutter', 'REST API', 'Bloc'],
+        matchPercentage: 92,
+      ),
+      JobEntity(
+        id: '2',
+        title: 'Mobile Developer Intern',
+        companyName: 'CodeHub',
+        location: 'Remote',
+        workMode: 'Remote',
+        experienceLevel: '0–1 years',
+        employmentType: 'Internship',
+        postedDate: DateTime.now().subtract(
+          const Duration(hours: 2),
+        ),
+        skills: const ['Flutter', 'Firebase', 'Git'],
+        matchPercentage: 82,
+      ),
+      JobEntity(
+        id: '3',
+        title: 'Flutter UI Engineer',
+        companyName: 'AppStudio',
+        location: 'Giza',
+        workMode: 'On-site',
+        experienceLevel: 'Mid Level',
+        employmentType: 'Full-time',
+        postedDate: DateTime.now().subtract(
+          const Duration(days: 1),
+        ),
+        skills: const ['Dart', 'Flutter'],
+        matchPercentage: 75,
+      ),
+    ];
+
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
       child: Column(
@@ -34,46 +80,10 @@ class JobsSearchViewBody extends StatelessWidget {
             ),
             child: Column(
               children: [
-                const JobCard(
-                  title: 'Junior Flutter Developer',
-                  company: 'TechNova',
-                  location: 'Cairo',
-                  workMode: 'Hybrid',
-                  experience: '0–2 years',
-                  jobType: 'Full-time',
-                  postedDate: '2 hours ago',
-                  skills: ['Flutter', 'REST API', 'Bloc'],
-                  matchStatus: MatchingStatusType.strong,
-                  showShareButton: true,
-                ),
-                SizedBox(height: 12.h),
-                const JobCard(
-                  title: 'Mobile Developer Intern',
-                  company: 'CodeHub',
-                  location: 'Remote',
-                  workMode: 'Remote',
-                  experience: '0–1 years',
-                  jobType: 'Internship',
-                  postedDate: '2 hours ago',
-                  skills: ['Flutter', 'Firebase', 'Git'],
-                  matchStatus: MatchingStatusType.good,
-                  showShareButton: true,
-                ),
-                SizedBox(height: 12.h),
-                const JobCard(
-                  title: 'Flutter UI Engineer',
-                  company: 'AppStudio',
-                  location: 'Giza',
-                  workMode: 'On-site',
-                  experience: 'Mid Level',
-                  jobType: 'Full-time',
-                  postedDate: '1 day ago',
-                  skills: ['Dart', 'Flutter'],
-                  matchStatus:
-                      MatchingStatusType.percentage,
-                  matchPercentage: 75,
-                  showShareButton: false,
-                ),
+                for (final job in dummyJobs) ...[
+                  JobCard(job: job, showShareButton: true),
+                  SizedBox(height: 12.h),
+                ],
               ],
             ),
           ),
