@@ -12,7 +12,7 @@ class LoginHeader extends StatelessWidget {
 
     return Column(
       children: [
-        Image.asset('assets/images/logo.jpg', height: 80.h),
+        Image.asset('assets/icons/app_logo.png', height: 80.h),
         SizedBox(height: 16.h),
         Text(locale.welcomeBack, style: theme.textTheme.headlineSmall),
         SizedBox(height: 8.h),

@@ -12,7 +12,7 @@ class RegisterHeader extends StatelessWidget {
 
     return Column(
       children: [
-        Image.asset('assets/images/app_icon.jpg', height: 80.h),
+        Image.asset('assets/icons/app_logo.png', height: 80.h),
         SizedBox(height: 16.h),
         Text(
           locale.smartCareerDiscoveryPlatform,
