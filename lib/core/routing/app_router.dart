@@ -1,6 +1,5 @@
 import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/services/services_locator.dart';
-import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/core/widgets/app_web_view.dart';
 import 'package:MatchIn/core/widgets/main_navigation_screen.dart';
 import 'package:MatchIn/features/jobsAndApplications/presentation/views/application_questions_view.dart';
@@ -47,31 +46,11 @@ abstract final class AppRouter {
   static final GoRouter router = GoRouter(
     initialLocation: AppRoutes.kSplashView,
     redirect: (context, state) {
-      if (!getIt.isRegistered<SharedPreferencesService>()) {
-        return null;
-      }
-
-      final prefs = getIt<SharedPreferencesService>();
-
-      final isOnboarded = prefs.isOnBoardingViewed();
-      final isLoggedIn = prefs.isLoggedIn();
-
       final location = state.uri.path;
 
-      if (location == AppRoutes.kSplashView) {
+      if (location == AppRoutes.kSplashView ||
+          location == AppRoutes.kOnboardingView) {
         return null;
-      }
-
-      if (location == AppRoutes.kOnboardingView) {
-        if (!isOnboarded) {
-          return null;
-        }
-
-        if (isLoggedIn) {
-          return AppRoutes.kHomeView;
-        }
-
-        return AppRoutes.kLoginView;
       }
 
       return null;

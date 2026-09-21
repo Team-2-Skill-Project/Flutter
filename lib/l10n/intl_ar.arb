@@ -1,4 +1,5 @@
 {
+  "@@locale": "ar",
   "noInternetConnection": "لا يوجد اتصال بالإنترنت",
   "pleaseCheckYourInternetConnection": "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
   "tryAgain": "إعادة المحاولة",
@@ -298,6 +299,13 @@
   "addedManually": "تمت إضافتها يدويًا",
   "manageAllSkills": "إدارة كل المهارات",
   "skillsCount": "{count} مهارات",
+  "@skillsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
    "projects": "المشاريع",
   "projectsImprovementHint": "ضيف روابط للمشاريع ونتائج قابلة للقياس علشان تقوّي بروفايلك.",
   "viewLiveProject": "عرض المشروع",

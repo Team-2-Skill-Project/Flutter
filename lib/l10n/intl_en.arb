@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "noInternetConnection": "No internet connection",
   "pleaseCheckYourInternetConnection": "Please check your internet connection and try again",
   "tryAgain": "Try Again",
@@ -298,6 +299,13 @@
   "addedManually": "Added manually",
   "manageAllSkills": "Manage all skills",
   "skillsCount": "{count} skills",
+  "@skillsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "projects": "Projects",
   "projectsImprovementHint": "Add project links and measurable outcomes to strengthen your profile.",
   "viewLiveProject": "View live project",
