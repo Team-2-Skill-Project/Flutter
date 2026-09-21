@@ -7,6 +7,7 @@ import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/features/onboarding/presentation/widgets/career_path_hero_widget.dart';
 import 'package:MatchIn/features/onboarding/presentation/widgets/job_match_hero_widget.dart';
+import 'package:MatchIn/features/onboarding/presentation/widgets/onboarding_indicator.dart';
 import 'package:MatchIn/features/onboarding/presentation/widgets/onboarding_narrative_section.dart';
 import 'package:MatchIn/features/onboarding/presentation/widgets/onboarding_top_bar.dart';
 import 'package:MatchIn/features/onboarding/presentation/widgets/opportunity_hero_widget.dart';
@@ -102,6 +103,15 @@ class _Onb1State extends State<Onb1> {
                     ),
                   ),
                 ],
+              ),
+            ),
+
+            // Bottom Indicator
+            Padding(
+              padding: EdgeInsets.only(bottom: 16.h, top: 4.h),
+              child: OnboardingIndicator(
+                currentPage: _currentPage,
+                itemCount: 3,
               ),
             ),
           ],

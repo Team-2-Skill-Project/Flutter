@@ -1,5 +1,4 @@
 import 'package:MatchIn/core/extensions/context_extensions.dart';
-import 'package:MatchIn/features/onboarding/presentation/widgets/onboarding_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -36,9 +35,6 @@ class OnboardingTopBar extends StatelessWidget {
               height: 24 / 18,
             ),
           ),
-
-          // Animated Indicator Dots
-          OnboardingIndicator(currentPage: currentPage, itemCount: totalSteps),
 
           // Trailing Action: Skip
           SizedBox(
