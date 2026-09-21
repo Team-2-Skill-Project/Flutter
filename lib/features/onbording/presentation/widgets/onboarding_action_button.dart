@@ -16,17 +16,6 @@ class OnboardingActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomButton(
-      text: text,
-      onPressed: onPressed,
-      height: height ?? 48.h,
-      textStyle: TextStyle(
-        fontFamily: 'DM Sans',
-        fontSize: 16.sp,
-        fontWeight: FontWeight.w600,
-        color: Colors.white,
-        letterSpacing: 0.14,
-      ),
-    );
+    return CustomButton(text: text, onPressed: onPressed);
   }
 }

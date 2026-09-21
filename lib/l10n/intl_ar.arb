@@ -1,4 +1,4 @@
-﻿{
+{
   "noInternetConnection": "لا يوجد اتصال بالإنترنت",
   "pleaseCheckYourInternetConnection": "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى",
   "tryAgain": "إعادة المحاولة",
@@ -284,5 +284,25 @@
 "deleteChat": "حذف المحادثة"
 ,"previous7Days": "السابق 7 يوما",
 "otpVerifying": "جاري التحقق…",
-"otpCodeDidNotMatch": "لم يتطابق الرمز. تحقق من الرسالة وحاول مرة أخرى."
+"otpCodeDidNotMatch": "لم يتطابق الرمز. تحقق من الرسالة وحاول مرة أخرى.",
+  "login": "تسجيل الدخول",
+  "createAccount": "إنشاء حساب",
+  "email": "البريد الإلكتروني",
+  "emailHint": "أدخل بريدك الإلكتروني",
+  "password": "كلمة المرور",
+  "passwordHint": "أدخل كلمة المرور",
+  "keepMeSignedIn": "ابقَ متصلاً",
+  "forgotPassword": "نسيت كلمة المرور؟",
+  "or": "أو",
+  "registerWithGoogle": "المتابعة مع Google",
+  "newHere": "مستخدم جديد؟",
+  "alreadyHaveAccount": "لديك حساب بالفعل؟",
+  "phoneHint": "أدخل رقم هاتفك",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "confirmPasswordHint": "أعد إدخال كلمة المرور",
+  "termsAndConditions": "الشروط والأحكام",
+  "completeRegistration": "إكمال التسجيل",
+  "welcomeBack": "مرحباً بعودتك!",
+  "smartCareerDiscoveryPlatform": "منصتك الذكية لاكتشاف فرص مهنية",
+  "candidateProfile": "ملف المرشح"
 }

@@ -1,5 +1,6 @@
 import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -86,17 +87,49 @@ class CustomTextField extends StatefulWidget {
   final TextStyle? hintStyle;
   final TextStyle? labelStyle;
   final Color? cursorColor;
+=======
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class CustomTextField extends StatefulWidget {
+  final String? labelText;
+  final String hintText;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final bool isPassword;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
+  final TextInputType keyboardType;
+  final TextInputAction? textInputAction;
+
+  const CustomTextField({
+    super.key,
+    this.labelText,
+    required this.hintText,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.isPassword = false,
+    this.controller,
+    this.validator,
+    this.keyboardType = TextInputType.text,
+    this.textInputAction,
+  });
+>>>>>>> e3504eea70053fb6f3338abe6cce881cd73e9921
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
+<<<<<<< HEAD
   late bool _obscureText;
+=======
+  bool _obscureText = false;
+>>>>>>> e3504eea70053fb6f3338abe6cce881cd73e9921
 
   @override
   void initState() {
     super.initState();
+<<<<<<< HEAD
     _obscureText = widget.obscureText ?? widget.isPassword;
   }
 
@@ -113,10 +146,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
     setState(() {
       _obscureText = !_obscureText;
     });
+=======
+    _obscureText = widget.isPassword;
+>>>>>>> e3504eea70053fb6f3338abe6cce881cd73e9921
   }
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final effectiveRadius = widget.borderRadius ?? 8.r;
     final effectiveBorderColor = widget.borderColor ?? AppColors.border;
     final effectiveFocusedColor =
@@ -142,6 +179,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
       borderSide: BorderSide(color: effectiveBorderColor, width: 1.0),
     );
 
+=======
+>>>>>>> e3504eea70053fb6f3338abe6cce881cd73e9921
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -149,6 +188,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         if (widget.labelText != null) ...[
           Text(
             widget.labelText!,
+<<<<<<< HEAD
             style:
                 widget.labelStyle ??
                 TextStyle(
@@ -222,9 +262,41 @@ class _CustomTextFieldState extends State<CustomTextField> {
               borderRadius: BorderRadius.circular(effectiveRadius),
               borderSide: BorderSide(color: effectiveErrorColor, width: 1.5),
             ),
+=======
+          ),
+          SizedBox(height: 8.h),
+        ],
+        TextFormField(
+          controller: widget.controller,
+          obscureText: _obscureText,
+          validator: widget.validator,
+          keyboardType: widget.keyboardType,
+          textInputAction: widget.textInputAction,
+          decoration: InputDecoration(
+            hintText: widget.hintText,
+            prefixIcon: widget.prefixIcon,
+            suffixIcon: widget.isPassword
+                ? IconButton(
+                    icon: Icon(
+                      _obscureText
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  )
+                : widget.suffixIcon,
+>>>>>>> e3504eea70053fb6f3338abe6cce881cd73e9921
           ),
         ),
       ],
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e3504eea70053fb6f3338abe6cce881cd73e9921

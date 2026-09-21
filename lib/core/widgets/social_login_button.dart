@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SocialLoginButton extends StatelessWidget {
+  final String text;
+  final Widget icon;
+  final VoidCallback onPressed;
+
   const SocialLoginButton({
     super.key,
     required this.text,
+    required this.icon,
     required this.onPressed,
   });
 
@@ -15,14 +21,16 @@ class SocialLoginButton extends StatelessWidget {
     return OutlinedButton(
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
-        minimumSize: const Size(double.infinity, 56),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        minimumSize: Size(double.infinity, 56.h),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.r),
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/icons/app_logo.png', height: 24, width: 24),
-          const SizedBox(width: 8),
+          icon,
+          SizedBox(width: 8.w),
           Text(
             text,
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),

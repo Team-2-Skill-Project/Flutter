@@ -283,6 +283,25 @@
 "deleteChat": "Delete Chat",
 "previous7Days": "Previous 7 days",
 "otpVerifying": "Verifying…",
-"otpCodeDidNotMatch": "That code didn't match. Check the message and try again."
-
+"otpCodeDidNotMatch": "That code didn't match. Check the message and try again.",
+  "login": "Login",
+  "createAccount": "Create Account",
+  "email": "Email",
+  "emailHint": "Enter your email address",
+  "password": "Password",
+  "passwordHint": "Enter your password",
+  "keepMeSignedIn": "Keep me signed in",
+  "forgotPassword": "Forgot password?",
+  "or": "or",
+  "registerWithGoogle": "Continue with Google",
+  "newHere": "New here?",
+  "alreadyHaveAccount": "Already have an account?",
+  "phoneHint": "Enter your phone number",
+  "confirmPassword": "Confirm Password",
+  "confirmPasswordHint": "Re-enter your password",
+  "termsAndConditions": "Terms & Conditions",
+  "completeRegistration": "Complete Registration",
+  "welcomeBack": "Welcome Back!",
+  "smartCareerDiscoveryPlatform": "Your smart career discovery platform",
+  "candidateProfile": "Candidate Profile"
 }

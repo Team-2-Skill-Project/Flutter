@@ -104,7 +104,6 @@ class _CreateNewPasswordViewState extends State<CreateNewPasswordView> {
                     text: S.of(context).resetPassword,
                     onPressed: _onSubmit,
                     isLoading: isLoading,
-                    isEnabled: _isValid,
                   ),
                   SizedBox(height: 12.h),
                   CreatePasswordBackButton(
