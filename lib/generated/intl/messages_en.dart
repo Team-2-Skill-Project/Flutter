@@ -20,7 +20,27 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(name) => "Hello, ${name} 👋";
+  static String m0(count) =>
+      "${Intl.plural(count, one: '1 day ago', other: '${count} days ago')}";
+
+  static String m1(name) => "Hello, ${name} 👋";
+
+  static String m2(count) =>
+      "${Intl.plural(count, one: '1 hour ago', other: '${count} hours ago')}";
+
+  static String m3(count) =>
+      "${Intl.plural(count, one: '1 minute ago', other: '${count} minutes ago')}";
+
+  static String m4(count) =>
+      "${Intl.plural(count, one: '1 month ago', other: '${count} months ago')}";
+
+  static String m5(count) => "${count} skills";
+
+  static String m6(count) =>
+      "${Intl.plural(count, one: '1 week ago', other: '${count} weeks ago')}";
+
+  static String m7(count) =>
+      "${Intl.plural(count, one: '1 year ago', other: '${count} years ago')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -28,6 +48,16 @@ class MessageLookup extends MessageLookupByLibrary {
       "A few more questions",
     ),
     "account": MessageLookupByLibrary.simpleMessage("ACCOUNT"),
+    "add": MessageLookupByLibrary.simpleMessage("Add"),
+    "addNewProject": MessageLookupByLibrary.simpleMessage(" Add New Project"),
+    "addNewSkill": MessageLookupByLibrary.simpleMessage("Add New Skill"),
+    "addProjectDetails": MessageLookupByLibrary.simpleMessage(
+      "Add Project Details",
+    ),
+    "addSkillHint": MessageLookupByLibrary.simpleMessage(
+      "Add a skill (e.g. Docker, GraphQL)",
+    ),
+    "addedManually": MessageLookupByLibrary.simpleMessage("Added manually"),
     "aiAssistant": MessageLookupByLibrary.simpleMessage("AI Assistant"),
     "aiIsTyping": MessageLookupByLibrary.simpleMessage("AI is thinking..."),
     "all": MessageLookupByLibrary.simpleMessage("All"),
@@ -87,6 +117,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "candidateProfile": MessageLookupByLibrary.simpleMessage(
       "Candidate Profile",
     ),
+    "careerGoal": MessageLookupByLibrary.simpleMessage("Career Goal"),
+    "careerGoalHelper": MessageLookupByLibrary.simpleMessage(
+      "Tell us briefly what you want to achieve next.",
+    ),
+    "careerGoalHint": MessageLookupByLibrary.simpleMessage(
+      "e.g. Gain professional Flutter experience and contribute to high-impact mobile products.",
+    ),
+    "careerPreferences": MessageLookupByLibrary.simpleMessage(
+      "Career Preferences",
+    ),
+    "careerPreferencesIntroDescription": MessageLookupByLibrary.simpleMessage(
+      "Your preferences help SkillMatch recommend more relevant opportunities.",
+    ),
+    "careerPreferencesIntroTitle": MessageLookupByLibrary.simpleMessage(
+      "Tell us what you\'re looking for",
+    ),
     "change": MessageLookupByLibrary.simpleMessage("Change"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Change Password"),
     "characters": MessageLookupByLibrary.simpleMessage("characters"),
@@ -108,6 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "chooseStrongPassword": MessageLookupByLibrary.simpleMessage(
       "Choose a strong password you haven’t used before.",
     ),
+    "city": MessageLookupByLibrary.simpleMessage("City"),
     "clear": MessageLookupByLibrary.simpleMessage("Clear"),
     "clearAllChats": MessageLookupByLibrary.simpleMessage("Clear All Chats"),
     "completeRegistration": MessageLookupByLibrary.simpleMessage(
@@ -129,12 +176,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "contactUs": MessageLookupByLibrary.simpleMessage("Contact Us"),
     "continueText": MessageLookupByLibrary.simpleMessage("Continue"),
+    "contract": MessageLookupByLibrary.simpleMessage("Contract"),
     "copiedToClipboard": MessageLookupByLibrary.simpleMessage(
       "Copied to clipboard",
     ),
     "copyright": MessageLookupByLibrary.simpleMessage(
       "© 2025 SkillMatch. All rights reserved.",
     ),
+    "country": MessageLookupByLibrary.simpleMessage("Country"),
     "coverNote": MessageLookupByLibrary.simpleMessage("Cover Note"),
     "coverNoteHint": MessageLookupByLibrary.simpleMessage(
       "Add a short message about why you’re interested in this role.",
@@ -153,11 +202,17 @@ class MessageLookup extends MessageLookupByLibrary {
       "We extracted 12 skills and updated your career profile.",
     ),
     "cvResume": MessageLookupByLibrary.simpleMessage("CV / Résumé"),
+    "cvSkillsDescription": MessageLookupByLibrary.simpleMessage(
+      "Extracted automatically from your uploaded resume.",
+    ),
     "cvUploadRequirements": MessageLookupByLibrary.simpleMessage(
       "PDF or DOCX • Max 5 MB",
     ),
+    "daysAgo": m0,
     "delete": MessageLookupByLibrary.simpleMessage("Delete"),
     "deleteChat": MessageLookupByLibrary.simpleMessage("Delete Chat"),
+    "description": MessageLookupByLibrary.simpleMessage("Description"),
+    "draft": MessageLookupByLibrary.simpleMessage("Draft"),
     "edit": MessageLookupByLibrary.simpleMessage("Edit"),
     "editNote": MessageLookupByLibrary.simpleMessage("Edit Note"),
     "education": MessageLookupByLibrary.simpleMessage("Education"),
@@ -166,16 +221,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "emailHint": MessageLookupByLibrary.simpleMessage(
       "Enter your email address",
     ),
+    "endDate": MessageLookupByLibrary.simpleMessage("End Date"),
     "english": MessageLookupByLibrary.simpleMessage("English"),
     "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
       "Enter verification code",
     ),
     "entryLevel": MessageLookupByLibrary.simpleMessage("Entry Level"),
+    "excellent": MessageLookupByLibrary.simpleMessage("Excellent"),
     "expectedMonthlySalary": MessageLookupByLibrary.simpleMessage(
       "What is your expected monthly salary?",
     ),
     "expectedSalary": MessageLookupByLibrary.simpleMessage("Expected salary"),
     "experience": MessageLookupByLibrary.simpleMessage("Experience"),
+    "experienceLevel": MessageLookupByLibrary.simpleMessage("Experience Level"),
     "experienceWithBloc": MessageLookupByLibrary.simpleMessage(
       "Experience with Bloc",
     ),
@@ -183,12 +241,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "failedToSendMessage": MessageLookupByLibrary.simpleMessage(
       "Failed to send message. Please try again.",
     ),
+    "fairMatch": MessageLookupByLibrary.simpleMessage("Fair Match"),
     "finalConfirmation": MessageLookupByLibrary.simpleMessage(
       "Final Confirmation",
     ),
     "finalDecisionAndOnboarding": MessageLookupByLibrary.simpleMessage(
       "Final decision and onboarding",
     ),
+    "flexible": MessageLookupByLibrary.simpleMessage("Flexible"),
     "flutterOpportunities": MessageLookupByLibrary.simpleMessage(
       "We found 8 Flutter opportunities based on your skills.",
     ),
@@ -204,6 +264,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Found in your skills",
     ),
     "fourHoursAgo": MessageLookupByLibrary.simpleMessage("4 hrs ago"),
+    "freelance": MessageLookupByLibrary.simpleMessage("Freelance"),
     "fromYourCv": MessageLookupByLibrary.simpleMessage("From your CV"),
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "fullTime": MessageLookupByLibrary.simpleMessage("Full-time"),
@@ -214,14 +275,18 @@ class MessageLookup extends MessageLookupByLibrary {
       "Not just a score — strengths, gaps, and clear next actions.",
     ),
     "getStarted": MessageLookupByLibrary.simpleMessage("Get Started"),
+    "githubRepositoryUrl": MessageLookupByLibrary.simpleMessage(
+      "GitHub Repository URL",
+    ),
     "good": MessageLookupByLibrary.simpleMessage("Good"),
     "goodMatch": MessageLookupByLibrary.simpleMessage("Good Match"),
-    "greetingUser": m0,
+    "greetingUser": m1,
     "helpfulAdvantage": MessageLookupByLibrary.simpleMessage(
       "Helpful advantage",
     ),
     "highPriority": MessageLookupByLibrary.simpleMessage("High priority"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
+    "hoursAgo": m2,
     "howCanIHelpYouToday": MessageLookupByLibrary.simpleMessage(
       "How can I help you today?",
     ),
@@ -234,6 +299,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "jobDetails": MessageLookupByLibrary.simpleMessage("Job Details"),
     "jobRequirements": MessageLookupByLibrary.simpleMessage("Job requirements"),
+    "jobType": MessageLookupByLibrary.simpleMessage("Job Type"),
     "jobs": MessageLookupByLibrary.simpleMessage("Jobs"),
     "jobsMatchDescription": MessageLookupByLibrary.simpleMessage(
       "Explore opportunities based on your skills and career preferences.",
@@ -241,18 +307,30 @@ class MessageLookup extends MessageLookupByLibrary {
     "jobsMatchYourProfile": MessageLookupByLibrary.simpleMessage(
       "We found jobs that match your profile",
     ),
+    "junior": MessageLookupByLibrary.simpleMessage("Junior"),
     "juniorFlutterDeveloper": MessageLookupByLibrary.simpleMessage(
       "Junior Flutter Developer",
     ),
+    "justNow": MessageLookupByLibrary.simpleMessage("Just now"),
     "keepMeSignedIn": MessageLookupByLibrary.simpleMessage("Keep me signed in"),
     "keepTrackerUpdated": MessageLookupByLibrary.simpleMessage(
       "Keep your tracker updated when you hear back from the employer.",
+    ),
+    "keyAchievements": MessageLookupByLibrary.simpleMessage("Key Achievements"),
+    "keyAchievementsHelper": MessageLookupByLibrary.simpleMessage(
+      "Add measurable outcomes when possible (e.g. reduced load time by 30%).",
+    ),
+    "keyAchievementsHint": MessageLookupByLibrary.simpleMessage(
+      "e.g. Optimized database queries reducing API latency by 42%...",
     ),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "learningTasks": MessageLookupByLibrary.simpleMessage("LEARNING TASKS"),
     "light": MessageLookupByLibrary.simpleMessage("Light"),
     "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "manageAllSkills": MessageLookupByLibrary.simpleMessage(
+      "Manage all skills",
+    ),
     "markAllRead": MessageLookupByLibrary.simpleMessage("Mark all read"),
     "match": MessageLookupByLibrary.simpleMessage("Match"),
     "matchExplanation": MessageLookupByLibrary.simpleMessage(
@@ -265,12 +343,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "mentionedInJobRequirements": MessageLookupByLibrary.simpleMessage(
       "Mentioned in job requirements",
     ),
+    "midLevel": MessageLookupByLibrary.simpleMessage("Mid-Level"),
+    "minutesAgo": m3,
+    "monthYearHint": MessageLookupByLibrary.simpleMessage("MM / YYYY"),
+    "monthsAgo": m4,
     "mostRelevant": MessageLookupByLibrary.simpleMessage("Most relevant"),
+    "multiSelect": MessageLookupByLibrary.simpleMessage("Multi-select"),
     "myCareerRoadmap": MessageLookupByLibrary.simpleMessage(
       "My Career Roadmap",
     ),
     "needHelpWithNextSteps": MessageLookupByLibrary.simpleMessage(
       "Need help with next steps?",
+    ),
+    "needsImprovement": MessageLookupByLibrary.simpleMessage(
+      "Needs Improvement",
     ),
     "newChat": MessageLookupByLibrary.simpleMessage("New Chat"),
     "newHere": MessageLookupByLibrary.simpleMessage("New here?"),
@@ -312,6 +398,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingBullet3": MessageLookupByLibrary.simpleMessage(
       "Get matched with high-fit opportunities",
     ),
+    "ongoingProject": MessageLookupByLibrary.simpleMessage("Ongoing project"),
+    "openToOpportunitiesAnywhere": MessageLookupByLibrary.simpleMessage(
+      "I’m open to opportunities anywhere",
+    ),
     "opportunities": MessageLookupByLibrary.simpleMessage("opportunities"),
     "optional": MessageLookupByLibrary.simpleMessage("Optional"),
     "or": MessageLookupByLibrary.simpleMessage("or"),
@@ -319,6 +409,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "That code didn\'t match. Check the message and try again.",
     ),
     "otpVerifying": MessageLookupByLibrary.simpleMessage("Verifying…"),
+    "partTime": MessageLookupByLibrary.simpleMessage("Part-time"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "passwordChangedSuccessDesc": MessageLookupByLibrary.simpleMessage(
       "Your password has been changed successfully. You can now log in with your new password.",
@@ -358,6 +449,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "preferences": MessageLookupByLibrary.simpleMessage("PREFERENCES"),
     "preferred": MessageLookupByLibrary.simpleMessage("Preferred"),
+    "preferredLocation": MessageLookupByLibrary.simpleMessage(
+      "Preferred Location",
+    ),
     "preferredWorkMode": MessageLookupByLibrary.simpleMessage(
       "Which work mode do you prefer?",
     ),
@@ -370,6 +464,24 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+    "profileMatchQuality": MessageLookupByLibrary.simpleMessage(
+      "Profile Match Quality",
+    ),
+    "projectDescriptionHelper": MessageLookupByLibrary.simpleMessage(
+      "Describe goals and tech stack",
+    ),
+    "projectDescriptionHint": MessageLookupByLibrary.simpleMessage(
+      "Describe goals, your role, and overall product purpose...",
+    ),
+    "projectName": MessageLookupByLibrary.simpleMessage("Project Name"),
+    "projectNameHint": MessageLookupByLibrary.simpleMessage(
+      "e.g. HealthTracker Companion",
+    ),
+    "projectUrl": MessageLookupByLibrary.simpleMessage("Project URL"),
+    "projects": MessageLookupByLibrary.simpleMessage("Projects"),
+    "projectsImprovementHint": MessageLookupByLibrary.simpleMessage(
+      "Add project links and measurable outcomes to strengthen your profile.",
+    ),
     "ready": MessageLookupByLibrary.simpleMessage("Ready"),
     "readyToFindYourNextOpportunity": MessageLookupByLibrary.simpleMessage(
       "Ready to find your next opportunity?",
@@ -392,6 +504,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "reqMin8Chars": MessageLookupByLibrary.simpleMessage(
       "At least 8 characters",
     ),
+    "required": MessageLookupByLibrary.simpleMessage("Required"),
     "requiredForThisRole": MessageLookupByLibrary.simpleMessage(
       "Required for this role",
     ),
@@ -433,6 +546,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "Enter your expected gross monthly salary.",
     ),
     "salaryHint": MessageLookupByLibrary.simpleMessage("e.g. 24,000"),
+    "savePreferences": MessageLookupByLibrary.simpleMessage("Save Preferences"),
+    "saveProject": MessageLookupByLibrary.simpleMessage("Save Project"),
     "savedJobs": MessageLookupByLibrary.simpleMessage("Saved Jobs"),
     "searchJobs": MessageLookupByLibrary.simpleMessage(
       "Search jobs, companies, or skills",
@@ -440,6 +555,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "searchJobsTitle": MessageLookupByLibrary.simpleMessage("Search Jobs"),
     "secondsSuffix": MessageLookupByLibrary.simpleMessage("s"),
     "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
+    "senior": MessageLookupByLibrary.simpleMessage("Senior"),
     "sentCodeToEmail": MessageLookupByLibrary.simpleMessage(
       "We sent a 6-digit code to your email.",
     ),
@@ -454,6 +570,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "skillInProgress": MessageLookupByLibrary.simpleMessage(
       "Skill In Progress",
     ),
+    "skills": MessageLookupByLibrary.simpleMessage("Skills"),
+    "skillsCount": m5,
+    "skillsProfile": MessageLookupByLibrary.simpleMessage("Skills Profile"),
+    "skillsProfileDescription": MessageLookupByLibrary.simpleMessage(
+      "Skills help SkillMatch understand which opportunities fit you.",
+    ),
     "skillsToImprove": MessageLookupByLibrary.simpleMessage(
       "Skills to improve",
     ),
@@ -466,8 +588,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "source": MessageLookupByLibrary.simpleMessage("Source"),
     "start": MessageLookupByLibrary.simpleMessage("Start"),
+    "startDate": MessageLookupByLibrary.simpleMessage("Start Date"),
     "startFirstConversation": MessageLookupByLibrary.simpleMessage(
       "Start your first conversation below",
+    ),
+    "stateGovernorate": MessageLookupByLibrary.simpleMessage(
+      "State / Governorate",
     ),
     "stepFourConfirmation": MessageLookupByLibrary.simpleMessage(
       "STEP 4 OF 4 • CONFIRMATION",
@@ -475,6 +601,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "stepOf": MessageLookupByLibrary.simpleMessage("of"),
     "stepThreeOfThree": MessageLookupByLibrary.simpleMessage("Step 3 of 3"),
     "strongMatch": MessageLookupByLibrary.simpleMessage("Strong Match"),
+    "student": MessageLookupByLibrary.simpleMessage("Student"),
     "submissionConfirmationNotice": MessageLookupByLibrary.simpleMessage(
       "By submitting, you confirm that the information provided is accurate and complies with our community guidelines.",
     ),
@@ -493,14 +620,23 @@ class MessageLookup extends MessageLookupByLibrary {
     "suggestedQuestions": MessageLookupByLibrary.simpleMessage(
       "Suggested Questions",
     ),
+    "suggestedRoles": MessageLookupByLibrary.simpleMessage("Suggested Roles"),
+    "suggestions": MessageLookupByLibrary.simpleMessage("Suggestions"),
     "supportingDocumentOptional": MessageLookupByLibrary.simpleMessage(
       "Supporting Document (Optional)",
     ),
+    "targetRole": MessageLookupByLibrary.simpleMessage("Target Role"),
     "tasksCompleted": MessageLookupByLibrary.simpleMessage("Tasks completed"),
     "technicalCultureFitStage": MessageLookupByLibrary.simpleMessage(
       "Technical & culture fit stage",
     ),
     "technologies": MessageLookupByLibrary.simpleMessage("Technologies"),
+    "technologiesHint": MessageLookupByLibrary.simpleMessage(
+      "e.g. TypeScript, GraphQL",
+    ),
+    "technologiesSkills": MessageLookupByLibrary.simpleMessage(
+      "Technologies / Skills",
+    ),
     "technologiesWorkedWith": MessageLookupByLibrary.simpleMessage(
       "Which technologies have you worked with?",
     ),
@@ -557,8 +693,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "viewFullJobDescription": MessageLookupByLibrary.simpleMessage(
       "View full job description",
     ),
+    "viewGithubRepository": MessageLookupByLibrary.simpleMessage(
+      "View GitHub repository",
+    ),
     "viewJob": MessageLookupByLibrary.simpleMessage("View Job"),
     "viewJobs": MessageLookupByLibrary.simpleMessage("View Jobs"),
+    "viewLiveProject": MessageLookupByLibrary.simpleMessage(
+      "View live project",
+    ),
     "viewMatches": MessageLookupByLibrary.simpleMessage("View Matches"),
     "viewRoadmap": MessageLookupByLibrary.simpleMessage("View Roadmap"),
     "viewTimeline": MessageLookupByLibrary.simpleMessage("View timeline"),
@@ -568,6 +710,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wantToImproveYourMatch": MessageLookupByLibrary.simpleMessage(
       "Want to improve your match?",
     ),
+    "weeksAgo": m6,
     "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back!"),
     "whatYouAlreadyMatch": MessageLookupByLibrary.simpleMessage(
       "What you already match",
@@ -584,6 +727,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "withinThreeBusinessDays": MessageLookupByLibrary.simpleMessage(
       "Within 3 business days",
     ),
+    "workMode": MessageLookupByLibrary.simpleMessage("Work Mode"),
+    "yearsAgo": m7,
     "yesterday": MessageLookupByLibrary.simpleMessage("YESTERDAY"),
     "yesterdayTime": MessageLookupByLibrary.simpleMessage(
       "Yesterday • 3:45 PM",

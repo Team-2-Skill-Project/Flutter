@@ -6,7 +6,7 @@ import 'package:MatchIn/core/networking/network_info.dart';
 import 'package:MatchIn/core/services/file_picker_service.dart';
 import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
-import 'package:MatchIn/features/applications/presentation/cubit/cv_cubit.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/cubit/cv_cubit.dart';
 import 'package:MatchIn/features/auth/data/data_sources/auth_mock_remote_data_source_impl.dart';
 import 'package:MatchIn/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:MatchIn/features/auth/data/repositories/auth_repository_impl.dart';

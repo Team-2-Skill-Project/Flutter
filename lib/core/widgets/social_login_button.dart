@@ -8,6 +8,9 @@ class SocialLoginButton extends StatelessWidget {
     required this.icon,
     required this.onPressed,
   });
+  final String text;
+  final Widget icon;
+  final VoidCallback onPressed;
 
   final String text;
   final Widget icon;

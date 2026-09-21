@@ -3,11 +3,11 @@ import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/core/widgets/app_web_view.dart';
 import 'package:MatchIn/core/widgets/main_navigation_screen.dart';
-import 'package:MatchIn/features/applications/presentation/views/application_questions_view.dart';
-import 'package:MatchIn/features/applications/presentation/views/application_submitted_view.dart';
-import 'package:MatchIn/features/applications/presentation/views/apply_for_role_view.dart';
-import 'package:MatchIn/features/applications/presentation/views/review_application_view.dart';
-import 'package:MatchIn/features/applications/presentation/views/tracking_application_view.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/views/application_questions_view.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/views/application_submitted_view.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/views/apply_for_role_view.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/views/review_application_view.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/views/tracking_application_view.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/otp_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/reset_password_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/pages/create_new_password_view.dart';
@@ -15,12 +15,14 @@ import 'package:MatchIn/features/auth/presentation/pages/login_view.dart';
 import 'package:MatchIn/features/auth/presentation/pages/otp_verification_view.dart';
 import 'package:MatchIn/features/auth/presentation/pages/password_changed_success_view.dart';
 import 'package:MatchIn/features/auth/presentation/pages/register_view.dart';
-import 'package:MatchIn/features/jobs/presentation/views/job_details_view.dart';
-import 'package:MatchIn/features/jobs/presentation/views/jobs_search_view.dart';
-import 'package:MatchIn/features/jobs/presentation/views/notifications_view.dart';
-import 'package:MatchIn/features/jobs/presentation/views/settings_view.dart';
-import 'package:MatchIn/features/onbording/presentation/pages/onbording.dart';
-import 'package:MatchIn/features/splash/presentation/pages/splash_view.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/views/job_details_view.dart';
+import 'package:MatchIn/features/home/presentation/views/jobs_search_view.dart';
+import 'package:MatchIn/features/home/presentation/views/notifications_view.dart';
+import 'package:MatchIn/features/home/presentation/views/settings_view.dart';
+import 'package:MatchIn/features/onboarding/presentation/pages/onbording.dart';
+import 'package:MatchIn/features/profile/presentation/views/edit_career_preferences_view.dart';
+import 'package:MatchIn/features/profile/presentation/views/edit_projects_view.dart';
+import 'package:MatchIn/features/profile/presentation/views/edit_skills_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -42,7 +44,7 @@ abstract final class AppRouter {
   }
 
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.kSplashView,
+    initialLocation: AppRoutes.kHomeView,
     redirect: (context, state) {
       if (!getIt.isRegistered<SharedPreferencesService>()) {
         return null;
@@ -74,7 +76,7 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kSplashView,
         pageBuilder: (context, state) {
-          return _buildTransitionPage(state: state, child: const SplashView());
+          return _buildTransitionPage(state: state, child: const Onb1());
         },
       ),
 
@@ -97,7 +99,7 @@ abstract final class AppRouter {
         },
       ),
 
-      // WebView
+      // Reusable WebView
       GoRoute(
         path: AppRoutes.kWebView,
         pageBuilder: (context, state) {
@@ -192,7 +194,7 @@ abstract final class AppRouter {
         },
       ),
 
-      // OTP
+      // OTP Verification
       GoRoute(
         path: AppRoutes.kOtpVerificationView,
         pageBuilder: (context, state) {
@@ -286,6 +288,39 @@ abstract final class AppRouter {
           return _buildTransitionPage(
             state: state,
             child: const TrackingApplicationView(),
+          );
+        },
+      ),
+
+      // Edit Skills
+      GoRoute(
+        path: AppRoutes.keditSkillsView,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: const EditSkillsView(),
+          );
+        },
+      ),
+
+      // Edit Projects
+      GoRoute(
+        path: AppRoutes.keditProjectsView,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: const EditProjectsView(),
+          );
+        },
+      ),
+
+      // Edit Career Preferences
+      GoRoute(
+        path: AppRoutes.keditcareerPrefView,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: const EditCareerPreferencesView(),
           );
         },
       ),
