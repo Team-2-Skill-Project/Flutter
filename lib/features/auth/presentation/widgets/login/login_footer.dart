@@ -58,14 +58,34 @@ class LoginFooter extends StatelessWidget {
           ],
         ),
         SizedBox(height: 20.h),
-        OutlinedButton.icon(
-          onPressed: () => context.go(AppRoutes.kHomeView),
-          icon: Icon(Icons.person_outline_rounded, size: 20.sp),
-          label: Text(locale.continueAsGuest),
-          style: OutlinedButton.styleFrom(
-            minimumSize: Size(double.infinity, 48.h),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.r),
+        SizedBox(
+          width: double.infinity,
+          height: 56.h,
+          child: OutlinedButton.icon(
+            onPressed: () => context.go(AppRoutes.kHomeView),
+            icon: Icon(
+              Icons.explore_outlined,
+              size: 22.sp,
+              color: theme.colorScheme.primary,
+            ),
+            label: Text(
+              locale.continueAsGuest,
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w700,
+                color: theme.colorScheme.primary,
+              ),
+            ),
+            style: OutlinedButton.styleFrom(
+              backgroundColor:
+                  theme.colorScheme.primary.withValues(alpha: 0.08),
+              side: BorderSide(
+                color: theme.colorScheme.primary.withValues(alpha: 0.4),
+                width: 1.5,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r),
+              ),
             ),
           ),
         ),
