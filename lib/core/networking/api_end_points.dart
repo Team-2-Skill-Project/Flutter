@@ -9,6 +9,8 @@ abstract class EndPoint {
   static const String resendOtp = 'auth/resend-otp';
   static const String resetPassword = 'auth/reset-password';
   static const String chatMessage = 'chatbot/chat';
+  static const String savedJobs = 'saved-jobs';
+  static String saveJob(dynamic jobPostId) => 'jobs/$jobPostId/save';
 }
 
 ///* ApiKeys: the keys of the api
@@ -21,6 +23,10 @@ abstract class ApiKey {
   static const String email = 'email';
   static const String otp = 'otp';
   static const String newPassword = 'new_password';
+  static const String page = 'page';
+  static const String perPage = 'per_page';
+  static const String jobId = 'job_id';
+  static const String isSaved = 'is_saved';
   // static const String password = 'password';
   // static const String id = 'id';
 }
