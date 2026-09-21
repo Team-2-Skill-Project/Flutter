@@ -20,6 +20,7 @@ import 'package:MatchIn/features/jobs/presentation/views/jobs_search_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/notifications_view.dart';
 import 'package:MatchIn/features/jobs/presentation/views/settings_view.dart';
 import 'package:MatchIn/features/onbording/presentation/pages/onbording.dart';
+import 'package:MatchIn/features/splash/presentation/pages/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -41,7 +42,7 @@ abstract final class AppRouter {
   }
 
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.kOnboardingView,
+    initialLocation: AppRoutes.kSplashView,
     redirect: (context, state) {
       if (!getIt.isRegistered<SharedPreferencesService>()) {
         return null;
@@ -54,17 +55,16 @@ abstract final class AppRouter {
 
       final location = state.uri.path;
 
-      if (location == AppRoutes.kSplashView ||
-          location == AppRoutes.kOnboardingView) {
+      if (location == AppRoutes.kOnboardingView) {
         if (!isOnboarded) {
-          return AppRoutes.kOnboardingView;
+          return null;
         }
 
         if (isLoggedIn) {
           return AppRoutes.kHomeView;
         }
 
-        return AppRoutes.kRegisterView;
+        return AppRoutes.kLoginView;
       }
 
       return null;
@@ -74,7 +74,7 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kSplashView,
         pageBuilder: (context, state) {
-          return _buildTransitionPage(state: state, child: const Onb1());
+          return _buildTransitionPage(state: state, child: const SplashView());
         },
       ),
 

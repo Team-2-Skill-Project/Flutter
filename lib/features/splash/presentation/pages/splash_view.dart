@@ -1,6 +1,9 @@
-import 'package:MatchIn/features/auth/presentation/pages/login_view.dart';
+import 'package:MatchIn/core/routing/app_routes.dart';
+import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -19,10 +22,22 @@ class _SplashViewState extends State<SplashView> {
   void _startDelay() async {
     await Future.delayed(const Duration(seconds: 2));
     if (!mounted) return;
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const LoginView()),
-    );
+
+    if (getIt.isRegistered<SharedPreferencesService>()) {
+      final prefs = getIt<SharedPreferencesService>();
+      final isOnboarded = prefs.isOnBoardingViewed();
+      final isLoggedIn = prefs.isLoggedIn();
+
+      if (!isOnboarded) {
+        context.go(AppRoutes.kOnboardingView);
+      } else if (isLoggedIn) {
+        context.go(AppRoutes.kHomeView);
+      } else {
+        context.go(AppRoutes.kLoginView);
+      }
+    } else {
+      context.go(AppRoutes.kLoginView);
+    }
   }
 
   @override
