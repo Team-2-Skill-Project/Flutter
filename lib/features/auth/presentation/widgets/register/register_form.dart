@@ -40,7 +40,7 @@ class RegisterForm extends StatelessWidget {
             children: [
               CustomTextField(
                 controller: _nameController,
-                labelText: locale.fullName ?? 'Name',
+                labelText: locale.fullName,
                 hintText: 'Enter your name',
                 keyboardType: TextInputType.name,
                 textInputAction: TextInputAction.next,

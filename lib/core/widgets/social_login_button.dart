@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SocialLoginButton extends StatelessWidget {
-  final String text;
-  final Widget icon;
-  final VoidCallback onPressed;
-
   const SocialLoginButton({
     super.key,
     required this.text,
@@ -14,6 +10,7 @@ class SocialLoginButton extends StatelessWidget {
   });
 
   final String text;
+  final Widget icon;
   final VoidCallback onPressed;
 
   @override
