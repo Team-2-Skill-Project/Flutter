@@ -401,6 +401,7 @@
   "yearsAgo": "{count, plural, =1{منذ سنة} =2{منذ سنتين} few{منذ {count} سنوات} other{منذ {count} سنة}}",
   "@yearsAgo": {
     "placeholders": { "count": { "type": "int" } }
-  }
+  },
+  "continueAsGuest": "الدخول كضيف"
 }
 

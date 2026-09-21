@@ -133,6 +133,6 @@ class Assets {
   static const String imagesTextLogo = "assets/images/TextLogo.svg";
 
   /// Assets for onboarding hero images
-  static const String onb1Hero = "assets/images/onb1_hero.png";
-  static const String onb2Hero = "assets/images/onb2_hero.png";
+  static const String onb1Hero = "assets/images/onboarding_1.jpg";
+  static const String onb2Hero = "assets/images/onboarding_2.jpg";
 }

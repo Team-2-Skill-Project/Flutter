@@ -1,3 +1,4 @@
+import 'package:MatchIn/features/jobsAndApplications/domain/entities/job_entity.dart';
 import 'package:equatable/equatable.dart';
 
 class SavedJobEntity extends Equatable {
@@ -52,6 +53,22 @@ class SavedJobEntity extends Equatable {
       skills: skills ?? this.skills,
       matchPercentage: matchPercentage ?? this.matchPercentage,
       isSaved: isSaved ?? this.isSaved,
+    );
+  }
+
+  JobEntity toJobEntity() {
+    return JobEntity(
+      id: id.toString(),
+      title: title,
+      companyName: company,
+      location: location,
+      workMode: workMode,
+      employmentType: jobType,
+      experienceLevel: experience,
+      postedDate: DateTime.tryParse(postedDate) ?? DateTime.now(),
+      skills: skills,
+      matchPercentage: matchPercentage,
+      isSaved: isSaved,
     );
   }
 

@@ -118,6 +118,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Candidate Profile",
     ),
     "careerGoal": MessageLookupByLibrary.simpleMessage("Career Goal"),
+    "continueAsGuest": MessageLookupByLibrary.simpleMessage(
+      "Continue as Guest",
+    ),
     "careerGoalHelper": MessageLookupByLibrary.simpleMessage(
       "Tell us briefly what you want to achieve next.",
     ),

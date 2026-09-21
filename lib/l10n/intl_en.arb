@@ -400,6 +400,6 @@
   "yearsAgo": "{count, plural, =1{1 year ago} other{{count} years ago}}",
   "@yearsAgo": {
     "placeholders": { "count": { "type": "int" } }
-  }
-
+  },
+  "continueAsGuest": "Continue as Guest"
 }

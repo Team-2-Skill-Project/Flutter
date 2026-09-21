@@ -1,8 +1,10 @@
+import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/widgets/social_login_button.dart';
 import 'package:MatchIn/features/auth/presentation/pages/register_view.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginFooter extends StatelessWidget {
   const LoginFooter({super.key});
@@ -54,6 +56,18 @@ class LoginFooter extends StatelessWidget {
               ),
             ),
           ],
+        ),
+        SizedBox(height: 20.h),
+        OutlinedButton.icon(
+          onPressed: () => context.go(AppRoutes.kHomeView),
+          icon: Icon(Icons.person_outline_rounded, size: 20.sp),
+          label: Text(locale.continueAsGuest),
+          style: OutlinedButton.styleFrom(
+            minimumSize: Size(double.infinity, 48.h),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+          ),
         ),
       ],
     );

@@ -5,8 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
-import 'package:MatchIn/core/widgets/matching_status/matching_status_type.dart';
-import 'package:MatchIn/features/saved/presentation/widgets/job_card.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/widgets/job_details_widgets/job_card_widgets/job_card.dart';
 import 'package:MatchIn/features/saved/data/repositories/applied_jobs_repository.dart';
 import 'package:MatchIn/features/saved/domain/entities/saved_job_entity.dart';
 import 'package:MatchIn/features/saved/presentation/cubit/saved_jobs_cubit.dart';
@@ -247,21 +246,8 @@ class _SavedJobsContentState extends State<_SavedJobsContent> {
 
             final job = state.jobs[index];
             return JobCard(
-              title: job.title,
-              company: job.company,
-              location: job.location,
-              workMode: job.workMode,
-              experience: job.experience,
-              jobType: job.jobType,
-              postedDate: job.postedDate,
-              skills: job.skills,
-              matchStatus: job.matchPercentage != null
-                  ? MatchingStatusType.fromPercentage(job.matchPercentage!)
-                  : MatchingStatusType.good,
-              matchPercentage: job.matchPercentage,
-              isSaved: job.isSaved,
+              job: job.toJobEntity(),
               showShareButton: true,
-              actionType: JobCardActionType.apply,
               onSave: () {
                 context.read<SavedJobsCubit>().toggleBookmark(job);
               },

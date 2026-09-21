@@ -115,6 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "cairo": MessageLookupByLibrary.simpleMessage("القاهرة"),
     "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
     "candidateProfile": MessageLookupByLibrary.simpleMessage("ملف المرشح"),
+    "continueAsGuest": MessageLookupByLibrary.simpleMessage("الدخول كضيف"),
     "careerGoal": MessageLookupByLibrary.simpleMessage("الهدف المهني"),
     "careerGoalHelper": MessageLookupByLibrary.simpleMessage(
       "قولنا باختصار إيه اللي عايز توصله في الخطوة الجاية.",
