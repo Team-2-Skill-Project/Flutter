@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EducationCard extends StatelessWidget {
+  final String universityName;
+  final String degree;
+  final String years;
+
   const EducationCard({
     super.key,
     required this.universityName,
     required this.degree,
     required this.years,
   });
-  final String universityName;
-  final String degree;
-  final String years;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +23,7 @@ class EducationCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'Education',
@@ -49,9 +49,15 @@ class EducationCard extends StatelessWidget {
             ),
           ),
           SizedBox(height: 4.h),
-          Text(degree, style: theme.textTheme.bodyMedium),
+          Text(
+            degree,
+            style: theme.textTheme.bodyMedium,
+          ),
           SizedBox(height: 4.h),
-          Text(years, style: theme.textTheme.bodySmall),
+          Text(
+            years,
+            style: theme.textTheme.bodySmall,
+          ),
         ],
       ),
     );

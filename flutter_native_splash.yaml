@@ -3,8 +3,8 @@ flutter_native_splash:
   image: "assets/images/app_icon.png"
   android: true
   ios: true
+  #  عشان ندرويد 12 عشان اللوجو ميطلعش صغير ومقصوص
   android_12:
     image: "assets/images/app_icon.png"
     icon_background_color: "#FAF8F4"
-    color: "#FAF8F4"
     web: false

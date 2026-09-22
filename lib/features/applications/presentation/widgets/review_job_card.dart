@@ -19,29 +19,34 @@ class ReviewJobCard extends StatelessWidget {
           children: [
             Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
                   Text(
                     s.applyingFor,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.secondary,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: theme.textTheme.bodyMedium
+                        ?.copyWith(
+                          color:
+                              theme.colorScheme.secondary,
+                          fontWeight: FontWeight.w600,
+                        ),
                   ),
                   SizedBox(height: 8.h),
                   Text(
                     s.juniorFlutterDeveloper,
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      color: theme.colorScheme.primary,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: theme.textTheme.titleLarge
+                        ?.copyWith(
+                          color: theme.colorScheme.primary,
+                          fontWeight: FontWeight.w700,
+                        ),
                   ),
                   SizedBox(height: 4.h),
                   Text(
                     'TechNova',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: theme.textTheme.titleMedium
+                        ?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
                   ),
                   SizedBox(height: 12.h),
                   Row(
@@ -49,19 +54,22 @@ class ReviewJobCard extends StatelessWidget {
                       Icon(
                         Icons.location_on_outlined,
                         size: 18.sp,
-                        color: theme.colorScheme.onSurface.withValues(
-                          alpha: 0.6,
-                        ),
+                        color: theme.colorScheme.onSurface
+                            .withValues(alpha: 0.6),
                       ),
                       SizedBox(width: 4.w),
                       Expanded(
                         child: Text(
                           '${s.cairo} • ${s.hybrid} • ${s.fullTime}',
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.onSurface.withValues(
-                              alpha: 0.65,
-                            ),
-                          ),
+                          style: theme.textTheme.bodyMedium
+                              ?.copyWith(
+                                color: theme
+                                    .colorScheme
+                                    .onSurface
+                                    .withValues(
+                                      alpha: 0.65,
+                                    ),
+                              ),
                         ),
                       ),
                     ],
@@ -75,16 +83,21 @@ class ReviewJobCard extends StatelessWidget {
               height: 48.w,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: theme.colorScheme.surfaceContainerHighest,
+                color: theme
+                    .colorScheme
+                    .surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(8.r),
-                border: Border.all(color: theme.dividerColor),
+                border: Border.all(
+                  color: theme.dividerColor,
+                ),
               ),
               child: Text(
                 'TN',
-                style: theme.textTheme.titleMedium?.copyWith(
-                  color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: theme.textTheme.titleMedium
+                    ?.copyWith(
+                      color: theme.colorScheme.primary,
+                      fontWeight: FontWeight.w700,
+                    ),
               ),
             ),
           ],
