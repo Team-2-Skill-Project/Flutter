@@ -58,7 +58,7 @@ class LogoPainter extends CustomPainter {
     final bgPaint = Paint()
       ..color = const Color(0xFF14294F)
       ..style = PaintingStyle.fill;
-    
+
     canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromLTWH(0, 0, size.width, size.height),
@@ -94,16 +94,35 @@ class LogoPainter extends CustomPainter {
 
       final path = Path();
       path.moveTo(size.width * 0.35, size.height * 0.35);
-      path.quadraticBezierTo(size.width * 0.35, center.dy, center.dx, center.dy);
-      path.quadraticBezierTo(size.width * 0.65, center.dy, size.width * 0.65, size.height * 0.65);
+      path.quadraticBezierTo(
+        size.width * 0.35,
+        center.dy,
+        center.dx,
+        center.dy,
+      );
+      path.quadraticBezierTo(
+        size.width * 0.65,
+        center.dy,
+        size.width * 0.65,
+        size.height * 0.65,
+      );
       canvas.drawPath(path, whiteStroke);
 
-      canvas.drawCircle(Offset(size.width * 0.35, size.height * 0.35), 18.w * p2, Paint()..color = const Color(0xFFFF6B35));
-      canvas.drawCircle(Offset(size.width * 0.65, size.height * 0.65), 18.w * p2, Paint()..color = const Color(0xFFFFC107));
+      canvas.drawCircle(
+        Offset(size.width * 0.35, size.height * 0.35),
+        18.w * p2,
+        Paint()..color = const Color(0xFFFF6B35),
+      );
+      canvas.drawCircle(
+        Offset(size.width * 0.65, size.height * 0.65),
+        18.w * p2,
+        Paint()..color = const Color(0xFFFFC107),
+      );
       canvas.drawCircle(center, 12.w * p2, Paint()..color = Colors.white);
     }
   }
 
   @override
-  bool shouldRepaint(covariant LogoPainter oldDelegate) => oldDelegate.progress != progress;
+  bool shouldRepaint(covariant LogoPainter oldDelegate) =>
+      oldDelegate.progress != progress;
 }

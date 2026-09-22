@@ -33,7 +33,8 @@ class RegisterForm extends StatelessWidget {
               if (value == null || value.isEmpty) {
                 return locale.email;
               }
-              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                  .hasMatch(value)) {
                 return locale.email;
               }
               return null;
@@ -82,7 +83,8 @@ class RegisterForm extends StatelessWidget {
                   return Checkbox(
                     value: value,
                     activeColor: theme.colorScheme.primary,
-                    onChanged: (newValue) => _isTermsAccepted.value = newValue ?? false,
+                    onChanged: (newValue) =>
+                        _isTermsAccepted.value = newValue ?? false,
                   );
                 },
               ),

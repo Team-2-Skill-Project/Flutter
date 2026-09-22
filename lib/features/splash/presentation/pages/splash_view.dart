@@ -20,7 +20,7 @@ class _SplashViewState extends State<SplashView> {
   void _startDelay() async {
     await Future.delayed(const Duration(seconds: 4));
     if (!mounted) return;
-    
+
     // تم التعديل لاستخدام GoRouter حسب قواعد المشروع
     context.go(AppRoutes.kLoginView);
   }

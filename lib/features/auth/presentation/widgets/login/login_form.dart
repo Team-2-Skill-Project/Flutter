@@ -31,7 +31,8 @@ class LoginForm extends StatelessWidget {
               if (value == null || value.isEmpty) {
                 return locale.email;
               }
-              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                  .hasMatch(value)) {
                 return locale.email;
               }
               return null;
@@ -72,7 +73,10 @@ class LoginForm extends StatelessWidget {
                       );
                     },
                   ),
-                  Text(locale.keepMeSignedIn, style: theme.textTheme.bodyMedium),
+                  Text(
+                    locale.keepMeSignedIn,
+                    style: theme.textTheme.bodyMedium,
+                  ),
                 ],
               ),
               TextButton(
