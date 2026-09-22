@@ -1,9 +1,11 @@
+import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/features/home/presentation/widgets/setting_view_widgets/settings_header.dart';
 import 'package:MatchIn/features/home/presentation/widgets/setting_view_widgets/settings_section.dart';
 import 'package:MatchIn/features/home/presentation/widgets/setting_view_widgets/settings_tile.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class SettingsViewBody extends StatelessWidget {
   const SettingsViewBody({super.key});
@@ -22,10 +24,7 @@ class SettingsViewBody extends StatelessWidget {
         Expanded(
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(
-              horizontal: 16.w,
-              vertical: 20.h,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
             child: Column(
               children: [
                 SettingsSection(
@@ -35,7 +34,7 @@ class SettingsViewBody extends StatelessWidget {
                       icon: Icons.lock_outline_rounded,
                       title: s.changePassword,
                       onTap: () {
-                        // UI Only.
+                        context.go(AppRoutes.kChangePasswordView);
                       },
                     ),
                   ],
@@ -47,8 +46,7 @@ class SettingsViewBody extends StatelessWidget {
                   title: s.preferences,
                   children: [
                     SettingsTile(
-                      icon:
-                          Icons.notifications_none_rounded,
+                      icon: Icons.notifications_none_rounded,
                       title: s.notifications,
                       trailing: Switch(
                         value: true,
@@ -90,8 +88,7 @@ class SettingsViewBody extends StatelessWidget {
                       onTap: () {},
                     ),
                     SettingsTile(
-                      icon:
-                          Icons.chat_bubble_outline_rounded,
+                      icon: Icons.chat_bubble_outline_rounded,
                       title: s.contactUs,
                       onTap: () {},
                     ),
@@ -123,11 +120,9 @@ class SettingsViewBody extends StatelessWidget {
                 Text(
                   s.copyright,
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.bodySmall
-                      ?.copyWith(
-                        color: theme.colorScheme.onSurface
-                            .withValues(alpha: 0.5),
-                      ),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                  ),
                 ),
 
                 SizedBox(height: 24.h),

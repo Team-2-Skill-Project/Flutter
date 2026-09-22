@@ -23,6 +23,7 @@ import 'package:MatchIn/features/splash/presentation/pages/splash_view.dart';
 import 'package:MatchIn/features/profile/presentation/views/edit_career_preferences_view.dart';
 import 'package:MatchIn/features/profile/presentation/views/edit_projects_view.dart';
 import 'package:MatchIn/features/profile/presentation/views/edit_skills_view.dart';
+import 'package:MatchIn/features/home/presentation/views/change_password_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -305,6 +306,17 @@ abstract final class AppRouter {
           return _buildTransitionPage(
             state: state,
             child: const EditCareerPreferencesView(),
+          );
+        },
+      ),
+
+      // Change Password
+      GoRoute(
+        path: AppRoutes.kChangePasswordView,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: const ChangePasswordView(),
           );
         },
       ),

@@ -29,10 +29,13 @@ class _SplashViewState extends State<SplashView> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
-        child: Image.asset(
-          'assets/images/app_icon.png',
-          width: 150.w,
-          height: 150.h,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(32.r),
+          child: Image.asset(
+            'assets/images/app_icon.png',
+            width: 150.w,
+            height: 150.h,
+          ),
         ),
       ),
     );

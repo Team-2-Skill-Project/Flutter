@@ -1,8 +1,10 @@
+import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/widgets/custom_button.dart';
 import 'package:MatchIn/core/widgets/custom_text_field.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginForm extends StatelessWidget {
   LoginForm({super.key});
@@ -10,8 +12,7 @@ class LoginForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final ValueNotifier<bool> _isKeepSignedIn =
-      ValueNotifier<bool>(false);
+  final ValueNotifier<bool> _isKeepSignedIn = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +54,7 @@ class LoginForm extends StatelessWidget {
           ),
           SizedBox(height: 16.h),
           Row(
-            mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
@@ -63,8 +63,7 @@ class LoginForm extends StatelessWidget {
                     builder: (context, value, child) {
                       return Switch(
                         value: value,
-                        activeThumbColor:
-                            theme.colorScheme.primary,
+                        activeThumbColor: theme.colorScheme.primary,
                         onChanged: (newValue) {
                           _isKeepSignedIn.value = newValue;
                         },
@@ -78,14 +77,12 @@ class LoginForm extends StatelessWidget {
                 ],
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () => context.push(AppRoutes.kForgetPasswordView),
                 child: Text(
                   locale.forgotPassword,
-                  style: theme.textTheme.bodyMedium
-                      ?.copyWith(
-                        color: theme.colorScheme.onSurface
-                            .withValues(alpha: 0.6),
-                      ),
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                  ),
                 ),
               ),
             ],
