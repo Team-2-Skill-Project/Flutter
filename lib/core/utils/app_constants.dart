@@ -61,6 +61,4 @@ abstract final class AppConstants {
 
   // TODO: change the app language from here
   static const String languageCode = 'en';
-
-
 }

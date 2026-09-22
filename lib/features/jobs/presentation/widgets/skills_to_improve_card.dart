@@ -27,10 +27,9 @@ class SkillsToImproveCard extends StatelessWidget {
                 SizedBox(width: 7.w),
                 Text(
                   s.skillsToImprove,
-                  style: theme.textTheme.titleMedium
-                      ?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ],
             ),
@@ -82,8 +81,9 @@ class _ImprovementSkill extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(12.r),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest
-            .withValues(alpha: 0.35),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.35,
+        ),
         borderRadius: BorderRadius.circular(8.r),
         border: Border.all(color: theme.dividerColor),
       ),
@@ -95,9 +95,7 @@ class _ImprovementSkill extends StatelessWidget {
             decoration: BoxDecoration(
               color: isHighPriority
                   ? AppColors.goldenMustard
-                  : AppColors.goldenMustard.withValues(
-                      alpha: 0.6,
-                    ),
+                  : AppColors.goldenMustard.withValues(alpha: 0.6),
               shape: BoxShape.circle,
             ),
           ),
@@ -108,27 +106,21 @@ class _ImprovementSkill extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: theme.textTheme.bodyMedium
-                      ?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 Text(
                   subtitle,
-                  style: theme.textTheme.bodySmall
-                      ?.copyWith(
-                        color: theme.colorScheme.onSurface
-                            .withValues(alpha: 0.6),
-                      ),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                  ),
                 ),
               ],
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 9.w,
-              vertical: 5.h,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 5.h),
             decoration: BoxDecoration(
               border: Border.all(
                 color: isHighPriority
@@ -142,8 +134,7 @@ class _ImprovementSkill extends StatelessWidget {
               style: theme.textTheme.bodySmall?.copyWith(
                 color: isHighPriority
                     ? AppColors.amber
-                    : theme.colorScheme.onSurface
-                          .withValues(alpha: 0.6),
+                    : theme.colorScheme.onSurface.withValues(alpha: 0.6),
               ),
             ),
           ),

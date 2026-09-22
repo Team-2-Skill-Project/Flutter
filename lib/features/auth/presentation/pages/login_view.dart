@@ -16,28 +16,25 @@ class LoginView extends StatelessWidget {
     final theme = Theme.of(context);
     final locale = S.of(context);
 
-    return BlocProvider(
-      create: (context) => GetIt.instance<AuthCubit>(),
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text(
-            locale.login,
-            style: theme.textTheme.titleLarge,
-          ),
-          centerTitle: true,
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(
+          locale.login,
+          style: theme.textTheme.titleLarge,
         ),
-        body: SafeArea(
-          child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-            children: [
-              const LoginHeader(),
-              SizedBox(height: 32.h),
-              LoginForm(),
-              SizedBox(height: 16.h),
-              const LoginFooter(),
-            ],
-          ),
+        centerTitle: true,
+      ),
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+          children: [
+            const LoginHeader(),
+            SizedBox(height: 32.h),
+            LoginForm(),
+            SizedBox(height: 16.h),
+            const LoginFooter(),
+          ],
         ),
       ),
     );

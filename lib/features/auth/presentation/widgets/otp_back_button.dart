@@ -3,10 +3,7 @@ import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class OtpBackButton extends StatelessWidget {
-  const OtpBackButton({
-    super.key,
-    required this.onPressed,
-  });
+  const OtpBackButton({super.key, required this.onPressed});
 
   final VoidCallback onPressed;
 

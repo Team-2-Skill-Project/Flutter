@@ -22,19 +22,12 @@ class ApplyForRoleViewBody extends StatelessWidget {
 
     return Column(
       children: [
-        ApplyHeader(
-          title: s.applyForRole,
-          currentStep: 1,
-          totalSteps: 3,
-        ),
+        ApplyHeader(title: s.applyForRole, currentStep: 1, totalSteps: 3),
         const Divider(height: 1),
         Expanded(
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(
-              horizontal: 16.w,
-              vertical: 16.h,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
             child: Column(
               children: [
                 const JobSummaryCard(),
@@ -43,10 +36,8 @@ class ApplyForRoleViewBody extends StatelessWidget {
                 SizedBox(height: 24.h),
                 BlocBuilder<CvCubit, CvState>(
                   buildWhen: (previous, current) {
-                    return previous.status !=
-                            current.status ||
-                        previous.file?.name !=
-                            current.file?.name;
+                    return previous.status != current.status ||
+                        previous.file?.name != current.file?.name;
                   },
                   builder: (context, state) {
                     switch (state.status) {
@@ -54,16 +45,12 @@ class ApplyForRoleViewBody extends StatelessWidget {
                         return CvFileCard(
                           status: CvFileStatus.empty,
                           onUpload: () {
-                            context
-                                .read<CvCubit>()
-                                .pickCv();
+                            context.read<CvCubit>().pickCv();
                           },
                         );
 
                       case CvStatus.picking:
-                        return const CvFileCard(
-                          status: CvFileStatus.empty,
-                        );
+                        return const CvFileCard(status: CvFileStatus.empty);
 
                       case CvStatus.selected:
                         return CvFileCard(
@@ -71,14 +58,10 @@ class ApplyForRoleViewBody extends StatelessWidget {
                           fileName: state.file?.name,
                           updatedText: s.updatedJustNow,
                           onReplace: () {
-                            context
-                                .read<CvCubit>()
-                                .pickCv();
+                            context.read<CvCubit>().pickCv();
                           },
                           onEdit: () {
-                            context
-                                .read<CvCubit>()
-                                .pickCv();
+                            context.read<CvCubit>().pickCv();
                           },
                           onView: () {
                             // CV preview will be connected next.
@@ -95,14 +78,10 @@ class ApplyForRoleViewBody extends StatelessWidget {
                               ? null
                               : s.updatedJustNow,
                           onUpload: () {
-                            context
-                                .read<CvCubit>()
-                                .pickCv();
+                            context.read<CvCubit>().pickCv();
                           },
                           onReplace: () {
-                            context
-                                .read<CvCubit>()
-                                .pickCv();
+                            context.read<CvCubit>().pickCv();
                           },
                         );
                     }

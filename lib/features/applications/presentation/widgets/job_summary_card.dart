@@ -26,15 +26,9 @@ class JobSummaryCard extends StatelessWidget {
                   height: 58.w,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: theme
-                        .colorScheme
-                        .surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(
-                      10.r,
-                    ),
-                    border: Border.all(
-                      color: theme.dividerColor,
-                    ),
+                    color: theme.colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(10.r),
+                    border: Border.all(color: theme.dividerColor),
                   ),
                   child: Icon(
                     Icons.hub_outlined,
@@ -45,27 +39,23 @@ class JobSummaryCard extends StatelessWidget {
                 SizedBox(width: 12.w),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         s.juniorFlutterDeveloper,
-                        style: theme.textTheme.titleLarge
-                            ?.copyWith(
-                              fontWeight: FontWeight.w700,
-                            ),
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       SizedBox(height: 4.h),
                       Text(
                         'TechNova',
-                        style: theme.textTheme.bodyMedium
-                            ?.copyWith(
-                              color: theme
-                                  .colorScheme
-                                  .onSurface
-                                  .withValues(alpha: 0.65),
-                              fontWeight: FontWeight.w600,
-                            ),
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.65,
+                          ),
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ],
                   ),
@@ -85,8 +75,7 @@ class JobSummaryCard extends StatelessWidget {
                 Icon(
                   Icons.location_on_outlined,
                   size: 18.sp,
-                  color: theme.colorScheme.onSurface
-                      .withValues(alpha: 0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
                 SizedBox(width: 4.w),
                 Expanded(
@@ -101,20 +90,14 @@ class JobSummaryCard extends StatelessWidget {
                     vertical: 5.h,
                   ),
                   decoration: BoxDecoration(
-                    color: theme
-                        .colorScheme
-                        .surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(
-                      6.r,
-                    ),
+                    color: theme.colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(6.r),
                   ),
                   child: Text(
                     s.zeroToTwoYearsExp,
-                    style: theme.textTheme.bodyMedium
-                        ?.copyWith(
-                          color:
-                              theme.colorScheme.onSurface,
-                        ),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurface,
+                    ),
                   ),
                 ),
               ],
