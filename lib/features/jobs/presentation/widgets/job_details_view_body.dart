@@ -21,7 +21,10 @@ class JobDetailsViewBody extends StatelessWidget {
         Expanded(
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+            padding: EdgeInsets.symmetric(
+              horizontal: 16.w,
+              vertical: 16.h,
+            ),
             child: Column(
               children: [
                 const JobDetailsOverviewCard(),

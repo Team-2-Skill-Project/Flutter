@@ -62,7 +62,9 @@ class _StatusRow extends StatelessWidget {
           Icon(
             icon,
             size: 20.sp,
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+            color: theme.colorScheme.onSurface.withValues(
+              alpha: 0.6,
+            ),
           ),
           SizedBox(width: 8.w),
         ],
@@ -70,15 +72,22 @@ class _StatusRow extends StatelessWidget {
           child: Text(
             label,
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+              color: theme.colorScheme.onSurface.withValues(
+                alpha: 0.6,
+              ),
             ),
           ),
         ),
         if (showDot)
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+            padding: EdgeInsets.symmetric(
+              horizontal: 12.w,
+              vertical: 6.h,
+            ),
             decoration: BoxDecoration(
-              color: theme.colorScheme.primary.withValues(alpha: 0.08),
+              color: theme.colorScheme.primary.withValues(
+                alpha: 0.08,
+              ),
               borderRadius: BorderRadius.circular(20.r),
             ),
             child: Text(

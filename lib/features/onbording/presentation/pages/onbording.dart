@@ -5,12 +5,12 @@ import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
-import 'package:MatchIn/features/onboarding/presentation/widgets/career_path_hero_widget.dart';
-import 'package:MatchIn/features/onboarding/presentation/widgets/job_match_hero_widget.dart';
-import 'package:MatchIn/features/onboarding/presentation/widgets/onboarding_narrative_section.dart';
-import 'package:MatchIn/features/onboarding/presentation/widgets/onboarding_top_bar.dart';
-import 'package:MatchIn/features/onboarding/presentation/widgets/opportunity_hero_widget.dart';
-import 'package:MatchIn/features/onboarding/presentation/widgets/profile_setup_card.dart';
+import 'package:MatchIn/features/onbording/presentation/widgets/career_path_hero_widget.dart';
+import 'package:MatchIn/features/onbording/presentation/widgets/job_match_hero_widget.dart';
+import 'package:MatchIn/features/onbording/presentation/widgets/onboarding_narrative_section.dart';
+import 'package:MatchIn/features/onbording/presentation/widgets/onboarding_top_bar.dart';
+import 'package:MatchIn/features/onbording/presentation/widgets/opportunity_hero_widget.dart';
+import 'package:MatchIn/features/onbording/presentation/widgets/profile_setup_card.dart';
 
 class Onb1 extends StatefulWidget {
   const Onb1({super.key});

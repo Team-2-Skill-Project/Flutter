@@ -31,25 +31,34 @@ class ApplicationQuestionsViewBody extends StatelessWidget {
         Expanded(
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
+            padding: EdgeInsets.symmetric(
+              horizontal: 16.w,
+              vertical: 18.h,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                JobInfoDetails(label: '${s.juniorFlutterDeveloper} • TechNova'),
+                JobInfoDetails(
+                  label:
+                      '${s.juniorFlutterDeveloper} • TechNova',
+                ),
                 SizedBox(height: 14.h),
                 Text(
                   s.aFewMoreQuestions,
-                  style: theme.textTheme.headlineMedium?.copyWith(
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: theme.textTheme.headlineMedium
+                      ?.copyWith(
+                        color: theme.colorScheme.primary,
+                        fontWeight: FontWeight.w700,
+                      ),
                 ),
                 SizedBox(height: 8.h),
                 Text(
                   s.answerEmployerQuestions,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.65),
-                  ),
+                  style: theme.textTheme.bodyMedium
+                      ?.copyWith(
+                        color: theme.colorScheme.onSurface
+                            .withValues(alpha: 0.65),
+                      ),
                 ),
                 SizedBox(height: 24.h),
 
@@ -85,7 +94,10 @@ class ApplicationQuestionsViewBody extends StatelessWidget {
                   title: s.preferredWorkMode,
                   child: Column(
                     children: [
-                      WorkModeOption(label: s.remote, isSelected: false),
+                      WorkModeOption(
+                        label: s.remote,
+                        isSelected: false,
+                      ),
                       SizedBox(height: 8.h),
                       WorkModeOption(
                         label: s.hybrid,
@@ -93,7 +105,10 @@ class ApplicationQuestionsViewBody extends StatelessWidget {
                         badge: s.popular,
                       ),
                       SizedBox(height: 8.h),
-                      WorkModeOption(label: s.onSite, isSelected: false),
+                      WorkModeOption(
+                        label: s.onSite,
+                        isSelected: false,
+                      ),
                     ],
                   ),
                 ),
@@ -105,15 +120,28 @@ class ApplicationQuestionsViewBody extends StatelessWidget {
                   child: GridView.count(
                     crossAxisCount: 2,
                     shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
+                    physics:
+                        const NeverScrollableScrollPhysics(),
                     crossAxisSpacing: 10.w,
                     mainAxisSpacing: 10.h,
                     childAspectRatio: 2.8,
                     children: const [
-                      TechnologyOption(label: 'Flutter', isSelected: true),
-                      TechnologyOption(label: 'REST APIs', isSelected: true),
-                      TechnologyOption(label: 'Firebase', isSelected: false),
-                      TechnologyOption(label: 'Testing', isSelected: false),
+                      TechnologyOption(
+                        label: 'Flutter',
+                        isSelected: true,
+                      ),
+                      TechnologyOption(
+                        label: 'REST APIs',
+                        isSelected: true,
+                      ),
+                      TechnologyOption(
+                        label: 'Firebase',
+                        isSelected: false,
+                      ),
+                      TechnologyOption(
+                        label: 'Testing',
+                        isSelected: false,
+                      ),
                     ],
                   ),
                 ),

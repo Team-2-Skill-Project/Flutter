@@ -19,7 +19,10 @@ class JobDetailsHeader extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+      padding: EdgeInsets.symmetric(
+        horizontal: 12.w,
+        vertical: 8.h,
+      ),
       child: Row(
         children: [
           IconButton(
@@ -38,7 +41,9 @@ class JobDetailsHeader extends StatelessWidget {
           IconButton(
             onPressed: onSave ?? () {},
             icon: Icon(
-              isSaved ? Icons.bookmark_rounded : Icons.bookmark_border_rounded,
+              isSaved
+                  ? Icons.bookmark_rounded
+                  : Icons.bookmark_border_rounded,
               color: isSaved
                   ? theme.colorScheme.secondary
                   : theme.iconTheme.color,

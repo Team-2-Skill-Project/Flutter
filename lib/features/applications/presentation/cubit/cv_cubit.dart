@@ -3,7 +3,8 @@ import 'package:MatchIn/features/applications/presentation/cubit/cv_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CvCubit extends Cubit<CvState> {
-  CvCubit({required this._filePickerService}) : super(const CvState());
+  CvCubit({required this._filePickerService})
+    : super(const CvState());
 
   final FilePickerService _filePickerService;
 

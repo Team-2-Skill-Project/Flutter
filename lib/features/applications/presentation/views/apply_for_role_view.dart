@@ -11,7 +11,9 @@ class ApplyForRoleView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<CvCubit>(),
-      child: const Scaffold(body: SafeArea(child: ApplyForRoleViewBody())),
+      child: const Scaffold(
+        body: SafeArea(child: ApplyForRoleViewBody()),
+      ),
     );
   }
 }
