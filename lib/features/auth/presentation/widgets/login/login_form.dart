@@ -1,9 +1,7 @@
 import 'package:MatchIn/core/widgets/custom_button.dart';
 import 'package:MatchIn/core/widgets/custom_text_field.dart';
-import 'package:MatchIn/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginForm extends StatelessWidget {
@@ -12,8 +10,7 @@ class LoginForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final ValueNotifier<bool> _isKeepSignedIn =
-      ValueNotifier<bool>(false);
+  final ValueNotifier<bool> _isKeepSignedIn = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +28,12 @@ class LoginForm extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             validator: (value) {
-              if (value == null || value.isEmpty) return locale.email;
-              if (!value.contains('@')) return locale.email;
+              if (value == null || value.isEmpty) {
+                return locale.email;
+              }
+              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                return locale.email;
+              }
               return null;
             },
           ),
@@ -44,8 +45,12 @@ class LoginForm extends StatelessWidget {
             isPassword: true,
             textInputAction: TextInputAction.done,
             validator: (value) {
-              if (value == null || value.isEmpty) return locale.password;
-              if (value.length < 6) return locale.password;
+              if (value == null || value.isEmpty) {
+                return locale.password;
+              }
+              if (value.length < 6) {
+                return locale.password;
+              }
               return null;
             },
           ),
@@ -85,7 +90,9 @@ class LoginForm extends StatelessWidget {
           CustomButton(
             text: locale.login,
             onPressed: () {
-              if (_formKey.currentState!.validate()) {}
+              if (_formKey.currentState!.validate()) {
+                // TODO: Call Cubit method here
+              }
             },
           ),
         ],

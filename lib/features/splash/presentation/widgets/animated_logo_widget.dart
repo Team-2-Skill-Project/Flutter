@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AnimatedLogoWidget extends StatefulWidget {
   const AnimatedLogoWidget({super.key});
@@ -9,17 +10,15 @@ class AnimatedLogoWidget extends StatefulWidget {
 
 class _AnimatedLogoWidgetState extends State<AnimatedLogoWidget>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+  late final AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    // الانيميشن هياخد 3 ثواني عشان يترسم
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
-    );
-    _controller.forward();
+      duration: const Duration(seconds: 2),
+    )..forward();
   }
 
   @override
@@ -30,64 +29,81 @@ class _AnimatedLogoWidgetState extends State<AnimatedLogoWidget>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return CustomPaint(
-          size: const Size(150, 150),
-          painter: LogoPainter(_controller.value),
-        );
-      },
+    return Center(
+      child: SizedBox(
+        width: 150.w,
+        height: 150.h,
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            return CustomPaint(
+              size: Size(150.w, 150.h),
+              painter: LogoPainter(_controller.value),
+            );
+          },
+        ),
+      ),
     );
   }
 }
 
 class LogoPainter extends CustomPainter {
   final double progress;
-
   LogoPainter(this.progress);
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
 
-    // بنجهز الفرشه اللي هنرسم بيها الخطوط
-    final linePaint = Paint()
-      ..color = Colors.green
-      ..strokeWidth = 12
-      ..style = PaintingStyle.stroke
+    final bgPaint = Paint()
+      ..color = const Color(0xFF14294F)
+      ..style = PaintingStyle.fill;
+    
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(0, 0, size.width, size.height),
+        Radius.circular(30.r),
+      ),
+      bgPaint,
+    );
+
+    if (progress < 0.1) return;
+    final p = (progress - 0.1) / 0.9;
+
+    final greenPaint = Paint()
+      ..color = const Color(0xFF5BA75B)
+      ..strokeWidth = 8.w
       ..strokeCap = StrokeCap.round;
 
-    final circlePaint = Paint()
-      ..style = PaintingStyle.fill;
-
-    // بنرسم الخط اللي في النص وبيكبر مع الوقت
-    final path = Path();
-    path.moveTo(center.dx - 30, center.dy + 30);
-    path.lineTo(
-      (center.dx - 30) + (60 * progress),
-      (center.dy + 30) - (60 * progress),
+    final lineStart = Offset(size.width * 0.25, size.height * 0.75);
+    final lineEnd = Offset(size.width * 0.75, size.height * 0.25);
+    final currentEnd = Offset(
+      lineStart.dx + (lineEnd.dx - lineStart.dx) * p,
+      lineStart.dy + (lineEnd.dy - lineStart.dy) * p,
     );
-    canvas.drawPath(path, linePaint);
+    canvas.drawLine(lineStart, currentEnd, greenPaint);
 
-    // بنرسم الدواير وتظهر بالتدريج لما الخط يخلص نصه
-    if (progress > 0.5) {
-      // بنحسب الشفافيه عشان تظهر بنعومه
-      final opacity = ((progress - 0.5) * 2).clamp(0.0, 1.0);
+    if (p > 0.5) {
+      final p2 = ((p - 0.5) * 2).clamp(0.0, 1.0);
 
-      circlePaint.color = Colors.orange.withOpacity(opacity);
-      canvas.drawCircle(Offset(center.dx - 40, center.dy - 40), 25, circlePaint);
+      final whiteStroke = Paint()
+        ..color = Colors.white.withOpacity(p2)
+        ..strokeWidth = 6.w
+        ..style = PaintingStyle.stroke
+        ..strokeCap = StrokeCap.round;
 
-      circlePaint.color = Colors.yellow.withOpacity(opacity);
-      canvas.drawCircle(Offset(center.dx + 40, center.dy + 40), 25, circlePaint);
+      final path = Path();
+      path.moveTo(size.width * 0.35, size.height * 0.35);
+      path.quadraticBezierTo(size.width * 0.35, center.dy, center.dx, center.dy);
+      path.quadraticBezierTo(size.width * 0.65, center.dy, size.width * 0.65, size.height * 0.65);
+      canvas.drawPath(path, whiteStroke);
 
-      circlePaint.color = Colors.white.withOpacity(opacity);
-      canvas.drawCircle(center, 18, circlePaint);
+      canvas.drawCircle(Offset(size.width * 0.35, size.height * 0.35), 18.w * p2, Paint()..color = const Color(0xFFFF6B35));
+      canvas.drawCircle(Offset(size.width * 0.65, size.height * 0.65), 18.w * p2, Paint()..color = const Color(0xFFFFC107));
+      canvas.drawCircle(center, 12.w * p2, Paint()..color = Colors.white);
     }
   }
 
   @override
-  bool shouldRepaint(covariant LogoPainter oldDelegate) {
-    return oldDelegate.progress != progress;
-  }
+  bool shouldRepaint(covariant LogoPainter oldDelegate) => oldDelegate.progress != progress;
 }

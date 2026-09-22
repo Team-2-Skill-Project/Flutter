@@ -1,9 +1,7 @@
 import 'package:MatchIn/core/widgets/custom_button.dart';
 import 'package:MatchIn/core/widgets/custom_text_field.dart';
-import 'package:MatchIn/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegisterForm extends StatelessWidget {
@@ -13,10 +11,8 @@ class RegisterForm extends StatelessWidget {
   final _emailController = TextEditingController();
   final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _confirmPasswordController =
-      TextEditingController();
-  final ValueNotifier<bool> _isTermsAccepted =
-      ValueNotifier<bool>(false);
+  final _confirmPasswordController = TextEditingController();
+  final ValueNotifier<bool> _isTermsAccepted = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
@@ -33,16 +29,17 @@ class RegisterForm extends StatelessWidget {
             hintText: locale.emailHint,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return locale.email;
+              }
+              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                return locale.email;
+              }
+              return null;
+            },
           ),
           SizedBox(height: 16.h),
-          // CustomTextField(
-          //   controller: _phoneController,
-          //   labelText: locale.phoneNumber,
-          //   hintText: locale.phoneHint,
-          //   keyboardType: TextInputType.phone,
-          //   textInputAction: TextInputAction.next,
-          // ),
-          // SizedBox(height: 16.h),
           CustomTextField(
             controller: _passwordController,
             labelText: locale.password,
@@ -50,7 +47,12 @@ class RegisterForm extends StatelessWidget {
             isPassword: true,
             textInputAction: TextInputAction.next,
             validator: (value) {
-              if (value == null || value.isEmpty) return locale.password;
+              if (value == null || value.isEmpty) {
+                return locale.password;
+              }
+              if (value.length < 6) {
+                return locale.password;
+              }
               return null;
             },
           ),
@@ -62,8 +64,12 @@ class RegisterForm extends StatelessWidget {
             isPassword: true,
             textInputAction: TextInputAction.done,
             validator: (value) {
-              if (value == null || value.isEmpty) return locale.confirmPassword;
-              if (value != _passwordController.text) return locale.confirmPassword;
+              if (value == null || value.isEmpty) {
+                return locale.confirmPassword;
+              }
+              if (value != _passwordController.text) {
+                return locale.confirmPassword;
+              }
               return null;
             },
           ),
@@ -92,7 +98,9 @@ class RegisterForm extends StatelessWidget {
           CustomButton(
             text: locale.completeRegistration,
             onPressed: () {
-              if (_formKey.currentState!.validate() && _isTermsAccepted.value) {}
+              if (_formKey.currentState!.validate() && _isTermsAccepted.value) {
+                // TODO: Call Cubit method here
+              }
             },
           ),
         ],
