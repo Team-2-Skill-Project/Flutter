@@ -26,17 +26,30 @@ class MatchedSkillsCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     s.whatYouAlreadyMatch,
-                    style: Theme.of(context).textTheme.titleMedium
-                        ?.copyWith(fontWeight: FontWeight.w700),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
                   ),
                 ),
                 _SourceChip(label: s.fromYourCv),
               ],
             ),
             SizedBox(height: 8.h),
-            _MatchedSkill(title: 'Flutter', subtitle: s.foundInCvAndProjects),
-            _MatchedSkill(title: 'REST APIs', subtitle: s.usedInTwoProjects),
-            _MatchedSkill(title: 'Git & GitHub', subtitle: s.foundInYourSkills),
+            _MatchedSkill(
+              title: 'Flutter',
+              subtitle: s.foundInCvAndProjects,
+            ),
+            _MatchedSkill(
+              title: 'REST APIs',
+              subtitle: s.usedInTwoProjects,
+            ),
+            _MatchedSkill(
+              title: 'Git & GitHub',
+              subtitle: s.foundInYourSkills,
+            ),
             _MatchedSkill(
               title: 'State Management',
               subtitle: s.experienceWithBloc,
@@ -79,22 +92,26 @@ class _MatchedSkill extends StatelessWidget {
               SizedBox(width: 10.w),
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
                   children: [
                     Text(
                       title,
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
                     SizedBox(height: 2.h),
                     Text(
                       subtitle,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurface.withValues(
-                          alpha: 0.6,
-                        ),
-                      ),
+                      style: theme.textTheme.bodySmall
+                          ?.copyWith(
+                            color: theme
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.6),
+                          ),
                     ),
                   ],
                 ),
@@ -104,7 +121,9 @@ class _MatchedSkill extends StatelessWidget {
         ),
         if (showDivider)
           Padding(
-            padding: EdgeInsetsDirectional.only(start: 28.w),
+            padding: EdgeInsetsDirectional.only(
+              start: 28.w,
+            ),
             child: const Divider(height: 1),
           ),
       ],
@@ -120,12 +139,20 @@ class _SourceChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+      padding: EdgeInsets.symmetric(
+        horizontal: 10.w,
+        vertical: 5.h,
+      ),
       decoration: BoxDecoration(
-        border: Border.all(color: Theme.of(context).dividerColor),
+        border: Border.all(
+          color: Theme.of(context).dividerColor,
+        ),
         borderRadius: BorderRadius.circular(5.r),
       ),
-      child: Text(label, style: Theme.of(context).textTheme.bodySmall),
+      child: Text(
+        label,
+        style: Theme.of(context).textTheme.bodySmall,
+      ),
     );
   }
 }

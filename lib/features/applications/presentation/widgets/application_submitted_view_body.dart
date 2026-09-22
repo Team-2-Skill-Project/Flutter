@@ -15,23 +15,34 @@ class ApplicationSubmittedViewBody extends StatelessWidget {
     final s = S.of(context);
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
+      padding: EdgeInsets.symmetric(
+        horizontal: 24.w,
+        vertical: 20.h,
+      ),
       child: Column(
         children: [
           Align(
             alignment: AlignmentDirectional.center,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 7.h),
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+                vertical: 7.h,
+              ),
               decoration: BoxDecoration(
-                color: theme.colorScheme.surfaceContainerHighest,
+                color: theme
+                    .colorScheme
+                    .surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(24.r),
-                border: Border.all(color: theme.dividerColor),
+                border: Border.all(
+                  color: theme.dividerColor,
+                ),
               ),
               child: Text(
                 s.stepFourConfirmation,
                 style: theme.textTheme.labelLarge?.copyWith(
                   letterSpacing: 1.5,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                  color: theme.colorScheme.onSurface
+                      .withValues(alpha: 0.6),
                 ),
               ),
             ),
@@ -44,10 +55,14 @@ class ApplicationSubmittedViewBody extends StatelessWidget {
             height: 96.r,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: AppColors.forestGreen.withValues(alpha: 0.12),
+              color: AppColors.forestGreen.withValues(
+                alpha: 0.12,
+              ),
               shape: BoxShape.circle,
               border: Border.all(
-                color: AppColors.forestGreen.withValues(alpha: 0.25),
+                color: AppColors.forestGreen.withValues(
+                  alpha: 0.25,
+                ),
               ),
             ),
             child: Icon(
@@ -74,20 +89,27 @@ class ApplicationSubmittedViewBody extends StatelessWidget {
             TextSpan(
               style: theme.textTheme.bodyLarge?.copyWith(
                 height: 1.5,
-                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                color: theme.colorScheme.onSurface
+                    .withValues(alpha: 0.6),
               ),
               children: [
                 TextSpan(text: '${s.yourApplicationFor} '),
                 TextSpan(
                   text: s.juniorFlutterDeveloper,
-                  style: TextStyle(color: theme.colorScheme.primary),
+                  style: TextStyle(
+                    color: theme.colorScheme.primary,
+                  ),
                 ),
                 TextSpan(text: ' ${s.at} '),
                 TextSpan(
                   text: 'TechNova',
-                  style: TextStyle(color: theme.colorScheme.primary),
+                  style: TextStyle(
+                    color: theme.colorScheme.primary,
+                  ),
                 ),
-                TextSpan(text: ' ${s.submittedSuccessfully}'),
+                TextSpan(
+                  text: ' ${s.submittedSuccessfully}',
+                ),
               ],
             ),
             textAlign: TextAlign.center,
@@ -103,7 +125,9 @@ class ApplicationSubmittedViewBody extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                context.push(AppRoutes.ktrackingApplication);
+                context.push(
+                  AppRoutes.ktrackingApplication,
+                );
               },
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -124,7 +148,9 @@ class ApplicationSubmittedViewBody extends StatelessWidget {
             },
             child: Text(
               s.backToJobs,
-              style: TextStyle(color: theme.colorScheme.secondary),
+              style: TextStyle(
+                color: theme.colorScheme.secondary,
+              ),
             ),
           ),
 

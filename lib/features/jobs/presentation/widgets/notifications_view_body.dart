@@ -22,15 +22,22 @@ class NotificationsViewBody extends StatelessWidget {
         Expanded(
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+                vertical: 16.h,
+              ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        NotificationFilterChip(label: s.all, isSelected: true),
+                        NotificationFilterChip(
+                          label: s.all,
+                          isSelected: true,
+                        ),
                         SizedBox(width: 8.w),
                         NotificationFilterChip(
                           label: s.jobs,
@@ -47,7 +54,10 @@ class NotificationsViewBody extends StatelessWidget {
                           isSelected: false,
                         ),
                         SizedBox(width: 8.w),
-                        NotificationFilterChip(label: s.cv, isSelected: false),
+                        NotificationFilterChip(
+                          label: s.cv,
+                          isSelected: false,
+                        ),
                       ],
                     ),
                   ),
@@ -56,9 +66,11 @@ class NotificationsViewBody extends StatelessWidget {
 
                   Text(
                     s.today,
-                    style: theme.textTheme.labelLarge?.copyWith(
-                      color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                    ),
+                    style: theme.textTheme.labelLarge
+                        ?.copyWith(
+                          color: theme.colorScheme.onSurface
+                              .withValues(alpha: 0.6),
+                        ),
                   ),
 
                   SizedBox(height: 12.h),
@@ -97,17 +109,21 @@ class NotificationsViewBody extends StatelessWidget {
 
                   Text(
                     s.yesterday,
-                    style: theme.textTheme.labelLarge?.copyWith(
-                      color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                    ),
+                    style: theme.textTheme.labelLarge
+                        ?.copyWith(
+                          color: theme.colorScheme.onSurface
+                              .withValues(alpha: 0.6),
+                        ),
                   ),
 
                   SizedBox(height: 12.h),
 
                   NotificationCard(
-                    icon: Icons.assignment_turned_in_outlined,
+                    icon:
+                        Icons.assignment_turned_in_outlined,
                     title: s.applicationStatusUpdated,
-                    description: s.applicationStatusDescription,
+                    description:
+                        s.applicationStatusDescription,
                     time: s.yesterdayTime,
                     actionLabel: s.viewApplication,
                   ),
