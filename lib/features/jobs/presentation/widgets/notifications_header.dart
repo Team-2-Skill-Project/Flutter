@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NotificationsHeader extends StatelessWidget {
-  const NotificationsHeader({
-    super.key,
-    this.onMarkAllRead,
-  });
+  const NotificationsHeader({super.key, this.onMarkAllRead});
 
   final VoidCallback? onMarkAllRead;
 
@@ -15,10 +12,7 @@ class NotificationsHeader extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: 16.w,
-        vertical: 12.h,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       child: Row(
         children: [
           IconButton(
@@ -29,8 +23,9 @@ class NotificationsHeader extends StatelessWidget {
           Expanded(
             child: Text(
               S.of(context).notifications,
-              style: theme.textTheme.headlineSmall
-                  ?.copyWith(fontWeight: FontWeight.w700),
+              style: theme.textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
           TextButton(

@@ -1,6 +1,8 @@
 import 'dart:convert';
+
 import 'package:MatchIn/core/cache/cache_key.dart';
 import 'package:MatchIn/core/cache/shared_preferences_helper.dart';
+
 import '../models/chat_message_model.dart';
 import '../models/chat_model.dart';
 import 'chatbot_local_data_source.dart';
@@ -12,7 +14,9 @@ class ChatbotLocalDataSourceImpl implements ChatbotLocalDataSource {
 
   @override
   Future<List<ChatModel>> getChatSessions() async {
-    final rawList = sharedPreferencesHelper.getStringList(key: CacheKey.chatSessions);
+    final rawList = sharedPreferencesHelper.getStringList(
+      key: CacheKey.chatSessions,
+    );
     if (rawList == null || rawList.isEmpty) {
       return [];
     }
@@ -23,18 +27,27 @@ class ChatbotLocalDataSourceImpl implements ChatbotLocalDataSource {
         final map = jsonDecode(rawJson) as Map<String, dynamic>;
         final chatWithoutMessages = ChatModel.fromJson(map);
 
-        final messagesKey = '${CacheKey.chatMessagesPrefix}${chatWithoutMessages.id}';
-        final messagesRaw = sharedPreferencesHelper.getStringList(key: messagesKey);
+        final messagesKey =
+            '${CacheKey.chatMessagesPrefix}${chatWithoutMessages.id}';
+        final messagesRaw = sharedPreferencesHelper.getStringList(
+          key: messagesKey,
+        );
 
         final messagesList = messagesRaw != null
             ? messagesRaw
-                .map((m) => ChatMessageModel.fromJson(jsonDecode(m) as Map<String, dynamic>))
-                .toList()
+                  .map(
+                    (m) => ChatMessageModel.fromJson(
+                      jsonDecode(m) as Map<String, dynamic>,
+                    ),
+                  )
+                  .toList()
             : <ChatMessageModel>[];
 
-        sessions.add(ChatModel.fromEntity(
-          chatWithoutMessages.copyWith(messages: messagesList),
-        ));
+        sessions.add(
+          ChatModel.fromEntity(
+            chatWithoutMessages.copyWith(messages: messagesList),
+          ),
+        );
       } catch (_) {
         // Skip malformed items
       }
@@ -56,7 +69,8 @@ class ChatbotLocalDataSourceImpl implements ChatbotLocalDataSource {
 
   @override
   Future<void> saveChatSession(ChatModel chat) async {
-    final rawList = sharedPreferencesHelper.getStringList(key: CacheKey.chatSessions) ?? [];
+    final rawList =
+        sharedPreferencesHelper.getStringList(key: CacheKey.chatSessions) ?? [];
 
     final List<Map<String, dynamic>> sessionMaps = [];
     for (final s in rawList) {
@@ -99,7 +113,8 @@ class ChatbotLocalDataSourceImpl implements ChatbotLocalDataSource {
 
   @override
   Future<void> deleteChatSession(String chatId) async {
-    final rawList = sharedPreferencesHelper.getStringList(key: CacheKey.chatSessions) ?? [];
+    final rawList =
+        sharedPreferencesHelper.getStringList(key: CacheKey.chatSessions) ?? [];
     final List<Map<String, dynamic>> sessionMaps = [];
     for (final s in rawList) {
       try {
@@ -121,13 +136,16 @@ class ChatbotLocalDataSourceImpl implements ChatbotLocalDataSource {
 
   @override
   Future<void> clearAllChatSessions() async {
-    final rawList = sharedPreferencesHelper.getStringList(key: CacheKey.chatSessions) ?? [];
+    final rawList =
+        sharedPreferencesHelper.getStringList(key: CacheKey.chatSessions) ?? [];
     for (final rawJson in rawList) {
       try {
         final map = jsonDecode(rawJson) as Map<String, dynamic>;
         final id = map['id'] as String?;
         if (id != null) {
-          await sharedPreferencesHelper.deleteData(key: '${CacheKey.chatMessagesPrefix}$id');
+          await sharedPreferencesHelper.deleteData(
+            key: '${CacheKey.chatMessagesPrefix}$id',
+          );
         }
       } catch (_) {}
     }

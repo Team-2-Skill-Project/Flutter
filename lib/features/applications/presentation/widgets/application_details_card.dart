@@ -48,11 +48,9 @@ class ApplicationDetailsCard extends StatelessWidget {
                       child: Text(
                         'Ahmed_Mohamed_CV.pdf',
                         overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.bodyMedium
-                            ?.copyWith(
-                              color:
-                                  theme.colorScheme.primary,
-                            ),
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.primary,
+                        ),
                       ),
                     ),
                   ],
@@ -62,10 +60,7 @@ class ApplicationDetailsCard extends StatelessWidget {
 
             const Divider(height: 20),
 
-            _DetailRow(
-              label: s.applicationMethod,
-              value: 'SkillMatch',
-            ),
+            _DetailRow(label: s.applicationMethod, value: 'SkillMatch'),
 
             const Divider(height: 20),
 
@@ -78,11 +73,7 @@ class ApplicationDetailsCard extends StatelessWidget {
 }
 
 class _DetailRow extends StatelessWidget {
-  const _DetailRow({
-    required this.label,
-    this.value,
-    this.customValue,
-  });
+  const _DetailRow({required this.label, this.value, this.customValue});
 
   final String label;
   final String? value;
@@ -98,9 +89,7 @@ class _DetailRow extends StatelessWidget {
           child: Text(
             label,
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurface.withValues(
-                alpha: 0.6,
-              ),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
             ),
           ),
         ),

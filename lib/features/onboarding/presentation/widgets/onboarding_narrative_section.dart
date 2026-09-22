@@ -1,5 +1,5 @@
 import 'package:MatchIn/core/extensions/context_extensions.dart';
-import 'package:MatchIn/features/onbording/presentation/widgets/onboarding_action_button.dart';
+import 'package:MatchIn/features/onboarding/presentation/widgets/onboarding_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

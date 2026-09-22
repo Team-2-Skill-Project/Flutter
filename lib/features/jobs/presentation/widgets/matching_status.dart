@@ -6,11 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 enum MatchingStatusType { strong, good, percentage }
 
 class MatchingStatus extends StatelessWidget {
-  const MatchingStatus({
-    super.key,
-    required this.type,
-    this.percentage,
-  });
+  const MatchingStatus({super.key, required this.type, this.percentage});
 
   final MatchingStatusType type;
   final int? percentage;
@@ -20,10 +16,7 @@ class MatchingStatus extends StatelessWidget {
     final data = _getStatusData(context);
 
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 10.w,
-        vertical: 5.h,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
       decoration: BoxDecoration(
         color: data.color.withValues(alpha: 0.10),
         borderRadius: BorderRadius.circular(20.r),
@@ -44,9 +37,7 @@ class MatchingStatus extends StatelessWidget {
           ],
           Text(
             data.label,
-            style: context.textTheme.labelMedium?.copyWith(
-              color: data.color,
-            ),
+            style: context.textTheme.labelMedium?.copyWith(color: data.color),
           ),
         ],
       ),
@@ -73,21 +64,15 @@ class MatchingStatus extends StatelessWidget {
 
       case MatchingStatusType.percentage:
         return _MatchingStatusData(
-          label:
-              '${percentage ?? 0}% ${context.l10n.match}',
-          color: context.colors.onSurface.withValues(
-            alpha: 0.6,
-          ),
+          label: '${percentage ?? 0}% ${context.l10n.match}',
+          color: context.colors.onSurface.withValues(alpha: 0.6),
         );
     }
   }
 }
 
 class _MatchingStatusData {
-  const _MatchingStatusData({
-    required this.label,
-    required this.color,
-  });
+  const _MatchingStatusData({required this.label, required this.color});
 
   final String label;
   final Color color;

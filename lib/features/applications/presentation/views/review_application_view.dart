@@ -6,8 +6,6 @@ class ReviewApplicationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(child: ReviewApplicationViewBody()),
-    );
+    return const Scaffold(body: SafeArea(child: ReviewApplicationViewBody()));
   }
 }
