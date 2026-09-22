@@ -35,14 +35,14 @@ class RegisterForm extends StatelessWidget {
             textInputAction: TextInputAction.next,
           ),
           SizedBox(height: 16.h),
-          CustomTextField(
-            controller: _phoneController,
-            labelText: locale.phoneNumber,
-            hintText: locale.phoneHint,
-            keyboardType: TextInputType.phone,
-            textInputAction: TextInputAction.next,
-          ),
-          SizedBox(height: 16.h),
+          // CustomTextField(
+          //   controller: _phoneController,
+          //   labelText: locale.phoneNumber,
+          //   hintText: locale.phoneHint,
+          //   keyboardType: TextInputType.phone,
+          //   textInputAction: TextInputAction.next,
+          // ),
+          // SizedBox(height: 16.h),
           CustomTextField(
             controller: _passwordController,
             labelText: locale.password,
