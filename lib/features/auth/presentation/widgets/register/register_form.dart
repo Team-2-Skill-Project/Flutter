@@ -33,14 +33,14 @@ class RegisterForm extends StatelessWidget {
             textInputAction: TextInputAction.next,
           ),
           SizedBox(height: 16.h),
-          CustomTextField(
-            controller: _phoneController,
-            labelText: locale.phoneNumber,
-            hintText: locale.phoneHint,
-            keyboardType: TextInputType.phone,
-            textInputAction: TextInputAction.next,
-          ),
-          SizedBox(height: 16.h),
+          // CustomTextField(
+          //   controller: _phoneController,
+          //   labelText: locale.phoneNumber,
+          //   hintText: locale.phoneHint,
+          //   keyboardType: TextInputType.phone,
+          //   textInputAction: TextInputAction.next,
+          // ),
+          // SizedBox(height: 16.h),
           CustomTextField(
             controller: _passwordController,
             labelText: locale.password,
@@ -48,9 +48,7 @@ class RegisterForm extends StatelessWidget {
             isPassword: true,
             textInputAction: TextInputAction.next,
             validator: (value) {
-              if (value == null || value.isEmpty) {
-                return locale.password;
-              }
+              if (value == null || value.isEmpty) return locale.password;
               return null;
             },
           ),
@@ -62,12 +60,8 @@ class RegisterForm extends StatelessWidget {
             isPassword: true,
             textInputAction: TextInputAction.done,
             validator: (value) {
-              if (value == null || value.isEmpty) {
-                return locale.confirmPassword;
-              }
-              if (value != _passwordController.text) {
-                return locale.confirmPassword;
-              }
+              if (value == null || value.isEmpty) return locale.confirmPassword;
+              if (value != _passwordController.text) return locale.confirmPassword;
               return null;
             },
           ),
@@ -80,9 +74,7 @@ class RegisterForm extends StatelessWidget {
                   return Checkbox(
                     value: value,
                     activeColor: theme.colorScheme.primary,
-                    onChanged: (newValue) =>
-                        _isTermsAccepted.value =
-                            newValue ?? false,
+                    onChanged: (newValue) => _isTermsAccepted.value = newValue ?? false,
                   );
                 },
               ),
@@ -98,8 +90,7 @@ class RegisterForm extends StatelessWidget {
           CustomButton(
             text: locale.completeRegistration,
             onPressed: () {
-              if (_formKey.currentState!.validate() &&
-                  _isTermsAccepted.value) {}
+              if (_formKey.currentState!.validate() && _isTermsAccepted.value) {}
             },
           ),
         ],

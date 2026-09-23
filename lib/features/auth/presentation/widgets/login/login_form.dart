@@ -30,9 +30,7 @@ class LoginForm extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             validator: (value) {
-              if (value == null || value.isEmpty) {
-                return locale.email;
-              }
+              if (value == null || value.isEmpty) return locale.email;
               if (!value.contains('@')) return locale.email;
               return null;
             },
@@ -45,9 +43,7 @@ class LoginForm extends StatelessWidget {
             isPassword: true,
             textInputAction: TextInputAction.done,
             validator: (value) {
-              if (value == null || value.isEmpty) {
-                return locale.password;
-              }
+              if (value == null || value.isEmpty) return locale.password;
               if (value.length < 6) return locale.password;
               return null;
             },
@@ -63,7 +59,7 @@ class LoginForm extends StatelessWidget {
                     builder: (context, value, child) {
                       return Switch(
                         value: value,
-                        activeThumbColor: theme.colorScheme.primary,
+                        activeColor: theme.colorScheme.primary,
                         onChanged: (newValue) {
                           _isKeepSignedIn.value = newValue;
                         },
@@ -77,7 +73,7 @@ class LoginForm extends StatelessWidget {
                 ],
               ),
               TextButton(
-                onPressed: () => context.push(AppRoutes.kForgetPasswordView),
+                onPressed: () {},
                 child: Text(
                   locale.forgotPassword,
                   style: theme.textTheme.bodyMedium?.copyWith(

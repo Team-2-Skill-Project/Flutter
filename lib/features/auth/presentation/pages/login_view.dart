@@ -16,7 +16,10 @@ class LoginView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(locale.login, style: theme.textTheme.titleLarge),
+        title: Text(
+          locale.login,
+          style: theme.textTheme.titleLarge,
+        ),
         centerTitle: true,
       ),
       body: SafeArea(
