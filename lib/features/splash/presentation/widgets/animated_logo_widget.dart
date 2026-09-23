@@ -58,8 +58,7 @@ class LogoPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 
-    final circlePaint = Paint()
-      ..style = PaintingStyle.fill;
+    final circlePaint = Paint()..style = PaintingStyle.fill;
 
     // بنرسم الخط اللي في النص وبيكبر مع الوقت
     final path = Path();
@@ -76,10 +75,18 @@ class LogoPainter extends CustomPainter {
       final opacity = ((progress - 0.5) * 2).clamp(0.0, 1.0);
 
       circlePaint.color = Colors.orange.withOpacity(opacity);
-      canvas.drawCircle(Offset(center.dx - 40, center.dy - 40), 25, circlePaint);
+      canvas.drawCircle(
+        Offset(center.dx - 40, center.dy - 40),
+        25,
+        circlePaint,
+      );
 
       circlePaint.color = Colors.yellow.withOpacity(opacity);
-      canvas.drawCircle(Offset(center.dx + 40, center.dy + 40), 25, circlePaint);
+      canvas.drawCircle(
+        Offset(center.dx + 40, center.dy + 40),
+        25,
+        circlePaint,
+      );
 
       circlePaint.color = Colors.white.withOpacity(opacity);
       canvas.drawCircle(center, 18, circlePaint);
