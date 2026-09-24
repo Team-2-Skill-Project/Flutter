@@ -1,8 +1,6 @@
-flutter_icons:
+flutter_launcher_icons:
   android: true
   ios: true
   image_path: "assets/images/app_icon.png"
-  # اان الأيقونة متصغرش في أندرويد
   adaptive_icon_background: "#FAF8F4"
   adaptive_icon_foreground: "assets/images/app_icon.png"
-  
