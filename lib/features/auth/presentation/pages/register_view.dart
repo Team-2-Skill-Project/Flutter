@@ -1,4 +1,3 @@
-import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/widgets/register/register_footer.dart';
 import 'package:MatchIn/features/auth/presentation/widgets/register/register_form.dart';
@@ -20,21 +19,9 @@ class RegisterView extends StatelessWidget {
     return BlocProvider(
       create: (context) => GetIt.instance<AuthCubit>(),
       child: Scaffold(
-        backgroundColor: AppColors.background,
         appBar: AppBar(
-          backgroundColor: AppColors.background,
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: AppColors.midnightBlue),
-            onPressed: () => Navigator.pop(context),
-          ),
-          title: Text(
-            locale.createAccount,
-            style: theme.textTheme.titleLarge?.copyWith(
-              color: AppColors.midnightBlue,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          automaticallyImplyLeading: false,
+          title: Text(locale.createAccount, style: theme.textTheme.titleLarge),
           centerTitle: true,
         ),
         body: SafeArea(
@@ -43,21 +30,9 @@ class RegisterView extends StatelessWidget {
             children: [
               const RegisterHeader(),
               SizedBox(height: 32.h),
-              Container(
-                padding: EdgeInsets.all(24.w),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(16.r),
-                  border: Border.all(color: AppColors.border),
-                ),
-                child: Column(
-                  children: [
-                    const RegisterForm(),
-                    SizedBox(height: 16.h),
-                    const RegisterFooter(),
-                  ],
-                ),
-              ),
+              RegisterForm(),
+              SizedBox(height: 16.h),
+              const RegisterFooter(),
             ],
           ),
         ),

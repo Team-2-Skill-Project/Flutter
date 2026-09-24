@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 abstract class AppTextStyles {
-  static const String _arabicFont = 'Alexandria';
-  static const String _latinFont = 'DMSans';
+  // TODO: change these values
+
+  static const String _arabicFont = 'Cairo';
+  static const String _latinFont = 'Poppins';
 
   static String _font(bool isArabic) => isArabic ? _arabicFont : _latinFont;
 
