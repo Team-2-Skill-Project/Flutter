@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/services/services_locator.dart';
@@ -230,30 +231,41 @@ class _SavedJobsContentState extends State<_SavedJobsContent> {
       return RefreshIndicator(
         onRefresh: () =>
             context.read<SavedJobsCubit>().fetchSavedJobs(isRefresh: true),
-        child: ListView.separated(
-          controller: _scrollController,
-          physics: const AlwaysScrollableScrollPhysics(),
-          padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 24.h),
-          itemCount: state.jobs.length + (state.isLoadingMore ? 1 : 0),
-          separatorBuilder: (context, index) => SizedBox(height: 12.h),
-          itemBuilder: (context, index) {
-            if (index == state.jobs.length) {
-              return Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.h),
-                child: const Center(child: CircularProgressIndicator()),
-              );
-            }
+        child: AnimationLimiter(
+          child: ListView.separated(
+            controller: _scrollController,
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 24.h),
+            itemCount: state.jobs.length + (state.isLoadingMore ? 1 : 0),
+            separatorBuilder: (context, index) => SizedBox(height: 12.h),
+            itemBuilder: (context, index) {
+              if (index == state.jobs.length) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16.h),
+                  child: const Center(child: CircularProgressIndicator()),
+                );
+              }
 
-            final job = state.jobs[index];
-            return JobCard(
-              job: job.toJobEntity(),
-              showShareButton: true,
-              onSave: () {
-                context.read<SavedJobsCubit>().toggleBookmark(job);
-              },
-              onApply: () => _onApplyToJob(job),
-            );
-          },
+              final job = state.jobs[index];
+              return AnimationConfiguration.staggeredList(
+                position: index,
+                duration: const Duration(milliseconds: 375),
+                child: SlideAnimation(
+                  verticalOffset: 50.0,
+                  child: FadeInAnimation(
+                    child: JobCard(
+                      job: job.toJobEntity(),
+                      showShareButton: true,
+                      onSave: () {
+                        context.read<SavedJobsCubit>().toggleBookmark(job);
+                      },
+                      onApply: () => _onApplyToJob(job),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
         ),
       );
     }
@@ -275,22 +287,33 @@ class _SavedJobsContentState extends State<_SavedJobsContent> {
       );
     }
 
-    return ListView.separated(
-      padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 24.h),
-      itemCount: appliedJobs.length,
-      separatorBuilder: (context, index) => SizedBox(height: 12.h),
-      itemBuilder: (context, index) {
-        final application = appliedJobs[index];
-        return AppliedJobCard(
-          application: application,
-          onCardTap: () {
-            context.push(AppRoutes.ktrackingApplication);
-          },
-          onViewApplicationTap: () {
-            context.push(AppRoutes.ktrackingApplication);
-          },
-        );
-      },
+    return AnimationLimiter(
+      child: ListView.separated(
+        padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 24.h),
+        itemCount: appliedJobs.length,
+        separatorBuilder: (context, index) => SizedBox(height: 12.h),
+        itemBuilder: (context, index) {
+          final application = appliedJobs[index];
+          return AnimationConfiguration.staggeredList(
+            position: index,
+            duration: const Duration(milliseconds: 375),
+            child: SlideAnimation(
+              verticalOffset: 50.0,
+              child: FadeInAnimation(
+                child: AppliedJobCard(
+                  application: application,
+                  onCardTap: () {
+                    context.push(AppRoutes.ktrackingApplication);
+                  },
+                  onViewApplicationTap: () {
+                    context.push(AppRoutes.ktrackingApplication);
+                  },
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

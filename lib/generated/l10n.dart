@@ -2840,6 +2840,26 @@ class S {
     );
   }
 
+  /// `Name`
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your name`
+  String get nameHint {
+    return Intl.message(
+      'Enter your name',
+      name: 'nameHint',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Email`
   String get email {
     return Intl.message(
@@ -3022,12 +3042,22 @@ class S {
 
   /// `Fair Match`
   String get fairMatch {
-    return Intl.message('Fair Match', name: 'fairMatch', desc: '', args: []);
+    return Intl.message(
+      'Fair Match',
+      name: 'fairMatch',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Just now`
   String get justNow {
-    return Intl.message('Just now', name: 'justNow', desc: '', args: []);
+    return Intl.message(
+      'Just now',
+      name: 'justNow',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `{count, plural, =1{1 minute ago} other{{count} minutes ago}}`

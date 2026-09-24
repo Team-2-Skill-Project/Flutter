@@ -1,6 +1,7 @@
 import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/features/splash/presentation/widgets/animated_logo_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
 
 class SplashView extends StatefulWidget {
@@ -14,22 +15,22 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
+    FlutterNativeSplash.remove();
     _startDelay();
   }
 
   void _startDelay() async {
-    await Future.delayed(const Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 3));
     if (!mounted) return;
 
-    // تم التعديل لاستخدام GoRouter حسب قواعد المشروع
-    context.go(AppRoutes.kLoginView);
+    context.go(AppRoutes.kOnboardingView);
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Color(0xFFFAF8F4),
-      body: AnimatedLogoWidget(),
+    return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: const AnimatedLogoWidget(),
     );
   }
 }

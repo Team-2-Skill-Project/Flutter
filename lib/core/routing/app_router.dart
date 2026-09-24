@@ -19,6 +19,7 @@ import 'package:MatchIn/features/home/presentation/views/jobs_search_view.dart';
 import 'package:MatchIn/features/home/presentation/views/notifications_view.dart';
 import 'package:MatchIn/features/home/presentation/views/settings_view.dart';
 import 'package:MatchIn/features/onbording/presentation/pages/onbording.dart';
+import 'package:MatchIn/features/splash/presentation/pages/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -40,7 +41,7 @@ abstract final class AppRouter {
   }
 
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.kOnboardingView,
+    initialLocation: AppRoutes.kSplashView,
     redirect: (context, state) {
       final location = state.uri.path;
 
@@ -56,7 +57,7 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kSplashView,
         pageBuilder: (context, state) {
-          return _buildTransitionPage(state: state, child: const Onb1());
+          return _buildTransitionPage(state: state, child: const SplashView());
         },
       ),
 

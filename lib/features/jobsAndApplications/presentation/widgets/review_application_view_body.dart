@@ -8,8 +8,6 @@ import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:MatchIn/features/saved/data/repositories/applied_jobs_repository.dart';
-import 'package:MatchIn/features/saved/presentation/models/applied_job_ui_model.dart';
 
 class ReviewApplicationViewBody extends StatelessWidget {
   const ReviewApplicationViewBody({super.key});

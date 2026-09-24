@@ -21,92 +21,76 @@ class SavedJobsCubit extends Cubit<SavedJobsState> {
       emit(const SavedJobsLoading());
     }
 
-    final result = await getSavedJobsUseCase(page: 1, perPage: 15);
+    // Use dummy data since API is currently broken
+    await Future.delayed(const Duration(milliseconds: 800));
 
-    result.fold(
-      (failure) => emit(SavedJobsError(message: failure.message)),
-      (paginatedData) {
-        emit(
-          SavedJobsLoaded(
-            jobs: paginatedData.jobs,
-            currentPage: paginatedData.currentPage,
-            hasMore: paginatedData.hasMorePages,
-          ),
-        );
-      },
+    final dummyJobs = [
+      const SavedJobEntity(
+        id: 1,
+        title: 'Junior Flutter Developer',
+        company: 'TechNova',
+        location: 'Cairo',
+        workMode: 'Hybrid',
+        experience: '0–2 years',
+        jobType: 'Full-time',
+        postedDate: '2026-09-21',
+        skills: ['Flutter', 'REST API', 'Bloc'],
+        matchPercentage: 92,
+        isSaved: true,
+      ),
+      const SavedJobEntity(
+        id: 2,
+        title: 'Mobile Developer Intern',
+        company: 'CodeHub',
+        location: 'Remote',
+        workMode: 'Remote',
+        experience: 'Entry Level',
+        jobType: 'Internship',
+        postedDate: '2026-09-23',
+        skills: ['Flutter', 'Firebase', 'Git'],
+        matchPercentage: 86,
+        isSaved: true,
+      ),
+      const SavedJobEntity(
+        id: 3,
+        title: 'Junior Software Engineer',
+        company: 'NextStack',
+        location: 'Giza',
+        workMode: 'Full-time',
+        experience: 'Entry Level',
+        jobType: 'On-site',
+        postedDate: '2026-09-20',
+        skills: ['Dart', 'OOP', 'SQL'],
+        matchPercentage: 78,
+        isSaved: true,
+      ),
+    ];
+
+    emit(
+      SavedJobsLoaded(
+        jobs: dummyJobs,
+        currentPage: 1,
+        hasMore: false,
+      ),
     );
   }
 
   Future<void> loadMoreSavedJobs() async {
-    final currentState = state;
-    if (currentState is! SavedJobsLoaded ||
-        currentState.isLoadingMore ||
-        !currentState.hasMore) {
-      return;
-    }
-
-    emit(currentState.copyWith(isLoadingMore: true));
-
-    final nextPage = currentState.currentPage + 1;
-    final result = await getSavedJobsUseCase(page: nextPage, perPage: 15);
-
-    result.fold(
-      (failure) {
-        emit(currentState.copyWith(isLoadingMore: false));
-      },
-      (paginatedData) {
-        // Deduplicate jobs by id
-        final existingIds = currentState.jobs.map((j) => j.id).toSet();
-        final newJobs = paginatedData.jobs
-            .where((j) => !existingIds.contains(j.id))
-            .toList();
-
-        emit(
-          SavedJobsLoaded(
-            jobs: [...currentState.jobs, ...newJobs],
-            currentPage: paginatedData.currentPage,
-            hasMore: paginatedData.hasMorePages,
-            isLoadingMore: false,
-          ),
-        );
-      },
-    );
+    // Dummy data doesn't have more pages
+    return;
   }
 
   Future<void> toggleBookmark(SavedJobEntity job) async {
     final currentState = state;
     if (currentState is! SavedJobsLoaded) return;
 
-    final wasSaved = job.isSaved;
-    final targetSaved = !wasSaved;
+    final targetSaved = !job.isSaved;
 
-    // Optimistic UI update
+    // Optimistic UI update only (no API call)
     final updatedJobs = currentState.jobs
         .map((j) => j.id == job.id ? j.copyWith(isSaved: targetSaved) : j)
         .toList();
 
     emit(currentState.copyWith(jobs: updatedJobs));
-
-    // Call API
-    final result = targetSaved
-        ? await saveJobUseCase(jobPostId: job.id)
-        : await unsaveJobUseCase(jobPostId: job.id);
-
-    result.fold(
-      (failure) {
-        // Revert on failure
-        final revertedJobs = currentState.jobs
-            .map((j) => j.id == job.id ? j.copyWith(isSaved: wasSaved) : j)
-            .toList();
-        emit(currentState.copyWith(jobs: revertedJobs));
-      },
-      (isSaved) {
-        // Update with server confirmation
-        final confirmedJobs = currentState.jobs
-            .map((j) => j.id == job.id ? j.copyWith(isSaved: isSaved) : j)
-            .toList();
-        emit(currentState.copyWith(jobs: confirmedJobs));
-      },
-    );
   }
 }

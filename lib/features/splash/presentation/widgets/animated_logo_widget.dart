@@ -48,8 +48,8 @@ class _AnimatedLogoWidgetState extends State<AnimatedLogoWidget>
 }
 
 class LogoPainter extends CustomPainter {
-  final double progress;
   LogoPainter(this.progress);
+  final double progress;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -87,7 +87,7 @@ class LogoPainter extends CustomPainter {
       final p2 = ((p - 0.5) * 2).clamp(0.0, 1.0);
 
       final whiteStroke = Paint()
-        ..color = Colors.white.withOpacity(p2)
+        ..color = Colors.white.withValues(alpha: p2)
         ..strokeWidth = 6.w
         ..style = PaintingStyle.stroke
         ..strokeCap = StrokeCap.round;
