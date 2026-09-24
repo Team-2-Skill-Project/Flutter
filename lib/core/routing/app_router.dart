@@ -1,5 +1,4 @@
 import 'package:MatchIn/core/routing/app_routes.dart';
-import 'package:MatchIn/features/splash/presentation/pages/splash_view.dart';
 import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/core/widgets/app_web_view.dart';
@@ -42,30 +41,30 @@ abstract final class AppRouter {
   }
 
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.kSplashView,
+    initialLocation: AppRoutes.kOnboardingView,
     redirect: (context, state) {
       if (!getIt.isRegistered<SharedPreferencesService>()) {
         return null;
       }
 
       final prefs = getIt<SharedPreferencesService>();
+
       final isOnboarded = prefs.isOnBoardingViewed();
       final isLoggedIn = prefs.isLoggedIn();
+
       final location = state.uri.path;
 
-      // Splash handles its own navigation via animation callback
-      if (location == AppRoutes.kSplashView) return null;
+      if (location == AppRoutes.kSplashView ||
+          location == AppRoutes.kOnboardingView) {
+        if (!isOnboarded) {
+          return AppRoutes.kOnboardingView;
+        }
 
-      // Not onboarded → stay on onboarding if already there, else redirect
-      if (!isOnboarded) {
-        return location == AppRoutes.kOnboardingView
-            ? null
-            : AppRoutes.kOnboardingView;
-      }
+        if (isLoggedIn) {
+          return AppRoutes.kHomeView;
+        }
 
-      // Onboarded but still on onboarding page → move forward
-      if (location == AppRoutes.kOnboardingView) {
-        return isLoggedIn ? AppRoutes.kHomeView : AppRoutes.kRegisterView;
+        return AppRoutes.kRegisterView;
       }
 
       return null;
@@ -75,7 +74,7 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kSplashView,
         pageBuilder: (context, state) {
-          return _buildTransitionPage(state: state, child: const SplashView());
+          return _buildTransitionPage(state: state, child: const Onb1());
         },
       ),
 
