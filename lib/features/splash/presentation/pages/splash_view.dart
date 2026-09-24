@@ -18,11 +18,11 @@ class _SplashViewState extends State<SplashView> {
   }
 
   void _startDelay() async {
-    // زودنا الوقت ل 4 ثواني عشان الانيميشن ياخد وقته
     await Future.delayed(const Duration(seconds: 4));
     if (!mounted) return;
 
-    context.go(AppRoutes.kOnboardingView);
+    // تم التعديل لاستخدام GoRouter حسب قواعد المشروع
+    context.go(AppRoutes.kLoginView);
   }
 
   @override

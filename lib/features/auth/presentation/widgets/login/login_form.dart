@@ -28,8 +28,13 @@ class LoginForm extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             validator: (value) {
-              if (value == null || value.isEmpty) return locale.email;
-              if (!value.contains('@')) return locale.email;
+              if (value == null || value.isEmpty) {
+                return locale.email;
+              }
+              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                  .hasMatch(value)) {
+                return locale.email;
+              }
               return null;
             },
           ),
@@ -41,8 +46,12 @@ class LoginForm extends StatelessWidget {
             isPassword: true,
             textInputAction: TextInputAction.done,
             validator: (value) {
-              if (value == null || value.isEmpty) return locale.password;
-              if (value.length < 6) return locale.password;
+              if (value == null || value.isEmpty) {
+                return locale.password;
+              }
+              if (value.length < 6) {
+                return locale.password;
+              }
               return null;
             },
           ),
@@ -85,7 +94,9 @@ class LoginForm extends StatelessWidget {
           CustomButton(
             text: locale.login,
             onPressed: () {
-              if (_formKey.currentState!.validate()) {}
+              if (_formKey.currentState!.validate()) {
+                // TODO: Call Cubit method here
+              }
             },
           ),
         ],

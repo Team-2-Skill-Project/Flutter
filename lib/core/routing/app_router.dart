@@ -18,12 +18,7 @@ import 'package:MatchIn/features/jobsAndApplications/presentation/views/job_deta
 import 'package:MatchIn/features/home/presentation/views/jobs_search_view.dart';
 import 'package:MatchIn/features/home/presentation/views/notifications_view.dart';
 import 'package:MatchIn/features/home/presentation/views/settings_view.dart';
-import 'package:MatchIn/features/onboarding/presentation/pages/onbording.dart';
-import 'package:MatchIn/features/splash/presentation/pages/splash_view.dart';
-import 'package:MatchIn/features/profile/presentation/views/edit_career_preferences_view.dart';
-import 'package:MatchIn/features/profile/presentation/views/edit_projects_view.dart';
-import 'package:MatchIn/features/profile/presentation/views/edit_skills_view.dart';
-import 'package:MatchIn/features/home/presentation/views/change_password_view.dart';
+import 'package:MatchIn/features/onbording/presentation/pages/onbording.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -45,7 +40,7 @@ abstract final class AppRouter {
   }
 
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.kSplashView,
+    initialLocation: AppRoutes.kOnboardingView,
     redirect: (context, state) {
       final location = state.uri.path;
 
@@ -61,7 +56,7 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kSplashView,
         pageBuilder: (context, state) {
-          return _buildTransitionPage(state: state, child: const SplashView());
+          return _buildTransitionPage(state: state, child: const Onb1());
         },
       ),
 
@@ -84,7 +79,7 @@ abstract final class AppRouter {
         },
       ),
 
-      // Reusable WebView
+      // WebView
       GoRoute(
         path: AppRoutes.kWebView,
         pageBuilder: (context, state) {
@@ -179,7 +174,7 @@ abstract final class AppRouter {
         },
       ),
 
-      // OTP Verification
+      // OTP
       GoRoute(
         path: AppRoutes.kOtpVerificationView,
         pageBuilder: (context, state) {
@@ -273,50 +268,6 @@ abstract final class AppRouter {
           return _buildTransitionPage(
             state: state,
             child: const TrackingApplicationView(),
-          );
-        },
-      ),
-
-      // Edit Skills
-      GoRoute(
-        path: AppRoutes.keditSkillsView,
-        pageBuilder: (context, state) {
-          return _buildTransitionPage(
-            state: state,
-            child: const EditSkillsView(),
-          );
-        },
-      ),
-
-      // Edit Projects
-      GoRoute(
-        path: AppRoutes.keditProjectsView,
-        pageBuilder: (context, state) {
-          return _buildTransitionPage(
-            state: state,
-            child: const EditProjectsView(),
-          );
-        },
-      ),
-
-      // Edit Career Preferences
-      GoRoute(
-        path: AppRoutes.keditcareerPrefView,
-        pageBuilder: (context, state) {
-          return _buildTransitionPage(
-            state: state,
-            child: const EditCareerPreferencesView(),
-          );
-        },
-      ),
-
-      // Change Password
-      GoRoute(
-        path: AppRoutes.kChangePasswordView,
-        pageBuilder: (context, state) {
-          return _buildTransitionPage(
-            state: state,
-            child: const ChangePasswordView(),
           );
         },
       ),

@@ -14,7 +14,10 @@ class LoginHeader extends StatelessWidget {
       children: [
         Image.asset('assets/images/app_icon.png', height: 80.h),
         SizedBox(height: 16.h),
-        Text(locale.welcomeBack, style: theme.textTheme.headlineSmall),
+        Text(
+          locale.welcomeBack,
+          style: theme.textTheme.headlineSmall,
+        ),
         SizedBox(height: 8.h),
         Text(
           locale.smartCareerDiscoveryPlatform,
