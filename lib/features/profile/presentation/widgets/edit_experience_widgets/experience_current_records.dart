@@ -46,18 +46,13 @@ class ExperienceCurrentRecords extends StatelessWidget {
         ),
         if (experiences.isNotEmpty) ...[
           SizedBox(height: 14.h),
-          for (
-            int index = 0;
-            index < experiences.length;
-            index++
-          ) ...[
+          for (int index = 0; index < experiences.length; index++) ...[
             ExperienceManagementRecord(
               experience: experiences[index],
               onEdit: () => onEdit(experiences[index]),
               onDelete: () => onDelete(experiences[index]),
             ),
-            if (index != experiences.length - 1)
-              SizedBox(height: 12.h),
+            if (index != experiences.length - 1) SizedBox(height: 12.h),
           ],
         ],
       ],

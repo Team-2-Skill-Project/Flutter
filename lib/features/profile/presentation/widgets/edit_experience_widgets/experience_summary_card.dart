@@ -40,9 +40,7 @@ class ExperienceSummaryCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: colors.surface,
                   borderRadius: BorderRadius.circular(8.r),
-                  border: Border.all(
-                    color: theme.dividerColor,
-                  ),
+                  border: Border.all(color: theme.dividerColor),
                 ),
                 child: Icon(
                   Icons.work_outline_rounded,
@@ -53,30 +51,26 @@ class ExperienceSummaryCard extends StatelessWidget {
               SizedBox(width: 12.w),
               Expanded(
                 child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       locale.experience,
-                      style: theme.textTheme.titleLarge
-                          ?.copyWith(
-                            color: colors.primary,
-                            fontWeight: FontWeight.w700,
-                          ),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        color: colors.primary,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     SizedBox(height: 2.h),
                     Text(
                       locale.sectionCompleteness,
-                      style: theme.textTheme.bodySmall
-                          ?.copyWith(
-                            color: colors.onSurfaceVariant,
-                          ),
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: colors.onSurfaceVariant,
+                      ),
                     ),
                   ],
                 ),
               ),
-              if (qualityLabel != null &&
-                  qualityLabel!.trim().isNotEmpty)
+              if (qualityLabel != null && qualityLabel!.trim().isNotEmpty)
                 Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: 12.w,
@@ -84,19 +78,14 @@ class ExperienceSummaryCard extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     color: colors.surface,
-                    borderRadius: BorderRadius.circular(
-                      20.r,
-                    ),
-                    border: Border.all(
-                      color: theme.dividerColor,
-                    ),
+                    borderRadius: BorderRadius.circular(20.r),
+                    border: Border.all(color: theme.dividerColor),
                   ),
                   child: Text(
                     qualityLabel!,
-                    style: theme.textTheme.labelMedium
-                        ?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
             ],
@@ -116,8 +105,7 @@ class ExperienceSummaryCard extends StatelessWidget {
               child: LinearProgressIndicator(
                 value: completion / 100,
                 minHeight: 5.h,
-                backgroundColor:
-                    colors.surfaceContainerHighest,
+                backgroundColor: colors.surfaceContainerHighest,
               ),
             ),
             SizedBox(height: 9.h),
@@ -126,20 +114,18 @@ class ExperienceSummaryCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     locale.editorialScore,
-                    style: theme.textTheme.labelSmall
-                        ?.copyWith(
-                          color: colors.onSurfaceVariant,
-                          fontWeight: FontWeight.w600,
-                        ),
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: colors.onSurfaceVariant,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 Text(
                   locale.completedPercentage(completion),
-                  style: theme.textTheme.labelMedium
-                      ?.copyWith(
-                        color: colors.primary,
-                        fontWeight: FontWeight.w700,
-                      ),
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: colors.primary,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ],
             ),

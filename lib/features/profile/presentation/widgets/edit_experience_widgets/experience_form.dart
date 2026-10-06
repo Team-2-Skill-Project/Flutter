@@ -201,7 +201,6 @@ class _ExperienceFormState extends State<ExperienceForm> {
           ),
           SizedBox(height: 18.h),
 
-          // No Add button inside this field by design.
           ExperienceFormField(
             label: locale.relatedSkills,
             controller: _relatedSkillsController,

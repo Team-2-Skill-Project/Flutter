@@ -39,11 +39,10 @@ class ExperienceManagementRecord extends StatelessWidget {
               Expanded(
                 child: Text(
                   experience.jobTitle,
-                  style: theme.textTheme.titleLarge
-                      ?.copyWith(
-                        color: colors.primary,
-                        fontWeight: FontWeight.w700,
-                      ),
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    color: colors.primary,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
               IconButton(
@@ -69,9 +68,7 @@ class ExperienceManagementRecord extends StatelessWidget {
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               if (_hasText(experience.employmentType))
-                ExperienceSkillChip(
-                  label: experience.employmentType!,
-                ),
+                ExperienceSkillChip(label: experience.employmentType!),
               if (_hasText(experience.startDate))
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -84,10 +81,9 @@ class ExperienceManagementRecord extends StatelessWidget {
                     SizedBox(width: 6.w),
                     Text(
                       _dateRange(),
-                      style: theme.textTheme.bodySmall
-                          ?.copyWith(
-                            color: colors.onSurfaceVariant,
-                          ),
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: colors.onSurfaceVariant,
+                      ),
                     ),
                   ],
                 ),
@@ -107,15 +103,12 @@ class ExperienceManagementRecord extends StatelessWidget {
                 Expanded(
                   child: Text(
                     [
-                      if (_hasText(experience.location))
-                        experience.location!,
-                      if (_hasText(experience.workMode))
-                        experience.workMode!,
+                      if (_hasText(experience.location)) experience.location!,
+                      if (_hasText(experience.workMode)) experience.workMode!,
                     ].join(' • '),
-                    style: theme.textTheme.bodySmall
-                        ?.copyWith(
-                          color: colors.onSurfaceVariant,
-                        ),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: colors.onSurfaceVariant,
+                    ),
                   ),
                 ),
               ],
@@ -142,10 +135,9 @@ class ExperienceManagementRecord extends StatelessWidget {
                   padding: EdgeInsets.only(top: 6.h),
                   child: Text(
                     locale.skillsLabel,
-                    style: theme.textTheme.labelMedium
-                        ?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
                 SizedBox(width: 10.w),
@@ -154,11 +146,7 @@ class ExperienceManagementRecord extends StatelessWidget {
                     spacing: 8.w,
                     runSpacing: 8.h,
                     children: experience.skills
-                        .map(
-                          (skill) => ExperienceSkillChip(
-                            label: skill,
-                          ),
-                        )
+                        .map((skill) => ExperienceSkillChip(label: skill))
                         .toList(),
                   ),
                 ),

@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ExperienceSkillChip extends StatelessWidget {
-  const ExperienceSkillChip({
-    required this.label,
-    super.key,
-  });
+  const ExperienceSkillChip({required this.label, super.key});
 
   final String label;
 
@@ -14,10 +11,7 @@ class ExperienceSkillChip extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 12.w,
-        vertical: 7.h,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 7.h),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(20.r),

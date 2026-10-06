@@ -26,9 +26,7 @@ class EditExperienceViewBody extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 32.h),
       children: [
-        ExperienceManagementHeader(
-          onBack: () => Navigator.of(context).pop(),
-        ),
+        ExperienceManagementHeader(onBack: () => Navigator.of(context).pop()),
 
         SizedBox(height: 20.h),
 

@@ -6,18 +6,27 @@ import 'package:MatchIn/features/profile/data/models/skill_search_result_model.d
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_project_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_skill_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/update_candidate_profile_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_project_params.dart';
 
 abstract class ProfileRemoteDataSource {
   Future<CandidateProfileModel> getCandidateProfile();
 
+  Future<CandidateProfileModel> updateCandidateProfile(
+    UpdateCandidateProfileParams params,
+  );
+
   // Candidate Skills
   Future<List<CandidateSkillModel>> getCandidateSkills();
 
-  Future<CandidateSkillModel> addCandidateSkill(AddCandidateSkillParams params);
+  Future<CandidateSkillModel> addCandidateSkill(
+    AddCandidateSkillParams params,
+  );
 
   Future<void> removeCandidateSkill(int candidateSkillId);
-  Future<List<SkillSearchResultModel>> searchSkills(String query);
+  Future<List<SkillSearchResultModel>> searchSkills(
+    String query,
+  );
 
   // Candidate Projects
   Future<List<CandidateProjectModel>> getProjects();

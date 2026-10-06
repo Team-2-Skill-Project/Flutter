@@ -23,18 +23,41 @@ class ExperienceFormActions extends StatelessWidget {
             height: 54.h,
             child: OutlinedButton(
               onPressed: onCancel,
+              style: OutlinedButton.styleFrom(
+                backgroundColor: Theme.of(context)
+                    .colorScheme
+                    .surface,
+                foregroundColor: Theme.of(context)
+                    .colorScheme
+                    .primary,
+                side: BorderSide(
+                  color: Theme.of(context).dividerColor,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+              ),
               child: Text(locale.cancel),
             ),
           ),
         ),
         SizedBox(width: 12.w),
-        Expanded(
-          child: SizedBox(
-            height: 54.h,
-            child: FilledButton(
-              onPressed: onSave,
-              child: Text(locale.saveExperience),
+        SizedBox(
+          height: 54.h,
+          child: FilledButton(
+            onPressed: onSave,
+            style: FilledButton.styleFrom(
+              backgroundColor: Theme.of(context)
+                  .colorScheme
+                  .primary,
+              foregroundColor: Theme.of(context)
+                  .colorScheme
+                  .onPrimary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r),
+              ),
             ),
+            child: Text(locale.saveExperience),
           ),
         ),
       ],

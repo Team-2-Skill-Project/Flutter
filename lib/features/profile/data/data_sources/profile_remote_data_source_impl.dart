@@ -9,6 +9,7 @@ import 'package:MatchIn/features/profile/data/models/skill_search_result_model.d
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_project_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_skill_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/update_candidate_profile_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_project_params.dart';
 
 class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
@@ -20,6 +21,33 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   Future<CandidateProfileModel> getCandidateProfile() async {
     final response = await apiConsumer.get(EndPoint.candidateProfile);
 
+    return _parseCandidateProfileResponse(response);
+  }
+
+  @override
+  Future<CandidateProfileModel> updateCandidateProfile(
+    UpdateCandidateProfileParams params,
+  ) async {
+    final response = await apiConsumer.patch(
+      EndPoint.candidateProfile,
+      data: {
+        'date_of_birth': params.dateOfBirth,
+        'gender': params.gender,
+        'job_title': params.jobTitle,
+        'country': params.country,
+        'state': params.state,
+        'city': params.city,
+        'github_url': params.githubUrl,
+        'linkedin_url': params.linkedinUrl,
+        'military_status': params.militaryStatus,
+        'professional_summary': params.professionalSummary,
+      },
+    );
+
+    return _parseCandidateProfileResponse(response);
+  }
+
+  CandidateProfileModel _parseCandidateProfileResponse(dynamic response) {
     if (response is! Map<String, dynamic>) {
       throw const FormatException(
         'Invalid response format for candidate profile',
