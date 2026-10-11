@@ -51,10 +51,15 @@ abstract final class AppRoutes {
 
   static const String kChangePasswordView =
       '/changePassword';
-  static const String kPrivacyPolicyView =
-      '/privacyPolicy';
-  static const String kContactUsView =
-      '/contactUs';
-  static const String kFollowUsView =
-      '/followUs';
+
+  static const String keditProfileView =
+      '/profile/editProfile';
+  static const String keditEducationView =
+      '/profile/editEducation';
+  static const String keditExperience =
+      '/profile/editExperience';
+
+  static const String kPrivacyPolicyView = '/privacyPolicy';
+  static const String kContactUsView = '/contactUs';
+  static const String kFollowUsView = '/followUs';
 }

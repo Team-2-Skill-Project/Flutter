@@ -1,6 +1,6 @@
 import 'package:MatchIn/features/profile/domain/entities/career_preference_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
-import 'package:MatchIn/features/profile/presentation/cubits/career_preferences_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/career_cubit/career_preferences_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/career_goal_section.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/career_preferences_actions.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/experience_level_section.dart';
@@ -13,15 +13,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CareerPreferencesForm extends StatefulWidget {
-  const CareerPreferencesForm({required this.preferences, super.key});
+  const CareerPreferencesForm({
+    required this.preferences,
+    super.key,
+  });
 
   final CareerPreferenceEntity? preferences;
 
   @override
-  State<CareerPreferencesForm> createState() => _CareerPreferencesFormState();
+  State<CareerPreferencesForm> createState() =>
+      _CareerPreferencesFormState();
 }
 
-class _CareerPreferencesFormState extends State<CareerPreferencesForm> {
+class _CareerPreferencesFormState
+    extends State<CareerPreferencesForm> {
   late final TextEditingController _targetRoleController;
   late final TextEditingController _careerGoalController;
 
@@ -49,19 +54,25 @@ class _CareerPreferencesFormState extends State<CareerPreferencesForm> {
       text: preferences?.careerGoal ?? '',
     );
 
-    _experienceLevel = ValueNotifier(preferences?.experienceLevel);
+    _experienceLevel = ValueNotifier(
+      preferences?.experienceLevel,
+    );
 
     _jobType = ValueNotifier(preferences?.jobType);
 
     _workMode = ValueNotifier(preferences?.workMode);
 
-    _country = ValueNotifier(preferences?.preferredCountry ?? '');
+    _country = ValueNotifier(
+      preferences?.preferredCountry ?? '',
+    );
 
     _state = ValueNotifier('');
 
     _city = ValueNotifier(preferences?.preferredCity ?? '');
 
-    _openToRelocation = ValueNotifier(preferences?.openToRelocation ?? false);
+    _openToRelocation = ValueNotifier(
+      preferences?.openToRelocation ?? false,
+    );
   }
 
   @override
@@ -83,18 +94,24 @@ class _CareerPreferencesFormState extends State<CareerPreferencesForm> {
   }
 
   void _save() {
-    context.read<CareerPreferencesCubit>().saveCareerPreferences(
-      SaveCareerPreferencesParams(
-        targetRole: _nullableText(_targetRoleController.text),
-        jobType: _jobType.value,
-        workMode: _workMode.value,
-        preferredCountry: _nullableText(_country.value),
-        preferredCity: _nullableText(_city.value),
-        experienceLevel: _experienceLevel.value,
-        careerGoal: _nullableText(_careerGoalController.text),
-        openToRelocation: _openToRelocation.value,
-      ),
-    );
+    context
+        .read<CareerPreferencesCubit>()
+        .saveCareerPreferences(
+          SaveCareerPreferencesParams(
+            targetRole: _nullableText(
+              _targetRoleController.text,
+            ),
+            jobType: _jobType.value,
+            workMode: _workMode.value,
+            preferredCountry: _nullableText(_country.value),
+            preferredCity: _nullableText(_city.value),
+            experienceLevel: _experienceLevel.value,
+            careerGoal: _nullableText(
+              _careerGoalController.text,
+            ),
+            openToRelocation: _openToRelocation.value,
+          ),
+        );
   }
 
   String? _nullableText(String value) {
@@ -202,7 +219,9 @@ class _CareerPreferencesFormState extends State<CareerPreferencesForm> {
 
         SizedBox(height: 16.h),
 
-        CareerGoalSection(controller: _careerGoalController),
+        CareerGoalSection(
+          controller: _careerGoalController,
+        ),
 
         SizedBox(height: 28.h),
 

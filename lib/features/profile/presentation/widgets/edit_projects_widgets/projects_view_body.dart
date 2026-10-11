@@ -1,6 +1,6 @@
 import 'package:MatchIn/features/profile/domain/entities/candidate_project_entity.dart';
-import 'package:MatchIn/features/profile/presentation/cubits/projects_cubit.dart';
-import 'package:MatchIn/features/profile/presentation/cubits/projects_state.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/projects_cubit/projects_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/projects_cubit/projects_state.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_projects_widgets/add_project_button.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_projects_widgets/project_card.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_projects_widgets/project_date_formatter.dart';
@@ -22,13 +22,16 @@ class ProjectsViewBody extends StatelessWidget {
     return BlocConsumer<ProjectsCubit, ProjectsState>(
       listener: (context, state) {
         if (state is ProjectsActionFailure) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.message)));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message)),
+          );
         }
       },
       builder: (context, state) {
         if (state is ProjectsLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
 
         if (state is ProjectsFailure) {
@@ -52,7 +55,12 @@ class ProjectsViewBody extends StatelessWidget {
         }
 
         return ListView(
-          padding: EdgeInsetsDirectional.fromSTEB(16.w, 8.h, 16.w, 32.h),
+          padding: EdgeInsetsDirectional.fromSTEB(
+            16.w,
+            8.h,
+            16.w,
+            32.h,
+          ),
           children: [
             ProjectsAppBar(
               title: locale.projects,
@@ -72,16 +80,22 @@ class ProjectsViewBody extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: 12.h),
                 child: ProjectCard(
                   title: project.name,
-                  date: ProjectDateFormatter.format(project),
+                  date: ProjectDateFormatter.format(
+                    project,
+                  ),
                   description: project.description ?? '',
                   skills: project.technologies,
                   projectUrl: project.projectUrl,
                   githubUrl: project.githubUrl,
                   onEdit: () {
-                    context.read<ProjectsCubit>().openEditForm(project);
+                    context
+                        .read<ProjectsCubit>()
+                        .openEditForm(project);
                   },
                   onDelete: () {
-                    context.read<ProjectsCubit>().deleteProject(project.id);
+                    context
+                        .read<ProjectsCubit>()
+                        .deleteProject(project.id);
                   },
                   onProjectPressed: () {
                     // TODO: Open project URL.
@@ -105,7 +119,9 @@ class ProjectsViewBody extends StatelessWidget {
               SizedBox(height: 20.h),
 
               ProjectForm(
-                key: ValueKey(formProject?.id ?? 'new-project'),
+                key: ValueKey(
+                  formProject?.id ?? 'new-project',
+                ),
                 project: formProject,
               ),
             ],
@@ -115,7 +131,9 @@ class ProjectsViewBody extends StatelessWidget {
     );
   }
 
-  List<CandidateProjectEntity> _projectsFromState(ProjectsState state) {
+  List<CandidateProjectEntity> _projectsFromState(
+    ProjectsState state,
+  ) {
     if (state is ProjectsSuccess) {
       return state.projects;
     }

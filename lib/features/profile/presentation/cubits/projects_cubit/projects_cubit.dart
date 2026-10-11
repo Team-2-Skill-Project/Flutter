@@ -6,7 +6,9 @@ import 'package:MatchIn/features/profile/domain/use_cases/delete_candidate_proje
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_projects_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_project_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/update_candidate_project_use_case.dart';
-import 'package:MatchIn/features/profile/presentation/cubits/projects_state.dart';
+
+import 'projects_state.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProjectsCubit extends Cubit<ProjectsState> {

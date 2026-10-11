@@ -1,7 +1,7 @@
 import 'package:MatchIn/features/profile/domain/entities/candidate_skill_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/skill_search_result_entity.dart';
-import 'package:MatchIn/features/profile/presentation/cubits/skills_cubit.dart';
-import 'package:MatchIn/features/profile/presentation/cubits/skills_state.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/skills_cubit/skills_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/skills_cubit/skills_state.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_skills_widgets/add_skill_form.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_skills_widgets/build_skills_content.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_skills_widgets/skills_app_bar.dart';
@@ -21,13 +21,16 @@ class SkillsViewBody extends StatelessWidget {
     return BlocConsumer<SkillsCubit, SkillsState>(
       listener: (context, state) {
         if (state is SkillsActionFailure) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.message)));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message)),
+          );
         }
       },
       builder: (context, state) {
         if (state is SkillsLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
 
         if (state is SkillsFailure) {
@@ -38,7 +41,11 @@ class SkillsViewBody extends StatelessWidget {
         final suggestions = _suggestionsFromState(state);
 
         return ListView(
-          padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 32.h),
+          padding: EdgeInsets.only(
+            left: 16.w,
+            right: 16.w,
+            bottom: 32.h,
+          ),
           children: [
             SizedBox(height: 8.h),
 
@@ -62,7 +69,9 @@ class SkillsViewBody extends StatelessWidget {
             BuildSkillsContent(
               skills: skills,
               onRemoveSkill: (candidateSkillId) {
-                context.read<SkillsCubit>().removeSkill(candidateSkillId);
+                context.read<SkillsCubit>().removeSkill(
+                  candidateSkillId,
+                );
               },
             ),
           ],
@@ -71,7 +80,9 @@ class SkillsViewBody extends StatelessWidget {
     );
   }
 
-  List<CandidateSkillEntity> _skillsFromState(SkillsState state) {
+  List<CandidateSkillEntity> _skillsFromState(
+    SkillsState state,
+  ) {
     if (state is SkillsSuccess) {
       return state.skills;
     }
@@ -91,7 +102,9 @@ class SkillsViewBody extends StatelessWidget {
     return const [];
   }
 
-  List<SkillSearchResultEntity> _suggestionsFromState(SkillsState state) {
+  List<SkillSearchResultEntity> _suggestionsFromState(
+    SkillsState state,
+  ) {
     if (state is SkillsSearchSuccess) {
       return state.suggestions;
     }

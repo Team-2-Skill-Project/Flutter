@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -384,20 +385,20 @@ class S {
     );
   }
 
-  /// `New Password`
+  /// `New password`
   String get newPassword {
     return Intl.message(
-      'New Password',
+      'New password',
       name: 'newPassword',
       desc: '',
       args: [],
     );
   }
 
-  /// `Confirm New Password`
+  /// `Confirm new password`
   String get confirmNewPassword {
     return Intl.message(
-      'Confirm New Password',
+      'Confirm new password',
       name: 'confirmNewPassword',
       desc: '',
       args: [],
@@ -3619,6 +3620,501 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `Personal Information`
+  String get personalInformation {
+    return Intl.message(
+      'Personal Information',
+      name: 'personalInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Professional Information`
+  String get professionalInformation {
+    return Intl.message(
+      'Professional Information',
+      name: 'professionalInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Professional Links`
+  String get professionalLinks {
+    return Intl.message(
+      'Professional Links',
+      name: 'professionalLinks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change photo`
+  String get changePhoto {
+    return Intl.message(
+      'Change photo',
+      name: 'changePhoto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date of birth`
+  String get dateOfBirth {
+    return Intl.message(
+      'Date of birth',
+      name: 'dateOfBirth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gender`
+  String get gender {
+    return Intl.message('Gender', name: 'gender', desc: '', args: []);
+  }
+
+  /// `Male`
+  String get male {
+    return Intl.message('Male', name: 'male', desc: '', args: []);
+  }
+
+  /// `Female`
+  String get female {
+    return Intl.message('Female', name: 'female', desc: '', args: []);
+  }
+
+  /// `Prefer not to say`
+  String get preferNotToSay {
+    return Intl.message(
+      'Prefer not to say',
+      name: 'preferNotToSay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Military Status`
+  String get militaryStatus {
+    return Intl.message(
+      'Military Status',
+      name: 'militaryStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Changes`
+  String get saveChanges {
+    return Intl.message(
+      'Save Changes',
+      name: 'saveChanges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Academic History`
+  String get academicHistory {
+    return Intl.message(
+      'Academic History',
+      name: 'academicHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keep your education history accurate and up to date.`
+  String get academicHistoryDescription {
+    return Intl.message(
+      'Keep your education history accurate and up to date.',
+      name: 'academicHistoryDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verified Qualifications`
+  String get verifiedQualifications {
+    return Intl.message(
+      'Verified Qualifications',
+      name: 'verifiedQualifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add New Education`
+  String get addNewEducation {
+    return Intl.message(
+      'Add New Education',
+      name: 'addNewEducation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Degree`
+  String get degree {
+    return Intl.message('Degree', name: 'degree', desc: '', args: []);
+  }
+
+  /// `e.g. Master of Science, Bachelor of Arts`
+  String get degreeHint {
+    return Intl.message(
+      'e.g. Master of Science, Bachelor of Arts',
+      name: 'degreeHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Field of Study`
+  String get fieldOfStudy {
+    return Intl.message(
+      'Field of Study',
+      name: 'fieldOfStudy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. Software Engineering, Information Systems`
+  String get fieldOfStudyHint {
+    return Intl.message(
+      'e.g. Software Engineering, Information Systems',
+      name: 'fieldOfStudyHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `School / University`
+  String get schoolUniversity {
+    return Intl.message(
+      'School / University',
+      name: 'schoolUniversity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search or enter institution name`
+  String get institutionHint {
+    return Intl.message(
+      'Search or enter institution name',
+      name: 'institutionHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start year`
+  String get startYear {
+    return Intl.message('Start year', name: 'startYear', desc: '', args: []);
+  }
+
+  /// `End year (or expected)`
+  String get endYearExpected {
+    return Intl.message(
+      'End year (or expected)',
+      name: 'endYearExpected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select`
+  String get select {
+    return Intl.message('Select', name: 'select', desc: '', args: []);
+  }
+
+  /// `Currently studying here`
+  String get currentlyStudyingHere {
+    return Intl.message(
+      'Currently studying here',
+      name: 'currentlyStudyingHere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GPA (Optional)`
+  String get gpaOptional {
+    return Intl.message(
+      'GPA (Optional)',
+      name: 'gpaOptional',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. 3.4 / 4.0 or First Class`
+  String get gpaHint {
+    return Intl.message(
+      'e.g. 3.4 / 4.0 or First Class',
+      name: 'gpaHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save education`
+  String get saveEducation {
+    return Intl.message(
+      'Save education',
+      name: 'saveEducation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add experience`
+  String get addExperience {
+    return Intl.message(
+      'Add experience',
+      name: 'addExperience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add New Experience`
+  String get addNewExperience {
+    return Intl.message(
+      'Add New Experience',
+      name: 'addNewExperience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Job title`
+  String get jobTitle {
+    return Intl.message('Job title', name: 'jobTitle', desc: '', args: []);
+  }
+
+  /// `e.g. Lead Product Designer`
+  String get jobTitleHint {
+    return Intl.message(
+      'e.g. Lead Product Designer',
+      name: 'jobTitleHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Company`
+  String get company {
+    return Intl.message('Company', name: 'company', desc: '', args: []);
+  }
+
+  /// `e.g. Studio Craft Ltd.`
+  String get companyHint {
+    return Intl.message(
+      'e.g. Studio Craft Ltd.',
+      name: 'companyHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Employment type`
+  String get employmentType {
+    return Intl.message(
+      'Employment type',
+      name: 'employmentType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Location`
+  String get location {
+    return Intl.message('Location', name: 'location', desc: '', args: []);
+  }
+
+  /// `e.g. London, UK or Cairo, Egypt`
+  String get locationHint {
+    return Intl.message(
+      'e.g. London, UK or Cairo, Egypt',
+      name: 'locationHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I currently work here`
+  String get currentlyWorkHere {
+    return Intl.message(
+      'I currently work here',
+      name: 'currentlyWorkHere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Responsibilities / Description`
+  String get responsibilitiesDescription {
+    return Intl.message(
+      'Responsibilities / Description',
+      name: 'responsibilitiesDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Outline your primary duties, notable team initiatives, and concrete impact.`
+  String get responsibilitiesHint {
+    return Intl.message(
+      'Outline your primary duties, notable team initiatives, and concrete impact.',
+      name: 'responsibilitiesHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Related skills`
+  String get relatedSkills {
+    return Intl.message(
+      'Related skills',
+      name: 'relatedSkills',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type related skills`
+  String get relatedSkillsHint {
+    return Intl.message(
+      'Type related skills',
+      name: 'relatedSkillsHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save experience`
+  String get saveExperience {
+    return Intl.message(
+      'Save experience',
+      name: 'saveExperience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help`
+  String get help {
+    return Intl.message('Help', name: 'help', desc: '', args: []);
+  }
+
+  /// `Profile synced`
+  String get profileSynced {
+    return Intl.message(
+      'Profile synced',
+      name: 'profileSynced',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recruiter Visibility`
+  String get recruiterVisibility {
+    return Intl.message(
+      'Recruiter Visibility',
+      name: 'recruiterVisibility',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Candidates with fully detailed academic credentials receive more recruiter visibility on SkillMatch.`
+  String get recruiterVisibilityDescription {
+    return Intl.message(
+      'Candidates with fully detailed academic credentials receive more recruiter visibility on SkillMatch.',
+      name: 'recruiterVisibilityDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current Records`
+  String get currentRecords {
+    return Intl.message(
+      'Current Records',
+      name: 'currentRecords',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorted by recent`
+  String get sortedByRecent {
+    return Intl.message(
+      'Sorted by recent',
+      name: 'sortedByRecent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add details about your responsibilities and impact.`
+  String get experienceManagementDescription {
+    return Intl.message(
+      'Add details about your responsibilities and impact.',
+      name: 'experienceManagementDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Section completeness`
+  String get sectionCompleteness {
+    return Intl.message(
+      'Section completeness',
+      name: 'sectionCompleteness',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add more details about your responsibilities and impact. Specific achievements increase recruiter discovery.`
+  String get experienceCompletenessHint {
+    return Intl.message(
+      'Add more details about your responsibilities and impact. Specific achievements increase recruiter discovery.',
+      name: 'experienceCompletenessHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `EDITORIAL SCORE`
+  String get editorialScore {
+    return Intl.message(
+      'EDITORIAL SCORE',
+      name: 'editorialScore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{percentage}% Completed`
+  String completedPercentage(int percentage) {
+    return Intl.message(
+      '$percentage% Completed',
+      name: 'completedPercentage',
+      desc: '',
+      args: [percentage],
+    );
+  }
+
+  /// `Skills:`
+  String get skillsLabel {
+    return Intl.message('Skills:', name: 'skillsLabel', desc: '', args: []);
   }
 
   /// `No applications yet`

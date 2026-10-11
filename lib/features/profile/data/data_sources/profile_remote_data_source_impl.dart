@@ -10,6 +10,7 @@ import 'package:MatchIn/features/profile/data/models/user_profile_model.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_project_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_skill_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/update_candidate_profile_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_project_params.dart';
 
 class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
@@ -21,6 +22,44 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   Future<CandidateProfileModel> getCandidateProfile() async {
     final response = await apiConsumer.get(EndPoint.candidateProfile);
 
+    return _parseCandidateProfileResponse(response);
+  }
+
+  @override
+  Future<CandidateProfileModel> updateCandidateProfile(
+    UpdateCandidateProfileParams params,
+  ) async {
+    final response = await apiConsumer.patch(
+      EndPoint.candidateProfile,
+      data: {
+        if (params.dateOfBirth != null) 'date_of_birth': params.dateOfBirth,
+
+        if (params.gender != null) 'gender': params.gender,
+
+        if (params.jobTitle != null) 'job_title': params.jobTitle,
+
+        if (params.country != null) 'country': params.country,
+
+        if (params.state != null) 'state': params.state,
+
+        if (params.city != null) 'city': params.city,
+
+        if (params.githubUrl != null) 'github_url': params.githubUrl,
+
+        if (params.linkedinUrl != null) 'linkedin_url': params.linkedinUrl,
+
+        if (params.militaryStatus != null)
+          'military_status': params.militaryStatus,
+
+        if (params.professionalSummary != null)
+          'professional_summary': params.professionalSummary,
+      },
+    );
+
+    return _parseCandidateProfileResponse(response);
+  }
+
+  CandidateProfileModel _parseCandidateProfileResponse(dynamic response) {
     if (response is! Map<String, dynamic>) {
       throw const FormatException(
         'Invalid response format for candidate profile',

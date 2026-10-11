@@ -8,6 +8,7 @@ import 'package:MatchIn/features/profile/domain/entities/candidate_skill_entity.
 import 'package:MatchIn/features/profile/domain/entities/career_preference_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/skill_search_result_entity.dart';
+import 'package:MatchIn/features/profile/domain/entities/update_candidate_profile_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_project_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/user_profile_entity.dart';
 
@@ -16,6 +17,8 @@ abstract class ProfileRepository {
   Future<Either<Failure, CandidateProfileEntity>> getCandidateProfile();
 
   Future<Either<Failure, CandidateProfileEntity?>> getCachedCandidateProfile();
+
+  Future<Either<Failure, CandidateProfileEntity>> getCandidateProfileForEdit();
 
   Future<Either<Failure, UserProfileEntity>> getUserProfile();
 
@@ -51,5 +54,10 @@ abstract class ProfileRepository {
 
   Future<Either<Failure, CareerPreferenceEntity>> saveCareerPreferences(
     SaveCareerPreferencesParams params,
+  );
+
+  // Candidate Profile Update
+  Future<Either<Failure, CandidateProfileEntity>> updateCandidateProfile(
+    UpdateCandidateProfileParams params,
   );
 }

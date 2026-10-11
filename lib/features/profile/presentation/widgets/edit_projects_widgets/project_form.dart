@@ -1,7 +1,7 @@
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_project_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_project_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_project_params.dart';
-import 'package:MatchIn/features/profile/presentation/cubits/projects_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/projects_cubit/projects_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_projects_widgets/add_project_details_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +34,9 @@ class _ProjectFormState extends State<ProjectForm> {
 
     final project = widget.project;
 
-    _nameController = TextEditingController(text: project?.name ?? '');
+    _nameController = TextEditingController(
+      text: project?.name ?? '',
+    );
 
     _descriptionController = TextEditingController(
       text: project?.description ?? '',
@@ -54,10 +56,14 @@ class _ProjectFormState extends State<ProjectForm> {
       text: project?.startDate ?? '',
     );
 
-    _endDateController = TextEditingController(text: project?.endDate ?? '');
+    _endDateController = TextEditingController(
+      text: project?.endDate ?? '',
+    );
 
     _technologies = ValueNotifier<List<String>>(
-      List<String>.from(project?.technologies ?? const <String>[]),
+      List<String>.from(
+        project?.technologies ?? const <String>[],
+      ),
     );
   }
 
@@ -83,14 +89,18 @@ class _ProjectFormState extends State<ProjectForm> {
     }
 
     final alreadyExists = _technologies.value.any(
-      (item) => item.toLowerCase() == technology.toLowerCase(),
+      (item) =>
+          item.toLowerCase() == technology.toLowerCase(),
     );
 
     if (alreadyExists) {
       return;
     }
 
-    _technologies.value = [..._technologies.value, technology];
+    _technologies.value = [
+      ..._technologies.value,
+      technology,
+    ];
 
     _technologyController.clear();
   }
@@ -132,7 +142,10 @@ class _ProjectFormState extends State<ProjectForm> {
     );
   }
 
-  void _updateProject({required int projectId, required String name}) {
+  void _updateProject({
+    required int projectId,
+    required String name,
+  }) {
     context.read<ProjectsCubit>().updateProject(
       UpdateCandidateProjectParams(
         projectId: projectId,

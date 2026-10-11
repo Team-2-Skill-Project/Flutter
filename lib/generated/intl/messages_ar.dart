@@ -20,32 +20,38 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
-  static String m0(count) =>
+  static String m0(percentage) => "مكتمل بنسبة ${percentage}%";
+
+  static String m1(count) =>
       "${Intl.plural(count, one: 'منذ يوم', two: 'منذ يومين', few: 'منذ ${count} أيام', other: 'منذ ${count} يوم')}";
 
-  static String m1(name) => "مرحبًا، ${name} 👋";
-
-  static String m2(count) =>
-      "${Intl.plural(count, one: 'منذ ساعة', two: 'منذ ساعتين', few: 'منذ ${count} ساعات', other: 'منذ ${count} ساعة')}";
+  static String m2(name) => "مرحبًا، ${name} 👋";
 
   static String m3(count) =>
-      "${Intl.plural(count, one: 'منذ دقيقة', two: 'منذ دقيقتين', few: 'منذ ${count} دقائق', other: 'منذ ${count} دقيقة')}";
+      "${Intl.plural(count, one: 'منذ ساعة', two: 'منذ ساعتين', few: 'منذ ${count} ساعات', other: 'منذ ${count} ساعة')}";
 
   static String m4(count) =>
+      "${Intl.plural(count, one: 'منذ دقيقة', two: 'منذ دقيقتين', few: 'منذ ${count} دقائق', other: 'منذ ${count} دقيقة')}";
+
+  static String m5(count) =>
       "${Intl.plural(count, one: 'منذ شهر', two: 'منذ شهرين', few: 'منذ ${count} أشهر', other: 'منذ ${count} شهر')}";
 
-  static String m5(count) => "${count} مهارات";
-
-  static String m6(count) =>
-      "${Intl.plural(count, one: 'منذ أسبوع', two: 'منذ أسبوعين', few: 'منذ ${count} أسابيع', other: 'منذ ${count} أسبوع')}";
+  static String m6(count) => "${count} مهارات";
 
   static String m7(count) =>
+      "${Intl.plural(count, one: 'منذ أسبوع', two: 'منذ أسبوعين', few: 'منذ ${count} أسابيع', other: 'منذ ${count} أسبوع')}";
+
+  static String m8(count) =>
       "${Intl.plural(count, one: 'منذ سنة', two: 'منذ سنتين', few: 'منذ ${count} سنوات', other: 'منذ ${count} سنة')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "aFewMoreQuestions": MessageLookupByLibrary.simpleMessage(
       "بعض الأسئلة الإضافية",
+    ),
+    "academicHistory": MessageLookupByLibrary.simpleMessage("السجل الأكاديمي"),
+    "academicHistoryDescription": MessageLookupByLibrary.simpleMessage(
+      "حافظ على تحديث ودقة سجلك التعليمي.",
     ),
     "accessYourPathways": MessageLookupByLibrary.simpleMessage(
       "قم بالوصول إلى مساراتك المهنية الموثقة والفرص المتاحة.",
@@ -61,6 +67,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "🎉 تهانينا! لقد حصلت على +50 XP!",
     ),
     "add": MessageLookupByLibrary.simpleMessage("إضافة"),
+    "addExperience": MessageLookupByLibrary.simpleMessage("إضافة خبرة"),
+    "addNewEducation": MessageLookupByLibrary.simpleMessage(
+      "إضافة مؤهل تعليمي",
+    ),
+    "addNewExperience": MessageLookupByLibrary.simpleMessage(
+      "إضافة خبرة جديدة",
+    ),
     "addNewProject": MessageLookupByLibrary.simpleMessage("+ إضافة مشروع جديد"),
     "addNewSkill": MessageLookupByLibrary.simpleMessage("إضافة مهارة جديدة"),
     "addProjectDetails": MessageLookupByLibrary.simpleMessage(
@@ -172,6 +185,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "changePasswordSuccess": MessageLookupByLibrary.simpleMessage(
       "تم تغيير كلمة المرور بنجاح",
     ),
+    "changePhoto": MessageLookupByLibrary.simpleMessage("تغيير الصورة"),
     "characters": MessageLookupByLibrary.simpleMessage("حرف"),
     "chatBot": MessageLookupByLibrary.simpleMessage("المساعد الذكي"),
     "chatHistory": MessageLookupByLibrary.simpleMessage("سجل المحادثات"),
@@ -197,9 +211,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "city": MessageLookupByLibrary.simpleMessage("المدينة"),
     "clear": MessageLookupByLibrary.simpleMessage("مسح"),
     "clearAllChats": MessageLookupByLibrary.simpleMessage("مسح جميع المحادثات"),
+    "company": MessageLookupByLibrary.simpleMessage("الشركة"),
+    "companyHint": MessageLookupByLibrary.simpleMessage("مثال: شركة Tech"),
     "completeRegistration": MessageLookupByLibrary.simpleMessage(
       "إكمال التسجيل",
     ),
+    "completedPercentage": m0,
     "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
     "confirmClearAllChats": MessageLookupByLibrary.simpleMessage(
       "هل أنت متأكد أنك تريد مسح جميع المحادثات؟ لا يمكن التراجع عن هذا الإجراء.",
@@ -263,7 +280,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "currentPassword": MessageLookupByLibrary.simpleMessage(
       "كلمة المرور الحالية",
     ),
+    "currentRecords": MessageLookupByLibrary.simpleMessage("السجلات الحالية"),
     "currentStatus": MessageLookupByLibrary.simpleMessage("الحالة الحالية"),
+    "currentlyStudyingHere": MessageLookupByLibrary.simpleMessage(
+      "أدرس هنا حاليًا",
+    ),
+    "currentlyWorkHere": MessageLookupByLibrary.simpleMessage(
+      "أعمل هنا حاليًا",
+    ),
     "cv": MessageLookupByLibrary.simpleMessage("السيرة الذاتية"),
     "cvAnalysisCompleted": MessageLookupByLibrary.simpleMessage(
       "اكتمل تحليل السيرة الذاتية",
@@ -282,7 +306,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "PDF أو DOCX • بحد أقصى 5 MB",
     ),
     "dark": MessageLookupByLibrary.simpleMessage("داكن"),
-    "daysAgo": m0,
+    "dateOfBirth": MessageLookupByLibrary.simpleMessage("تاريخ الميلاد"),
+    "daysAgo": m1,
+    "degree": MessageLookupByLibrary.simpleMessage("الدرجة العلمية"),
+    "degreeHint": MessageLookupByLibrary.simpleMessage(
+      "مثال: بكالوريوس علوم أو ماجستير",
+    ),
     "delete": MessageLookupByLibrary.simpleMessage("حذف"),
     "deleteChat": MessageLookupByLibrary.simpleMessage("حذف المحادثة"),
     "description": MessageLookupByLibrary.simpleMessage("الوصف"),
@@ -290,11 +319,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
     "editNote": MessageLookupByLibrary.simpleMessage("تعديل الملاحظة"),
     "editProfile": MessageLookupByLibrary.simpleMessage("تعديل الملف"),
+    "editorialScore": MessageLookupByLibrary.simpleMessage(
+      "درجة اكتمال المحتوى",
+    ),
     "education": MessageLookupByLibrary.simpleMessage("التعليم"),
     "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "emailAddress": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "emailHint": MessageLookupByLibrary.simpleMessage("أدخل بريدك الإلكتروني"),
+    "employmentType": MessageLookupByLibrary.simpleMessage("نوع التوظيف"),
     "endDate": MessageLookupByLibrary.simpleMessage("تاريخ النهاية"),
+    "endYearExpected": MessageLookupByLibrary.simpleMessage(
+      "سنة النهاية (أو المتوقعة)",
+    ),
     "english": MessageLookupByLibrary.simpleMessage("الإنجليزية"),
     "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
       "أدخل رمز التحقق",
@@ -306,7 +342,13 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "expectedSalary": MessageLookupByLibrary.simpleMessage("الراتب المتوقع"),
     "experience": MessageLookupByLibrary.simpleMessage("الخبرة"),
+    "experienceCompletenessHint": MessageLookupByLibrary.simpleMessage(
+      "أضف المزيد من التفاصيل حول مسؤولياتك وتأثيرك. الإنجازات المحددة تساعد على زيادة ظهورك لمسؤولي التوظيف.",
+    ),
     "experienceLevel": MessageLookupByLibrary.simpleMessage("مستوى الخبرة"),
+    "experienceManagementDescription": MessageLookupByLibrary.simpleMessage(
+      "أضف تفاصيل عن مسؤولياتك وتأثيرك في العمل.",
+    ),
     "experienceWithBloc": MessageLookupByLibrary.simpleMessage("خبرة في Bloc"),
     "failed": MessageLookupByLibrary.simpleMessage("فشل"),
     "failedToLoadAd": MessageLookupByLibrary.simpleMessage("فشل تحميل الإعلان"),
@@ -314,6 +356,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "فشل إرسال الرسالة. الرجاء المحاولة مرة أخرى.",
     ),
     "fairMatch": MessageLookupByLibrary.simpleMessage("تطابق متوسط"),
+    "female": MessageLookupByLibrary.simpleMessage("أنثى"),
+    "fieldOfStudy": MessageLookupByLibrary.simpleMessage("مجال الدراسة"),
+    "fieldOfStudyHint": MessageLookupByLibrary.simpleMessage(
+      "مثال: هندسة البرمجيات أو نظم المعلومات",
+    ),
     "filterAll": MessageLookupByLibrary.simpleMessage("الكل"),
     "filterUnread": MessageLookupByLibrary.simpleMessage("غير مقروء"),
     "finalConfirmation": MessageLookupByLibrary.simpleMessage(
@@ -346,6 +393,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "fromYourCv": MessageLookupByLibrary.simpleMessage("من سيرتك الذاتية"),
     "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
     "fullTime": MessageLookupByLibrary.simpleMessage("دوام كامل"),
+    "gender": MessageLookupByLibrary.simpleMessage("النوع"),
     "getExplainableMatch": MessageLookupByLibrary.simpleMessage(
       "احصل على توافق واضح ومفصل",
     ),
@@ -360,17 +408,20 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "good": MessageLookupByLibrary.simpleMessage("جيد"),
     "goodMatch": MessageLookupByLibrary.simpleMessage("توافق جيد"),
-    "greetingUser": m1,
+    "gpaHint": MessageLookupByLibrary.simpleMessage("مثال: 3.4 / 4.0"),
+    "gpaOptional": MessageLookupByLibrary.simpleMessage("التقدير (اختياري)"),
+    "greetingUser": m2,
     "guestModeMessage": MessageLookupByLibrary.simpleMessage(
       "يرجى تسجيل الدخول للوصول إلى هذه الميزة.",
     ),
     "guestModeTitle": MessageLookupByLibrary.simpleMessage("أنت في وضع الضيف"),
+    "help": MessageLookupByLibrary.simpleMessage("مساعدة"),
     "helpfulAdvantage": MessageLookupByLibrary.simpleMessage(
       "ميزة إضافية مفيدة",
     ),
     "highPriority": MessageLookupByLibrary.simpleMessage("أولوية عالية"),
     "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
-    "hoursAgo": m2,
+    "hoursAgo": m3,
     "howCanIHelpYouToday": MessageLookupByLibrary.simpleMessage(
       "كيف يمكنني مساعدتك اليوم؟",
     ),
@@ -379,6 +430,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "أوافق على الشروط وسياسة الخصوصية",
     ),
     "inReview": MessageLookupByLibrary.simpleMessage("قيد المراجعة"),
+    "institutionHint": MessageLookupByLibrary.simpleMessage(
+      "ابحث أو أدخل اسم المؤسسة",
+    ),
     "internship": MessageLookupByLibrary.simpleMessage("تدريب"),
     "interview": MessageLookupByLibrary.simpleMessage("المقابلة"),
     "interviewPrep": MessageLookupByLibrary.simpleMessage("التحضير للمقابلات"),
@@ -399,6 +453,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "كيف يحسب ماتش إن نسبة توافق الوظيفة معي؟",
     ),
     "jobRequirements": MessageLookupByLibrary.simpleMessage("متطلبات الوظيفة"),
+    "jobTitle": MessageLookupByLibrary.simpleMessage("المسمى الوظيفي"),
+    "jobTitleHint": MessageLookupByLibrary.simpleMessage("مثال: مطور Flutter"),
     "jobType": MessageLookupByLibrary.simpleMessage("نوع الوظيفة"),
     "jobs": MessageLookupByLibrary.simpleMessage("الوظائف"),
     "jobsMatchDescription": MessageLookupByLibrary.simpleMessage(
@@ -431,6 +487,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "loadingNotifications": MessageLookupByLibrary.simpleMessage(
       "جارٍ تحميل الإشعارات...",
     ),
+    "location": MessageLookupByLibrary.simpleMessage("الموقع"),
+    "locationHint": MessageLookupByLibrary.simpleMessage("مثال: القاهرة، مصر"),
     "logOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
     "logOutConfirmationMessage": MessageLookupByLibrary.simpleMessage(
       "هل أنت متأكد من أنك تريد تسجيل الخروج من حسابك؟",
@@ -442,6 +500,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginSubtitle": MessageLookupByLibrary.simpleMessage(
       "ادخل على مساراتك المهنية والفرص المتاحة.",
     ),
+    "male": MessageLookupByLibrary.simpleMessage("ذكر"),
     "manageAllSkills": MessageLookupByLibrary.simpleMessage(
       "إدارة كل المهارات",
     ),
@@ -460,9 +519,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "مذكورة في متطلبات الوظيفة",
     ),
     "midLevel": MessageLookupByLibrary.simpleMessage("Mid-Level"),
-    "minutesAgo": m3,
+    "militaryStatus": MessageLookupByLibrary.simpleMessage("الحالة العسكرية"),
+    "minutesAgo": m4,
     "monthYearHint": MessageLookupByLibrary.simpleMessage("شهر / سنة"),
-    "monthsAgo": m4,
+    "monthsAgo": m5,
     "mostRelevant": MessageLookupByLibrary.simpleMessage("الأكثر ملاءمة"),
     "multiSelect": MessageLookupByLibrary.simpleMessage("اختيارات متعددة"),
     "myCareerRoadmap": MessageLookupByLibrary.simpleMessage(
@@ -568,6 +628,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "pendingEmployerScreening": MessageLookupByLibrary.simpleMessage(
       "بانتظار مراجعة صاحب العمل",
     ),
+    "personalInformation": MessageLookupByLibrary.simpleMessage(
+      "المعلومات الشخصية",
+    ),
     "phoneHint": MessageLookupByLibrary.simpleMessage("أدخل رقم هاتفك"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
     "phoneNumberLabel": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
@@ -586,6 +649,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "رابط معرض الأعمال أو المشروع (اختياري)",
     ),
     "postedTwoDaysAgo": MessageLookupByLibrary.simpleMessage("نُشرت منذ يومين"),
+    "preferNotToSay": MessageLookupByLibrary.simpleMessage("أفضل عدم الإفصاح"),
     "preferences": MessageLookupByLibrary.simpleMessage("التفضيلات"),
     "preferred": MessageLookupByLibrary.simpleMessage("المفضل"),
     "preferredLocation": MessageLookupByLibrary.simpleMessage("الموقع المفضل"),
@@ -600,10 +664,17 @@ class MessageLookup extends MessageLookupByLibrary {
       "الخصوصية والدعم",
     ),
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("سياسة الخصوصية"),
+    "professionalInformation": MessageLookupByLibrary.simpleMessage(
+      "المعلومات المهنية",
+    ),
+    "professionalLinks": MessageLookupByLibrary.simpleMessage(
+      "الروابط المهنية",
+    ),
     "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
     "profileMatchQuality": MessageLookupByLibrary.simpleMessage(
       "جودة الملف الشخصي",
     ),
+    "profileSynced": MessageLookupByLibrary.simpleMessage("تمت مزامنة الملف"),
     "projectDescriptionHelper": MessageLookupByLibrary.simpleMessage(
       "وضّح أهداف المشروع والتقنيات المستخدمة",
     ),
@@ -627,8 +698,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "recruiterReview": MessageLookupByLibrary.simpleMessage(
       "مراجعة مسؤول التوظيف",
     ),
+    "recruiterVisibility": MessageLookupByLibrary.simpleMessage(
+      "الظهور لمسؤولي التوظيف",
+    ),
+    "recruiterVisibilityDescription": MessageLookupByLibrary.simpleMessage(
+      "يساعد اكتمال بياناتك الأكاديمية على زيادة ظهور ملفك لمسؤولي التوظيف على SkillMatch.",
+    ),
     "registerWithGoogle": MessageLookupByLibrary.simpleMessage(
       "المتابعة مع Google",
+    ),
+    "relatedSkills": MessageLookupByLibrary.simpleMessage("المهارات ذات الصلة"),
+    "relatedSkillsHint": MessageLookupByLibrary.simpleMessage(
+      "اكتب المهارات ذات الصلة",
     ),
     "remote": MessageLookupByLibrary.simpleMessage("عن بُعد"),
     "replaceCv": MessageLookupByLibrary.simpleMessage("استبدال السيرة الذاتية"),
@@ -650,6 +731,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "resetPassword": MessageLookupByLibrary.simpleMessage(
       "إعادة تعيين كلمة المرور",
+    ),
+    "responsibilitiesDescription": MessageLookupByLibrary.simpleMessage(
+      "المسؤوليات / الوصف",
+    ),
+    "responsibilitiesHint": MessageLookupByLibrary.simpleMessage(
+      "اكتب مسؤولياتك الأساسية وأبرز مساهماتك وتأثيرك.",
     ),
     "resumeOptimization": MessageLookupByLibrary.simpleMessage(
       "تحسين السيرة الذاتية",
@@ -692,17 +779,24 @@ class MessageLookup extends MessageLookupByLibrary {
       "أدخل إجمالي راتبك الشهري المتوقع.",
     ),
     "salaryHint": MessageLookupByLibrary.simpleMessage("مثال: 24,000"),
+    "saveChanges": MessageLookupByLibrary.simpleMessage("حفظ التغييرات"),
+    "saveEducation": MessageLookupByLibrary.simpleMessage("حفظ التعليم"),
+    "saveExperience": MessageLookupByLibrary.simpleMessage("حفظ الخبرة"),
     "saveJobFailed": MessageLookupByLibrary.simpleMessage(
       "تعذر حفظ الوظيفة. يرجى المحاولة مرة أخرى.",
     ),
     "savePreferences": MessageLookupByLibrary.simpleMessage("حفظ التفضيلات"),
     "saveProject": MessageLookupByLibrary.simpleMessage("حفظ المشروع"),
     "savedJobs": MessageLookupByLibrary.simpleMessage("الوظائف المحفوظة"),
+    "schoolUniversity": MessageLookupByLibrary.simpleMessage(
+      "المدرسة / الجامعة",
+    ),
     "searchJobs": MessageLookupByLibrary.simpleMessage(
       "ابحث عن وظيفة أو شركة أو مهارة",
     ),
     "searchJobsTitle": MessageLookupByLibrary.simpleMessage("البحث عن وظائف"),
     "secondsSuffix": MessageLookupByLibrary.simpleMessage("ث"),
+    "sectionCompleteness": MessageLookupByLibrary.simpleMessage("اكتمال القسم"),
     "secureProtectionText": MessageLookupByLibrary.simpleMessage(
       "يحمي SkillMatch بياناتك وتاريخ تقديمك بشكل آمن.",
     ),
@@ -710,6 +804,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "سكيل ماتش يحمي بياناتك وسجل تقديماتك بأمان.",
     ),
     "seeAll": MessageLookupByLibrary.simpleMessage("عرض الكل"),
+    "select": MessageLookupByLibrary.simpleMessage("اختر"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("اختر اللغة"),
     "selectTheme": MessageLookupByLibrary.simpleMessage("اختر المظهر"),
     "sendMessage": MessageLookupByLibrary.simpleMessage("إرسال رسالة"),
@@ -744,7 +839,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "بوابة SKILLMATCH",
     ),
     "skills": MessageLookupByLibrary.simpleMessage("المهارات"),
-    "skillsCount": m5,
+    "skillsCount": m6,
+    "skillsLabel": MessageLookupByLibrary.simpleMessage("المهارات:"),
     "skillsProfile": MessageLookupByLibrary.simpleMessage("ملف المهارات"),
     "skillsProfileDescription": MessageLookupByLibrary.simpleMessage(
       "مهاراتك بتساعد SkillMatch يحدد الفرص الأنسب ليك.",
@@ -757,12 +853,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "اكتشاف مهني ذكي",
     ),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
+    "sortedByRecent": MessageLookupByLibrary.simpleMessage("مرتبة حسب الأحدث"),
     "source": MessageLookupByLibrary.simpleMessage("المصدر"),
     "start": MessageLookupByLibrary.simpleMessage("ابدأ"),
     "startDate": MessageLookupByLibrary.simpleMessage("تاريخ البداية"),
     "startFirstConversation": MessageLookupByLibrary.simpleMessage(
       "ابدأ محادثتك الأولى أدناه",
     ),
+    "startYear": MessageLookupByLibrary.simpleMessage("سنة البداية"),
     "stateGovernorate": MessageLookupByLibrary.simpleMessage("المحافظة"),
     "stepFourConfirmation": MessageLookupByLibrary.simpleMessage(
       "الخطوة 4 من 4 • التأكيد",
@@ -847,6 +945,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "استخدمتها في مشروعين",
     ),
     "verificationCodeLabel": MessageLookupByLibrary.simpleMessage("رمز التحقق"),
+    "verifiedQualifications": MessageLookupByLibrary.simpleMessage("المؤهلات"),
     "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
     "view": MessageLookupByLibrary.simpleMessage("عرض"),
     "viewApplication": MessageLookupByLibrary.simpleMessage("عرض التقديم"),
@@ -874,7 +973,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "watchAdEarnXp": MessageLookupByLibrary.simpleMessage(
       "شاهد إعلانًا واحصل على 50 XP",
     ),
-    "weeksAgo": m6,
+    "weeksAgo": m7,
     "welcomeBack": MessageLookupByLibrary.simpleMessage("مرحباً بعودتك!"),
     "whatYouAlreadyMatch": MessageLookupByLibrary.simpleMessage(
       "المهارات المتوافقة لديك",
@@ -892,7 +991,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "خلال 3 أيام عمل",
     ),
     "workMode": MessageLookupByLibrary.simpleMessage("طريقة العمل"),
-    "yearsAgo": m7,
+    "yearsAgo": m8,
     "yesterday": MessageLookupByLibrary.simpleMessage("أمس"),
     "yesterdayTime": MessageLookupByLibrary.simpleMessage("أمس • 3:45 م"),
     "yourApplicationFor": MessageLookupByLibrary.simpleMessage(
