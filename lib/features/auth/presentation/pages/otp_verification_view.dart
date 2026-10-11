@@ -20,10 +20,26 @@ import 'package:otp_animated_fields/otp_animated_fields.dart';
 /// OTP length expected by the authentication backend.
 const int _kOtpLength = 6;
 
+/// Determines the navigation destination after a successful OTP verification.
+enum OtpMode {
+  /// Email verification after registration — navigates to Home on success.
+  emailVerification,
+
+  /// Password-reset flow — navigates to Create New Password on success.
+  passwordReset,
+}
+
 class OtpVerificationView extends StatefulWidget {
-  const OtpVerificationView({super.key, this.email = 'user@example.com'});
+  const OtpVerificationView({
+    super.key,
+    this.email = 'user@example.com',
+    this.mode = OtpMode.emailVerification,
+  });
 
   final String email;
+
+  /// Controls the post-verification navigation destination.
+  final OtpMode mode;
 
   @override
   State<OtpVerificationView> createState() => _OtpVerificationViewState();
@@ -94,17 +110,26 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
       // Replace OTP fields with success Lottie inside the card, then navigate.
       setState(() => _showSuccessLottie = true);
       await Future.delayed(const Duration(seconds: 1));
-      if (mounted) {
-        final prefs = getIt<SharedPreferencesService>();
-        await prefs.setLoggedIn(true);
-        await prefs.setGuest(false);
-        if (mounted) {
-          context.go(AppRoutes.kHomeView);
-        }
+      if (!mounted) return;
+
+      switch (widget.mode) {
+        case OtpMode.emailVerification:
+          // Email verified → mark user as logged-in and go home.
+          final prefs = getIt<SharedPreferencesService>();
+          await prefs.setLoggedIn(true);
+          await prefs.setGuest(false);
+          if (mounted) {
+            context.go(AppRoutes.kHomeView);
+          }
+        case OtpMode.passwordReset:
+          // Password-reset OTP confirmed → proceed to create new password.
+          if (mounted) {
+            context.go(AppRoutes.kCreateNewPasswordView, extra: widget.email);
+          }
       }
     }
     if (status == OtpStatus.idle) {
-      // Returned to idle after error � allow re-verification
+      // Returned to idle after error — allow re-verification
       setState(() => _isVerifying = false);
     }
   }

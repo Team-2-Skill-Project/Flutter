@@ -34,7 +34,7 @@ class ReviewApplicationViewBody extends StatelessWidget {
         if (state is ApplyToJobFailure) {
           context.showErrorSnackBar(state.message);
         } else if (state is ApplyToJobSuccess) {
-          context.showSuccessSnackBar('Application submitted successfully.');
+          context.showSuccessSnackBar(s.applicationSubmittedSuccessfully);
           context.read<JobsFeedCubit>().applyForJob(job.id);
           context.push(
             AppRoutes.kapplicationSubmitted,
@@ -196,8 +196,13 @@ class ReviewApplicationViewBody extends StatelessWidget {
                             onPressed: isSubmitting
                                 ? null
                                 : () {
-                                    final jobIdInt =
-                                        int.tryParse(job.id) ?? 1;
+                                    final jobIdInt = int.tryParse(job.id);
+                                    if (jobIdInt == null || jobIdInt <= 0) {
+                                      context.showErrorSnackBar(
+                                        s.invalidJobId,
+                                      );
+                                      return;
+                                    }
                                     context
                                         .read<ApplyToJobCubit>()
                                         .submitApplication(

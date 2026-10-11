@@ -483,5 +483,8 @@
   "careerGrowthPrompt": "ما الخطوات التي يجب اتخاذها لأصبح مهندس تطبيقات أول؟",
   "jobFitAnalysis": "تحليل ملاءمة الوظائف",
   "jobFitAnalysisPrompt": "كيف يحسب ماتش إن نسبة توافق الوظيفة معي؟",
-  "noHistoryYet": "لا يوجد سجل بعد"
+  "noHistoryYet": "لا يوجد سجل بعد",
+  "invalidJobId": "معرّف الوظيفة غير صالح.",
+  "serverError": "حدث خطأ في الخادم.",
+  "applicationSubmittedSuccessfully": "تم تقديم الطلب بنجاح."
 }

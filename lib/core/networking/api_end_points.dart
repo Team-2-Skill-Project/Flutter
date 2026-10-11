@@ -2,10 +2,10 @@
 abstract class EndPoint {
   //TODO: change these values
   static const String baseUrl =
-      'https://nuke-borough-shoppers-lodging.trycloudflare.com/api/';
+      'https://marcus-confidence-principles-hit.trycloudflare.com/api/';
   static const String login = 'auth/login';
   static const String register = 'auth/register';
-  static const String refreshToken = 'auth/refresh-token';
+  static const String refreshToken = 'auth/refresh';
 
   // Email Verification
   static const String verifyEmailOtp = 'auth/verify-email-otp';
@@ -70,11 +70,14 @@ abstract class ApiKey {
   static const String otp = 'otp';
   static const String newPassword = 'new_password';
   static const String name = 'name';
+  static const String role = 'role';
   static const String password = 'password';
   static const String passwordConfirmation = 'password_confirmation';
   static const String page = 'page';
   static const String perPage = 'per_page';
   static const String jobId = 'job_id';
+  static const String jobPostId = 'job_post_id';
+  static const String cvDocumentId = 'cv_document_id';
   static const String isSaved = 'is_saved';
   static const String search = 'search';
   static const String sort = 'sort';
@@ -93,6 +96,7 @@ abstract class ApiKey {
   static const String preferredSkillIds = 'preferred_skill_ids[]';
   static const String coverLetter = 'cover_letter';
   static const String notes = 'notes';
+  static const String reason = 'reason';
   static const String status = 'status';
   static const String appliedAt = 'applied_at';
   static const String createdAt = 'created_at';

@@ -18,7 +18,7 @@ class SettingsRemoteDataSourceImpl implements SettingsRemoteDataSource {
     // change-password endpoint (EndPoint only provides forgot-password/reset-password).
     // In accordance with project instructions, we do not invent endpoints.
     throw ServerException(
-      errorModel: ErrorModel(
+      errorModel: const ErrorModel(
         statusCode: 501,
         errorMessage: 'Change password endpoint is not provided by the backend.',
       ),

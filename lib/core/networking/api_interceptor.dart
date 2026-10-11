@@ -31,8 +31,10 @@ class ApiInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     final accessToken = await secureStorageService.getAccessToken();
-    options.headers[ApiHeaderKey.authorization] =
-        ApiHeaderKey.getAuthorizationValue(accessToken: accessToken);
+    if (accessToken != null && accessToken.isNotEmpty) {
+      options.headers[ApiHeaderKey.authorization] =
+          ApiHeaderKey.getAuthorizationValue(accessToken: accessToken);
+    }
 
     // add app language in request header
     final langCode = sharedPreferencesService.getLanguageCode();
@@ -147,7 +149,12 @@ class ApiInterceptor extends Interceptor {
 
     return path == _normalizePath(EndPoint.login) ||
         path == _normalizePath(EndPoint.register) ||
-        path == _normalizePath(EndPoint.refreshToken);
+        path == _normalizePath(EndPoint.refreshToken) ||
+        path == _normalizePath(EndPoint.verifyEmailOtp) ||
+        path == _normalizePath(EndPoint.resendEmailOtp) ||
+        path == _normalizePath(EndPoint.forgotPassword) ||
+        path == _normalizePath(EndPoint.verifyPasswordResetOtp) ||
+        path == _normalizePath(EndPoint.resetPassword);
   }
 
   /// normalize path to compare endpoints correctly

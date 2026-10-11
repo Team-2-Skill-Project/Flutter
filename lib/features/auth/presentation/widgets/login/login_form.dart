@@ -1,4 +1,5 @@
 import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/core/widgets/custom_button.dart';
 import 'package:MatchIn/core/widgets/custom_text_field.dart';
@@ -115,7 +116,13 @@ class _LoginFormState extends State<LoginForm> {
                 ],
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  final email = _emailController.text.trim();
+                  context.push(
+                    AppRoutes.kForgetPasswordView,
+                    extra: email.isNotEmpty ? email : null,
+                  );
+                },
                 style: TextButton.styleFrom(padding: EdgeInsets.zero),
                 child: Text(
                   locale.forgotPassword,
@@ -132,6 +139,14 @@ class _LoginFormState extends State<LoginForm> {
             listener: (context, state) async {
               if (state is LoginSuccess) {
                 final prefs = getIt<SharedPreferencesService>();
+                final secureStorage = getIt<SecureStorageService>();
+                // Save tokens to secure storage so the interceptor can attach them
+                final token = state.loginModel.accessToken;
+                final refreshToken = state.loginModel.refreshToken ?? '';
+                await secureStorage.saveTokens(
+                  accessToken: token,
+                  refreshToken: refreshToken,
+                );
                 await prefs.setLoggedIn(true);
                 await prefs.setGuest(false);
                 if (context.mounted) {

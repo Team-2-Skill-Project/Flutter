@@ -112,6 +112,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "applicationSubmitted": MessageLookupByLibrary.simpleMessage(
       "تم إرسال طلبك!",
     ),
+    "applicationSubmittedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم تقديم الطلب بنجاح.",
+    ),
     "applicationTimeline": MessageLookupByLibrary.simpleMessage(
       "مراحل طلب التقديم",
     ),
@@ -377,6 +380,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "interviewPrep": MessageLookupByLibrary.simpleMessage("التحضير للمقابلات"),
     "interviewPrepPrompt": MessageLookupByLibrary.simpleMessage(
       "ما هي أهم أسئلة المقابلات الفنية لـ Dart و Flutter؟",
+    ),
+    "invalidJobId": MessageLookupByLibrary.simpleMessage(
+      "معرّف الوظيفة غير صالح.",
     ),
     "invalidVerificationCode": MessageLookupByLibrary.simpleMessage(
       "رمز التحقق غير صحيح",
@@ -705,6 +711,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sentCodeToEmail": MessageLookupByLibrary.simpleMessage(
       "لقد أرسلنا رمزاً مكوناً من 6 أرقام إلى بريدك الإلكتروني.",
     ),
+    "serverError": MessageLookupByLibrary.simpleMessage("حدث خطأ في الخادم."),
     "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
     "setupCareerProfile": MessageLookupByLibrary.simpleMessage(
       "أكمل ملفك المهني",

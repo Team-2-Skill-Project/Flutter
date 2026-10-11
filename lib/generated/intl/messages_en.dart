@@ -112,6 +112,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "applicationSubmitted": MessageLookupByLibrary.simpleMessage(
       "Application submitted!",
     ),
+    "applicationSubmittedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Application submitted successfully.",
+    ),
     "applicationTimeline": MessageLookupByLibrary.simpleMessage(
       "Application Timeline",
     ),
@@ -380,6 +383,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "interviewPrepPrompt": MessageLookupByLibrary.simpleMessage(
       "What are the top technical interview questions for Dart and Flutter?",
     ),
+    "invalidJobId": MessageLookupByLibrary.simpleMessage("Invalid job ID."),
     "invalidVerificationCode": MessageLookupByLibrary.simpleMessage(
       "Invalid verification code",
     ),
@@ -708,6 +712,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "senior": MessageLookupByLibrary.simpleMessage("Senior"),
     "sentCodeToEmail": MessageLookupByLibrary.simpleMessage(
       "We sent a 6-digit code to your email.",
+    ),
+    "serverError": MessageLookupByLibrary.simpleMessage(
+      "There was a problem with the server.",
     ),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "setupCareerProfile": MessageLookupByLibrary.simpleMessage(

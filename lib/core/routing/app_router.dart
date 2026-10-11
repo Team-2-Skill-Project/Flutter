@@ -251,25 +251,30 @@ abstract final class AppRouter {
         },
       ),
 
-      // Forget Password
+      // Forget Password OTP — after confirming reset OTP, go to Create New Password
       GoRoute(
         path: AppRoutes.kForgetPasswordView,
         pageBuilder: (context, state) {
+          final extra = state.extra;
+          final email = extra is Map<String, dynamic>
+              ? extra['email'] as String? ?? 'user@example.com'
+              : extra is String
+                  ? extra
+                  : 'user@example.com';
           return _buildTransitionPage(
             state: state,
             child: BlocProvider(
               create: (_) => getIt<OtpCubit>(),
               child: OtpVerificationView(
-                email:
-                    state.extra as String? ??
-                    'user@example.com',
+                email: email,
+                mode: OtpMode.passwordReset,
               ),
             ),
           );
         },
       ),
 
-      // OTP
+      // OTP — email verification after registration → navigates to Home
       GoRoute(
         path: AppRoutes.kOtpVerificationView,
         pageBuilder: (context, state) {
@@ -281,6 +286,7 @@ abstract final class AppRouter {
                 email:
                     state.extra as String? ??
                     'user@example.com',
+                mode: OtpMode.emailVerification,
               ),
             ),
           );

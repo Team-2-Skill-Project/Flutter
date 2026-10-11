@@ -13,7 +13,7 @@ class AuthMockRemoteDataSourceImpl implements AuthRemoteDataSource {
     // Simulated error for testing invalid OTP:
     if (otp == '000000') {
       throw ServerException(
-        errorModel: ErrorModel(
+        errorModel: const ErrorModel(
           statusCode: 400,
           errorMessage: 'Invalid verification code',
         ),
@@ -35,7 +35,7 @@ class AuthMockRemoteDataSourceImpl implements AuthRemoteDataSource {
 
     if (newPassword.length < 8) {
       throw ServerException(
-        errorModel: ErrorModel(
+        errorModel: const ErrorModel(
           statusCode: 400,
           errorMessage: 'Password must be at least 8 characters',
         ),
@@ -60,7 +60,7 @@ class AuthMockRemoteDataSourceImpl implements AuthRemoteDataSource {
   }) async {
     await Future.delayed(const Duration(milliseconds: 800));
     // بنرجع داتا وهميه تمشي الحال ف التيست
-    return LoginModel(
+    return const LoginModel(
       accessToken: 'mock_access_token_12345',
       tokenType: 'bearer',
     );

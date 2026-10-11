@@ -50,7 +50,7 @@ class ApplicationsRemoteDataSourceImpl implements ApplicationsRemoteDataSource {
     String? coverLetter,
   }) async {
     final body = <String, dynamic>{
-      ApiKey.jobId: jobId,
+      ApiKey.jobPostId: jobId,
       if (coverLetter != null && coverLetter.isNotEmpty)
         ApiKey.coverLetter: coverLetter,
     };

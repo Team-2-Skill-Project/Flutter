@@ -8,7 +8,7 @@ import 'package:MatchIn/core/services/file_picker_service.dart';
 import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/core/widgets/ads/rewarded_ad_manager.dart';
-import 'package:MatchIn/features/auth/data/data_sources/auth_mock_remote_data_source_impl.dart';
+import 'package:MatchIn/features/auth/data/data_sources/auth_remote_data_source_impl.dart';
 import 'package:MatchIn/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:MatchIn/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:MatchIn/features/auth/domain/repositories/auth_repository.dart';
@@ -150,7 +150,7 @@ Future<void> setupServiceLocator() async {
   // =========================================================
 
   getIt.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthMockRemoteDataSourceImpl(),
+    () => AuthRemoteDataSourceImpl(apiConsumer: getIt()),
   );
 
   getIt.registerLazySingleton<AuthRepository>(

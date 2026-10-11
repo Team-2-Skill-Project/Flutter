@@ -58,7 +58,7 @@ class JobsRemoteDataSourceImpl implements JobsRemoteDataSource {
   Future<JobEntity> applyForJob(String jobId) async {
     final response = await apiConsumer.post(
       EndPoint.applications,
-      data: {ApiKey.jobId: int.tryParse(jobId) ?? jobId},
+      data: {ApiKey.jobPostId: int.tryParse(jobId) ?? jobId},
     );
 
     if (response is Map<String, dynamic>) {

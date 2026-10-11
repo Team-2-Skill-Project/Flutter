@@ -138,7 +138,7 @@ void main() {
 
     test('updateApplicationStatus throws ServerException on 422', () async {
       fakeApiConsumer.getError = ServerException(
-        errorModel: ErrorModel(
+        errorModel: const ErrorModel(
           statusCode: 422,
           errorMessage: 'Invalid status transition.',
         ),

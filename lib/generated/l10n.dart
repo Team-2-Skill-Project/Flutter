@@ -3865,6 +3865,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Invalid job ID.`
+  String get invalidJobId {
+    return Intl.message(
+      'Invalid job ID.',
+      name: 'invalidJobId',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There was a problem with the server.`
+  String get serverError {
+    return Intl.message(
+      'There was a problem with the server.',
+      name: 'serverError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Application submitted successfully.`
+  String get applicationSubmittedSuccessfully {
+    return Intl.message(
+      'Application submitted successfully.',
+      name: 'applicationSubmittedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

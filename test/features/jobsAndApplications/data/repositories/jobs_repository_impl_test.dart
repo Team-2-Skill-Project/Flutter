@@ -10,6 +10,8 @@ import 'package:MatchIn/features/jobsAndApplications/data/models/job_pagination_
 import 'package:MatchIn/features/jobsAndApplications/data/models/paginated_jobs_model.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/entities/job_entity.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/entities/job_filter_params.dart';
+import 'package:MatchIn/generated/l10n.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class FakeNetworkInfo implements NetworkInfo {
@@ -62,6 +64,10 @@ class FakeJobsLocalDataSource implements JobsLocalDataSource {
 }
 
 void main() {
+  setUpAll(() async {
+    await S.load(const Locale('en'));
+  });
+
   late FakeNetworkInfo fakeNetworkInfo;
   late FakeJobsRemoteDataSource fakeRemoteDataSource;
   late FakeJobsLocalDataSource fakeLocalDataSource;
@@ -120,7 +126,7 @@ void main() {
         () async {
       await fakeLocalDataSource.cacheJobs('default', testPaginatedModel);
       fakeRemoteDataSource.errorToThrow = ServerException(
-        errorModel: ErrorModel(statusCode: 500, errorMessage: 'Server Error'),
+        errorModel: ErrorModel(statusCode: 500, errorMessage: S.current.serverError),
       );
 
       final result = await repository.getJobs(params: const JobFilterParams());
@@ -138,14 +144,14 @@ void main() {
     test('getJobs returns Left(ServerFailure) when remote fails and no cache exists',
         () async {
       fakeRemoteDataSource.errorToThrow = ServerException(
-        errorModel: ErrorModel(statusCode: 500, errorMessage: 'Internal Error'),
+        errorModel: ErrorModel(statusCode: 500, errorMessage: S.current.serverError),
       );
 
       final result = await repository.getJobs(params: const JobFilterParams());
 
       expect(result.isLeft(), isTrue);
       result.fold(
-        (failure) => expect(failure.message, equals('Internal Error')),
+        (failure) => expect(failure.message, equals(S.current.serverError)),
         (_) => fail('Should return Left'),
       );
     });

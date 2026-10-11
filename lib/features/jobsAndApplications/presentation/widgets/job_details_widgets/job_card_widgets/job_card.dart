@@ -96,14 +96,15 @@ class JobCard extends StatelessWidget {
                 children: [
                   MatchingStatus(percentage: job.matchPercentage),
                   const Spacer(),
-                  ElevatedButton(
-                    onPressed: _isApplied
-                        ? null
-                        : () => context.push(
-                              AppRoutes.kapplyForRole,
-                              extra: job,
-                            ),
-                    style: ElevatedButton.styleFrom(
+                    ElevatedButton(
+                      onPressed: _isApplied
+                          ? null
+                          : (onApply ??
+                              () => context.push(
+                                    AppRoutes.kapplyForRole,
+                                    extra: job,
+                                  )),
+                      style: ElevatedButton.styleFrom(
                       minimumSize: Size(110.w, 42.h),
                       padding: EdgeInsets.symmetric(horizontal: 18.w),
                     ),
