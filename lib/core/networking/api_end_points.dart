@@ -3,16 +3,20 @@ abstract class EndPoint {
   //TODO: change these values
   static const String baseUrl =
       'https://similarly-postposted-filled-row.trycloudflare.com/api/';
+
   static const String login = 'auth/login';
   static const String register = 'auth/register';
   static const String refreshToken = 'auth/refresh-token';
 
   // Email Verification
-  static const String verifyEmailOtp = 'auth/verify-email-otp';
-  static const String resendEmailOtp = 'auth/resend-email-otp';
+  static const String verifyEmailOtp =
+      'auth/verify-email-otp';
+  static const String resendEmailOtp =
+      'auth/resend-email-otp';
 
   // Password Recovery
-  static const String forgotPassword = 'auth/forgot-password';
+  static const String forgotPassword =
+      'auth/forgot-password';
   static const String verifyPasswordResetOtp =
       'auth/forgot-password/verify-otp';
   static const String resetPassword = 'auth/reset-password';
@@ -23,10 +27,21 @@ abstract class EndPoint {
   static const String chatMessage = 'chatbot/chat';
   static const String savedJobs = 'saved-jobs';
   static const String jobs = 'jobs';
-  static String saveJob(dynamic jobPostId) => 'jobs/$jobPostId/save';
+  static String saveJob(dynamic jobPostId) =>
+      'jobs/$jobPostId/save';
 
-  // get candidate profile
-  static const String candidateProfile = 'candidate/profile';
+  // Applications
+  static const String applications = 'applications';
+  static String applicationDetails(dynamic id) =>
+      'applications/$id';
+  static String updateApplicationStatus(dynamic id) =>
+      'applications/$id/status';
+  static String withdrawApplication(dynamic id) =>
+      'applications/$id/withdraw';
+
+  // Candidate Profile
+  static const String candidateProfile =
+      'candidate/profile';
 
   // Candidate Skills
   static const String candidateSkills = 'candidate/skills';
@@ -38,18 +53,28 @@ abstract class EndPoint {
   static const String searchSkills = 'skills/search';
 
   // Candidate Projects
-  static const String candidateProjects = 'candidate/projects';
+  static const String candidateProjects =
+      'candidate/projects';
 
   static String candidateProject(int projectId) =>
       'candidate/projects/$projectId';
 
-  // career preferences
-  static const String careerPreferences = 'candidate/career-preferences';
+  // Career Preferences
+  static const String careerPreferences =
+      'candidate/career-preferences';
+
+  // Notifications
+  static const String notifications = 'notifications';
+  static const String notificationsUnreadCount =
+      'notifications/unread-count';
+  static const String notificationsReadAll =
+      'notifications/read-all';
+  static String markNotificationAsRead(dynamic id) =>
+      'notifications/$id/read';
 }
 
 ///* ApiKeys: the keys of the api
 abstract class ApiKey {
-  //TODO: change these values
   static const String statusCode = 'statusCode';
   static const String errorMessage = 'message';
   static const String accessToken = 'access_token';
@@ -59,7 +84,8 @@ abstract class ApiKey {
   static const String newPassword = 'new_password';
   static const String name = 'name';
   static const String password = 'password';
-  static const String passwordConfirmation = 'password_confirmation';
+  static const String passwordConfirmation =
+      'password_confirmation';
   static const String page = 'page';
   static const String perPage = 'per_page';
   static const String jobId = 'job_id';
@@ -75,11 +101,32 @@ abstract class ApiKey {
   static const String state = 'state';
   static const String city = 'city';
   static const String source = 'source';
-  static const String applicationMethod = 'application_method';
-  static const String isVerifiedCompany = 'is_verified_company';
-  static const String requiredSkillIds = 'required_skill_ids[]';
-  static const String preferredSkillIds = 'preferred_skill_ids[]';
-  // static const String id = 'id';
+  static const String applicationMethod =
+      'application_method';
+  static const String isVerifiedCompany =
+      'is_verified_company';
+  static const String requiredSkillIds =
+      'required_skill_ids[]';
+  static const String preferredSkillIds =
+      'preferred_skill_ids[]';
+  static const String coverLetter = 'cover_letter';
+  static const String notes = 'notes';
+  static const String status = 'status';
+  static const String appliedAt = 'applied_at';
+  static const String createdAt = 'created_at';
+  static const String updatedAt = 'updated_at';
+  static const String attributes = 'attributes';
+  static const String data = 'data';
+  static const String type = 'type';
+  static const String links = 'links';
+  static const String meta = 'meta';
+  static const String id = 'id';
+  static const String isRead = 'is_read';
+  static const String readAt = 'read_at';
+  static const String title = 'title';
+  static const String count = 'count';
+  static const String updatedCount = 'updated_count';
+  static const String unreadOnly = 'unread_only';
 }
 
 ///* ApiHeaderKey: the header keys of the api
@@ -90,6 +137,7 @@ abstract class ApiHeaderKey {
   static const String accept = 'Accept';
   static const String contentType = 'Content-Type';
 
-  static String getAuthorizationValue({required String? accessToken}) =>
-      '${ApiHeaderKey.bearer} $accessToken';
+  static String getAuthorizationValue({
+    required String? accessToken,
+  }) => '${ApiHeaderKey.bearer} $accessToken';
 }

@@ -58,4 +58,8 @@ abstract final class AppRoutes {
       '/profile/editEducation';
   static const String keditExperience =
       '/profile/editExperience';
+
+  static const String kPrivacyPolicyView = '/privacyPolicy';
+  static const String kContactUsView = '/contactUs';
+  static const String kFollowUsView = '/followUs';
 }
