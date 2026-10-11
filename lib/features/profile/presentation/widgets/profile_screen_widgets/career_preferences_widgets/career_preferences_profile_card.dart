@@ -33,9 +33,7 @@ class CareerPreferencesProfileCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: colorScheme.surface,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(
-          color: colorScheme.outlineVariant,
-        ),
+        border: Border.all(color: colorScheme.outlineVariant),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,11 +43,10 @@ class CareerPreferencesProfileCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   s.careerPreferences,
-                  style: theme.textTheme.titleMedium
-                      ?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: colorScheme.onSurface,
-                      ),
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: colorScheme.onSurface,
+                  ),
                 ),
               ),
               if (onEdit != null)
@@ -66,29 +63,17 @@ class CareerPreferencesProfileCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: 8.h),
-          Divider(
-            height: 1,
-            color: colorScheme.outlineVariant,
-          ),
+          Divider(height: 1, color: colorScheme.outlineVariant),
           SizedBox(height: 16.h),
-          PreferenceRow(
-            label: s.targetRole,
-            value: targetRole,
-          ),
+          PreferenceRow(label: s.targetRole, value: targetRole),
           SizedBox(height: 12.h),
           PreferenceRow(label: s.jobType, value: jobType),
           SizedBox(height: 12.h),
           PreferenceRow(label: s.workMode, value: workMode),
           SizedBox(height: 12.h),
-          PreferenceRow(
-            label: s.preferredLocation,
-            value: preferredLocation,
-          ),
+          PreferenceRow(label: s.preferredLocation, value: preferredLocation),
           SizedBox(height: 12.h),
-          PreferenceRow(
-            label: s.experienceLevel,
-            value: experienceLevel,
-          ),
+          PreferenceRow(label: s.experienceLevel, value: experienceLevel),
         ],
       ),
     );

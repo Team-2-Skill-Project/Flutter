@@ -60,6 +60,7 @@ import 'package:MatchIn/features/profile/domain/use_cases/add_candidate_project_
 import 'package:MatchIn/features/profile/domain/use_cases/add_candidate_skill_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/delete_candidate_project_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_cached_candidate_profile_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_profile_for_edit_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_profile_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_projects_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_skills_use_case.dart';
@@ -68,11 +69,13 @@ import 'package:MatchIn/features/profile/domain/use_cases/get_project_use_case.d
 import 'package:MatchIn/features/profile/domain/use_cases/remove_candidate_skill_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/save_career_preferences_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/search_skills_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/update_candidate_profile_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/update_candidate_project_use_case.dart';
-import 'package:MatchIn/features/profile/presentation/cubits/career_preferences_cubit.dart';
-import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit.dart';
-import 'package:MatchIn/features/profile/presentation/cubits/projects_cubit.dart';
-import 'package:MatchIn/features/profile/presentation/cubits/skills_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/career_cubit/career_preferences_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/edit_profile_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/projects_cubit/projects_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/skills_cubit/skills_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/skill_task_cubit/skill_task_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/treasure_cubit/treasure_cubit.dart';
@@ -436,12 +439,27 @@ Future<void> setupServiceLocator() async {
     ),
   );
 
+  getIt
+      .registerLazySingleton<UpdateCandidateProfileUseCase>(
+        () => UpdateCandidateProfileUseCase(getIt()),
+      );
+
   getIt.registerFactory<ProfileCubit>(
     () => ProfileCubit(
       getCandidateProfileUseCase: getIt(),
       getCachedCandidateProfileUseCase: getIt(),
     ),
   );
+
+  getIt.registerFactory<EditProfileCubit>(
+    () => EditProfileCubit(
+      updateCandidateProfileUseCase: getIt(),
+    ),
+  );
+
+  getIt.registerLazySingleton<
+    GetCandidateProfileForEditUseCase
+  >(() => GetCandidateProfileForEditUseCase(getIt()));
 
   // Skills use cases and cubit
   getIt.registerFactory<SkillsCubit>(

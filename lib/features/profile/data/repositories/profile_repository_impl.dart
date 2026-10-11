@@ -111,6 +111,27 @@ class ProfileRepositoryImpl implements ProfileRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, CandidateProfileEntity>>
+  getCandidateProfileForEdit() async {
+    if (!await networkInfo.isConnected) {
+      return const Left(OfflineFailure());
+    }
+
+    try {
+      final profile = await remoteDataSource
+          .getCandidateProfile();
+
+      return Right(profile);
+    } on ServerException catch (e) {
+      return Left(
+        ServerFailure(message: e.errorModel.errorMessage),
+      );
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
   // Candidate Skills
   @override
   Future<Either<Failure, List<CandidateSkillEntity>>>

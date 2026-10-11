@@ -1,3 +1,4 @@
+import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entity.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/edit_profile_actions.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/personal_information_card.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/professional_information_card.dart';
@@ -9,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EditProfileViewBody extends StatefulWidget {
-  const EditProfileViewBody({super.key});
+  const EditProfileViewBody({required this.initialProfile, super.key});
+
+  final CandidateProfileEntity initialProfile;
 
   @override
   State<EditProfileViewBody> createState() => _EditProfileViewBodyState();
@@ -34,19 +37,36 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
   void initState() {
     super.initState();
 
-    _fullNameController = TextEditingController();
-    _dateOfBirthController = TextEditingController();
-    _phoneController = TextEditingController();
-    _jobTitleController = TextEditingController();
-    _githubController = TextEditingController();
-    _linkedinController = TextEditingController();
+    final user = widget.initialProfile.user;
+    final details = widget.initialProfile.profile;
 
-    _gender = ValueNotifier(null);
-    _countryCode = ValueNotifier(null);
-    _militaryStatus = ValueNotifier(null);
-    _country = ValueNotifier(null);
-    _state = ValueNotifier(null);
-    _city = ValueNotifier(null);
+    _fullNameController = TextEditingController(text: user.name);
+
+    _dateOfBirthController = TextEditingController(
+      text: details?.dateOfBirth ?? '',
+    );
+
+    _phoneController = TextEditingController(text: user.phone ?? '');
+
+    _jobTitleController = TextEditingController(text: details?.jobTitle ?? '');
+
+    _githubController = TextEditingController(text: details?.githubUrl ?? '');
+
+    _linkedinController = TextEditingController(
+      text: details?.linkedinUrl ?? '',
+    );
+
+    _gender = ValueNotifier<String?>(details?.gender);
+
+    _countryCode = ValueNotifier<String?>(null);
+
+    _militaryStatus = ValueNotifier<String?>(details?.militaryStatus);
+
+    _country = ValueNotifier<String?>(details?.country);
+
+    _state = ValueNotifier<String?>(details?.state);
+
+    _city = ValueNotifier<String?>(details?.city);
   }
 
   @override
@@ -71,10 +91,12 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
   @override
   Widget build(BuildContext context) {
     final locale = S.of(context);
+    final theme = Theme.of(context);
 
     return ListView(
       padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 32.h),
       children: [
+        // Header
         Row(
           children: [
             IconButton(
@@ -85,8 +107,9 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
             Expanded(
               child: Text(
                 locale.editProfile,
-                style: Theme.of(context).textTheme.headlineSmall
-                    ?.copyWith(fontWeight: FontWeight.w700),
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ],
@@ -94,10 +117,12 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
 
         SizedBox(height: 24.h),
 
-        const ProfilePhotoEditor(),
+        // Profile picture
+        ProfilePhotoEditor(avatarUrl: widget.initialProfile.user.avatar),
 
         SizedBox(height: 24.h),
 
+        // Personal Information
         ValueListenableBuilder<String?>(
           valueListenable: _gender,
           builder: (context, gender, child) {
@@ -111,8 +136,7 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
                   gender: gender,
                   countryCode: countryCode,
 
-                  // Intentionally empty until a real country-code
-                  // source is selected.
+                  // Country calling codes require a verified data source.
                   countryCodes: const {},
 
                   onGenderChanged: (value) {
@@ -129,6 +153,7 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
 
         SizedBox(height: 16.h),
 
+        // Professional Information
         ValueListenableBuilder<String?>(
           valueListenable: _militaryStatus,
           builder: (context, militaryStatus, child) {
@@ -136,7 +161,7 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
               jobTitleController: _jobTitleController,
               militaryStatus: militaryStatus,
 
-              // Exact backend values are not documented yet.
+              // Backend enum values are not confirmed yet.
               militaryStatusItems: const {},
 
               onMilitaryStatusChanged: (value) {
@@ -148,6 +173,7 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
 
         SizedBox(height: 16.h),
 
+        // Location
         ValueListenableBuilder<String?>(
           valueListenable: _country,
           builder: (context, country, child) {
@@ -162,7 +188,8 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
                       state: state,
                       city: city,
 
-                      // Location source is intentionally not fabricated.
+                      // Location options will come from
+                      // a verified location data source.
                       countries: const {},
                       states: const {},
                       cities: const {},
@@ -189,6 +216,7 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
 
         SizedBox(height: 16.h),
 
+        // Professional Links
         ProfessionalLinksCard(
           githubController: _githubController,
           linkedinController: _linkedinController,
@@ -196,10 +224,15 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
 
         SizedBox(height: 28.h),
 
+        // Actions
         EditProfileActions(
+          // Save will be connected to EditProfileCubit
+          // after implementing changed-field PATCH mapping.
           onSave: () {},
           onCancel: () => Navigator.of(context).pop(),
         ),
+
+        SizedBox(height: 24.h),
       ],
     );
   }

@@ -1,6 +1,6 @@
 import 'package:MatchIn/features/profile/domain/entities/career_preference_entity.dart';
-import 'package:MatchIn/features/profile/presentation/cubits/career_preferences_cubit.dart';
-import 'package:MatchIn/features/profile/presentation/cubits/career_preferences_state.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/career_cubit/career_preferences_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/career_cubit/career_preferences_state.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/career_preferences_form.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/career_preferences_header.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_career_preferences_widgets/career_preferences_intro_card.dart';
@@ -15,22 +15,32 @@ class CareerPreferencesViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = S.of(context);
-    return BlocConsumer<CareerPreferencesCubit, CareerPreferencesState>(
+    return BlocConsumer<
+      CareerPreferencesCubit,
+      CareerPreferencesState
+    >(
       listener: (context, state) {
         if (state is CareerPreferencesActionFailure) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.message)));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message)),
+          );
         }
 
         if (state is CareerPreferencesSaveSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(locale.careerPreferencesSavedSuccessfully)),
+            SnackBar(
+              content: Text(
+                locale.careerPreferencesSavedSuccessfully,
+              ),
+            ),
           );
         }
       },
       builder: (context, state) {
         if (state is CareerPreferencesLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
 
         if (state is CareerPreferencesFailure) {
@@ -40,7 +50,12 @@ class CareerPreferencesViewBody extends StatelessWidget {
         final preferences = _preferencesFromState(state);
 
         return ListView(
-          padding: EdgeInsetsDirectional.fromSTEB(16.w, 8.h, 16.w, 32.h),
+          padding: EdgeInsetsDirectional.fromSTEB(
+            16.w,
+            8.h,
+            16.w,
+            32.h,
+          ),
           children: [
             CareerPreferencesHeader(
               onBackPressed: () {
@@ -56,7 +71,9 @@ class CareerPreferencesViewBody extends StatelessWidget {
             SizedBox(height: 16.h),
 
             CareerPreferencesForm(
-              key: ValueKey(preferences?.id ?? 'new-preferences'),
+              key: ValueKey(
+                preferences?.id ?? 'new-preferences',
+              ),
               preferences: preferences,
             ),
           ],
@@ -65,7 +82,9 @@ class CareerPreferencesViewBody extends StatelessWidget {
     );
   }
 
-  CareerPreferenceEntity? _preferencesFromState(CareerPreferencesState state) {
+  CareerPreferenceEntity? _preferencesFromState(
+    CareerPreferencesState state,
+  ) {
     if (state is CareerPreferencesSuccess) {
       return state.preferences;
     }

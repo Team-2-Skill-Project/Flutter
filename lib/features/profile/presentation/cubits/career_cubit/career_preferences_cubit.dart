@@ -2,7 +2,9 @@ import 'package:MatchIn/features/profile/domain/entities/career_preference_entit
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_career_preferences_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/save_career_preferences_use_case.dart';
-import 'package:MatchIn/features/profile/presentation/cubits/career_preferences_state.dart';
+
+import 'career_preferences_state.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CareerPreferencesCubit extends Cubit<CareerPreferencesState> {

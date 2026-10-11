@@ -20,8 +20,22 @@ class ProfilePhoneField extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = S.of(context);
     final theme = Theme.of(context);
-    final validCountryCode =
-        countryCode != null && countryCodes.containsKey(countryCode);
+    final colors = theme.colorScheme;
+
+    final availableCodes = Map<String, String>.from(countryCodes);
+
+    final currentCode = countryCode?.trim();
+
+    if (currentCode != null &&
+        currentCode.isNotEmpty &&
+        !availableCodes.containsKey(currentCode)) {
+      availableCodes[currentCode] = currentCode;
+    }
+
+    final selectedCode =
+        currentCode != null && availableCodes.containsKey(currentCode)
+        ? currentCode
+        : null;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,19 +43,28 @@ class ProfilePhoneField extends StatelessWidget {
         Text(
           locale.phoneNumber,
           style: theme.textTheme.bodyMedium?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
+            color: colors.onSurfaceVariant,
             fontWeight: FontWeight.w600,
           ),
         ),
+
         SizedBox(height: 8.h),
+
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               width: 116.w,
               child: DropdownButtonFormField<String>(
-                initialValue: validCountryCode ? countryCode : null,
+                key: ValueKey(selectedCode),
+                initialValue: selectedCode,
                 isExpanded: true,
+
+                icon: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: colors.onSurfaceVariant,
+                ),
+
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: 12.w,
@@ -50,19 +73,26 @@ class ProfilePhoneField extends StatelessWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.r),
                   ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                    borderSide: BorderSide(color: theme.dividerColor),
+                  ),
                 ),
-                items: countryCodes.entries
-                    .map(
-                      (entry) => DropdownMenuItem(
-                        value: entry.key,
-                        child: Text(entry.value),
-                      ),
-                    )
-                    .toList(),
+
+                items: availableCodes.entries.map((entry) {
+                  return DropdownMenuItem<String>(
+                    value: entry.key,
+                    child: Text(entry.value, overflow: TextOverflow.ellipsis),
+                  );
+                }).toList(),
+
+                // Disabled until a verified country-code source is available.
                 onChanged: countryCodes.isEmpty ? null : onCountryCodeChanged,
               ),
             ),
+
             SizedBox(width: 12.w),
+
             Expanded(
               child: TextFormField(
                 controller: controller,
@@ -74,6 +104,10 @@ class ProfilePhoneField extends StatelessWidget {
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                    borderSide: BorderSide(color: theme.dividerColor),
                   ),
                 ),
               ),

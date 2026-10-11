@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PreferenceRow extends StatelessWidget {
-  const PreferenceRow({
-    super.key,
-    required this.label,
-    required this.value,
-  });
+  const PreferenceRow({super.key, required this.label, required this.value});
 
   final String label;
   final String? value;
@@ -32,8 +28,7 @@ class PreferenceRow extends StatelessWidget {
         SizedBox(width: 12.w),
         Expanded(
           child: Text(
-            normalizedValue == null ||
-                    normalizedValue.isEmpty
+            normalizedValue == null || normalizedValue.isEmpty
                 ? '—'
                 : normalizedValue,
             style: theme.textTheme.bodyMedium?.copyWith(

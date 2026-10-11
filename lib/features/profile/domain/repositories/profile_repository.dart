@@ -19,6 +19,9 @@ abstract class ProfileRepository {
   Future<Either<Failure, CandidateProfileEntity?>>
   getCachedCandidateProfile();
 
+  Future<Either<Failure, CandidateProfileEntity>>
+  getCandidateProfileForEdit();
+
   // Candidate Skills
   Future<Either<Failure, List<CandidateSkillEntity>>>
   getCandidateSkills();

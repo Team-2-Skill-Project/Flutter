@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ExperienceProfileItem extends StatelessWidget {
-  const ExperienceProfileItem({
-    required this.experience,
-    super.key,
-  });
+  const ExperienceProfileItem({required this.experience, super.key});
 
   final ExperienceProfileItemData experience;
 
@@ -28,11 +25,10 @@ class ExperienceProfileItem extends StatelessWidget {
             Expanded(
               child: Text(
                 experience.jobTitle,
-                style: theme.textTheme.titleMedium
-                    ?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: colors.onSurface,
-                    ),
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: colors.onSurface,
+                ),
               ),
             ),
 
@@ -52,9 +48,7 @@ class ExperienceProfileItem extends StatelessWidget {
 
         Text(
           experience.companyName,
-          style: theme.textTheme.bodyMedium?.copyWith(
-            color: colors.onSurface,
-          ),
+          style: theme.textTheme.bodyMedium?.copyWith(color: colors.onSurface),
         ),
 
         if (_hasMetaData) ...[
@@ -68,10 +62,9 @@ class ExperienceProfileItem extends StatelessWidget {
               if (_hasEmploymentType)
                 Text(
                   experience.employmentType!,
-                  style: theme.textTheme.bodySmall
-                      ?.copyWith(
-                        color: colors.onSurfaceVariant,
-                      ),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: colors.onSurfaceVariant,
+                  ),
                 ),
 
               if (location.isNotEmpty)
@@ -86,10 +79,9 @@ class ExperienceProfileItem extends StatelessWidget {
                     SizedBox(width: 3.w),
                     Text(
                       location,
-                      style: theme.textTheme.bodySmall
-                          ?.copyWith(
-                            color: colors.onSurfaceVariant,
-                          ),
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: colors.onSurfaceVariant,
+                      ),
                     ),
                   ],
                 ),
@@ -117,9 +109,7 @@ class ExperienceProfileItem extends StatelessWidget {
             runSpacing: 7.h,
             children: experience.technologies
                 .map(
-                  (technology) => ExperienceTechnologyChip(
-                    label: technology,
-                  ),
+                  (technology) => ExperienceTechnologyChip(label: technology),
                 )
                 .toList(),
           ),
@@ -139,17 +129,14 @@ class ExperienceProfileItem extends StatelessWidget {
   }
 
   bool get _hasMetaData {
-    return _hasEmploymentType ||
-        _formatLocation().isNotEmpty;
+    return _hasEmploymentType || _formatLocation().isNotEmpty;
   }
 
   String _formatLocation() {
-    return [experience.city, experience.country]
-        .where(
-          (value) =>
-              value != null && value.trim().isNotEmpty,
-        )
-        .join(', ');
+    return [
+      experience.city,
+      experience.country,
+    ].where((value) => value != null && value.trim().isNotEmpty).join(', ');
   }
 
   String _formatDate() {

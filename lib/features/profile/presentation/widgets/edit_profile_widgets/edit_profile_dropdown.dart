@@ -20,8 +20,24 @@ class EditProfileDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
-    final hasValue = value != null && items.containsKey(value);
+    final currentValue = value?.trim();
+
+    final availableItems = Map<String, String>.from(items);
+
+    if (currentValue != null &&
+        currentValue.isNotEmpty &&
+        !availableItems.containsKey(currentValue)) {
+      availableItems[currentValue] = currentValue;
+    }
+
+    final selectedValue =
+        currentValue != null &&
+            currentValue.isNotEmpty &&
+            availableItems.containsKey(currentValue)
+        ? currentValue
+        : null;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,13 +45,16 @@ class EditProfileDropdown extends StatelessWidget {
         Text(
           label,
           style: theme.textTheme.bodyMedium?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
+            color: colors.onSurfaceVariant,
             fontWeight: FontWeight.w600,
           ),
         ),
+
         SizedBox(height: 8.h),
+
         DropdownButtonFormField<String>(
-          initialValue: hasValue ? value : null,
+          key: ValueKey(selectedValue),
+          initialValue: selectedValue,
           isExpanded: true,
           hint: hintText == null ? null : Text(hintText!),
           icon: const Icon(Icons.keyboard_arrow_down_rounded),
@@ -52,14 +71,14 @@ class EditProfileDropdown extends StatelessWidget {
               borderSide: BorderSide(color: theme.dividerColor),
             ),
           ),
-          items: items.entries
-              .map(
-                (entry) => DropdownMenuItem<String>(
-                  value: entry.key,
-                  child: Text(entry.value),
-                ),
-              )
-              .toList(),
+          items: availableItems.entries.map((entry) {
+            return DropdownMenuItem<String>(
+              value: entry.key,
+              child: Text(entry.value, overflow: TextOverflow.ellipsis),
+            );
+          }).toList(),
+
+          // No selection changes until actual options are available.
           onChanged: items.isEmpty ? null : onChanged,
         ),
       ],

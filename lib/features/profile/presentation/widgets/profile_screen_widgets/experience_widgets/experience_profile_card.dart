@@ -26,10 +26,7 @@ class ExperienceProfileCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: colors.surface,
         borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(
-          color: context.theme.dividerColor,
-          width: 1,
-        ),
+        border: Border.all(color: context.theme.dividerColor, width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,11 +44,10 @@ class ExperienceProfileCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   locale.experience,
-                  style: theme.textTheme.titleLarge
-                      ?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: colors.onSurface,
-                      ),
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: colors.onSurface,
+                  ),
                 ),
               ),
 
@@ -71,30 +67,18 @@ class ExperienceProfileCard extends StatelessWidget {
 
           SizedBox(height: 12.h),
 
-          Divider(
-            height: 1,
-            color: context.theme.dividerColor,
-          ),
+          Divider(height: 1, color: context.theme.dividerColor),
 
           if (experiences.isNotEmpty) ...[
             SizedBox(height: 14.h),
 
-            for (
-              int index = 0;
-              index < experiences.length;
-              index++
-            ) ...[
-              ExperienceProfileItem(
-                experience: experiences[index],
-              ),
+            for (int index = 0; index < experiences.length; index++) ...[
+              ExperienceProfileItem(experience: experiences[index]),
 
               if (index != experiences.length - 1) ...[
                 SizedBox(height: 14.h),
 
-                Divider(
-                  height: 1,
-                  color: context.theme.dividerColor,
-                ),
+                Divider(height: 1, color: context.theme.dividerColor),
 
                 SizedBox(height: 14.h),
               ],

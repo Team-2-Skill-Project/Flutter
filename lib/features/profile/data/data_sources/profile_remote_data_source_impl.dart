@@ -31,16 +31,27 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
     final response = await apiConsumer.patch(
       EndPoint.candidateProfile,
       data: {
-        'date_of_birth': params.dateOfBirth,
-        'gender': params.gender,
-        'job_title': params.jobTitle,
-        'country': params.country,
-        'state': params.state,
-        'city': params.city,
-        'github_url': params.githubUrl,
-        'linkedin_url': params.linkedinUrl,
-        'military_status': params.militaryStatus,
-        'professional_summary': params.professionalSummary,
+        if (params.dateOfBirth != null) 'date_of_birth': params.dateOfBirth,
+
+        if (params.gender != null) 'gender': params.gender,
+
+        if (params.jobTitle != null) 'job_title': params.jobTitle,
+
+        if (params.country != null) 'country': params.country,
+
+        if (params.state != null) 'state': params.state,
+
+        if (params.city != null) 'city': params.city,
+
+        if (params.githubUrl != null) 'github_url': params.githubUrl,
+
+        if (params.linkedinUrl != null) 'linkedin_url': params.linkedinUrl,
+
+        if (params.militaryStatus != null)
+          'military_status': params.militaryStatus,
+
+        if (params.professionalSummary != null)
+          'professional_summary': params.professionalSummary,
       },
     );
 

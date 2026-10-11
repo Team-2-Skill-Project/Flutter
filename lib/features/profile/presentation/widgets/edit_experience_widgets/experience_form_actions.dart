@@ -24,15 +24,9 @@ class ExperienceFormActions extends StatelessWidget {
             child: OutlinedButton(
               onPressed: onCancel,
               style: OutlinedButton.styleFrom(
-                backgroundColor: Theme.of(context)
-                    .colorScheme
-                    .surface,
-                foregroundColor: Theme.of(context)
-                    .colorScheme
-                    .primary,
-                side: BorderSide(
-                  color: Theme.of(context).dividerColor,
-                ),
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                foregroundColor: Theme.of(context).colorScheme.primary,
+                side: BorderSide(color: Theme.of(context).dividerColor),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.r),
                 ),
@@ -47,12 +41,8 @@ class ExperienceFormActions extends StatelessWidget {
           child: FilledButton(
             onPressed: onSave,
             style: FilledButton.styleFrom(
-              backgroundColor: Theme.of(context)
-                  .colorScheme
-                  .primary,
-              foregroundColor: Theme.of(context)
-                  .colorScheme
-                  .onPrimary,
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.r),
               ),
