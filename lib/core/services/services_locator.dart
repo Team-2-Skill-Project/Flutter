@@ -650,19 +650,6 @@ Future<void> setupServiceLocator() async {
     () => ProfileRemoteDataSourceImpl(apiConsumer: getIt()),
   );
 
-  getIt.registerLazySingleton<ProfileLocalDataSource>(
-    () => ProfileLocalDataSourceImpl(
-      sharedPreferencesHelper: getIt(),
-    ),
-  );
-
-  getIt.registerLazySingleton<ProfileRepository>(
-    () => ProfileRepositoryImpl(
-      remoteDataSource: getIt(),
-      localDataSource: getIt(),
-      networkInfo: getIt(),
-    ),
-  );
   // Profile Use Cases and cubit
   getIt.registerLazySingleton<GetCandidateProfileUseCase>(
     () => GetCandidateProfileUseCase(repository: getIt()),
