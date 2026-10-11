@@ -43,7 +43,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
           return Right(cached);
         }
 
-        return Left(ServerFailure(message: e.errorModel.errorMessage));
+        return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
       } catch (e) {
         final cached = await localDataSource.getCachedCandidateProfile();
 
@@ -89,7 +89,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
       return Right(skills);
     } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.errorModel.errorMessage));
+      return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -108,7 +108,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
       return Right(skill);
     } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.errorModel.errorMessage));
+      return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -127,7 +127,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
       return const Right(unit);
     } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.errorModel.errorMessage));
+      return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -146,7 +146,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
       return Right(skills);
     } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.errorModel.errorMessage));
+      return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -164,7 +164,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
       return Right(projects);
     } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.errorModel.errorMessage));
+      return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -183,7 +183,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
       return Right(project);
     } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.errorModel.errorMessage));
+      return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -202,7 +202,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
       return Right(project);
     } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.errorModel.errorMessage));
+      return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -221,7 +221,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
       return Right(project);
     } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.errorModel.errorMessage));
+      return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -238,7 +238,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
       return const Right(unit);
     } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.errorModel.errorMessage));
+      return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -257,7 +257,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
       return Right(preferences);
     } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.errorModel.errorMessage));
+      return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -276,7 +276,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
       return Right(preferences);
     } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.errorModel.errorMessage));
+      return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -295,7 +295,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
         if (cached != null) {
           return Right(cached.toEntity());
         }
-        return Left(ServerFailure(message: e.errorModel.errorMessage));
+        return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
       } catch (e) {
         final cached = await localDataSource.getCachedUserProfile();
         if (cached != null) {

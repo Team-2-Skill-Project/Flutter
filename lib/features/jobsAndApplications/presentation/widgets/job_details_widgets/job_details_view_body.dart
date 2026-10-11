@@ -1,3 +1,5 @@
+import 'package:MatchIn/core/functions/require_auth.dart';
+import 'package:MatchIn/core/functions/share_job.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/entities/job_entity.dart';
 import 'package:MatchIn/features/jobsAndApplications/presentation/cubit/jobs_feed_cubit.dart';
 import 'package:MatchIn/features/jobsAndApplications/presentation/cubit/jobs_feed_state.dart';
@@ -33,7 +35,14 @@ class JobDetailsViewBody extends StatelessWidget {
 
         return Column(
           children: [
-            const JobDetailsHeader(),
+            JobDetailsHeader(
+              isSaved: currentJob.isSaved,
+              onSave: () {
+                if (!requireAuth(context)) return;
+                context.read<JobsFeedCubit>().toggleSaveJob(currentJob.id);
+              },
+              onShare: () => shareJob(context, currentJob),
+            ),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(16.r),

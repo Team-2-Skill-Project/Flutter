@@ -10,15 +10,23 @@ class CandidateProfileModel extends CandidateProfileEntity {
   });
 
   factory CandidateProfileModel.fromJson(Map<String, dynamic> json) {
-    final userJson = json['user'] as Map<String, dynamic>;
-    final profileJson = json['profile'] as Map<String, dynamic>?;
+    final userJson = json['user'];
+    if (userJson is! Map<String, dynamic>) {
+      throw const FormatException('Invalid candidate profile: missing user');
+    }
+    final profileJson = json['profile'];
+    if (profileJson != null && profileJson is! Map<String, dynamic>) {
+      throw const FormatException('Invalid candidate profile: invalid profile');
+    }
 
     return CandidateProfileModel(
-      profileExists: json['profile_exists'] as bool,
+      profileExists: json['profile_exists'] as bool? ?? false,
       user: ProfileUserModel.fromJson(userJson),
       profile: profileJson == null
           ? null
-          : CandidateProfileDetailsModel.fromJson(profileJson),
+          : CandidateProfileDetailsModel.fromJson(
+              profileJson as Map<String, dynamic>,
+            ),
     );
   }
 

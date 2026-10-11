@@ -9,9 +9,11 @@ class ReviewApplicationView extends StatelessWidget {
   const ReviewApplicationView({
     super.key,
     required this.job,
+    this.coverLetter,
   });
 
   final JobEntity job;
+  final String? coverLetter;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class ReviewApplicationView extends StatelessWidget {
         body: SafeArea(
           top: true,
           bottom: false,
-          child: ReviewApplicationViewBody(job: job),
+          child: ReviewApplicationViewBody(job: job, coverLetter: coverLetter),
         ),
       ),
     );

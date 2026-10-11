@@ -74,13 +74,20 @@ class JobCardHeader extends StatelessWidget {
         IconButton(
           onPressed: onSave ?? () {},
           visualDensity: VisualDensity.compact,
-          icon: Icon(
-            isSaved
-                ? Icons.bookmark_rounded
-                : Icons.bookmark_border_rounded,
-            color: isSaved
-                ? context.colors.secondary
-                : context.colors.onSurface.withValues(alpha: 0.6),
+          icon: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            transitionBuilder: (child, animation) {
+              return ScaleTransition(scale: animation, child: child);
+            },
+            child: Icon(
+              key: ValueKey<bool>(isSaved),
+              isSaved
+                  ? Icons.bookmark_rounded
+                  : Icons.bookmark_border_rounded,
+              color: isSaved
+                  ? context.colors.secondary
+                  : context.colors.onSurface.withValues(alpha: 0.6),
+            ),
           ),
         ),
       ],

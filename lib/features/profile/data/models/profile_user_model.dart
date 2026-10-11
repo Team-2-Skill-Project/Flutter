@@ -13,13 +13,13 @@ class ProfileUserModel extends ProfileUserEntity {
 
   factory ProfileUserModel.fromJson(Map<String, dynamic> json) {
     return ProfileUserModel(
-      id: json['id'] as int,
-      name: json['name'] as String,
-      email: json['email'] as String,
-      role: json['role'] as String,
-      isActive: json['is_active'] as bool,
-      phone: json['phone'] as String?,
-      avatar: json['avatar'] as String?,
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      name: json['name']?.toString() ?? '',
+      email: json['email']?.toString() ?? '',
+      role: json['role']?.toString() ?? 'candidate',
+      isActive: json['is_active'] as bool? ?? true,
+      phone: json['phone']?.toString(),
+      avatar: json['avatar']?.toString(),
     );
   }
 

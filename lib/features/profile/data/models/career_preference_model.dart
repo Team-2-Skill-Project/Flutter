@@ -17,7 +17,7 @@ class CareerPreferenceModel extends CareerPreferenceEntity {
 
   factory CareerPreferenceModel.fromJson(Map<String, dynamic> json) {
     return CareerPreferenceModel(
-      id: json['id'] as int,
+      id: (json['id'] as num?)?.toInt() ?? 0,
       targetRole: json['target_role'] as String?,
       jobType: json['job_type'] as String?,
       workMode: json['work_mode'] as String?,

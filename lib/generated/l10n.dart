@@ -3865,6 +3865,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Invalid job ID.`
+  String get invalidJobId {
+    return Intl.message(
+      'Invalid job ID.',
+      name: 'invalidJobId',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There was a problem with the server.`
+  String get serverError {
+    return Intl.message(
+      'There was a problem with the server.',
+      name: 'serverError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Application submitted successfully.`
+  String get applicationSubmittedSuccessfully {
+    return Intl.message(
+      'Application submitted successfully.',
+      name: 'applicationSubmittedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are in guest mode`
+  String get guestModeTitle {
+    return Intl.message(
+      'You are in guest mode',
+      name: 'guestModeTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please log in to access this feature.`
+  String get guestModeMessage {
+    return Intl.message(
+      'Please log in to access this feature.',
+      name: 'guestModeMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Job link is not available for this job.`
+  String get shareJobLinkUnavailable {
+    return Intl.message(
+      'Job link is not available for this job.',
+      name: 'shareJobLinkUnavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Couldn't save the job. Please try again.`
+  String get saveJobFailed {
+    return Intl.message(
+      'Couldn\'t save the job. Please try again.',
+      name: 'saveJobFailed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

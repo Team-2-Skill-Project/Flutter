@@ -8,15 +8,17 @@ import 'package:MatchIn/core/services/file_picker_service.dart';
 import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/core/widgets/ads/rewarded_ad_manager.dart';
-import 'package:MatchIn/features/auth/data/data_sources/auth_mock_remote_data_source_impl.dart';
+import 'package:MatchIn/features/auth/data/data_sources/auth_remote_data_source_impl.dart';
 import 'package:MatchIn/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:MatchIn/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:MatchIn/features/auth/domain/repositories/auth_repository.dart';
+import 'package:MatchIn/features/auth/domain/use_cases/forgot_password_use_case.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/login_use_case.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/register_use_case.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/resend_otp_use_case.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/reset_password_use_case.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/verify_otp_use_case.dart';
+import 'package:MatchIn/features/auth/domain/use_cases/verify_password_reset_otp_use_case.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/otp_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/reset_password_cubit.dart';
@@ -64,10 +66,12 @@ import 'package:MatchIn/features/jobsAndApplications/domain/use_case/get_applica
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/get_applications_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/get_cached_applications_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/get_cached_jobs_use_case.dart';
+import 'package:MatchIn/features/jobsAndApplications/domain/use_case/get_job_details_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/get_jobs_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/refresh_jobs_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/search_jobs_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/toggle_save_job_use_case.dart';
+import 'package:MatchIn/features/jobsAndApplications/domain/use_case/update_application_notes_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/update_application_status_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/withdraw_application_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/presentation/cubit/application_details_cubit.dart';
@@ -150,7 +154,7 @@ Future<void> setupServiceLocator() async {
   // =========================================================
 
   getIt.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthMockRemoteDataSourceImpl(),
+    () => AuthRemoteDataSourceImpl(apiConsumer: getIt()),
   );
 
   getIt.registerLazySingleton<AuthRepository>(
@@ -177,12 +181,25 @@ Future<void> setupServiceLocator() async {
     () => ResetPasswordUseCase(repository: getIt()),
   );
 
+  getIt.registerLazySingleton<ForgotPasswordUseCase>(
+    () => ForgotPasswordUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<VerifyPasswordResetOtpUseCase>(
+    () => VerifyPasswordResetOtpUseCase(repository: getIt()),
+  );
+
   getIt.registerFactory<AuthCubit>(
     () => AuthCubit(loginUseCase: getIt(), registerUseCase: getIt()),
   );
 
   getIt.registerFactory<OtpCubit>(
-    () => OtpCubit(verifyOtpUseCase: getIt(), resendOtpUseCase: getIt()),
+    () => OtpCubit(
+      verifyOtpUseCase: getIt(),
+      resendOtpUseCase: getIt(),
+      forgotPasswordUseCase: getIt(),
+      verifyPasswordResetOtpUseCase: getIt(),
+    ),
   );
 
   getIt.registerFactory<ResetPasswordCubit>(
@@ -329,6 +346,10 @@ Future<void> setupServiceLocator() async {
 
   getIt.registerLazySingleton<GetJobsUseCase>(
     () => GetJobsUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<GetJobDetailsUseCase>(
+    () => GetJobDetailsUseCase(repository: getIt()),
   );
 
   getIt.registerLazySingleton<SearchJobsUseCase>(
@@ -501,6 +522,12 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<WithdrawApplicationUseCase>(
     () =>
         WithdrawApplicationUseCase(repository: getIt<ApplicationsRepository>()),
+  );
+
+  getIt.registerLazySingleton<UpdateApplicationNotesUseCase>(
+    () => UpdateApplicationNotesUseCase(
+      repository: getIt<ApplicationsRepository>(),
+    ),
   );
 
   getIt.registerFactory<CvCubit>(

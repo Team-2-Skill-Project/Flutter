@@ -69,6 +69,9 @@ class _FakeSettingsRemoteDataSource implements SettingsRemoteDataSource {
     required String newPassword,
     required String confirmPassword,
   }) async {}
+
+  @override
+  Future<void> logout() async {}
 }
 
 void main() {
