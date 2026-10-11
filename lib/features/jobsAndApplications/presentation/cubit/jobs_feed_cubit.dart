@@ -214,10 +214,16 @@ class JobsFeedCubit extends Cubit<JobsFeedState> {
     final currentState = state;
     if (currentState is! JobsFeedLoaded) return;
 
-    final targetJob = currentState.jobs.firstWhere(
-      (job) => job.id == jobId,
-      orElse: () => currentState.jobs.first,
-    );
+    JobEntity? targetJob;
+    for (final job in currentState.jobs) {
+      if (job.id == jobId) {
+        targetJob = job;
+        break;
+      }
+    }
+    // Never fall back to another job: toggling an id that is not on screen
+    // must not flip some unrelated job locally while the server toggles id.
+    if (targetJob == null) return;
     final currentIsSaved = targetJob.isSaved;
 
     final result = await toggleSaveJobUseCase(

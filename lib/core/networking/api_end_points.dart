@@ -6,6 +6,7 @@ abstract class EndPoint {
   static const String login = 'auth/login';
   static const String register = 'auth/register';
   static const String refreshToken = 'auth/refresh';
+  static const String logout = 'auth/logout';
 
   // Email Verification
   static const String verifyEmailOtp = 'auth/verify-email-otp';
@@ -23,6 +24,7 @@ abstract class EndPoint {
   static const String chatMessage = 'chatbot/chat';
   static const String savedJobs = 'saved-jobs';
   static const String jobs = 'jobs';
+  static String jobDetails(dynamic jobPostId) => 'jobs/$jobPostId';
   static String saveJob(dynamic jobPostId) => 'jobs/$jobPostId/save';
 
   // Applications
@@ -31,6 +33,7 @@ abstract class EndPoint {
   static String updateApplicationStatus(dynamic id) =>
       'applications/$id/status';
   static String withdrawApplication(dynamic id) => 'applications/$id/withdraw';
+  static String applicationNotes(dynamic id) => 'applications/$id/notes';
 
   // Candidate Profile
   static const String candidateProfile = 'candidate/profile';
@@ -80,6 +83,8 @@ abstract class ApiKey {
   static const String cvDocumentId = 'cv_document_id';
   static const String isSaved = 'is_saved';
   static const String search = 'search';
+  // Skills taxonomy autocomplete uses `q` (live-verified: `search=` → 422).
+  static const String skillsQuery = 'q';
   static const String sort = 'sort';
   static const String companyId = 'company_id';
   static const String jobType = 'job_type';
@@ -118,7 +123,7 @@ abstract class ApiKey {
 ///* ApiHeaderKey: the header keys of the api
 abstract class ApiHeaderKey {
   static const String authorization = 'Authorization';
-  static const String bearer = 'Bearer ';
+  static const String bearer = 'Bearer';
   static const String acceptLanguage = 'Accept-Language';
   static const String accept = 'Accept';
   static const String contentType = 'Content-Type';

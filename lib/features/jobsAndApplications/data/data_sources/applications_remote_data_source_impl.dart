@@ -101,4 +101,22 @@ class ApplicationsRemoteDataSourceImpl implements ApplicationsRemoteDataSource {
     }
     throw const FormatException('Invalid response format for withdraw application');
   }
+
+  @override
+  Future<ApplicationModel> updateApplicationNotes({
+    required String applicationId,
+    required String notes,
+  }) async {
+    final response = await apiConsumer.patch(
+      EndPoint.applicationNotes(applicationId),
+      data: {ApiKey.notes: notes},
+    );
+
+    if (response is Map<String, dynamic>) {
+      return ApplicationModel.fromJson(response);
+    }
+    throw const FormatException(
+      'Invalid response format for update application notes',
+    );
+  }
 }

@@ -22,6 +22,25 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
+  Future<void> forgotPassword({required String email}) async {
+    await apiConsumer.post(
+      EndPoint.forgotPassword,
+      data: {ApiKey.email: email},
+    );
+  }
+
+  @override
+  Future<void> verifyPasswordResetOtp({
+    required String email,
+    required String otp,
+  }) async {
+    await apiConsumer.post(
+      EndPoint.verifyPasswordResetOtp,
+      data: {ApiKey.email: email, ApiKey.otp: otp},
+    );
+  }
+
+  @override
   Future<void> resetPassword({
     required String email,
     required String newPassword,

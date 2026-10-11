@@ -45,7 +45,7 @@ class ApplicationsRepositoryImpl implements ApplicationsRepository {
         if (cached != null && cached.applications.isNotEmpty) {
           return Right(cached.toEntity());
         }
-        return Left(ServerFailure(message: e.errorModel.errorMessage));
+        return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
       } catch (e) {
         final cached = await localDataSource.getCachedApplications(cacheKey);
         if (cached != null && cached.applications.isNotEmpty) {
@@ -97,7 +97,7 @@ class ApplicationsRepositoryImpl implements ApplicationsRepository {
         if (cached != null) {
           return Right(cached.toEntity());
         }
-        return Left(ServerFailure(message: e.errorModel.errorMessage));
+        return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
       } catch (e) {
         final cached = await localDataSource.getCachedApplicationDetails(
           applicationId,
@@ -132,7 +132,7 @@ class ApplicationsRepositoryImpl implements ApplicationsRepository {
         await localDataSource.cacheApplicationDetails(result.id, result);
         return Right(result.toEntity());
       } on ServerException catch (e) {
-        return Left(ServerFailure(message: e.errorModel.errorMessage));
+        return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
       } catch (e) {
         return Left(ServerFailure(message: e.toString()));
       }
@@ -157,7 +157,7 @@ class ApplicationsRepositoryImpl implements ApplicationsRepository {
         await localDataSource.cacheApplicationDetails(applicationId, result);
         return Right(result.toEntity());
       } on ServerException catch (e) {
-        return Left(ServerFailure(message: e.errorModel.errorMessage));
+        return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
       } catch (e) {
         return Left(ServerFailure(message: e.toString()));
       }
@@ -178,7 +178,30 @@ class ApplicationsRepositoryImpl implements ApplicationsRepository {
         await localDataSource.cacheApplicationDetails(applicationId, result);
         return Right(result.toEntity());
       } on ServerException catch (e) {
-        return Left(ServerFailure(message: e.errorModel.errorMessage));
+        return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
+      } catch (e) {
+        return Left(ServerFailure(message: e.toString()));
+      }
+    } else {
+      return const Left(OfflineFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, ApplicationEntity>> updateApplicationNotes({
+    required String applicationId,
+    required String notes,
+  }) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final result = await remoteDataSource.updateApplicationNotes(
+          applicationId: applicationId,
+          notes: notes,
+        );
+        await localDataSource.cacheApplicationDetails(applicationId, result);
+        return Right(result.toEntity());
+      } on ServerException catch (e) {
+        return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
       } catch (e) {
         return Left(ServerFailure(message: e.toString()));
       }

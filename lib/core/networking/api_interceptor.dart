@@ -36,10 +36,10 @@ class ApiInterceptor extends Interceptor {
           ApiHeaderKey.getAuthorizationValue(accessToken: accessToken);
     }
 
-    // add app language in request header
+    // add app language in request header (API expects 'en' | 'ar')
     final langCode = sharedPreferencesService.getLanguageCode();
     options.headers[ApiHeaderKey.acceptLanguage] =
-        langCode.toLowerCase().startsWith('ar') ? 'ar-EG' : 'en-US';
+        langCode.toLowerCase().startsWith('ar') ? 'ar' : 'en';
 
     super.onRequest(options, handler);
   }

@@ -33,6 +33,11 @@ class FakeJobsRemoteDataSource implements JobsRemoteDataSource {
   }
 
   @override
+  Future<JobModel> getJobDetails(String jobId) async {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<JobEntity> applyForJob(String jobId) async {
     throw UnimplementedError();
   }

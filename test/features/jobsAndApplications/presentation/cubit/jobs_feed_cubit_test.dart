@@ -57,6 +57,10 @@ class FakeJobsRepository implements JobsRepository {
   @override
   Future<Either<Failure, JobEntity>> applyForJob(String jobId) async =>
       applyResult!;
+
+  @override
+  Future<Either<Failure, JobEntity>> getJobDetails(String jobId) async =>
+      applyResult!;
 }
 
 // ---------------------------------------------------------------------------

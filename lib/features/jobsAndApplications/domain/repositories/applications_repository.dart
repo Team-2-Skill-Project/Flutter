@@ -33,4 +33,9 @@ abstract interface class ApplicationsRepository {
   Future<Either<Failure, ApplicationEntity>> withdrawApplication(
     String applicationId,
   );
+
+  Future<Either<Failure, ApplicationEntity>> updateApplicationNotes({
+    required String applicationId,
+    required String notes,
+  });
 }
