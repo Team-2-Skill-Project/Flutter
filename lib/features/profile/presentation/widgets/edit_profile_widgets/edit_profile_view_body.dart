@@ -1,4 +1,7 @@
+import 'package:MatchIn/core/widgets/error/app_error.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entity.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/edit_profile_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/edit_profile_state.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/edit_profile_actions.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/personal_information_card.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/professional_information_card.dart';
@@ -7,18 +10,47 @@ import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widge
 import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/profile_photo_editor.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class EditProfileViewBody extends StatefulWidget {
-  const EditProfileViewBody({required this.initialProfile, super.key});
+class EditProfileViewBody extends StatelessWidget {
+  const EditProfileViewBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<EditProfileCubit, EditProfileState>(
+      builder: (context, state) {
+        switch (state) {
+          case EditProfileInitial():
+          case EditProfileLoading():
+            return const Center(child: CircularProgressIndicator());
+          case EditProfileFailure():
+            return AppErrorWidget(
+              message: state.message,
+              onRetry: () => context.read<EditProfileCubit>().loadProfile(),
+            );
+          case EditProfileReady():
+            return _EditProfileForm(initialProfile: state.profile);
+          case EditProfileSaving():
+            return const Center(child: CircularProgressIndicator());
+          case EditProfileSuccess():
+            return _EditProfileForm(initialProfile: state.profile);
+        }
+      },
+    );
+  }
+}
+
+class _EditProfileForm extends StatefulWidget {
+  const _EditProfileForm({required this.initialProfile});
 
   final CandidateProfileEntity initialProfile;
 
   @override
-  State<EditProfileViewBody> createState() => _EditProfileViewBodyState();
+  State<_EditProfileForm> createState() => _EditProfileFormState();
 }
 
-class _EditProfileViewBodyState extends State<EditProfileViewBody> {
+class _EditProfileFormState extends State<_EditProfileForm> {
   late final TextEditingController _fullNameController;
   late final TextEditingController _dateOfBirthController;
   late final TextEditingController _phoneController;
