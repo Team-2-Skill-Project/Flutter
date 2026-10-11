@@ -31,13 +31,15 @@ class ApiInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     final accessToken = await secureStorageService.getAccessToken();
-    options.headers[ApiHeaderKey.authorization] =
-        ApiHeaderKey.getAuthorizationValue(accessToken: accessToken);
+    if (accessToken != null && accessToken.isNotEmpty) {
+      options.headers[ApiHeaderKey.authorization] =
+          ApiHeaderKey.getAuthorizationValue(accessToken: accessToken);
+    }
 
-    // add app language in request header
+    // add app language in request header (API expects 'en' | 'ar')
     final langCode = sharedPreferencesService.getLanguageCode();
     options.headers[ApiHeaderKey.acceptLanguage] =
-        langCode.toLowerCase().startsWith('ar') ? 'ar-EG' : 'en-US';
+        langCode.toLowerCase().startsWith('ar') ? 'ar' : 'en';
 
     super.onRequest(options, handler);
   }
@@ -147,7 +149,12 @@ class ApiInterceptor extends Interceptor {
 
     return path == _normalizePath(EndPoint.login) ||
         path == _normalizePath(EndPoint.register) ||
-        path == _normalizePath(EndPoint.refreshToken);
+        path == _normalizePath(EndPoint.refreshToken) ||
+        path == _normalizePath(EndPoint.verifyEmailOtp) ||
+        path == _normalizePath(EndPoint.resendEmailOtp) ||
+        path == _normalizePath(EndPoint.forgotPassword) ||
+        path == _normalizePath(EndPoint.verifyPasswordResetOtp) ||
+        path == _normalizePath(EndPoint.resetPassword);
   }
 
   /// normalize path to compare endpoints correctly

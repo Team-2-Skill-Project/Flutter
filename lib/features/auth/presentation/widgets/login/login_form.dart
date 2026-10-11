@@ -1,4 +1,5 @@
 import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/core/widgets/custom_button.dart';
 import 'package:MatchIn/core/widgets/custom_text_field.dart';
@@ -76,47 +77,59 @@ class _LoginFormState extends State<LoginForm> {
           ),
           SizedBox(height: 16.h),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  ValueListenableBuilder<bool>(
-                    valueListenable: _isKeepSignedIn,
-                    builder: (context, value, child) {
-                      return Switch(
-                        value: value,
-                        activeThumbColor: AppColors.white,
-                        activeTrackColor: AppColors.midnightBlue,
-                        inactiveTrackColor: AppColors.surfaceVariant,
-                        onChanged: (newValue) =>
-                            _isKeepSignedIn.value = newValue,
-                      );
-                    },
-                  ),
-                  SizedBox(width: 8.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        locale.keepMeSignedIn,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: AppColors.textPrimary,
-                          fontWeight: FontWeight.w600,
-                        ),
+              Expanded(
+                child: Row(
+                  children: [
+                    ValueListenableBuilder<bool>(
+                      valueListenable: _isKeepSignedIn,
+                      builder: (context, value, child) {
+                        return Switch(
+                          value: value,
+                          activeThumbColor: AppColors.white,
+                          activeTrackColor: AppColors.midnightBlue,
+                          inactiveTrackColor: AppColors.surfaceVariant,
+                          onChanged: (newValue) =>
+                              _isKeepSignedIn.value = newValue,
+                        );
+                      },
+                    ),
+                    SizedBox(width: 8.w),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            locale.keepMeSignedIn,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: AppColors.textPrimary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            locale.onlyOnTrustedDevices,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        locale.onlyOnTrustedDevices,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
               TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                onPressed: () {
+                  final email = _emailController.text.trim();
+                  context.push(
+                    AppRoutes.kForgetPasswordView,
+                    extra: email.isNotEmpty ? email : null,
+                  );
+                },
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
                 child: Text(
                   locale.forgotPassword,
                   style: theme.textTheme.bodyMedium?.copyWith(
@@ -132,6 +145,14 @@ class _LoginFormState extends State<LoginForm> {
             listener: (context, state) async {
               if (state is LoginSuccess) {
                 final prefs = getIt<SharedPreferencesService>();
+                final secureStorage = getIt<SecureStorageService>();
+                // Save tokens to secure storage so the interceptor can attach them
+                final token = state.loginModel.accessToken;
+                final refreshToken = state.loginModel.refreshToken ?? '';
+                await secureStorage.saveTokens(
+                  accessToken: token,
+                  refreshToken: refreshToken,
+                );
                 await prefs.setLoggedIn(true);
                 await prefs.setGuest(false);
                 if (context.mounted) {

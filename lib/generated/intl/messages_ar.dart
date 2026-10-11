@@ -125,6 +125,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "applicationSubmitted": MessageLookupByLibrary.simpleMessage(
       "تم إرسال طلبك!",
     ),
+    "applicationSubmittedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم تقديم الطلب بنجاح.",
+    ),
     "applicationTimeline": MessageLookupByLibrary.simpleMessage(
       "مراحل طلب التقديم",
     ),
@@ -408,6 +411,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "gpaHint": MessageLookupByLibrary.simpleMessage("مثال: 3.4 / 4.0"),
     "gpaOptional": MessageLookupByLibrary.simpleMessage("التقدير (اختياري)"),
     "greetingUser": m2,
+    "guestModeMessage": MessageLookupByLibrary.simpleMessage(
+      "يرجى تسجيل الدخول للوصول إلى هذه الميزة.",
+    ),
+    "guestModeTitle": MessageLookupByLibrary.simpleMessage("أنت في وضع الضيف"),
     "help": MessageLookupByLibrary.simpleMessage("مساعدة"),
     "helpfulAdvantage": MessageLookupByLibrary.simpleMessage(
       "ميزة إضافية مفيدة",
@@ -431,6 +438,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "interviewPrep": MessageLookupByLibrary.simpleMessage("التحضير للمقابلات"),
     "interviewPrepPrompt": MessageLookupByLibrary.simpleMessage(
       "ما هي أهم أسئلة المقابلات الفنية لـ Dart و Flutter؟",
+    ),
+    "invalidJobId": MessageLookupByLibrary.simpleMessage(
+      "معرّف الوظيفة غير صالح.",
     ),
     "invalidVerificationCode": MessageLookupByLibrary.simpleMessage(
       "رمز التحقق غير صحيح",
@@ -772,6 +782,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveChanges": MessageLookupByLibrary.simpleMessage("حفظ التغييرات"),
     "saveEducation": MessageLookupByLibrary.simpleMessage("حفظ التعليم"),
     "saveExperience": MessageLookupByLibrary.simpleMessage("حفظ الخبرة"),
+    "saveJobFailed": MessageLookupByLibrary.simpleMessage(
+      "تعذر حفظ الوظيفة. يرجى المحاولة مرة أخرى.",
+    ),
     "savePreferences": MessageLookupByLibrary.simpleMessage("حفظ التفضيلات"),
     "saveProject": MessageLookupByLibrary.simpleMessage("حفظ المشروع"),
     "savedJobs": MessageLookupByLibrary.simpleMessage("الوظائف المحفوظة"),
@@ -800,12 +813,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "sentCodeToEmail": MessageLookupByLibrary.simpleMessage(
       "لقد أرسلنا رمزاً مكوناً من 6 أرقام إلى بريدك الإلكتروني.",
     ),
+    "serverError": MessageLookupByLibrary.simpleMessage("حدث خطأ في الخادم."),
     "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
     "setupCareerProfile": MessageLookupByLibrary.simpleMessage(
       "أكمل ملفك المهني",
     ),
     "setupCareerProfileDesc": MessageLookupByLibrary.simpleMessage(
       "أخبرنا بمهاراتك وأهدافك للحصول على توصيات وظيفية أفضل.",
+    ),
+    "shareJobLinkUnavailable": MessageLookupByLibrary.simpleMessage(
+      "رابط الوظيفة غير متوفر لهذه الوظيفة.",
     ),
     "showingCachedNotifications": MessageLookupByLibrary.simpleMessage(
       "عرض الإشعارات المحفوظة (غير متصل)",

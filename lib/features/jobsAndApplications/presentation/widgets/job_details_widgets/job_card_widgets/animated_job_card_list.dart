@@ -13,12 +13,14 @@ class AnimatedJobCardList extends StatelessWidget {
     required this.jobs,
     this.onSave,
     this.onApply,
+    this.onShareJob,
     this.showShareButton = false,
   });
 
   final List<JobEntity> jobs;
   final void Function(String jobId)? onSave;
   final void Function(String jobId)? onApply;
+  final void Function(JobEntity job)? onShareJob;
   final bool showShareButton;
 
   @override
@@ -40,6 +42,9 @@ class AnimatedJobCardList extends StatelessWidget {
                     onSave != null ? () => onSave!(job.id) : null,
                 onApply:
                     onApply != null ? () => onApply!(job.id) : null,
+                onShare: onShareJob != null
+                    ? () => onShareJob!(job)
+                    : null,
               ),
               SizedBox(height: 12.h),
             ],

@@ -125,6 +125,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "applicationSubmitted": MessageLookupByLibrary.simpleMessage(
       "Application submitted!",
     ),
+    "applicationSubmittedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Application submitted successfully.",
+    ),
     "applicationTimeline": MessageLookupByLibrary.simpleMessage(
       "Application Timeline",
     ),
@@ -412,6 +415,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "gpaOptional": MessageLookupByLibrary.simpleMessage("GPA (Optional)"),
     "greetingUser": m2,
+    "guestModeMessage": MessageLookupByLibrary.simpleMessage(
+      "Please log in to access this feature.",
+    ),
+    "guestModeTitle": MessageLookupByLibrary.simpleMessage(
+      "You are in guest mode",
+    ),
     "help": MessageLookupByLibrary.simpleMessage("Help"),
     "helpfulAdvantage": MessageLookupByLibrary.simpleMessage(
       "Helpful advantage",
@@ -436,6 +445,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "interviewPrepPrompt": MessageLookupByLibrary.simpleMessage(
       "What are the top technical interview questions for Dart and Flutter?",
     ),
+    "invalidJobId": MessageLookupByLibrary.simpleMessage("Invalid job ID."),
     "invalidVerificationCode": MessageLookupByLibrary.simpleMessage(
       "Invalid verification code",
     ),
@@ -780,6 +790,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveChanges": MessageLookupByLibrary.simpleMessage("Save Changes"),
     "saveEducation": MessageLookupByLibrary.simpleMessage("Save education"),
     "saveExperience": MessageLookupByLibrary.simpleMessage("Save experience"),
+    "saveJobFailed": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t save the job. Please try again.",
+    ),
     "savePreferences": MessageLookupByLibrary.simpleMessage("Save Preferences"),
     "saveProject": MessageLookupByLibrary.simpleMessage("Save Project"),
     "savedJobs": MessageLookupByLibrary.simpleMessage("Saved Jobs"),
@@ -812,12 +825,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "sentCodeToEmail": MessageLookupByLibrary.simpleMessage(
       "We sent a 6-digit code to your email.",
     ),
+    "serverError": MessageLookupByLibrary.simpleMessage(
+      "There was a problem with the server.",
+    ),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "setupCareerProfile": MessageLookupByLibrary.simpleMessage(
       "Setup your career profile",
     ),
     "setupCareerProfileDesc": MessageLookupByLibrary.simpleMessage(
       "Tell us about your skills and goals to get better recommendations.",
+    ),
+    "shareJobLinkUnavailable": MessageLookupByLibrary.simpleMessage(
+      "Job link is not available for this job.",
     ),
     "showingCachedNotifications": MessageLookupByLibrary.simpleMessage(
       "Showing cached notifications (Offline)",

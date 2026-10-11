@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:MatchIn/core/routing/app_routes.dart';
-import 'package:MatchIn/core/services/services_locator.dart';
-import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/core/widgets/custom_app_bar.dart';
 import 'package:MatchIn/core/widgets/custom_snack_bar.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/otp_cubit.dart';
@@ -20,10 +18,26 @@ import 'package:otp_animated_fields/otp_animated_fields.dart';
 /// OTP length expected by the authentication backend.
 const int _kOtpLength = 6;
 
+/// Determines the navigation destination after a successful OTP verification.
+enum OtpMode {
+  /// Email verification after registration — navigates to Home on success.
+  emailVerification,
+
+  /// Password-reset flow — navigates to Create New Password on success.
+  passwordReset,
+}
+
 class OtpVerificationView extends StatefulWidget {
-  const OtpVerificationView({super.key, this.email = 'user@example.com'});
+  const OtpVerificationView({
+    super.key,
+    this.email = 'user@example.com',
+    this.mode = OtpMode.emailVerification,
+  });
 
   final String email;
+
+  /// Controls the post-verification navigation destination.
+  final OtpMode mode;
 
   @override
   State<OtpVerificationView> createState() => _OtpVerificationViewState();
@@ -74,7 +88,11 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
 
   void _onResend() {
     if (_secondsRemaining == 0 && !_isVerifying) {
-      context.read<OtpCubit>().resendOtp(email: widget.email);
+      if (widget.mode == OtpMode.passwordReset) {
+        context.read<OtpCubit>().requestPasswordReset(email: widget.email);
+      } else {
+        context.read<OtpCubit>().resendOtp(email: widget.email);
+      }
       _startTimer();
     }
   }
@@ -84,7 +102,14 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
   void _onCompleted(String code) {
     if (_isVerifying) return; // prevent duplicate requests
     _isVerifying = true;
-    context.read<OtpCubit>().verifyOtp(email: widget.email, otp: code);
+    if (widget.mode == OtpMode.passwordReset) {
+      context.read<OtpCubit>().verifyPasswordResetOtp(
+        email: widget.email,
+        otp: code,
+      );
+    } else {
+      context.read<OtpCubit>().verifyOtp(email: widget.email, otp: code);
+    }
   }
 
   // -- Navigation after success Lottie plays ------------------------------
@@ -94,17 +119,25 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
       // Replace OTP fields with success Lottie inside the card, then navigate.
       setState(() => _showSuccessLottie = true);
       await Future.delayed(const Duration(seconds: 1));
-      if (mounted) {
-        final prefs = getIt<SharedPreferencesService>();
-        await prefs.setLoggedIn(true);
-        await prefs.setGuest(false);
-        if (mounted) {
-          context.go(AppRoutes.kHomeView);
-        }
+      if (!mounted) return;
+
+      switch (widget.mode) {
+        case OtpMode.emailVerification:
+          // Email verified. No session tokens exist at this point, so the
+          // user must sign in to obtain them instead of entering the app
+          // with a tokenless "logged-in" flag.
+          if (mounted) {
+            context.go(AppRoutes.kLoginView);
+          }
+        case OtpMode.passwordReset:
+          // Password-reset OTP confirmed → proceed to create new password.
+          if (mounted) {
+            context.go(AppRoutes.kCreateNewPasswordView, extra: widget.email);
+          }
       }
     }
     if (status == OtpStatus.idle) {
-      // Returned to idle after error � allow re-verification
+      // Returned to idle after error — allow re-verification
       setState(() => _isVerifying = false);
     }
   }

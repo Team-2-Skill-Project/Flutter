@@ -10,14 +10,17 @@ class CandidateSkillModel extends CandidateSkillEntity {
   });
 
   factory CandidateSkillModel.fromJson(Map<String, dynamic> json) {
-    final skill = json['skill'] as Map<String, dynamic>;
+    final skill = json['skill'];
+    if (skill is! Map<String, dynamic>) {
+      throw const FormatException('Invalid candidate skill: missing skill');
+    }
 
     return CandidateSkillModel(
-      id: json['id'] as int,
-      skillId: json['skill_id'] as int,
-      source: json['source'] as String,
-      proficiencyLevel: json['proficiency_level'] as String?,
-      name: skill['name'] as String,
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      skillId: (json['skill_id'] as num?)?.toInt() ?? 0,
+      source: json['source']?.toString() ?? 'manual',
+      proficiencyLevel: json['proficiency_level']?.toString(),
+      name: skill['name']?.toString() ?? '',
     );
   }
 

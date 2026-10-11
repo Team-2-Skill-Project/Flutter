@@ -541,6 +541,12 @@
   "careerGrowthPrompt": "What steps should I take to become a Senior Mobile Architect?",
   "jobFitAnalysis": "Job Fit Analysis",
   "jobFitAnalysisPrompt": "How does MatchIn calculate my job match percentage?",
-  "noHistoryYet": "No history yet"
-
+  "noHistoryYet": "No history yet",
+  "invalidJobId": "Invalid job ID.",
+  "serverError": "There was a problem with the server.",
+  "applicationSubmittedSuccessfully": "Application submitted successfully.",
+  "guestModeTitle": "You are in guest mode",
+  "guestModeMessage": "Please log in to access this feature.",
+  "shareJobLinkUnavailable": "Job link is not available for this job.",
+  "saveJobFailed": "Couldn't save the job. Please try again."
 }

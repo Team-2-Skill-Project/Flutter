@@ -131,7 +131,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   Future<List<SkillSearchResultModel>> searchSkills(String query) async {
     final response = await apiConsumer.get(
       EndPoint.searchSkills,
-      queryParameters: {'q': query},
+      queryParameters: {ApiKey.skillsQuery: query},
     );
 
     if (response is! Map<String, dynamic>) {
