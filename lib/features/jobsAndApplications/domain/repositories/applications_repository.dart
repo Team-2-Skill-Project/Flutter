@@ -21,7 +21,9 @@ abstract interface class ApplicationsRepository {
 
   Future<Either<Failure, ApplicationEntity>> applyToJob({
     required int jobId,
+    int? cvDocumentId,
     String? coverLetter,
+    String? notes,
   });
 
   Future<Either<Failure, ApplicationEntity>> updateApplicationStatus({

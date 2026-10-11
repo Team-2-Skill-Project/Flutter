@@ -36,6 +36,24 @@ import 'package:go_router/go_router.dart';
 abstract final class AppRouter {
   AppRouter._();
 
+  // --- Extracts the job from route extras, accepting either a bare
+  // --- JobEntity (legacy call sites) or {'job': JobEntity, ...}.
+  static JobEntity _jobFromExtra(Object? extra) {
+    if (extra is JobEntity) return extra;
+    if (extra is Map<String, dynamic> && extra['job'] is JobEntity) {
+      return extra['job'] as JobEntity;
+    }
+    throw ArgumentError('Route requires a JobEntity extra');
+  }
+
+  static String? _coverLetterFromExtra(Object? extra) {
+    if (extra is Map<String, dynamic>) {
+      final value = extra['coverLetter'];
+      if (value is String && value.isNotEmpty) return value;
+    }
+    return null;
+  }
+
   static CustomTransitionPage<dynamic>
   _buildTransitionPage({
     required GoRouterState state,
@@ -81,10 +99,13 @@ abstract final class AppRouter {
         return skipAuth ? AppRoutes.kHomeView : AppRoutes.kRegisterView;
       }
 
-      // Already logged in or guest → never show register/login again
+      // Signed-in users never see register/login again. Guests keep
+      // access so the guest-mode dialog can push Login/Register and
+      // pop back to the previous screen afterwards.
+      final isLoggedIn = prefs.isLoggedIn();
       if (location == AppRoutes.kRegisterView ||
           location == AppRoutes.kLoginView) {
-        return skipAuth ? AppRoutes.kHomeView : null;
+        return isLoggedIn ? AppRoutes.kHomeView : null;
       }
 
       return null;
@@ -326,7 +347,7 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kapplyForRole,
         pageBuilder: (context, state) {
-          final job = state.extra as JobEntity;
+          final job = _jobFromExtra(state.extra);
           return _buildTransitionPage(
             state: state,
             child: ApplyForRoleView(job: job),
@@ -338,7 +359,7 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kapplicationQuestions,
         pageBuilder: (context, state) {
-          final job = state.extra as JobEntity;
+          final job = _jobFromExtra(state.extra);
           return _buildTransitionPage(
             state: state,
             child: ApplicationQuestionsView(job: job),
@@ -350,10 +371,13 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kreviewApplication,
         pageBuilder: (context, state) {
-          final job = state.extra as JobEntity;
+          final job = _jobFromExtra(state.extra);
           return _buildTransitionPage(
             state: state,
-            child: ReviewApplicationView(job: job),
+            child: ReviewApplicationView(
+              job: job,
+              coverLetter: _coverLetterFromExtra(state.extra),
+            ),
           );
         },
       ),
@@ -362,7 +386,7 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kapplicationSubmitted,
         pageBuilder: (context, state) {
-          final job = state.extra as JobEntity;
+          final job = _jobFromExtra(state.extra);
           return _buildTransitionPage(
             state: state,
             child: ApplicationSubmittedView(job: job),
@@ -374,7 +398,7 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.ktrackingApplication,
         pageBuilder: (context, state) {
-          final job = state.extra as JobEntity;
+          final job = _jobFromExtra(state.extra);
           return _buildTransitionPage(
             state: state,
             child: TrackingApplicationView(job: job),

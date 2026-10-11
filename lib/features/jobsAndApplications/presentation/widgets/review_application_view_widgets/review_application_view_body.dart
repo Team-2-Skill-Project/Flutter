@@ -1,4 +1,5 @@
 import 'package:MatchIn/core/extensions/snack_bar_extensions.dart';
+import 'package:MatchIn/core/functions/require_auth.dart';
 import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/entities/job_entity.dart';
 import 'package:MatchIn/features/jobsAndApplications/presentation/cubit/apply_to_job_cubit.dart';
@@ -20,9 +21,11 @@ class ReviewApplicationViewBody extends StatelessWidget {
   const ReviewApplicationViewBody({
     super.key,
     required this.job,
+    this.coverLetter,
   });
 
   final JobEntity job;
+  final String? coverLetter;
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +137,9 @@ class ReviewApplicationViewBody extends StatelessWidget {
                         actionLabel: s.edit,
                         job: job,
                         child: Text(
-                          s.noCoverNoteAdded,
+                          (coverLetter != null && coverLetter!.isNotEmpty)
+                              ? coverLetter!
+                              : s.noCoverNoteAdded,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             fontStyle: FontStyle.italic,
                             color: theme.colorScheme.onSurface
@@ -196,6 +201,33 @@ class ReviewApplicationViewBody extends StatelessWidget {
                             onPressed: isSubmitting
                                 ? null
                                 : () {
+                                    if (!requireAuth(context)) return;
+                                    // External listings are applied on the
+                                    // employer's website, never through the
+                                    // in-app applications endpoint.
+                                    if (job.isExternalApply) {
+                                      final website =
+                                          job.websiteUrl?.trim() ?? '';
+                                      final uri = Uri.tryParse(website);
+                                      final isValid = uri != null &&
+                                          uri.isAbsolute &&
+                                          (uri.scheme == 'http' ||
+                                              uri.scheme == 'https');
+                                      if (!isValid) {
+                                        context.showErrorSnackBar(
+                                          s.shareJobLinkUnavailable,
+                                        );
+                                        return;
+                                      }
+                                      context.push(
+                                        AppRoutes.kWebView,
+                                        extra: <String, dynamic>{
+                                          'url': website,
+                                          'title': job.title,
+                                        },
+                                      );
+                                      return;
+                                    }
                                     final jobIdInt = int.tryParse(job.id);
                                     if (jobIdInt == null || jobIdInt <= 0) {
                                       context.showErrorSnackBar(
@@ -207,8 +239,7 @@ class ReviewApplicationViewBody extends StatelessWidget {
                                         .read<ApplyToJobCubit>()
                                         .submitApplication(
                                           jobId: jobIdInt,
-                                          coverLetter:
-                                              'I am excited to apply for this role.',
+                                          coverLetter: coverLetter,
                                         );
                                   },
                             child: isSubmitting

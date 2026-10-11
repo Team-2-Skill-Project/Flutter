@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:MatchIn/core/extensions/context_extensions.dart';
+import 'package:MatchIn/core/functions/require_auth.dart';
+import 'package:MatchIn/core/functions/share_job.dart';
 import 'package:MatchIn/core/widgets/app_empty.dart';
 import 'package:MatchIn/core/widgets/error/app_error.dart';
 import 'package:MatchIn/features/home/presentation/widgets/jobs_search_view_widgets/jobs_filter_section.dart';
@@ -121,11 +123,13 @@ class _JobsSearchViewBodyState extends State<JobsSearchViewBody> {
                             AnimatedJobCardList(
                               jobs: jobs,
                               showShareButton: true,
-                              onSave: (id) => context
-                                  .read<JobsFeedCubit>()
-                                  .toggleSaveJob(id),
-                              onApply: (id) =>
-                                  context.read<JobsFeedCubit>().applyForJob(id),
+                              onSave: (id) {
+                                if (!requireAuth(context)) return;
+                                context
+                                    .read<JobsFeedCubit>()
+                                    .toggleSaveJob(id);
+                              },
+                              onShareJob: (job) => shareJob(context, job),
                             ),
                           ],
                         ),
@@ -147,11 +151,13 @@ class _JobsSearchViewBodyState extends State<JobsSearchViewBody> {
                             AnimatedJobCardList(
                               jobs: jobs,
                               showShareButton: true,
-                              onSave: (id) => context
-                                  .read<JobsFeedCubit>()
-                                  .toggleSaveJob(id),
-                              onApply: (id) =>
-                                  context.read<JobsFeedCubit>().applyForJob(id),
+                              onSave: (id) {
+                                if (!requireAuth(context)) return;
+                                context
+                                    .read<JobsFeedCubit>()
+                                    .toggleSaveJob(id);
+                              },
+                              onShareJob: (job) => shareJob(context, job),
                             ),
                             if (isPaginationLoading) ...[
                               Padding(

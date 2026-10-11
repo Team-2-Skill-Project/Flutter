@@ -1,5 +1,7 @@
 import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/core/extensions/date_time_extensions.dart';
+import 'package:MatchIn/core/extensions/snack_bar_extensions.dart';
+import 'package:MatchIn/core/functions/require_auth.dart';
 import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/widgets/matching_status/matching_status.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/entities/job_entity.dart';
@@ -100,10 +102,39 @@ class JobCard extends StatelessWidget {
                       onPressed: _isApplied
                           ? null
                           : (onApply ??
-                              () => context.push(
-                                    AppRoutes.kapplyForRole,
-                                    extra: job,
-                                  )),
+                              () {
+                                if (!requireAuth(context)) return;
+                                // External listings open the employer's
+                                // website and are never marked as applied
+                                // merely for opening the link.
+                                if (job.isExternalApply) {
+                                  final website =
+                                      job.websiteUrl?.trim() ?? '';
+                                  final uri = Uri.tryParse(website);
+                                  final isValid = uri != null &&
+                                      uri.isAbsolute &&
+                                      (uri.scheme == 'http' ||
+                                          uri.scheme == 'https');
+                                  if (!isValid) {
+                                    context.showErrorSnackBar(
+                                      context.l10n.shareJobLinkUnavailable,
+                                    );
+                                    return;
+                                  }
+                                  context.push(
+                                    AppRoutes.kWebView,
+                                    extra: <String, dynamic>{
+                                      'url': website,
+                                      'title': job.title,
+                                    },
+                                  );
+                                  return;
+                                }
+                                context.push(
+                                  AppRoutes.kapplyForRole,
+                                  extra: job,
+                                );
+                              }),
                       style: ElevatedButton.styleFrom(
                       minimumSize: Size(110.w, 42.h),
                       padding: EdgeInsets.symmetric(horizontal: 18.w),

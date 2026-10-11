@@ -12,7 +12,9 @@ abstract class ApplicationsRemoteDataSource {
 
   Future<ApplicationModel> applyToJob({
     required int jobId,
+    int? cvDocumentId,
     String? coverLetter,
+    String? notes,
   });
 
   Future<ApplicationModel> updateApplicationStatus({

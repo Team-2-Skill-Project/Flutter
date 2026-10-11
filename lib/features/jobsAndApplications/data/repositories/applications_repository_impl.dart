@@ -121,13 +121,17 @@ class ApplicationsRepositoryImpl implements ApplicationsRepository {
   @override
   Future<Either<Failure, ApplicationEntity>> applyToJob({
     required int jobId,
+    int? cvDocumentId,
     String? coverLetter,
+    String? notes,
   }) async {
     if (await networkInfo.isConnected) {
       try {
         final result = await remoteDataSource.applyToJob(
           jobId: jobId,
+          cvDocumentId: cvDocumentId,
           coverLetter: coverLetter,
+          notes: notes,
         );
         await localDataSource.cacheApplicationDetails(result.id, result);
         return Right(result.toEntity());

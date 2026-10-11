@@ -361,6 +361,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "good": MessageLookupByLibrary.simpleMessage("جيد"),
     "goodMatch": MessageLookupByLibrary.simpleMessage("توافق جيد"),
     "greetingUser": m1,
+    "guestModeMessage": MessageLookupByLibrary.simpleMessage(
+      "يرجى تسجيل الدخول للوصول إلى هذه الميزة.",
+    ),
+    "guestModeTitle": MessageLookupByLibrary.simpleMessage("أنت في وضع الضيف"),
     "helpfulAdvantage": MessageLookupByLibrary.simpleMessage(
       "ميزة إضافية مفيدة",
     ),
@@ -688,6 +692,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "أدخل إجمالي راتبك الشهري المتوقع.",
     ),
     "salaryHint": MessageLookupByLibrary.simpleMessage("مثال: 24,000"),
+    "saveJobFailed": MessageLookupByLibrary.simpleMessage(
+      "تعذر حفظ الوظيفة. يرجى المحاولة مرة أخرى.",
+    ),
     "savePreferences": MessageLookupByLibrary.simpleMessage("حفظ التفضيلات"),
     "saveProject": MessageLookupByLibrary.simpleMessage("حفظ المشروع"),
     "savedJobs": MessageLookupByLibrary.simpleMessage("الوظائف المحفوظة"),
@@ -718,6 +725,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "setupCareerProfileDesc": MessageLookupByLibrary.simpleMessage(
       "أخبرنا بمهاراتك وأهدافك للحصول على توصيات وظيفية أفضل.",
+    ),
+    "shareJobLinkUnavailable": MessageLookupByLibrary.simpleMessage(
+      "رابط الوظيفة غير متوفر لهذه الوظيفة.",
     ),
     "showingCachedNotifications": MessageLookupByLibrary.simpleMessage(
       "عرض الإشعارات المحفوظة (غير متصل)",

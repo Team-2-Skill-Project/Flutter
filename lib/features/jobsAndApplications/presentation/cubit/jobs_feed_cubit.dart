@@ -28,6 +28,11 @@ class JobsFeedCubit extends Cubit<JobsFeedState> {
   JobFilterParams _currentFilterParams = const JobFilterParams();
   Timer? _debounceTimer;
 
+  //! ===== Optimistic save handling =====
+  // Tracks job ids with an in-flight save/unsave request so rapid taps
+  // on the bookmark icon cannot fire duplicate requests or corrupt state.
+  final Set<String> _pendingSaveJobIds = <String>{};
+
   JobFilterParams get currentFilterParams => _currentFilterParams;
 
   Future<void> getJobs({JobFilterParams? params}) async {
@@ -213,6 +218,8 @@ class JobsFeedCubit extends Cubit<JobsFeedState> {
   Future<void> toggleSaveJob(String jobId) async {
     final currentState = state;
     if (currentState is! JobsFeedLoaded) return;
+    // Prevent rapid repeated taps from firing duplicate requests.
+    if (_pendingSaveJobIds.contains(jobId)) return;
 
     JobEntity? targetJob;
     for (final job in currentState.jobs) {
@@ -225,24 +232,54 @@ class JobsFeedCubit extends Cubit<JobsFeedState> {
     // must not flip some unrelated job locally while the server toggles id.
     if (targetJob == null) return;
     final currentIsSaved = targetJob.isSaved;
+    final desiredIsSaved = !currentIsSaved;
+
+    // --- Optimistic UI update: flip the icon immediately, without waiting
+    // --- for local persistence or the remote save/unsave request.
+    _pendingSaveJobIds.add(jobId);
+    final optimisticJobs = currentState.jobs.map((job) {
+      if (job.id == jobId) {
+        return job.copyWith(isSaved: desiredIsSaved);
+      }
+      return job;
+    }).toList();
+    emit(currentState.copyWith(jobs: optimisticJobs, errorMessage: null));
 
     final result = await toggleSaveJobUseCase(
       jobId,
       currentIsSaved: currentIsSaved,
     );
+    _pendingSaveJobIds.remove(jobId);
 
     result.fold(
       (failure) {
-        emit(currentState.copyWith(errorMessage: failure.message));
+        // --- Reconcile: revert the optimistic flip so local state stays
+        // --- truthful, and surface the error without a false success.
+        final latestState = state;
+        if (latestState is JobsFeedLoaded) {
+          final revertedJobs = latestState.jobs.map((job) {
+            if (job.id == jobId) {
+              return job.copyWith(isSaved: currentIsSaved);
+            }
+            return job;
+          }).toList();
+          emit(latestState.copyWith(jobs: revertedJobs, errorMessage: failure.message));
+        }
       },
       (updatedEntity) {
-        final updatedJobs = currentState.jobs.map((job) {
-          if (job.id == jobId) {
-            return job.copyWith(isSaved: updatedEntity.isSaved);
+        // Reconcile with the server-confirmed value when it differs.
+        final latestState = state;
+        if (latestState is JobsFeedLoaded) {
+          if (updatedEntity.isSaved != desiredIsSaved) {
+            final reconciledJobs = latestState.jobs.map((job) {
+              if (job.id == jobId) {
+                return job.copyWith(isSaved: updatedEntity.isSaved);
+              }
+              return job;
+            }).toList();
+            emit(latestState.copyWith(jobs: reconciledJobs, errorMessage: null));
           }
-          return job;
-        }).toList();
-        emit(currentState.copyWith(jobs: updatedJobs));
+        }
       },
     );
   }

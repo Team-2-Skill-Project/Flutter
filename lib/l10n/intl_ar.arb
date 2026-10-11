@@ -486,5 +486,9 @@
   "noHistoryYet": "لا يوجد سجل بعد",
   "invalidJobId": "معرّف الوظيفة غير صالح.",
   "serverError": "حدث خطأ في الخادم.",
-  "applicationSubmittedSuccessfully": "تم تقديم الطلب بنجاح."
+  "applicationSubmittedSuccessfully": "تم تقديم الطلب بنجاح.",
+  "guestModeTitle": "أنت في وضع الضيف",
+  "guestModeMessage": "يرجى تسجيل الدخول للوصول إلى هذه الميزة.",
+  "shareJobLinkUnavailable": "رابط الوظيفة غير متوفر لهذه الوظيفة.",
+  "saveJobFailed": "تعذر حفظ الوظيفة. يرجى المحاولة مرة أخرى."
 }

@@ -484,5 +484,9 @@
   "noHistoryYet": "No history yet",
   "invalidJobId": "Invalid job ID.",
   "serverError": "There was a problem with the server.",
-  "applicationSubmittedSuccessfully": "Application submitted successfully."
+  "applicationSubmittedSuccessfully": "Application submitted successfully.",
+  "guestModeTitle": "You are in guest mode",
+  "guestModeMessage": "Please log in to access this feature.",
+  "shareJobLinkUnavailable": "Job link is not available for this job.",
+  "saveJobFailed": "Couldn't save the job. Please try again."
 }

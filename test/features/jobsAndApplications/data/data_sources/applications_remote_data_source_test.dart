@@ -9,6 +9,8 @@ class FakeApiConsumer implements ApiConsumer {
   dynamic postResponse;
   dynamic patchResponse;
   Object? getError;
+  String? lastPostPath;
+  Object? lastPostData;
 
   @override
   Future delete(
@@ -39,6 +41,8 @@ class FakeApiConsumer implements ApiConsumer {
     bool isFormData = false,
   }) async {
     if (getError != null) throw getError!;
+    lastPostPath = path;
+    lastPostData = data;
     return postResponse ?? getResponse;
   }
 
@@ -118,6 +122,57 @@ void main() {
 
       expect(result.id, equals('10'));
       expect(result.status, equals('applied'));
+    });
+
+    test('applyToJob sends the documented backend contract body', () async {
+      fakeApiConsumer.postResponse = {
+        'status': 'success',
+        'data': {
+          'id': '10',
+          'type': 'applications',
+          'attributes': {
+            'status': 'applied',
+            'cover_letter': 'Cover note text',
+          },
+        },
+      };
+
+      await remoteDataSource.applyToJob(
+        jobId: 7,
+        cvDocumentId: 3,
+        coverLetter: 'Cover note text',
+        notes: 'Extra notes',
+      );
+
+      expect(fakeApiConsumer.lastPostPath, equals('applications'));
+      expect(
+        fakeApiConsumer.lastPostData,
+        equals({
+          'job_post_id': 7,
+          'cv_document_id': 3,
+          'cover_letter': 'Cover note text',
+          'notes': 'Extra notes',
+        }),
+      );
+    });
+
+    test('applyToJob omits unset optional fields instead of inventing them',
+        () async {
+      fakeApiConsumer.postResponse = {
+        'status': 'success',
+        'data': {
+          'id': '11',
+          'type': 'applications',
+          'attributes': {'status': 'applied'},
+        },
+      };
+
+      await remoteDataSource.applyToJob(jobId: 7);
+
+      expect(
+        fakeApiConsumer.lastPostData,
+        equals({'job_post_id': 7}),
+      );
     });
 
     test('withdrawApplication returns updated ApplicationModel', () async {

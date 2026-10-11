@@ -222,6 +222,8 @@ class JobModel {
       requiredSkills: reqSkillEntities,
       preferredSkills: prefSkillEntities,
       isExpired: isExpired,
+      applicationMethod: applicationMethod,
+      websiteUrl: company?.website,
     );
   }
 }

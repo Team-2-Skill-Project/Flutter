@@ -77,43 +77,46 @@ class _LoginFormState extends State<LoginForm> {
           ),
           SizedBox(height: 16.h),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  ValueListenableBuilder<bool>(
-                    valueListenable: _isKeepSignedIn,
-                    builder: (context, value, child) {
-                      return Switch(
-                        value: value,
-                        activeThumbColor: AppColors.white,
-                        activeTrackColor: AppColors.midnightBlue,
-                        inactiveTrackColor: AppColors.surfaceVariant,
-                        onChanged: (newValue) =>
-                            _isKeepSignedIn.value = newValue,
-                      );
-                    },
-                  ),
-                  SizedBox(width: 8.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        locale.keepMeSignedIn,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: AppColors.textPrimary,
-                          fontWeight: FontWeight.w600,
-                        ),
+              Expanded(
+                child: Row(
+                  children: [
+                    ValueListenableBuilder<bool>(
+                      valueListenable: _isKeepSignedIn,
+                      builder: (context, value, child) {
+                        return Switch(
+                          value: value,
+                          activeThumbColor: AppColors.white,
+                          activeTrackColor: AppColors.midnightBlue,
+                          inactiveTrackColor: AppColors.surfaceVariant,
+                          onChanged: (newValue) =>
+                              _isKeepSignedIn.value = newValue,
+                        );
+                      },
+                    ),
+                    SizedBox(width: 8.w),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            locale.keepMeSignedIn,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: AppColors.textPrimary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            locale.onlyOnTrustedDevices,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        locale.onlyOnTrustedDevices,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
               TextButton(
                 onPressed: () {
@@ -123,7 +126,10 @@ class _LoginFormState extends State<LoginForm> {
                     extra: email.isNotEmpty ? email : null,
                   );
                 },
-                style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
                 child: Text(
                   locale.forgotPassword,
                   style: theme.textTheme.bodyMedium?.copyWith(

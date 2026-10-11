@@ -363,6 +363,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "good": MessageLookupByLibrary.simpleMessage("Good"),
     "goodMatch": MessageLookupByLibrary.simpleMessage("Good Match"),
     "greetingUser": m1,
+    "guestModeMessage": MessageLookupByLibrary.simpleMessage(
+      "Please log in to access this feature.",
+    ),
+    "guestModeTitle": MessageLookupByLibrary.simpleMessage(
+      "You are in guest mode",
+    ),
     "helpfulAdvantage": MessageLookupByLibrary.simpleMessage(
       "Helpful advantage",
     ),
@@ -688,6 +694,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Enter your expected gross monthly salary.",
     ),
     "salaryHint": MessageLookupByLibrary.simpleMessage("e.g. 24,000"),
+    "saveJobFailed": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t save the job. Please try again.",
+    ),
     "savePreferences": MessageLookupByLibrary.simpleMessage("Save Preferences"),
     "saveProject": MessageLookupByLibrary.simpleMessage("Save Project"),
     "savedJobs": MessageLookupByLibrary.simpleMessage("Saved Jobs"),
@@ -722,6 +731,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "setupCareerProfileDesc": MessageLookupByLibrary.simpleMessage(
       "Tell us about your skills and goals to get better recommendations.",
+    ),
+    "shareJobLinkUnavailable": MessageLookupByLibrary.simpleMessage(
+      "Job link is not available for this job.",
     ),
     "showingCachedNotifications": MessageLookupByLibrary.simpleMessage(
       "Showing cached notifications (Offline)",

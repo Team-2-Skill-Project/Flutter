@@ -1,3 +1,4 @@
+import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/widgets/login/login_footer.dart';
@@ -27,7 +28,17 @@ class LoginView extends StatelessWidget {
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: AppColors.midnightBlue),
-            onPressed: () => context.pop(),
+            // Returns to Register when Login was opened from there; when
+            // opened from another entry point (e.g. the guest-mode dialog
+            // pushed it over the current screen) pops back to preserve
+            // that context; with no back stack, goes to Register.
+            onPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.go(AppRoutes.kRegisterView);
+              }
+            },
           ),
           title: Text(
             locale.login,
