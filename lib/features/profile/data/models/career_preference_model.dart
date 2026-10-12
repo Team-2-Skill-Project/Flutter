@@ -38,4 +38,20 @@ class CareerPreferenceModel extends CareerPreferenceEntity {
 
     return value.map((item) => item.toString()).toList();
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'target_role': targetRole,
+      'job_type': jobType,
+      'work_mode': workMode,
+      'preferred_country': preferredCountry,
+      'preferred_city': preferredCity,
+      'experience_level': experienceLevel,
+      'career_goal': careerGoal,
+      'open_to_relocation': openToRelocation,
+      'target_roles': targetRoles,
+      'preferred_industries': preferredIndustries,
+    };
+  }
 }

@@ -6,11 +6,13 @@ class EditProfileActions extends StatelessWidget {
   const EditProfileActions({
     required this.onSave,
     required this.onCancel,
+    this.isSaving = false,
     super.key,
   });
 
   final VoidCallback onSave;
   final VoidCallback onCancel;
+  final bool isSaving;
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +24,21 @@ class EditProfileActions extends StatelessWidget {
           width: double.infinity,
           height: 56.h,
           child: FilledButton(
-            onPressed: onSave,
-            child: Text(locale.saveChanges),
+            onPressed: isSaving ? null : onSave,
+            child: isSaving
+                ? SizedBox(
+                    width: 24.r,
+                    height: 24.r,
+                    child: const CircularProgressIndicator(strokeWidth: 2.5),
+                  )
+                : Text(locale.saveChanges),
           ),
         ),
         SizedBox(height: 10.h),
-        TextButton(onPressed: onCancel, child: Text(locale.cancel)),
+        TextButton(
+          onPressed: isSaving ? null : onCancel,
+          child: Text(locale.cancel),
+        ),
       ],
     );
   }

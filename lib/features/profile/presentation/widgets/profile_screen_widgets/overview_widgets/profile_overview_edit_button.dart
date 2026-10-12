@@ -1,4 +1,6 @@
+import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,8 +16,11 @@ class ProfileOverviewEditButton extends StatelessWidget {
       width: double.infinity,
       height: 44.h,
       child: OutlinedButton.icon(
-        onPressed: () {
-          context.push('/profile/editProfile');
+        onPressed: () async {
+          final changed = await context.push<bool>('/profile/editProfile');
+          if (changed == true && context.mounted) {
+            context.read<ProfileCubit>().getCandidateProfile();
+          }
         },
         icon: Icon(Icons.edit_outlined, size: 18.r),
         label: Text(

@@ -2,6 +2,7 @@ import 'package:MatchIn/core/widgets/error/app_error.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entity.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/edit_profile_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/edit_profile_state.dart';
+import 'package:MatchIn/features/profile/presentation/utils/edit_profile_patch_mapper.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/edit_profile_actions.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/personal_information_card.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/professional_information_card.dart';
@@ -18,23 +19,67 @@ class EditProfileViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EditProfileCubit, EditProfileState>(
+    return BlocConsumer<EditProfileCubit, EditProfileState>(
+      listenWhen: (previous, current) =>
+          current is EditProfileActionFailure || current is EditProfileSuccess,
+      listener: (context, state) {
+        final locale = S.of(context);
+        final messenger = ScaffoldMessenger.of(context);
+        switch (state) {
+          case EditProfileActionFailure():
+            final message = state.message.trim().isEmpty
+                ? locale.somethingWentWrong
+                : state.message;
+            messenger
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(content: Text(message)));
+          case EditProfileSuccess():
+            messenger
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(content: Text(locale.profileSynced)));
+            Navigator.of(context).pop(true);
+          default:
+            break;
+        }
+      },
+      // The form stays mounted for Ready/Saving/ActionFailure/Success:
+      // the builder always returns the same _EditProfileForm widget type,
+      // so its State (and all controllers) is preserved across transitions.
+      // Only initial-load states replace the form with loading/error UI.
       builder: (context, state) {
         switch (state) {
           case EditProfileInitial():
           case EditProfileLoading():
             return const Center(child: CircularProgressIndicator());
-          case EditProfileFailure():
+          case EditProfileLoadFailure():
             return AppErrorWidget(
               message: state.message,
               onRetry: () => context.read<EditProfileCubit>().loadProfile(),
             );
           case EditProfileReady():
-            return _EditProfileForm(initialProfile: state.profile);
+            return _EditProfileForm(
+              initialProfile: state.profile,
+              isSaving: false,
+            );
           case EditProfileSaving():
-            return const Center(child: CircularProgressIndicator());
+            return _EditProfileForm(
+              initialProfile: state.profile,
+              isSaving: true,
+            );
+          case EditProfileActionFailure():
+            final baseline = state.profile;
+            if (baseline == null) {
+              return AppErrorWidget(
+                message: state.message,
+                onRetry: () => context.read<EditProfileCubit>().loadProfile(),
+              );
+            }
+            return _EditProfileForm(initialProfile: baseline, isSaving: false);
           case EditProfileSuccess():
-            return _EditProfileForm(initialProfile: state.profile);
+            return _EditProfileForm(
+              initialProfile: state.profile,
+              isSaving: false,
+            );
         }
       },
     );
@@ -42,9 +87,10 @@ class EditProfileViewBody extends StatelessWidget {
 }
 
 class _EditProfileForm extends StatefulWidget {
-  const _EditProfileForm({required this.initialProfile});
+  const _EditProfileForm({required this.initialProfile, this.isSaving = false});
 
   final CandidateProfileEntity initialProfile;
+  final bool isSaving;
 
   @override
   State<_EditProfileForm> createState() => _EditProfileFormState();
@@ -120,6 +166,32 @@ class _EditProfileFormState extends State<_EditProfileForm> {
     super.dispose();
   }
 
+  void _handleSave() {
+    if (widget.isSaving) return;
+
+    final params = EditProfilePatchMapper.fromDiff(
+      baseline: widget.initialProfile,
+      dateOfBirth: _dateOfBirthController.text,
+      gender: _gender.value,
+      jobTitle: _jobTitleController.text,
+      country: _country.value,
+      state: _state.value,
+      city: _city.value,
+      githubUrl: _githubController.text,
+      linkedinUrl: _linkedinController.text,
+      militaryStatus: _militaryStatus.value,
+    );
+
+    // No supported field changed: skip the PATCH and return
+    // a negative result so Main Profile does not refresh.
+    if (!params.hasChanges) {
+      Navigator.of(context).pop(false);
+      return;
+    }
+
+    context.read<EditProfileCubit>().updateProfile(params);
+  }
+
   @override
   Widget build(BuildContext context) {
     final locale = S.of(context);
@@ -132,7 +204,9 @@ class _EditProfileFormState extends State<_EditProfileForm> {
         Row(
           children: [
             IconButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: widget.isSaving
+                  ? null
+                  : () => Navigator.of(context).pop(),
               icon: const Icon(Icons.arrow_back),
             ),
             SizedBox(width: 8.w),
@@ -147,9 +221,14 @@ class _EditProfileFormState extends State<_EditProfileForm> {
           ],
         ),
 
+        if (widget.isSaving) ...[
+          SizedBox(height: 12.h),
+          const LinearProgressIndicator(),
+        ],
+
         SizedBox(height: 24.h),
 
-        // Profile picture
+        // Profile picture (display-only: no supported update endpoint).
         ProfilePhotoEditor(avatarUrl: widget.initialProfile.user.avatar),
 
         SizedBox(height: 24.h),
@@ -258,9 +337,8 @@ class _EditProfileFormState extends State<_EditProfileForm> {
 
         // Actions
         EditProfileActions(
-          // Save will be connected to EditProfileCubit
-          // after implementing changed-field PATCH mapping.
-          onSave: () {},
+          isSaving: widget.isSaving,
+          onSave: _handleSave,
           onCancel: () => Navigator.of(context).pop(),
         ),
 

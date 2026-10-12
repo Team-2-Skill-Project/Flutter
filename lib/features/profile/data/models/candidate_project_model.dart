@@ -30,4 +30,18 @@ class CandidateProjectModel extends CandidateProjectEntity {
       endDate: json['end_date'] as String?,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'technologies': technologies,
+      'project_url': projectUrl,
+      'github_url': githubUrl,
+      'source': source,
+      'start_date': startDate,
+      'end_date': endDate,
+    };
+  }
 }

@@ -32,27 +32,26 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
     final response = await apiConsumer.patch(
       EndPoint.candidateProfile,
       data: {
-        if (params.dateOfBirth != null) 'date_of_birth': params.dateOfBirth,
-
-        if (params.gender != null) 'gender': params.gender,
-
-        if (params.jobTitle != null) 'job_title': params.jobTitle,
-
-        if (params.country != null) 'country': params.country,
-
-        if (params.state != null) 'state': params.state,
-
-        if (params.city != null) 'city': params.city,
-
-        if (params.githubUrl != null) 'github_url': params.githubUrl,
-
-        if (params.linkedinUrl != null) 'linkedin_url': params.linkedinUrl,
-
-        if (params.militaryStatus != null)
-          'military_status': params.militaryStatus,
-
-        if (params.professionalSummary != null)
-          'professional_summary': params.professionalSummary,
+        if (UpdateCandidateProfileParams.isSet(params.dateOfBirth))
+          'date_of_birth': params.dateOfBirth as String?,
+        if (UpdateCandidateProfileParams.isSet(params.gender))
+          'gender': params.gender as String?,
+        if (UpdateCandidateProfileParams.isSet(params.jobTitle))
+          'job_title': params.jobTitle as String?,
+        if (UpdateCandidateProfileParams.isSet(params.country))
+          'country': params.country as String?,
+        if (UpdateCandidateProfileParams.isSet(params.state))
+          'state': params.state as String?,
+        if (UpdateCandidateProfileParams.isSet(params.city))
+          'city': params.city as String?,
+        if (UpdateCandidateProfileParams.isSet(params.githubUrl))
+          'github_url': params.githubUrl as String?,
+        if (UpdateCandidateProfileParams.isSet(params.linkedinUrl))
+          'linkedin_url': params.linkedinUrl as String?,
+        if (UpdateCandidateProfileParams.isSet(params.militaryStatus))
+          'military_status': params.militaryStatus as String?,
+        if (UpdateCandidateProfileParams.isSet(params.professionalSummary))
+          'professional_summary': params.professionalSummary as String?,
       },
     );
 

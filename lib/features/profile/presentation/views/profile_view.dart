@@ -16,10 +16,7 @@
 //   }
 // }
 
-// ! mock
 import 'package:MatchIn/core/services/services_locator.dart';
-import 'package:MatchIn/features/profile/data/data_sources/profile_local_data_source.dart';
-import 'package:MatchIn/features/profile/data/debug/profile_cache_seeder.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/profile_view_body.dart';
 import 'package:flutter/material.dart';
@@ -31,28 +28,8 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) {
-        final cubit = getIt<ProfileCubit>();
-
-        _seedAndLoadProfile(cubit);
-
-        return cubit;
-      },
-      child: const Scaffold(
-        body: SafeArea(child: ProfileViewBody()),
-      ),
+      create: (_) => getIt<ProfileCubit>()..getCandidateProfile(),
+      child: const Scaffold(body: SafeArea(child: ProfileViewBody())),
     );
-  }
-
-  Future<void> _seedAndLoadProfile(
-    ProfileCubit cubit,
-  ) async {
-    final seeder = ProfileCacheSeeder(
-      localDataSource: getIt<ProfileLocalDataSource>(),
-    );
-
-    await seeder.seed();
-
-    await cubit.getCandidateProfile();
   }
 }
