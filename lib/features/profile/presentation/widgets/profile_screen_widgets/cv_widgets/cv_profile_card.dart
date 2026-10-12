@@ -1,4 +1,5 @@
 import 'package:MatchIn/core/extensions/context_extensions.dart';
+import 'package:MatchIn/features/profile/domain/entities/cv_processing_status.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/cv_widgets/cv_empty_content.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/cv_widgets/cv_file_content.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/cv_widgets/cv_profile_header.dart';
@@ -20,7 +21,7 @@ class CvProfileCard extends StatelessWidget {
   final bool hasCv;
 
   final String? fileName;
-  final String? status;
+  final CvProcessingStatus? status;
   final String? updatedText;
 
   final VoidCallback? onUpload;

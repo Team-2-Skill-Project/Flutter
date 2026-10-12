@@ -1,5 +1,5 @@
-class EducationFormValidator {
-  const EducationFormValidator._();
+class ProfileFormValidator {
+  const ProfileFormValidator._();
 
   /// Formats a picked date as `YYYY-MM-DD` for the backend.
   static String formatDate(DateTime date) {

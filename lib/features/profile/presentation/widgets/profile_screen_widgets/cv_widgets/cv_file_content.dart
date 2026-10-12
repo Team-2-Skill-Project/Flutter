@@ -1,3 +1,4 @@
+import 'package:MatchIn/features/profile/domain/entities/cv_processing_status.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/cv_widgets/cv_status_badge.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class CvFileContent extends StatelessWidget {
   });
 
   final String fileName;
-  final String? status;
+  final CvProcessingStatus? status;
   final String? updatedText;
 
   final VoidCallback? onView;
@@ -75,7 +76,8 @@ class CvFileContent extends StatelessWidget {
                         runSpacing: 4.h,
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
-                          if (status != null && status!.trim().isNotEmpty)
+                          if (status != null &&
+                              status != CvProcessingStatus.unknown)
                             CvStatusBadge(status: status!),
 
                           if (updatedText != null &&

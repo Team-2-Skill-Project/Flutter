@@ -2,7 +2,7 @@ import 'package:MatchIn/features/profile/domain/entities/candidate_profile_detai
 import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/profile_user_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_profile_params.dart';
-import 'package:MatchIn/features/profile/presentation/utils/edit_profile_patch_mapper.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/edit_profile_patch_mapper.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 CandidateProfileEntity makeBaseline() => const CandidateProfileEntity(

@@ -2,7 +2,7 @@ import 'package:MatchIn/core/utils/profile_formatters.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_state.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/career_preferences_widgets/career_preferences_profile_card.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/cv_widgets/cv_profile_card.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/cv_widgets/cv_profile_section.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/education_widgets/education_profile_card.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/education_widgets/education_profile_item_data.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/experience_widgets/experience_profile_card.dart';
@@ -126,14 +126,7 @@ class ProfileViewBody extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 16.h),
-                  CvProfileCard(
-                    hasCv:
-                        cvDocument?.fileName != null ||
-                        cvDocument?.fileUrl != null,
-                    fileName: cvDocument?.fileName,
-                    status: cvDocument?.status,
-                    updatedText: cvDocument?.updatedAt,
-                  ),
+                  CvProfileSection(cvDocument: cvDocument),
                   SizedBox(height: 16.h),
                   CareerPreferencesProfileCard(
                     targetRole: careerPreferences?.targetRole,

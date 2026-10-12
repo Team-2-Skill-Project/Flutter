@@ -1,8 +1,8 @@
 import 'package:MatchIn/features/profile/domain/entities/add_experience_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/experience_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_experience_params.dart';
-import 'package:MatchIn/features/profile/presentation/utils/education_form_validator.dart';
-import 'package:MatchIn/features/profile/presentation/utils/experience_technologies_parser.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/profile_form_validator.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_experience_widgets/experience_technologies_parser.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_experience_widgets/experience_dropdown_field.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_experience_widgets/experience_form_actions.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_experience_widgets/experience_form_field.dart';
@@ -84,10 +84,10 @@ class _ExperienceFormState extends State<ExperienceForm> {
 
     _employmentType = ValueNotifier<String?>(initial?.employmentType);
     _startDate = ValueNotifier<DateTime?>(
-      EducationFormValidator.parseDate(initial?.startDate),
+      ProfileFormValidator.parseDate(initial?.startDate),
     );
     _endDate = ValueNotifier<DateTime?>(
-      EducationFormValidator.parseDate(initial?.endDate),
+      ProfileFormValidator.parseDate(initial?.endDate),
     );
     _isCurrent = ValueNotifier<bool>(initial?.isCurrent ?? false);
   }
@@ -124,7 +124,7 @@ class _ExperienceFormState extends State<ExperienceForm> {
     );
     if (picked == null) return;
     notifier.value = DateTime(picked.year, picked.month, picked.day);
-    controller.text = EducationFormValidator.formatDate(notifier.value!);
+    controller.text = ProfileFormValidator.formatDate(notifier.value!);
   }
 
   void _showMessage(String message) {
@@ -166,7 +166,7 @@ class _ExperienceFormState extends State<ExperienceForm> {
     final start = _startDate.value;
     final end = isCurrent ? null : _endDate.value;
 
-    final rangeError = EducationFormValidator.validateDateRange(
+    final rangeError = ProfileFormValidator.validateDateRange(
       start: start,
       end: end,
       invalidMessage: locale.invalidDateRange,
@@ -178,8 +178,8 @@ class _ExperienceFormState extends State<ExperienceForm> {
 
     final startText = start == null
         ? null
-        : EducationFormValidator.formatDate(start);
-    final endText = end == null ? null : EducationFormValidator.formatDate(end);
+        : ProfileFormValidator.formatDate(start);
+    final endText = end == null ? null : ProfileFormValidator.formatDate(end);
     final technologies = ExperienceTechnologiesParser.parse(
       _relatedSkillsController.text,
     );

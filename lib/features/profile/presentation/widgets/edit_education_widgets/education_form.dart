@@ -1,7 +1,7 @@
 import 'package:MatchIn/features/profile/domain/entities/add_education_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/education_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_education_params.dart';
-import 'package:MatchIn/features/profile/presentation/utils/education_form_validator.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/profile_form_validator.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_education_widgets/education_form_actions.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_education_widgets/education_form_field.dart';
 import 'package:MatchIn/generated/l10n.dart';
@@ -60,10 +60,10 @@ class _EducationFormState extends State<EducationForm> {
 
     _isCurrent = ValueNotifier<bool>(initial?.isCurrent ?? false);
     _startDate = ValueNotifier<DateTime?>(
-      EducationFormValidator.parseDate(initial?.startDate),
+      ProfileFormValidator.parseDate(initial?.startDate),
     );
     _endDate = ValueNotifier<DateTime?>(
-      EducationFormValidator.parseDate(initial?.endDate),
+      ProfileFormValidator.parseDate(initial?.endDate),
     );
   }
 
@@ -95,7 +95,7 @@ class _EducationFormState extends State<EducationForm> {
     );
     if (picked == null) return;
     notifier.value = DateTime(picked.year, picked.month, picked.day);
-    controller.text = EducationFormValidator.formatDate(notifier.value!);
+    controller.text = ProfileFormValidator.formatDate(notifier.value!);
   }
 
   void _showMessage(String message) {
@@ -123,7 +123,7 @@ class _EducationFormState extends State<EducationForm> {
     final start = _startDate.value;
     final end = isCurrent ? null : _endDate.value;
 
-    final rangeError = EducationFormValidator.validateDateRange(
+    final rangeError = ProfileFormValidator.validateDateRange(
       start: start,
       end: end,
       invalidMessage: locale.invalidDateRange,
@@ -135,8 +135,8 @@ class _EducationFormState extends State<EducationForm> {
 
     final startText = start == null
         ? null
-        : EducationFormValidator.formatDate(start);
-    final endText = end == null ? null : EducationFormValidator.formatDate(end);
+        : ProfileFormValidator.formatDate(start);
+    final endText = end == null ? null : ProfileFormValidator.formatDate(end);
 
     final baseline = widget.initialEducation;
     if (baseline == null) {

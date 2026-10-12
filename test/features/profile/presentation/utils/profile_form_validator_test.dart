@@ -1,39 +1,39 @@
-import 'package:MatchIn/features/profile/presentation/utils/education_form_validator.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/profile_form_validator.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('EducationFormValidator.formatDate', () {
+  group('ProfileFormValidator.formatDate', () {
     test('formats as YYYY-MM-DD with zero padding', () {
       expect(
-        EducationFormValidator.formatDate(DateTime(2018, 9, 1)),
+        ProfileFormValidator.formatDate(DateTime(2018, 9, 1)),
         '2018-09-01',
       );
       expect(
-        EducationFormValidator.formatDate(DateTime(2023, 12, 31)),
+        ProfileFormValidator.formatDate(DateTime(2023, 12, 31)),
         '2023-12-31',
       );
     });
   });
 
-  group('EducationFormValidator.parseDate', () {
+  group('ProfileFormValidator.parseDate', () {
     test('parses YYYY-MM-DD strings', () {
       expect(
-        EducationFormValidator.parseDate('2018-09-01'),
+        ProfileFormValidator.parseDate('2018-09-01'),
         DateTime(2018, 9, 1),
       );
     });
 
     test('returns null for null, empty, or invalid input', () {
-      expect(EducationFormValidator.parseDate(null), isNull);
-      expect(EducationFormValidator.parseDate('  '), isNull);
-      expect(EducationFormValidator.parseDate('not-a-date'), isNull);
+      expect(ProfileFormValidator.parseDate(null), isNull);
+      expect(ProfileFormValidator.parseDate('  '), isNull);
+      expect(ProfileFormValidator.parseDate('not-a-date'), isNull);
     });
   });
 
-  group('EducationFormValidator.validateInstitution', () {
+  group('ProfileFormValidator.validateInstitution', () {
     test('returns message when blank', () {
       expect(
-        EducationFormValidator.validateInstitution(
+        ProfileFormValidator.validateInstitution(
           '   ',
           requiredMessage: 'Required',
         ),
@@ -43,7 +43,7 @@ void main() {
 
     test('returns null when provided', () {
       expect(
-        EducationFormValidator.validateInstitution(
+        ProfileFormValidator.validateInstitution(
           'Ain Shams University',
           requiredMessage: 'Required',
         ),
@@ -52,10 +52,10 @@ void main() {
     });
   });
 
-  group('EducationFormValidator.validateDateRange', () {
+  group('ProfileFormValidator.validateDateRange', () {
     test('returns null when either date is missing', () {
       expect(
-        EducationFormValidator.validateDateRange(
+        ProfileFormValidator.validateDateRange(
           start: null,
           end: DateTime(2023, 7, 1),
           invalidMessage: 'Invalid',
@@ -63,7 +63,7 @@ void main() {
         isNull,
       );
       expect(
-        EducationFormValidator.validateDateRange(
+        ProfileFormValidator.validateDateRange(
           start: DateTime(2018, 9, 1),
           end: null,
           invalidMessage: 'Invalid',
@@ -74,7 +74,7 @@ void main() {
 
     test('returns null when end is on or after start', () {
       expect(
-        EducationFormValidator.validateDateRange(
+        ProfileFormValidator.validateDateRange(
           start: DateTime(2018, 9, 1),
           end: DateTime(2023, 7, 1),
           invalidMessage: 'Invalid',
@@ -82,7 +82,7 @@ void main() {
         isNull,
       );
       expect(
-        EducationFormValidator.validateDateRange(
+        ProfileFormValidator.validateDateRange(
           start: DateTime(2018, 9, 1),
           end: DateTime(2018, 9, 1),
           invalidMessage: 'Invalid',
@@ -93,7 +93,7 @@ void main() {
 
     test('returns message when end is before start', () {
       expect(
-        EducationFormValidator.validateDateRange(
+        ProfileFormValidator.validateDateRange(
           start: DateTime(2023, 7, 1),
           end: DateTime(2018, 9, 1),
           invalidMessage: 'Invalid',

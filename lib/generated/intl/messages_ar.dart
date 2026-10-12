@@ -295,15 +295,31 @@ class MessageLookup extends MessageLookupByLibrary {
     "cvAnalysisDescription": MessageLookupByLibrary.simpleMessage(
       "استخرجنا 12 مهارة وقمنا بتحديث ملفك المهني.",
     ),
+    "cvEmptyFile": MessageLookupByLibrary.simpleMessage("الملف المحدد فارغ."),
+    "cvFileTooLarge": MessageLookupByLibrary.simpleMessage(
+      "حجم الملف كبير جدًا. الحد الأقصى هو 5 MB.",
+    ),
+    "cvRefreshFailed": MessageLookupByLibrary.simpleMessage(
+      "تم رفع السيرة الذاتية، ولكن تعذر تحديث الملف.",
+    ),
     "cvResume": MessageLookupByLibrary.simpleMessage("السيرة الذاتية"),
     "cvSkillsDescription": MessageLookupByLibrary.simpleMessage(
       "تم استخراج المهارات تلقائيًا من السيرة الذاتية المرفوعة.",
+    ),
+    "cvUnsupportedFileType": MessageLookupByLibrary.simpleMessage(
+      "نوع الملف غير مدعوم. يرجى اختيار ملف PDF أو DOCX.",
     ),
     "cvUploadNotice": MessageLookupByLibrary.simpleMessage(
       "بعدين تقدر ترفع سيرتك الذاتية (اختياري).",
     ),
     "cvUploadRequirements": MessageLookupByLibrary.simpleMessage(
       "PDF أو DOCX • بحد أقصى 5 MB",
+    ),
+    "cvUploadSuccessful": MessageLookupByLibrary.simpleMessage(
+      "تم رفع السيرة الذاتية بنجاح",
+    ),
+    "cvViewFailed": MessageLookupByLibrary.simpleMessage(
+      "تعذر فتح مستند السيرة الذاتية.",
     ),
     "dark": MessageLookupByLibrary.simpleMessage("داكن"),
     "dateOfBirth": MessageLookupByLibrary.simpleMessage("تاريخ الميلاد"),

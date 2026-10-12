@@ -101,8 +101,10 @@ import 'package:MatchIn/features/profile/domain/use_cases/update_candidate_profi
 import 'package:MatchIn/features/profile/domain/use_cases/update_candidate_project_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/update_education_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/update_experience_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/upload_cv_use_case.dart';
 
 import 'package:MatchIn/features/profile/presentation/cubits/career_cubit/career_preferences_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/cv_cubit/cv_upload_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/edit_profile_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/education_cubit/edit_education_cubit.dart';
@@ -749,6 +751,15 @@ Future<void> setupServiceLocator() async {
 
   getIt.registerLazySingleton<DeleteExperienceUseCase>(
     () => DeleteExperienceUseCase(repository: getIt()),
+  );
+
+  // CV upload use case and cubit
+
+  getIt.registerFactory<CvUploadCubit>(
+    () => CvUploadCubit(uploadCvUseCase: getIt()),
+  );
+  getIt.registerLazySingleton<UploadCvUseCase>(
+    () => UploadCvUseCase(repository: getIt()),
   );
 
   // career preferences

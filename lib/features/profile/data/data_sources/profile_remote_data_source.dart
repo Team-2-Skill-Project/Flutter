@@ -2,6 +2,7 @@ import 'package:MatchIn/features/profile/data/models/candidate_profile_model.dar
 import 'package:MatchIn/features/profile/data/models/candidate_project_model.dart';
 import 'package:MatchIn/features/profile/data/models/candidate_skill_model.dart';
 import 'package:MatchIn/features/profile/data/models/career_preference_model.dart';
+import 'package:MatchIn/features/profile/data/models/cv_upload_receipt_model.dart';
 import 'package:MatchIn/features/profile/data/models/education_model.dart';
 import 'package:MatchIn/features/profile/data/models/experience_model.dart';
 import 'package:MatchIn/features/profile/data/models/skill_search_result_model.dart';
@@ -10,6 +11,7 @@ import 'package:MatchIn/features/profile/domain/entities/add_candidate_project_p
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_skill_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_education_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_experience_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/cv_upload_input.dart';
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_profile_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_project_params.dart';
@@ -73,6 +75,12 @@ abstract class ProfileRemoteDataSource {
   Future<ExperienceModel?> updateExperience(UpdateExperienceParams params);
 
   Future<void> deleteExperience(int experienceId);
+
+  // CV Upload
+  /// Returns null when the upload succeeded (2xx) but the response
+  /// carries no usable receipt. Callers must refresh the Main Profile
+  /// from GET instead of fabricating document data.
+  Future<CvUploadReceiptModel?> uploadCv(CvUploadInput input);
 
   // Career Preferences
   Future<CareerPreferenceModel?> getCareerPreferences();

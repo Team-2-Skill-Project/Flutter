@@ -67,6 +67,9 @@ abstract class EndPoint {
   static String candidateExperience(int experienceId) =>
       'candidate/experiences/$experienceId';
 
+  // CV Upload
+  static const String cvUpload = 'cv/upload';
+
   // Career Preferences
   static const String careerPreferences = 'candidate/career-preferences';
 

@@ -295,15 +295,33 @@ class MessageLookup extends MessageLookupByLibrary {
     "cvAnalysisDescription": MessageLookupByLibrary.simpleMessage(
       "We extracted 12 skills and updated your career profile.",
     ),
+    "cvEmptyFile": MessageLookupByLibrary.simpleMessage(
+      "The selected file is empty.",
+    ),
+    "cvFileTooLarge": MessageLookupByLibrary.simpleMessage(
+      "The file is too large. Maximum size is 5 MB.",
+    ),
+    "cvRefreshFailed": MessageLookupByLibrary.simpleMessage(
+      "CV uploaded, but the profile could not be refreshed.",
+    ),
     "cvResume": MessageLookupByLibrary.simpleMessage("CV / Résumé"),
     "cvSkillsDescription": MessageLookupByLibrary.simpleMessage(
       "Extracted automatically from your uploaded resume.",
+    ),
+    "cvUnsupportedFileType": MessageLookupByLibrary.simpleMessage(
+      "Unsupported file type. Please choose a PDF or DOCX file.",
     ),
     "cvUploadNotice": MessageLookupByLibrary.simpleMessage(
       "Next, you can upload your CV (optional).",
     ),
     "cvUploadRequirements": MessageLookupByLibrary.simpleMessage(
       "PDF or DOCX • Max 5 MB",
+    ),
+    "cvUploadSuccessful": MessageLookupByLibrary.simpleMessage(
+      "CV uploaded successfully",
+    ),
+    "cvViewFailed": MessageLookupByLibrary.simpleMessage(
+      "Could not open the CV document.",
     ),
     "dark": MessageLookupByLibrary.simpleMessage("Dark"),
     "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of birth"),

@@ -2265,6 +2265,66 @@ class S {
     return Intl.message('Replace CV', name: 'replaceCv', desc: '', args: []);
   }
 
+  /// `Unsupported file type. Please choose a PDF or DOCX file.`
+  String get cvUnsupportedFileType {
+    return Intl.message(
+      'Unsupported file type. Please choose a PDF or DOCX file.',
+      name: 'cvUnsupportedFileType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The file is too large. Maximum size is 5 MB.`
+  String get cvFileTooLarge {
+    return Intl.message(
+      'The file is too large. Maximum size is 5 MB.',
+      name: 'cvFileTooLarge',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The selected file is empty.`
+  String get cvEmptyFile {
+    return Intl.message(
+      'The selected file is empty.',
+      name: 'cvEmptyFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CV uploaded successfully`
+  String get cvUploadSuccessful {
+    return Intl.message(
+      'CV uploaded successfully',
+      name: 'cvUploadSuccessful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Could not open the CV document.`
+  String get cvViewFailed {
+    return Intl.message(
+      'Could not open the CV document.',
+      name: 'cvViewFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CV uploaded, but the profile could not be refreshed.`
+  String get cvRefreshFailed {
+    return Intl.message(
+      'CV uploaded, but the profile could not be refreshed.',
+      name: 'cvRefreshFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Uploaded`
   String get uploaded {
     return Intl.message('Uploaded', name: 'uploaded', desc: '', args: []);

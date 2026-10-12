@@ -8,6 +8,8 @@ import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entit
 import 'package:MatchIn/features/profile/domain/entities/candidate_project_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_skill_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/career_preference_entity.dart';
+import 'package:MatchIn/features/profile/domain/entities/cv_upload_input.dart';
+import 'package:MatchIn/features/profile/domain/entities/cv_upload_receipt.dart';
 import 'package:MatchIn/features/profile/domain/entities/education_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/experience_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
@@ -86,6 +88,12 @@ abstract class ProfileRepository {
   );
 
   Future<Either<Failure, Unit>> deleteExperience(int experienceId);
+
+  // CV Upload
+  /// Returns a null receipt when the upload succeeded but the response
+  /// carries no usable receipt. Callers must refresh the Main Profile
+  /// from GET instead of fabricating document data. Remote-only.
+  Future<Either<Failure, CvUploadReceipt?>> uploadCv(CvUploadInput input);
 
   // Career Preferences
   Future<Either<Failure, CareerPreferenceEntity?>> getCareerPreferences();

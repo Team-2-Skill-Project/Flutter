@@ -1,4 +1,4 @@
-import 'package:MatchIn/features/profile/presentation/utils/experience_technologies_parser.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_experience_widgets/experience_technologies_parser.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

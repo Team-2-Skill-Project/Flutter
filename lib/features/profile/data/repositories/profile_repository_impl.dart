@@ -11,6 +11,8 @@ import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entit
 import 'package:MatchIn/features/profile/domain/entities/candidate_project_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_skill_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/career_preference_entity.dart';
+import 'package:MatchIn/features/profile/domain/entities/cv_upload_input.dart';
+import 'package:MatchIn/features/profile/domain/entities/cv_upload_receipt.dart';
 import 'package:MatchIn/features/profile/domain/entities/education_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/experience_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
@@ -514,6 +516,31 @@ class ProfileRepositoryImpl implements ProfileRepository {
       await remoteDataSource.deleteExperience(experienceId);
 
       return const Right(unit);
+    } on ServerException catch (e) {
+      return Left(
+        ServerFailure(
+          message: e.errorModel.errorMessage,
+          fieldErrors: e.errorModel.fieldErrors,
+        ),
+      );
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  // CV Upload
+  @override
+  Future<Either<Failure, CvUploadReceipt?>> uploadCv(
+    CvUploadInput input,
+  ) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(OfflineFailure());
+    }
+
+    try {
+      final receipt = await remoteDataSource.uploadCv(input);
+
+      return Right(receipt);
     } on ServerException catch (e) {
       return Left(
         ServerFailure(

@@ -44,7 +44,7 @@ class CandidateProfileModel extends CandidateProfileEntity {
       careerPreferences: _careerPreferences(json['career_preferences']),
       education: _educationList(json['education']),
       experience: _experienceList(json['experience']),
-      cvDocument: _cvDocument(json['cv_document']),
+      cvDocument: _currentCvDocument(json),
     );
   }
 
@@ -128,6 +128,33 @@ class CandidateProfileModel extends CandidateProfileEntity {
       }
     }
     return result;
+  }
+
+  /// Selects the current CV from the `cvDocuments` list using
+  /// `is_current == true`. Never selects an arbitrary document: when no
+  /// entry is flagged current, the result is null (empty CV state).
+  ///
+  /// Key presence (not value) decides authority: when either list key
+  /// exists — even with a null, empty, or malformed value — the list
+  /// is authoritative and the legacy fallback is skipped.
+  /// The legacy singular `cv_document` payload is used only when both
+  /// list keys are absent, so previously cached data keeps working.
+  static CvDocumentModel? _currentCvDocument(Map<String, dynamic> json) {
+    if (json.containsKey('cvDocuments') || json.containsKey('cv_documents')) {
+      final list = json['cvDocuments'] ?? json['cv_documents'];
+      if (list is! List) return null;
+      for (final item in list) {
+        if (item is! Map<String, dynamic>) continue;
+        try {
+          final document = CvDocumentModel.fromJson(item);
+          if (document.isCurrent == true) return document;
+        } catch (_) {
+          continue;
+        }
+      }
+      return null;
+    }
+    return _cvDocument(json['cv_document']);
   }
 
   static CvDocumentModel? _cvDocument(dynamic value) {
@@ -255,9 +282,14 @@ class CandidateProfileModel extends CandidateProfileEntity {
                 : {
                     'id': cvDocument!.id,
                     'file_name': cvDocument!.fileName,
+                    'original_filename': cvDocument!.originalFilename,
                     'file_url': cvDocument!.fileUrl,
-                    'status': cvDocument!.status,
+                    'status': CvDocumentModel.statusToJson(cvDocument!.status),
+                    'version': cvDocument!.version,
+                    'is_current': cvDocument!.isCurrent,
+                    'processed_at': cvDocument!.processedAt,
                     'updated_at': cvDocument!.updatedAt,
+                    'failure_reason': cvDocument!.failureReason,
                   }),
     };
   }
