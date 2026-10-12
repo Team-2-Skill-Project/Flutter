@@ -6,10 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddSkillForm extends StatefulWidget {
-  const AddSkillForm({
-    required this.suggestions,
-    super.key,
-  });
+  const AddSkillForm({required this.suggestions, super.key});
 
   final List<SkillSearchResultEntity> suggestions;
 
@@ -41,7 +38,7 @@ class _AddSkillFormState extends State<AddSkillForm> {
     final query = value.trim();
 
     if (query.isEmpty) {
-      _debouncer.dispose();
+      _debouncer.cancel();
       context.read<SkillsCubit>().clearSearch();
       return;
     }
@@ -53,31 +50,32 @@ class _AddSkillFormState extends State<AddSkillForm> {
     });
   }
 
-  void _addSkill(String value) {
+  Future<void> _addSkill(String value) async {
     final name = value.trim();
 
     if (name.isEmpty) return;
 
-    context.read<SkillsCubit>().addSkill(name: name);
+    final added = await context.read<SkillsCubit>().addSkill(name: name);
+    if (!mounted || !added) return;
+
+    _controller.clear();
+    context.read<SkillsCubit>().clearSearch();
   }
 
   @override
   Widget build(BuildContext context) {
     return AddSkillSection(
       controller: _controller,
-      suggestions: widget.suggestions
-          .map((skill) => skill.name)
-          .toList(),
+      suggestions: widget.suggestions.map((skill) => skill.name).toList(),
       onSearchChanged: _onSearchChanged,
+      onSubmitted: _addSkill,
       onAddPressed: () {
         _addSkill(_controller.text);
       },
       onSuggestionPressed: (skill) {
         _controller.text = skill;
 
-        _controller.selection = TextSelection.collapsed(
-          offset: skill.length,
-        );
+        _controller.selection = TextSelection.collapsed(offset: skill.length);
 
         _addSkill(skill);
       },

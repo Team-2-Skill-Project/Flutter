@@ -112,6 +112,10 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   Future<CandidateSkillModel> addCandidateSkill(
     AddCandidateSkillParams params,
   ) async {
+    // NOTE(swagger): the documented example also shows
+    // proficiency_level and years_of_experience, but the confirmed
+    // request shape used here stays name-only until live backend
+    // verification. Do not add fields on assumption.
     final response = await apiConsumer.post(
       EndPoint.candidateSkills,
       data: {'name': params.name},

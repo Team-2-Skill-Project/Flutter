@@ -111,11 +111,21 @@ class ProfileViewBody extends StatelessWidget {
                   SizedBox(height: 16.h),
                   SkillsProfileCard(
                     skills: profile.skills.map((skill) => skill.name).toList(),
-                    onEdit: () {
-                      context.push('/profile/skills');
+                    onEdit: () async {
+                      final changed = await context.push<bool>(
+                        '/profile/skills',
+                      );
+                      if (changed == true && context.mounted) {
+                        context.read<ProfileCubit>().getCandidateProfile();
+                      }
                     },
-                    onAddSkill: () {
-                      context.push('/profile/skills');
+                    onAddSkill: () async {
+                      final changed = await context.push<bool>(
+                        '/profile/skills',
+                      );
+                      if (changed == true && context.mounted) {
+                        context.read<ProfileCubit>().getCandidateProfile();
+                      }
                     },
                   ),
                   SizedBox(height: 16.h),
