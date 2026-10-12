@@ -514,30 +514,35 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
     final response = await apiConsumer.patch(
       EndPoint.careerPreferences,
       data: {
-        if (params.targetRole != null) 'target_role': params.targetRole,
+        if (SaveCareerPreferencesParams.isSet(params.targetRole))
+          'target_role': params.targetRole as String?,
 
-        if (params.jobType != null) 'job_type': params.jobType,
+        if (SaveCareerPreferencesParams.isSet(params.jobType))
+          'job_type': params.jobType as String?,
 
-        if (params.workMode != null) 'work_mode': params.workMode,
+        if (SaveCareerPreferencesParams.isSet(params.workMode))
+          'work_mode': params.workMode as String?,
 
-        if (params.preferredCountry != null)
-          'preferred_country': params.preferredCountry,
+        if (SaveCareerPreferencesParams.isSet(params.preferredCountry))
+          'preferred_country': params.preferredCountry as String?,
 
-        if (params.preferredCity != null)
-          'preferred_city': params.preferredCity,
+        if (SaveCareerPreferencesParams.isSet(params.preferredCity))
+          'preferred_city': params.preferredCity as String?,
 
-        if (params.experienceLevel != null)
-          'experience_level': params.experienceLevel,
+        if (SaveCareerPreferencesParams.isSet(params.experienceLevel))
+          'experience_level': params.experienceLevel as String?,
 
-        if (params.careerGoal != null) 'career_goal': params.careerGoal,
+        if (SaveCareerPreferencesParams.isSet(params.careerGoal))
+          'career_goal': params.careerGoal as String?,
 
-        if (params.openToRelocation != null)
-          'open_to_relocation': params.openToRelocation,
+        if (SaveCareerPreferencesParams.isSet(params.openToRelocation))
+          'open_to_relocation': params.openToRelocation as bool?,
 
-        if (params.targetRoles != null) 'target_roles': params.targetRoles,
+        if (SaveCareerPreferencesParams.isSet(params.targetRoles))
+          'target_roles': params.targetRoles as List<String>?,
 
-        if (params.preferredIndustries != null)
-          'preferred_industries': params.preferredIndustries,
+        if (SaveCareerPreferencesParams.isSet(params.preferredIndustries))
+          'preferred_industries': params.preferredIndustries as List<String>?,
       },
     );
 

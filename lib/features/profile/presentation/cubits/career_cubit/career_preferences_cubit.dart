@@ -19,10 +19,17 @@ class CareerPreferencesCubit extends Cubit<CareerPreferencesState> {
 
   CareerPreferenceEntity? _preferences;
 
+  /// Sticky session flag: once a PATCH succeeds it stays
+  /// true until the screen is closed. Failures never reset it.
+  bool _hasChanges = false;
+
+  bool get hasChanges => _hasChanges;
+
   Future<void> getCareerPreferences() async {
     emit(const CareerPreferencesLoading());
 
     final result = await getCareerPreferencesUseCase();
+    if (isClosed) return;
 
     result.fold(
       (failure) {
@@ -37,9 +44,11 @@ class CareerPreferencesCubit extends Cubit<CareerPreferencesState> {
   }
 
   Future<void> saveCareerPreferences(SaveCareerPreferencesParams params) async {
+    if (state is CareerPreferencesSaving) return;
     emit(CareerPreferencesSaving(preferences: _preferences));
 
     final result = await saveCareerPreferencesUseCase(params);
+    if (isClosed) return;
 
     result.fold(
       (failure) {
@@ -52,6 +61,7 @@ class CareerPreferencesCubit extends Cubit<CareerPreferencesState> {
       },
       (preferences) {
         _preferences = preferences;
+        _hasChanges = true;
 
         emit(CareerPreferencesSaveSuccess(preferences: preferences));
       },

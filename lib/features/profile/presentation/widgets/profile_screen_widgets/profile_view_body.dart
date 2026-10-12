@@ -152,8 +152,13 @@ class ProfileViewBody extends StatelessWidget {
                       careerPreferences?.preferredCity,
                     ),
                     experienceLevel: careerPreferences?.experienceLevel,
-                    onEdit: () {
-                      context.push('/profile/careerPref');
+                    onEdit: () async {
+                      final changed = await context.push<bool>(
+                        '/profile/careerPref',
+                      );
+                      if (changed == true && context.mounted) {
+                        context.read<ProfileCubit>().getCandidateProfile();
+                      }
                     },
                   ),
                 ],
