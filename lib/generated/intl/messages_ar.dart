@@ -314,15 +314,26 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "delete": MessageLookupByLibrary.simpleMessage("حذف"),
     "deleteChat": MessageLookupByLibrary.simpleMessage("حذف المحادثة"),
+    "deleteEducation": MessageLookupByLibrary.simpleMessage("حذف التعليم"),
+    "deleteEducationConfirm": MessageLookupByLibrary.simpleMessage(
+      "هل أنت متأكد أنك تريد حذف هذا التعليم؟ لا يمكن التراجع عن هذا الإجراء.",
+    ),
     "description": MessageLookupByLibrary.simpleMessage("الوصف"),
     "draft": MessageLookupByLibrary.simpleMessage("مسودة"),
     "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
+    "editEducation": MessageLookupByLibrary.simpleMessage("تعديل التعليم"),
     "editNote": MessageLookupByLibrary.simpleMessage("تعديل الملاحظة"),
     "editProfile": MessageLookupByLibrary.simpleMessage("تعديل الملف"),
     "editorialScore": MessageLookupByLibrary.simpleMessage(
       "درجة اكتمال المحتوى",
     ),
     "education": MessageLookupByLibrary.simpleMessage("التعليم"),
+    "educationDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم حذف التعليم بنجاح",
+    ),
+    "educationSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم حفظ التعليم بنجاح",
+    ),
     "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "emailAddress": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "emailHint": MessageLookupByLibrary.simpleMessage("أدخل بريدك الإلكتروني"),
@@ -439,6 +450,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "interviewPrepPrompt": MessageLookupByLibrary.simpleMessage(
       "ما هي أهم أسئلة المقابلات الفنية لـ Dart و Flutter؟",
     ),
+    "invalidDateRange": MessageLookupByLibrary.simpleMessage(
+      "يجب أن يكون تاريخ الانتهاء مساويًا لتاريخ البدء أو بعده",
+    ),
     "invalidJobId": MessageLookupByLibrary.simpleMessage(
       "معرّف الوظيفة غير صالح.",
     ),
@@ -551,6 +565,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noCoverNoteAdded": MessageLookupByLibrary.simpleMessage(
       "لم تتم إضافة رسالة تعريفية",
+    ),
+    "noEducationYet": MessageLookupByLibrary.simpleMessage(
+      "لم تتم إضافة أي تعليم بعد",
+    ),
+    "noEducationYetDesc": MessageLookupByLibrary.simpleMessage(
+      "أضف سجلك التعليمي الأول باستخدام النموذج أدناه.",
     ),
     "noFileSelected": MessageLookupByLibrary.simpleMessage("لم يتم اختيار ملف"),
     "noHistoryYet": MessageLookupByLibrary.simpleMessage("لا يوجد سجل بعد"),

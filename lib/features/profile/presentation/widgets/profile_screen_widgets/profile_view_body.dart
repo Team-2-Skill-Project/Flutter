@@ -72,8 +72,13 @@ class ProfileViewBody extends StatelessWidget {
                           ),
                         )
                         .toList(),
-                    onEdit: () {
-                      context.push('/profile/editEducation');
+                    onEdit: () async {
+                      final changed = await context.push<bool>(
+                        '/profile/editEducation',
+                      );
+                      if (changed == true && context.mounted) {
+                        context.read<ProfileCubit>().getCandidateProfile();
+                      }
                     },
                   ),
                   SizedBox(height: 16.h),

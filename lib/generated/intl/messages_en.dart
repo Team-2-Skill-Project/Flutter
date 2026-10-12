@@ -314,13 +314,24 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "delete": MessageLookupByLibrary.simpleMessage("Delete"),
     "deleteChat": MessageLookupByLibrary.simpleMessage("Delete Chat"),
+    "deleteEducation": MessageLookupByLibrary.simpleMessage("Delete education"),
+    "deleteEducationConfirm": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to delete this education? This action cannot be undone.",
+    ),
     "description": MessageLookupByLibrary.simpleMessage("Description"),
     "draft": MessageLookupByLibrary.simpleMessage("Draft"),
     "edit": MessageLookupByLibrary.simpleMessage("Edit"),
+    "editEducation": MessageLookupByLibrary.simpleMessage("Edit education"),
     "editNote": MessageLookupByLibrary.simpleMessage("Edit Note"),
     "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
     "editorialScore": MessageLookupByLibrary.simpleMessage("EDITORIAL SCORE"),
     "education": MessageLookupByLibrary.simpleMessage("Education"),
+    "educationDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Education deleted successfully",
+    ),
+    "educationSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Education saved successfully",
+    ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailAddress": MessageLookupByLibrary.simpleMessage("Email Address"),
     "emailHint": MessageLookupByLibrary.simpleMessage(
@@ -445,6 +456,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "interviewPrepPrompt": MessageLookupByLibrary.simpleMessage(
       "What are the top technical interview questions for Dart and Flutter?",
     ),
+    "invalidDateRange": MessageLookupByLibrary.simpleMessage(
+      "End date must be on or after the start date",
+    ),
     "invalidJobId": MessageLookupByLibrary.simpleMessage("Invalid job ID."),
     "invalidVerificationCode": MessageLookupByLibrary.simpleMessage(
       "Invalid verification code",
@@ -557,6 +571,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noCoverNoteAdded": MessageLookupByLibrary.simpleMessage(
       "No cover note added",
+    ),
+    "noEducationYet": MessageLookupByLibrary.simpleMessage(
+      "No education added yet",
+    ),
+    "noEducationYetDesc": MessageLookupByLibrary.simpleMessage(
+      "Add your first education record using the form below.",
     ),
     "noFileSelected": MessageLookupByLibrary.simpleMessage("No file selected"),
     "noHistoryYet": MessageLookupByLibrary.simpleMessage("No history yet"),

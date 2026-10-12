@@ -1,4 +1,4 @@
-import 'package:MatchIn/features/profile/presentation/widgets/edit_education_widgets/education_record_data.dart';
+import 'package:MatchIn/features/profile/domain/entities/education_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,7 +10,7 @@ class EducationManagementRecord extends StatelessWidget {
     super.key,
   });
 
-  final EducationRecordData education;
+  final EducationEntity education;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
 

@@ -5,13 +5,16 @@ import 'package:MatchIn/features/profile/data/models/candidate_profile_model.dar
 import 'package:MatchIn/features/profile/data/models/candidate_project_model.dart';
 import 'package:MatchIn/features/profile/data/models/candidate_skill_model.dart';
 import 'package:MatchIn/features/profile/data/models/career_preference_model.dart';
+import 'package:MatchIn/features/profile/data/models/education_model.dart';
 import 'package:MatchIn/features/profile/data/models/skill_search_result_model.dart';
 import 'package:MatchIn/features/profile/data/models/user_profile_model.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_project_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_skill_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/add_education_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_profile_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_project_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/update_education_params.dart';
 
 class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   const ProfileRemoteDataSourceImpl({required this.apiConsumer});
@@ -242,6 +245,103 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   @override
   Future<void> deleteCandidateProject(int projectId) async {
     await apiConsumer.delete(EndPoint.candidateProject(projectId));
+  }
+
+  // Candidate Educations
+
+  @override
+  Future<List<EducationModel>> getEducations() async {
+    final response = await apiConsumer.get(EndPoint.candidateEducations);
+
+    if (response is! Map<String, dynamic>) {
+      throw const FormatException(
+        'Invalid response format for candidate educations',
+      );
+    }
+
+    final data = response['data'];
+
+    if (data is! List) {
+      throw const FormatException('Invalid candidate educations data format');
+    }
+
+    return data
+        .map(
+          (education) =>
+              EducationModel.fromJson(education as Map<String, dynamic>),
+        )
+        .toList();
+  }
+
+  @override
+  Future<EducationModel?> addEducation(AddEducationParams params) async {
+    final response = await apiConsumer.post(
+      EndPoint.candidateEducations,
+      data: {
+        'institution': params.institution,
+        if (params.degree != null) 'degree': params.degree,
+        if (params.fieldOfStudy != null) 'field_of_study': params.fieldOfStudy,
+        if (params.educationLevel != null)
+          'education_level': params.educationLevel,
+        if (params.grade != null) 'grade': params.grade,
+        if (params.description != null) 'description': params.description,
+        'is_current': params.isCurrent,
+        if (params.startDate != null) 'start_date': params.startDate,
+        if (params.endDate != null) 'end_date': params.endDate,
+      },
+    );
+
+    return _parseEducationResponse(response);
+  }
+
+  @override
+  Future<EducationModel?> updateEducation(UpdateEducationParams params) async {
+    final response = await apiConsumer.patch(
+      EndPoint.candidateEducation(params.educationId),
+      data: {
+        if (UpdateEducationParams.isSet(params.institution))
+          'institution': params.institution as String?,
+        if (UpdateEducationParams.isSet(params.degree))
+          'degree': params.degree as String?,
+        if (UpdateEducationParams.isSet(params.fieldOfStudy))
+          'field_of_study': params.fieldOfStudy as String?,
+        if (UpdateEducationParams.isSet(params.educationLevel))
+          'education_level': params.educationLevel as String?,
+        if (UpdateEducationParams.isSet(params.grade))
+          'grade': params.grade as String?,
+        if (UpdateEducationParams.isSet(params.description))
+          'description': params.description as String?,
+        if (UpdateEducationParams.isSet(params.isCurrent))
+          'is_current': params.isCurrent as bool?,
+        if (UpdateEducationParams.isSet(params.startDate))
+          'start_date': params.startDate as String?,
+        if (UpdateEducationParams.isSet(params.endDate))
+          'end_date': params.endDate as String?,
+      },
+    );
+
+    return _parseEducationResponse(response);
+  }
+
+  @override
+  Future<void> deleteEducation(int educationId) async {
+    await apiConsumer.delete(EndPoint.candidateEducation(educationId));
+  }
+
+  EducationModel? _parseEducationResponse(dynamic response) {
+    if (response is! Map<String, dynamic>) {
+      throw const FormatException(
+        'Invalid candidate education response format',
+      );
+    }
+
+    final data = response['data'];
+
+    if (data is! Map<String, dynamic>) {
+      throw const FormatException('Invalid candidate education data format');
+    }
+
+    return EducationModel.tryParseMutation(data);
   }
 
   // career preferences

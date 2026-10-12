@@ -3872,6 +3872,86 @@ class S {
     );
   }
 
+  /// `Edit education`
+  String get editEducation {
+    return Intl.message(
+      'Edit education',
+      name: 'editEducation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No education added yet`
+  String get noEducationYet {
+    return Intl.message(
+      'No education added yet',
+      name: 'noEducationYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add your first education record using the form below.`
+  String get noEducationYetDesc {
+    return Intl.message(
+      'Add your first education record using the form below.',
+      name: 'noEducationYetDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete education`
+  String get deleteEducation {
+    return Intl.message(
+      'Delete education',
+      name: 'deleteEducation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this education? This action cannot be undone.`
+  String get deleteEducationConfirm {
+    return Intl.message(
+      'Are you sure you want to delete this education? This action cannot be undone.',
+      name: 'deleteEducationConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Education saved successfully`
+  String get educationSavedSuccessfully {
+    return Intl.message(
+      'Education saved successfully',
+      name: 'educationSavedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Education deleted successfully`
+  String get educationDeletedSuccessfully {
+    return Intl.message(
+      'Education deleted successfully',
+      name: 'educationDeletedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End date must be on or after the start date`
+  String get invalidDateRange {
+    return Intl.message(
+      'End date must be on or after the start date',
+      name: 'invalidDateRange',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Add experience`
   String get addExperience {
     return Intl.message(
