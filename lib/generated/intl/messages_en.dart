@@ -295,15 +295,33 @@ class MessageLookup extends MessageLookupByLibrary {
     "cvAnalysisDescription": MessageLookupByLibrary.simpleMessage(
       "We extracted 12 skills and updated your career profile.",
     ),
+    "cvEmptyFile": MessageLookupByLibrary.simpleMessage(
+      "The selected file is empty.",
+    ),
+    "cvFileTooLarge": MessageLookupByLibrary.simpleMessage(
+      "The file is too large. Maximum size is 5 MB.",
+    ),
+    "cvRefreshFailed": MessageLookupByLibrary.simpleMessage(
+      "CV uploaded, but the profile could not be refreshed.",
+    ),
     "cvResume": MessageLookupByLibrary.simpleMessage("CV / Résumé"),
     "cvSkillsDescription": MessageLookupByLibrary.simpleMessage(
       "Extracted automatically from your uploaded resume.",
+    ),
+    "cvUnsupportedFileType": MessageLookupByLibrary.simpleMessage(
+      "Unsupported file type. Please choose a PDF or DOCX file.",
     ),
     "cvUploadNotice": MessageLookupByLibrary.simpleMessage(
       "Next, you can upload your CV (optional).",
     ),
     "cvUploadRequirements": MessageLookupByLibrary.simpleMessage(
       "PDF or DOCX • Max 5 MB",
+    ),
+    "cvUploadSuccessful": MessageLookupByLibrary.simpleMessage(
+      "CV uploaded successfully",
+    ),
+    "cvViewFailed": MessageLookupByLibrary.simpleMessage(
+      "Could not open the CV document.",
     ),
     "dark": MessageLookupByLibrary.simpleMessage("Dark"),
     "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of birth"),
@@ -314,13 +332,38 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "delete": MessageLookupByLibrary.simpleMessage("Delete"),
     "deleteChat": MessageLookupByLibrary.simpleMessage("Delete Chat"),
+    "deleteEducation": MessageLookupByLibrary.simpleMessage("Delete education"),
+    "deleteEducationConfirm": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to delete this education? This action cannot be undone.",
+    ),
+    "deleteExperience": MessageLookupByLibrary.simpleMessage(
+      "Delete experience",
+    ),
+    "deleteExperienceConfirm": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to delete this experience? This action cannot be undone.",
+    ),
+    "deleteProject": MessageLookupByLibrary.simpleMessage("Delete project"),
+    "deleteProjectConfirm": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to delete this project? This action cannot be undone.",
+    ),
     "description": MessageLookupByLibrary.simpleMessage("Description"),
     "draft": MessageLookupByLibrary.simpleMessage("Draft"),
     "edit": MessageLookupByLibrary.simpleMessage("Edit"),
+    "editEducation": MessageLookupByLibrary.simpleMessage("Edit education"),
+    "editExperience": MessageLookupByLibrary.simpleMessage("Edit experience"),
     "editNote": MessageLookupByLibrary.simpleMessage("Edit Note"),
     "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
+    "editProjectDetails": MessageLookupByLibrary.simpleMessage(
+      "Edit Project Details",
+    ),
     "editorialScore": MessageLookupByLibrary.simpleMessage("EDITORIAL SCORE"),
     "education": MessageLookupByLibrary.simpleMessage("Education"),
+    "educationDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Education deleted successfully",
+    ),
+    "educationSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Education saved successfully",
+    ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailAddress": MessageLookupByLibrary.simpleMessage("Email Address"),
     "emailHint": MessageLookupByLibrary.simpleMessage(
@@ -345,9 +388,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "experienceCompletenessHint": MessageLookupByLibrary.simpleMessage(
       "Add more details about your responsibilities and impact. Specific achievements increase recruiter discovery.",
     ),
+    "experienceDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Experience deleted successfully",
+    ),
     "experienceLevel": MessageLookupByLibrary.simpleMessage("Experience Level"),
     "experienceManagementDescription": MessageLookupByLibrary.simpleMessage(
       "Add details about your responsibilities and impact.",
+    ),
+    "experienceSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Experience saved successfully",
     ),
     "experienceWithBloc": MessageLookupByLibrary.simpleMessage(
       "Experience with Bloc",
@@ -444,6 +493,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "interviewPrep": MessageLookupByLibrary.simpleMessage("Interview Prep"),
     "interviewPrepPrompt": MessageLookupByLibrary.simpleMessage(
       "What are the top technical interview questions for Dart and Flutter?",
+    ),
+    "invalidDateRange": MessageLookupByLibrary.simpleMessage(
+      "End date must be on or after the start date",
     ),
     "invalidJobId": MessageLookupByLibrary.simpleMessage("Invalid job ID."),
     "invalidVerificationCode": MessageLookupByLibrary.simpleMessage(
@@ -558,6 +610,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "noCoverNoteAdded": MessageLookupByLibrary.simpleMessage(
       "No cover note added",
     ),
+    "noEducationYet": MessageLookupByLibrary.simpleMessage(
+      "No education added yet",
+    ),
+    "noEducationYetDesc": MessageLookupByLibrary.simpleMessage(
+      "Add your first education record using the form below.",
+    ),
+    "noExperienceYet": MessageLookupByLibrary.simpleMessage(
+      "No experience added yet",
+    ),
+    "noExperienceYetDesc": MessageLookupByLibrary.simpleMessage(
+      "Add your first work experience using the form below.",
+    ),
     "noFileSelected": MessageLookupByLibrary.simpleMessage("No file selected"),
     "noHistoryYet": MessageLookupByLibrary.simpleMessage("No history yet"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
@@ -572,6 +636,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noNotificationsDesc": MessageLookupByLibrary.simpleMessage(
       "We\'ll let you know when important updates arrive.",
+    ),
+    "noProjectsYet": MessageLookupByLibrary.simpleMessage(
+      "No projects added yet",
+    ),
+    "noProjectsYetDesc": MessageLookupByLibrary.simpleMessage(
+      "Add your first project using the button above.",
     ),
     "noSavedJobsYet": MessageLookupByLibrary.simpleMessage("No saved jobs yet"),
     "noUnreadNotifications": MessageLookupByLibrary.simpleMessage(
@@ -685,6 +755,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Profile Match Quality",
     ),
     "profileSynced": MessageLookupByLibrary.simpleMessage("Profile synced"),
+    "projectDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Project deleted successfully",
+    ),
     "projectDescriptionHelper": MessageLookupByLibrary.simpleMessage(
       "Describe goals and tech stack",
     ),
@@ -694,6 +767,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "projectName": MessageLookupByLibrary.simpleMessage("Project Name"),
     "projectNameHint": MessageLookupByLibrary.simpleMessage(
       "e.g. HealthTracker Companion",
+    ),
+    "projectSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Project saved successfully",
     ),
     "projectUrl": MessageLookupByLibrary.simpleMessage("Project URL"),
     "projects": MessageLookupByLibrary.simpleMessage("Projects"),

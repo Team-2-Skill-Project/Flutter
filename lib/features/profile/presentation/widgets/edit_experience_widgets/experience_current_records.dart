@@ -1,5 +1,5 @@
+import 'package:MatchIn/features/profile/domain/entities/experience_entity.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_experience_widgets/experience_management_record.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/edit_experience_widgets/experience_record_data.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,9 +12,9 @@ class ExperienceCurrentRecords extends StatelessWidget {
     super.key,
   });
 
-  final List<ExperienceRecordData> experiences;
-  final ValueChanged<ExperienceRecordData> onEdit;
-  final ValueChanged<ExperienceRecordData> onDelete;
+  final List<ExperienceEntity> experiences;
+  final ValueChanged<ExperienceEntity> onEdit;
+  final ValueChanged<ExperienceEntity> onDelete;
 
   @override
   Widget build(BuildContext context) {

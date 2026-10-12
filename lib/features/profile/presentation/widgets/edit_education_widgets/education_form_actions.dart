@@ -6,11 +6,13 @@ class EducationFormActions extends StatelessWidget {
   const EducationFormActions({
     required this.onCancel,
     required this.onSave,
+    this.isSaving = false,
     super.key,
   });
 
   final VoidCallback onCancel;
   final VoidCallback onSave;
+  final bool isSaving;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class EducationFormActions extends StatelessWidget {
           child: SizedBox(
             height: 54.h,
             child: OutlinedButton(
-              onPressed: onCancel,
+              onPressed: isSaving ? null : onCancel,
               child: Text(locale.cancel),
             ),
           ),
@@ -32,8 +34,14 @@ class EducationFormActions extends StatelessWidget {
           child: SizedBox(
             height: 54.h,
             child: FilledButton(
-              onPressed: onSave,
-              child: Text(locale.saveEducation),
+              onPressed: isSaving ? null : onSave,
+              child: isSaving
+                  ? SizedBox(
+                      width: 24.r,
+                      height: 24.r,
+                      child: const CircularProgressIndicator(strokeWidth: 2.5),
+                    )
+                  : Text(locale.saveEducation),
             ),
           ),
         ),

@@ -2,30 +2,50 @@ import 'package:equatable/equatable.dart';
 
 class UpdateCandidateProfileParams extends Equatable {
   const UpdateCandidateProfileParams({
-    this.dateOfBirth,
-    this.gender,
-    this.jobTitle,
-    this.country,
-    this.state,
-    this.city,
-    this.githubUrl,
-    this.linkedinUrl,
-    this.militaryStatus,
-    this.professionalSummary,
+    this.dateOfBirth = _unset,
+    this.gender = _unset,
+    this.jobTitle = _unset,
+    this.country = _unset,
+    this.state = _unset,
+    this.city = _unset,
+    this.githubUrl = _unset,
+    this.linkedinUrl = _unset,
+    this.militaryStatus = _unset,
+    this.professionalSummary = _unset,
   });
 
-  final String? dateOfBirth;
-  final String? gender;
-  final String? jobTitle;
-  final String? country;
-  final String? state;
-  final String? city;
-  final String? githubUrl;
-  final String? linkedinUrl;
-  final String? militaryStatus;
-  final String? professionalSummary;
+  /// Sentinel marking a field as omitted from PATCH.
+  /// `_unset` means "unchanged, do not send".
+  /// An explicit `null` means "clear this field".
+  /// A [String] value means "update to this value".
+  final Object? dateOfBirth;
+  final Object? gender;
+  final Object? jobTitle;
+  final Object? country;
+  final Object? state;
+  final Object? city;
+  final Object? githubUrl;
+  final Object? linkedinUrl;
+  final Object? militaryStatus;
+  final Object? professionalSummary;
 
   static const Object _unset = Object();
+
+  static const Object unset = _unset;
+
+  static bool isSet(Object? value) => !identical(value, _unset);
+
+  bool get hasChanges =>
+      isSet(dateOfBirth) ||
+      isSet(gender) ||
+      isSet(jobTitle) ||
+      isSet(country) ||
+      isSet(state) ||
+      isSet(city) ||
+      isSet(githubUrl) ||
+      isSet(linkedinUrl) ||
+      isSet(militaryStatus) ||
+      isSet(professionalSummary);
 
   UpdateCandidateProfileParams copyWith({
     Object? dateOfBirth = _unset,
@@ -42,26 +62,22 @@ class UpdateCandidateProfileParams extends Equatable {
     return UpdateCandidateProfileParams(
       dateOfBirth: identical(dateOfBirth, _unset)
           ? this.dateOfBirth
-          : dateOfBirth as String?,
-      gender: identical(gender, _unset) ? this.gender : gender as String?,
-      jobTitle: identical(jobTitle, _unset)
-          ? this.jobTitle
-          : jobTitle as String?,
-      country: identical(country, _unset) ? this.country : country as String?,
-      state: identical(state, _unset) ? this.state : state as String?,
-      city: identical(city, _unset) ? this.city : city as String?,
-      githubUrl: identical(githubUrl, _unset)
-          ? this.githubUrl
-          : githubUrl as String?,
+          : dateOfBirth,
+      gender: identical(gender, _unset) ? this.gender : gender,
+      jobTitle: identical(jobTitle, _unset) ? this.jobTitle : jobTitle,
+      country: identical(country, _unset) ? this.country : country,
+      state: identical(state, _unset) ? this.state : state,
+      city: identical(city, _unset) ? this.city : city,
+      githubUrl: identical(githubUrl, _unset) ? this.githubUrl : githubUrl,
       linkedinUrl: identical(linkedinUrl, _unset)
           ? this.linkedinUrl
-          : linkedinUrl as String?,
+          : linkedinUrl,
       militaryStatus: identical(militaryStatus, _unset)
           ? this.militaryStatus
-          : militaryStatus as String?,
+          : militaryStatus,
       professionalSummary: identical(professionalSummary, _unset)
           ? this.professionalSummary
-          : professionalSummary as String?,
+          : professionalSummary,
     );
   }
 

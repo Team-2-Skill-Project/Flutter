@@ -15,18 +15,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CareerPreferencesForm extends StatefulWidget {
   const CareerPreferencesForm({
     required this.preferences,
+    this.isSaving = false,
     super.key,
   });
 
   final CareerPreferenceEntity? preferences;
+  final bool isSaving;
 
   @override
-  State<CareerPreferencesForm> createState() =>
-      _CareerPreferencesFormState();
+  State<CareerPreferencesForm> createState() => _CareerPreferencesFormState();
 }
 
-class _CareerPreferencesFormState
-    extends State<CareerPreferencesForm> {
+class _CareerPreferencesFormState extends State<CareerPreferencesForm> {
   late final TextEditingController _targetRoleController;
   late final TextEditingController _careerGoalController;
 
@@ -54,25 +54,19 @@ class _CareerPreferencesFormState
       text: preferences?.careerGoal ?? '',
     );
 
-    _experienceLevel = ValueNotifier(
-      preferences?.experienceLevel,
-    );
+    _experienceLevel = ValueNotifier(preferences?.experienceLevel);
 
     _jobType = ValueNotifier(preferences?.jobType);
 
     _workMode = ValueNotifier(preferences?.workMode);
 
-    _country = ValueNotifier(
-      preferences?.preferredCountry ?? '',
-    );
+    _country = ValueNotifier(preferences?.preferredCountry ?? '');
 
     _state = ValueNotifier('');
 
     _city = ValueNotifier(preferences?.preferredCity ?? '');
 
-    _openToRelocation = ValueNotifier(
-      preferences?.openToRelocation ?? false,
-    );
+    _openToRelocation = ValueNotifier(preferences?.openToRelocation ?? false);
   }
 
   @override
@@ -94,24 +88,52 @@ class _CareerPreferencesFormState
   }
 
   void _save() {
-    context
-        .read<CareerPreferencesCubit>()
-        .saveCareerPreferences(
-          SaveCareerPreferencesParams(
-            targetRole: _nullableText(
-              _targetRoleController.text,
-            ),
-            jobType: _jobType.value,
-            workMode: _workMode.value,
-            preferredCountry: _nullableText(_country.value),
-            preferredCity: _nullableText(_city.value),
-            experienceLevel: _experienceLevel.value,
-            careerGoal: _nullableText(
-              _careerGoalController.text,
-            ),
-            openToRelocation: _openToRelocation.value,
-          ),
-        );
+    if (widget.isSaving) return;
+    final baseline = widget.preferences;
+
+    var params = const SaveCareerPreferencesParams();
+
+    final targetRole = _nullableText(_targetRoleController.text);
+    if (targetRole != baseline?.targetRole) {
+      params = params.copyWith(targetRole: targetRole);
+    }
+
+    if (_jobType.value != baseline?.jobType) {
+      params = params.copyWith(jobType: _jobType.value);
+    }
+
+    if (_workMode.value != baseline?.workMode) {
+      params = params.copyWith(workMode: _workMode.value);
+    }
+
+    final country = _nullableText(_country.value);
+    if (country != baseline?.preferredCountry) {
+      params = params.copyWith(preferredCountry: country);
+    }
+
+    final city = _nullableText(_city.value);
+    if (city != baseline?.preferredCity) {
+      params = params.copyWith(preferredCity: city);
+    }
+
+    if (_experienceLevel.value != baseline?.experienceLevel) {
+      params = params.copyWith(experienceLevel: _experienceLevel.value);
+    }
+
+    final careerGoal = _nullableText(_careerGoalController.text);
+    if (careerGoal != baseline?.careerGoal) {
+      params = params.copyWith(careerGoal: careerGoal);
+    }
+
+    if (_openToRelocation.value != (baseline?.openToRelocation ?? false)) {
+      params = params.copyWith(openToRelocation: _openToRelocation.value);
+    }
+
+    // No PATCH when nothing changed: avoids an empty request body
+    // and keeps the form exactly as the user left it.
+    if (!params.hasChanges) return;
+
+    context.read<CareerPreferencesCubit>().saveCareerPreferences(params);
   }
 
   String? _nullableText(String value) {
@@ -196,17 +218,13 @@ class _CareerPreferencesFormState
               city: _city.value,
               openToRelocation: _openToRelocation.value,
 
-              onCountryPressed: () {
-                // TODO: location picker.
-              },
-
-              onStatePressed: () {
-                // UI-only until backend supports state.
-              },
-
-              onCityPressed: () {
-                // TODO: location picker.
-              },
+              // TODO(career-preferences): Before production, connect
+              // these fields to the confirmed backend contract and data
+              // source, then enable interaction. Location pickers stay
+              // disabled so no unpersisted values can be entered.
+              onCountryPressed: null,
+              onStatePressed: null,
+              onCityPressed: null,
 
               onOpenToRelocationChanged: (value) {
                 if (value == null) return;
@@ -219,17 +237,16 @@ class _CareerPreferencesFormState
 
         SizedBox(height: 16.h),
 
-        CareerGoalSection(
-          controller: _careerGoalController,
-        ),
+        CareerGoalSection(controller: _careerGoalController),
 
         SizedBox(height: 28.h),
 
         CareerPreferencesActions(
+          isSaving: widget.isSaving,
           onSavePressed: _save,
-          onCancelPressed: () {
-            Navigator.maybePop(context);
-          },
+          onCancelPressed: () =>
+              Navigator.of(context)
+                  .pop(context.read<CareerPreferencesCubit>().hasChanges),
         ),
       ],
     );

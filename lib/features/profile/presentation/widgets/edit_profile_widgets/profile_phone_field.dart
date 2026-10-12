@@ -8,6 +8,7 @@ class ProfilePhoneField extends StatelessWidget {
     required this.countryCode,
     required this.countryCodes,
     required this.onCountryCodeChanged,
+    this.enabled = true,
     super.key,
   });
 
@@ -15,6 +16,7 @@ class ProfilePhoneField extends StatelessWidget {
   final String? countryCode;
   final Map<String, String> countryCodes;
   final ValueChanged<String?> onCountryCodeChanged;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +89,9 @@ class ProfilePhoneField extends StatelessWidget {
                 }).toList(),
 
                 // Disabled until a verified country-code source is available.
-                onChanged: countryCodes.isEmpty ? null : onCountryCodeChanged,
+                onChanged: !enabled || countryCodes.isEmpty
+                    ? null
+                    : onCountryCodeChanged,
               ),
             ),
 
@@ -96,6 +100,7 @@ class ProfilePhoneField extends StatelessWidget {
             Expanded(
               child: TextFormField(
                 controller: controller,
+                enabled: enabled,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(

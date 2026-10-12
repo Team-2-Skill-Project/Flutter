@@ -36,9 +36,12 @@ class PersonalInformationCard extends StatelessWidget {
       title: locale.personalInformation,
       child: Column(
         children: [
+          // User resource field: no supported update endpoint yet.
+          // Visible but read-only until the contract is confirmed.
           EditProfileField(
             label: locale.fullName,
             controller: fullNameController,
+            readOnly: true,
           ),
           SizedBox(height: 16.h),
           EditProfileField(
@@ -50,11 +53,14 @@ class PersonalInformationCard extends StatelessWidget {
           SizedBox(height: 16.h),
           GenderSelector(value: gender, onChanged: onGenderChanged),
           SizedBox(height: 16.h),
+          // User resource field: no supported update endpoint yet.
+          // Visible but disabled until the contract is confirmed.
           ProfilePhoneField(
             controller: phoneController,
             countryCode: countryCode,
             countryCodes: countryCodes,
             onCountryCodeChanged: onCountryCodeChanged,
+            enabled: false,
           ),
         ],
       ),

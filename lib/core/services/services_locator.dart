@@ -80,12 +80,18 @@ import 'package:MatchIn/features/jobsAndApplications/presentation/cubit/cv_cubit
 import 'package:MatchIn/features/jobsAndApplications/presentation/cubit/jobs_feed_cubit.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/add_candidate_project_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/add_candidate_skill_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/add_education_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/add_experience_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/delete_candidate_project_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/delete_education_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/delete_experience_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_cached_candidate_profile_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_profile_for_edit_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_profile_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_projects_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_skills_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/get_educations_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/get_experiences_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_career_preferences_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_project_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/remove_candidate_skill_use_case.dart';
@@ -93,10 +99,16 @@ import 'package:MatchIn/features/profile/domain/use_cases/save_career_preference
 import 'package:MatchIn/features/profile/domain/use_cases/search_skills_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/update_candidate_profile_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/update_candidate_project_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/update_education_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/update_experience_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/upload_cv_use_case.dart';
 
 import 'package:MatchIn/features/profile/presentation/cubits/career_cubit/career_preferences_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/cv_cubit/cv_upload_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/edit_profile_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/education_cubit/edit_education_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/experience_cubit/edit_experience_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/projects_cubit/projects_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/skills_cubit/skills_cubit.dart';
 
@@ -152,9 +164,7 @@ Future<void> setupServiceLocator() async {
   // Main Navigation
   // =========================================================
 
-  getIt.registerLazySingleton<MainNavigationCubit>(
-    () => MainNavigationCubit(),
-  );
+  getIt.registerLazySingleton<MainNavigationCubit>(() => MainNavigationCubit());
 
   // =========================================================
   // Auth Feature
@@ -165,10 +175,7 @@ Future<void> setupServiceLocator() async {
   );
 
   getIt.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(
-      remoteDataSource: getIt(),
-      networkInfo: getIt(),
-    ),
+    () => AuthRepositoryImpl(remoteDataSource: getIt(), networkInfo: getIt()),
   );
 
   getIt.registerLazySingleton<RegisterUseCase>(
@@ -195,18 +202,12 @@ Future<void> setupServiceLocator() async {
     () => ForgotPasswordUseCase(repository: getIt()),
   );
 
-  getIt
-      .registerLazySingleton<VerifyPasswordResetOtpUseCase>(
-        () => VerifyPasswordResetOtpUseCase(
-          repository: getIt(),
-        ),
-      );
+  getIt.registerLazySingleton<VerifyPasswordResetOtpUseCase>(
+    () => VerifyPasswordResetOtpUseCase(repository: getIt()),
+  );
 
   getIt.registerFactory<AuthCubit>(
-    () => AuthCubit(
-      loginUseCase: getIt(),
-      registerUseCase: getIt(),
-    ),
+    () => AuthCubit(loginUseCase: getIt(), registerUseCase: getIt()),
   );
 
   getIt.registerFactory<OtpCubit>(
@@ -227,9 +228,7 @@ Future<void> setupServiceLocator() async {
   // Roadmap Feature
   // =========================================================
 
-  getIt.registerLazySingleton<RewardedAdManager>(
-    () => RewardedAdManager(),
-  );
+  getIt.registerLazySingleton<RewardedAdManager>(() => RewardedAdManager());
 
   getIt.registerFactory<RoadmapCubit>(
     () => RoadmapCubit(sharedPreferencesService: getIt()),
@@ -252,9 +251,7 @@ Future<void> setupServiceLocator() async {
   );
 
   getIt.registerLazySingleton<ChatbotLocalDataSource>(
-    () => ChatbotLocalDataSourceImpl(
-      sharedPreferencesHelper: getIt(),
-    ),
+    () => ChatbotLocalDataSourceImpl(sharedPreferencesHelper: getIt()),
   );
 
   getIt.registerLazySingleton<ChatbotRepository>(
@@ -298,20 +295,14 @@ Future<void> setupServiceLocator() async {
   // Notifications Feature
   // =========================================================
 
-  getIt.registerLazySingleton<NotificationService>(
-    () => NotificationService(),
-  );
+  getIt.registerLazySingleton<NotificationService>(() => NotificationService());
 
   getIt.registerLazySingleton<NotificationRemoteDataSource>(
-    () => NotificationRemoteDataSourceImpl(
-      apiConsumer: getIt(),
-    ),
+    () => NotificationRemoteDataSourceImpl(apiConsumer: getIt()),
   );
 
   getIt.registerLazySingleton<NotificationLocalDataSource>(
-    () => NotificationLocalDataSourceImpl(
-      sharedPreferencesHelper: getIt(),
-    ),
+    () => NotificationLocalDataSourceImpl(sharedPreferencesHelper: getIt()),
   );
 
   getIt.registerLazySingleton<NotificationRepository>(
@@ -327,27 +318,16 @@ Future<void> setupServiceLocator() async {
     () => GetNotificationsUseCase(repository: getIt()),
   );
 
-  getIt.registerLazySingleton<
-    GetUnreadNotificationsCountUseCase
-  >(
-    () => GetUnreadNotificationsCountUseCase(
-      repository: getIt(),
-    ),
+  getIt.registerLazySingleton<GetUnreadNotificationsCountUseCase>(
+    () => GetUnreadNotificationsCountUseCase(repository: getIt()),
   );
 
-  getIt
-      .registerLazySingleton<MarkNotificationAsReadUseCase>(
-        () => MarkNotificationAsReadUseCase(
-          repository: getIt(),
-        ),
-      );
+  getIt.registerLazySingleton<MarkNotificationAsReadUseCase>(
+    () => MarkNotificationAsReadUseCase(repository: getIt()),
+  );
 
-  getIt.registerLazySingleton<
-    MarkAllNotificationsAsReadUseCase
-  >(
-    () => MarkAllNotificationsAsReadUseCase(
-      repository: getIt(),
-    ),
+  getIt.registerLazySingleton<MarkAllNotificationsAsReadUseCase>(
+    () => MarkAllNotificationsAsReadUseCase(repository: getIt()),
   );
 
   getIt.registerFactory<NotificationsCubit>(
@@ -365,9 +345,7 @@ Future<void> setupServiceLocator() async {
   // =========================================================
 
   getIt.registerLazySingleton<JobsLocalDataSource>(
-    () => JobsLocalDataSourceImpl(
-      sharedPreferencesHelper: getIt(),
-    ),
+    () => JobsLocalDataSourceImpl(sharedPreferencesHelper: getIt()),
   );
 
   getIt.registerLazySingleton<JobsRemoteDataSource>(
@@ -448,9 +426,7 @@ Future<void> setupServiceLocator() async {
   // =========================================================
 
   getIt.registerLazySingleton<ProfileLocalDataSource>(
-    () => ProfileLocalDataSourceImpl(
-      sharedPreferencesHelper: getIt(),
-    ),
+    () => ProfileLocalDataSourceImpl(sharedPreferencesHelper: getIt()),
   );
 
   getIt.registerLazySingleton<ProfileRepository>(
@@ -469,12 +445,9 @@ Future<void> setupServiceLocator() async {
   // External
   // =========================================================
 
-  final sharedPreferences =
-      await SharedPreferences.getInstance();
+  final sharedPreferences = await SharedPreferences.getInstance();
 
-  getIt.registerLazySingleton<SharedPreferences>(
-    () => sharedPreferences,
-  );
+  getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 
   // =========================================================
   // Core Storage Helpers
@@ -484,9 +457,7 @@ Future<void> setupServiceLocator() async {
     () => SharedPreferencesHelper(preferences: getIt()),
   );
 
-  getIt.registerLazySingleton<SecureStorageHelper>(
-    () => SecureStorageHelper(),
-  );
+  getIt.registerLazySingleton<SecureStorageHelper>(() => SecureStorageHelper());
 
   // =========================================================
   // Core Services
@@ -500,17 +471,13 @@ Future<void> setupServiceLocator() async {
     () => SecureStorageService(getIt()),
   );
 
-  getIt.registerLazySingleton<FilePickerService>(
-    () => FilePickerService(),
-  );
+  getIt.registerLazySingleton<FilePickerService>(() => FilePickerService());
 
   // =========================================================
   // Networking
   // =========================================================
 
-  getIt.registerLazySingleton<NetworkInfo>(
-    () => NetworkInfoImpl(),
-  );
+  getIt.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
 
   getIt.registerLazySingleton<Dio>(() => Dio());
 
@@ -527,30 +494,23 @@ Future<void> setupServiceLocator() async {
   // =========================================================
 
   getIt.registerLazySingleton<ApplicationsLocalDataSource>(
-    () => ApplicationsLocalDataSourceImpl(
-      sharedPreferencesHelper: getIt(),
-    ),
+    () => ApplicationsLocalDataSourceImpl(sharedPreferencesHelper: getIt()),
   );
 
   getIt.registerLazySingleton<ApplicationsRemoteDataSource>(
-    () => ApplicationsRemoteDataSourceImpl(
-      apiConsumer: getIt<ApiConsumer>(),
-    ),
+    () => ApplicationsRemoteDataSourceImpl(apiConsumer: getIt<ApiConsumer>()),
   );
 
   getIt.registerLazySingleton<ApplicationsRepository>(
     () => ApplicationsRepositoryImpl(
-      remoteDataSource:
-          getIt<ApplicationsRemoteDataSource>(),
+      remoteDataSource: getIt<ApplicationsRemoteDataSource>(),
       localDataSource: getIt<ApplicationsLocalDataSource>(),
       networkInfo: getIt<NetworkInfo>(),
     ),
   );
 
   getIt.registerLazySingleton<GetApplicationsUseCase>(
-    () => GetApplicationsUseCase(
-      repository: getIt<ApplicationsRepository>(),
-    ),
+    () => GetApplicationsUseCase(repository: getIt<ApplicationsRepository>()),
   );
 
   getIt.registerLazySingleton<GetCachedApplicationsUseCase>(
@@ -566,62 +526,47 @@ Future<void> setupServiceLocator() async {
   );
 
   getIt.registerLazySingleton<ApplyToJobUseCase>(
-    () => ApplyToJobUseCase(
-      repository: getIt<ApplicationsRepository>(),
-    ),
+    () => ApplyToJobUseCase(repository: getIt<ApplicationsRepository>()),
   );
 
-  getIt.registerLazySingleton<
-    UpdateApplicationStatusUseCase
-  >(
+  getIt.registerLazySingleton<UpdateApplicationStatusUseCase>(
     () => UpdateApplicationStatusUseCase(
       repository: getIt<ApplicationsRepository>(),
     ),
   );
 
   getIt.registerLazySingleton<WithdrawApplicationUseCase>(
-    () => WithdrawApplicationUseCase(
+    () =>
+        WithdrawApplicationUseCase(repository: getIt<ApplicationsRepository>()),
+  );
+
+  getIt.registerLazySingleton<UpdateApplicationNotesUseCase>(
+    () => UpdateApplicationNotesUseCase(
       repository: getIt<ApplicationsRepository>(),
     ),
   );
 
-  getIt
-      .registerLazySingleton<UpdateApplicationNotesUseCase>(
-        () => UpdateApplicationNotesUseCase(
-          repository: getIt<ApplicationsRepository>(),
-        ),
-      );
-
   getIt.registerFactory<CvCubit>(
-    () => CvCubit(
-      filePickerService: getIt<FilePickerService>(),
-    ),
+    () => CvCubit(filePickerService: getIt<FilePickerService>()),
   );
 
   getIt.registerFactory<ApplicationsCubit>(
     () => ApplicationsCubit(
-      getApplicationsUseCase:
-          getIt<GetApplicationsUseCase>(),
-      getCachedApplicationsUseCase:
-          getIt<GetCachedApplicationsUseCase>(),
+      getApplicationsUseCase: getIt<GetApplicationsUseCase>(),
+      getCachedApplicationsUseCase: getIt<GetCachedApplicationsUseCase>(),
     ),
   );
 
   getIt.registerFactory<ApplicationDetailsCubit>(
     () => ApplicationDetailsCubit(
-      getApplicationDetailsUseCase:
-          getIt<GetApplicationDetailsUseCase>(),
-      withdrawApplicationUseCase:
-          getIt<WithdrawApplicationUseCase>(),
-      updateApplicationStatusUseCase:
-          getIt<UpdateApplicationStatusUseCase>(),
+      getApplicationDetailsUseCase: getIt<GetApplicationDetailsUseCase>(),
+      withdrawApplicationUseCase: getIt<WithdrawApplicationUseCase>(),
+      updateApplicationStatusUseCase: getIt<UpdateApplicationStatusUseCase>(),
     ),
   );
 
   getIt.registerFactory<ApplyToJobCubit>(
-    () => ApplyToJobCubit(
-      applyToJobUseCase: getIt<ApplyToJobUseCase>(),
-    ),
+    () => ApplyToJobCubit(applyToJobUseCase: getIt<ApplyToJobUseCase>()),
   );
 
   // =========================================================
@@ -629,15 +574,11 @@ Future<void> setupServiceLocator() async {
   // =========================================================
 
   getIt.registerLazySingleton<SavedJobsLocalDataSource>(
-    () => SavedJobsLocalDataSourceImpl(
-      sharedPreferencesHelper: getIt(),
-    ),
+    () => SavedJobsLocalDataSourceImpl(sharedPreferencesHelper: getIt()),
   );
 
   getIt.registerLazySingleton<SavedJobsRemoteDataSource>(
-    () => SavedJobsRemoteDataSourceImpl(
-      apiConsumer: getIt<ApiConsumer>(),
-    ),
+    () => SavedJobsRemoteDataSourceImpl(apiConsumer: getIt<ApiConsumer>()),
   );
 
   getIt.registerLazySingleton<SavedJobsRepository>(
@@ -649,21 +590,15 @@ Future<void> setupServiceLocator() async {
   );
 
   getIt.registerLazySingleton<GetSavedJobsUseCase>(
-    () => GetSavedJobsUseCase(
-      repository: getIt<SavedJobsRepository>(),
-    ),
+    () => GetSavedJobsUseCase(repository: getIt<SavedJobsRepository>()),
   );
 
   getIt.registerLazySingleton<SaveJobUseCase>(
-    () => SaveJobUseCase(
-      repository: getIt<SavedJobsRepository>(),
-    ),
+    () => SaveJobUseCase(repository: getIt<SavedJobsRepository>()),
   );
 
   getIt.registerLazySingleton<UnsaveJobUseCase>(
-    () => UnsaveJobUseCase(
-      repository: getIt<SavedJobsRepository>(),
-    ),
+    () => UnsaveJobUseCase(repository: getIt<SavedJobsRepository>()),
   );
 
   getIt.registerFactory<SavedJobsCubit>(
@@ -684,18 +619,13 @@ Future<void> setupServiceLocator() async {
     () => GetCandidateProfileUseCase(repository: getIt()),
   );
 
-  getIt.registerLazySingleton<
-    GetCachedCandidateProfileUseCase
-  >(
-    () => GetCachedCandidateProfileUseCase(
-      repository: getIt(),
-    ),
+  getIt.registerLazySingleton<GetCachedCandidateProfileUseCase>(
+    () => GetCachedCandidateProfileUseCase(repository: getIt()),
   );
 
-  getIt
-      .registerLazySingleton<UpdateCandidateProfileUseCase>(
-        () => UpdateCandidateProfileUseCase(getIt()),
-      );
+  getIt.registerLazySingleton<UpdateCandidateProfileUseCase>(
+    () => UpdateCandidateProfileUseCase(getIt()),
+  );
   getIt.registerFactory<ProfileCubit>(
     () => ProfileCubit(
       getCandidateProfileUseCase: getIt(),
@@ -710,9 +640,9 @@ Future<void> setupServiceLocator() async {
     ),
   );
 
-  getIt.registerLazySingleton<
-    GetCandidateProfileForEditUseCase
-  >(() => GetCandidateProfileForEditUseCase(getIt()));
+  getIt.registerLazySingleton<GetCandidateProfileForEditUseCase>(
+    () => GetCandidateProfileForEditUseCase(getIt()),
+  );
 
   // Skills use cases and cubit
   getIt.registerFactory<SkillsCubit>(
@@ -763,19 +693,74 @@ Future<void> setupServiceLocator() async {
     () => AddCandidateProjectUseCase(repository: getIt()),
   );
 
-  getIt
-      .registerLazySingleton<UpdateCandidateProjectUseCase>(
-        () => UpdateCandidateProjectUseCase(
-          repository: getIt(),
-        ),
-      );
+  getIt.registerLazySingleton<UpdateCandidateProjectUseCase>(
+    () => UpdateCandidateProjectUseCase(repository: getIt()),
+  );
 
-  getIt
-      .registerLazySingleton<DeleteCandidateProjectUseCase>(
-        () => DeleteCandidateProjectUseCase(
-          repository: getIt(),
-        ),
-      );
+  getIt.registerLazySingleton<DeleteCandidateProjectUseCase>(
+    () => DeleteCandidateProjectUseCase(repository: getIt()),
+  );
+
+  // Education use cases and cubit
+
+  getIt.registerFactory<EditEducationCubit>(
+    () => EditEducationCubit(
+      getEducationsUseCase: getIt(),
+      addEducationUseCase: getIt(),
+      updateEducationUseCase: getIt(),
+      deleteEducationUseCase: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<GetEducationsUseCase>(
+    () => GetEducationsUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<AddEducationUseCase>(
+    () => AddEducationUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<UpdateEducationUseCase>(
+    () => UpdateEducationUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<DeleteEducationUseCase>(
+    () => DeleteEducationUseCase(repository: getIt()),
+  );
+
+  // Experience use cases and cubit
+
+  getIt.registerFactory<EditExperienceCubit>(
+    () => EditExperienceCubit(
+      getExperiencesUseCase: getIt(),
+      addExperienceUseCase: getIt(),
+      updateExperienceUseCase: getIt(),
+      deleteExperienceUseCase: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<GetExperiencesUseCase>(
+    () => GetExperiencesUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<AddExperienceUseCase>(
+    () => AddExperienceUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<UpdateExperienceUseCase>(
+    () => UpdateExperienceUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<DeleteExperienceUseCase>(
+    () => DeleteExperienceUseCase(repository: getIt()),
+  );
+
+  // CV upload use case and cubit
+
+  getIt.registerFactory<CvUploadCubit>(
+    () => CvUploadCubit(uploadCvUseCase: getIt()),
+  );
+  getIt.registerLazySingleton<UploadCvUseCase>(
+    () => UploadCvUseCase(repository: getIt()),
+  );
 
   // career preferences
   getIt.registerFactory<CareerPreferencesCubit>(
@@ -805,8 +790,7 @@ Future<void> setupServiceLocator() async {
   );
 
   getIt.registerLazySingleton<SettingsRemoteDataSource>(
-    () =>
-        SettingsRemoteDataSourceImpl(apiConsumer: getIt()),
+    () => SettingsRemoteDataSourceImpl(apiConsumer: getIt()),
   );
 
   getIt.registerLazySingleton<SettingsRepository>(
@@ -816,20 +800,12 @@ Future<void> setupServiceLocator() async {
     ),
   );
 
-  getIt.registerLazySingleton<
-    GetNotificationPreferenceUseCase
-  >(
-    () => GetNotificationPreferenceUseCase(
-      repository: getIt(),
-    ),
+  getIt.registerLazySingleton<GetNotificationPreferenceUseCase>(
+    () => GetNotificationPreferenceUseCase(repository: getIt()),
   );
 
-  getIt.registerLazySingleton<
-    SetNotificationPreferenceUseCase
-  >(
-    () => SetNotificationPreferenceUseCase(
-      repository: getIt(),
-    ),
+  getIt.registerLazySingleton<SetNotificationPreferenceUseCase>(
+    () => SetNotificationPreferenceUseCase(repository: getIt()),
   );
 
   getIt.registerLazySingleton<GetLanguageUseCase>(
@@ -869,7 +845,6 @@ Future<void> setupServiceLocator() async {
   );
 
   getIt.registerFactory<ChangePasswordCubit>(
-    () =>
-        ChangePasswordCubit(changePasswordUseCase: getIt()),
+    () => ChangePasswordCubit(changePasswordUseCase: getIt()),
   );
 }

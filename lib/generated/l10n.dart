@@ -2265,6 +2265,66 @@ class S {
     return Intl.message('Replace CV', name: 'replaceCv', desc: '', args: []);
   }
 
+  /// `Unsupported file type. Please choose a PDF or DOCX file.`
+  String get cvUnsupportedFileType {
+    return Intl.message(
+      'Unsupported file type. Please choose a PDF or DOCX file.',
+      name: 'cvUnsupportedFileType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The file is too large. Maximum size is 5 MB.`
+  String get cvFileTooLarge {
+    return Intl.message(
+      'The file is too large. Maximum size is 5 MB.',
+      name: 'cvFileTooLarge',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The selected file is empty.`
+  String get cvEmptyFile {
+    return Intl.message(
+      'The selected file is empty.',
+      name: 'cvEmptyFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CV uploaded successfully`
+  String get cvUploadSuccessful {
+    return Intl.message(
+      'CV uploaded successfully',
+      name: 'cvUploadSuccessful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Could not open the CV document.`
+  String get cvViewFailed {
+    return Intl.message(
+      'Could not open the CV document.',
+      name: 'cvViewFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CV uploaded, but the profile could not be refreshed.`
+  String get cvRefreshFailed {
+    return Intl.message(
+      'CV uploaded, but the profile could not be refreshed.',
+      name: 'cvRefreshFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Uploaded`
   String get uploaded {
     return Intl.message('Uploaded', name: 'uploaded', desc: '', args: []);
@@ -3452,6 +3512,76 @@ class S {
     );
   }
 
+  /// `Edit Project Details`
+  String get editProjectDetails {
+    return Intl.message(
+      'Edit Project Details',
+      name: 'editProjectDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No projects added yet`
+  String get noProjectsYet {
+    return Intl.message(
+      'No projects added yet',
+      name: 'noProjectsYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add your first project using the button above.`
+  String get noProjectsYetDesc {
+    return Intl.message(
+      'Add your first project using the button above.',
+      name: 'noProjectsYetDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete project`
+  String get deleteProject {
+    return Intl.message(
+      'Delete project',
+      name: 'deleteProject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this project? This action cannot be undone.`
+  String get deleteProjectConfirm {
+    return Intl.message(
+      'Are you sure you want to delete this project? This action cannot be undone.',
+      name: 'deleteProjectConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Project saved successfully`
+  String get projectSavedSuccessfully {
+    return Intl.message(
+      'Project saved successfully',
+      name: 'projectSavedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Project deleted successfully`
+  String get projectDeletedSuccessfully {
+    return Intl.message(
+      'Project deleted successfully',
+      name: 'projectDeletedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Tell us what you're looking for`
   String get careerPreferencesIntroTitle {
     return Intl.message(
@@ -3872,6 +4002,86 @@ class S {
     );
   }
 
+  /// `Edit education`
+  String get editEducation {
+    return Intl.message(
+      'Edit education',
+      name: 'editEducation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No education added yet`
+  String get noEducationYet {
+    return Intl.message(
+      'No education added yet',
+      name: 'noEducationYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add your first education record using the form below.`
+  String get noEducationYetDesc {
+    return Intl.message(
+      'Add your first education record using the form below.',
+      name: 'noEducationYetDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete education`
+  String get deleteEducation {
+    return Intl.message(
+      'Delete education',
+      name: 'deleteEducation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this education? This action cannot be undone.`
+  String get deleteEducationConfirm {
+    return Intl.message(
+      'Are you sure you want to delete this education? This action cannot be undone.',
+      name: 'deleteEducationConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Education saved successfully`
+  String get educationSavedSuccessfully {
+    return Intl.message(
+      'Education saved successfully',
+      name: 'educationSavedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Education deleted successfully`
+  String get educationDeletedSuccessfully {
+    return Intl.message(
+      'Education deleted successfully',
+      name: 'educationDeletedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End date must be on or after the start date`
+  String get invalidDateRange {
+    return Intl.message(
+      'End date must be on or after the start date',
+      name: 'invalidDateRange',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Add experience`
   String get addExperience {
     return Intl.message(
@@ -4002,6 +4212,76 @@ class S {
     return Intl.message(
       'Save experience',
       name: 'saveExperience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit experience`
+  String get editExperience {
+    return Intl.message(
+      'Edit experience',
+      name: 'editExperience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No experience added yet`
+  String get noExperienceYet {
+    return Intl.message(
+      'No experience added yet',
+      name: 'noExperienceYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add your first work experience using the form below.`
+  String get noExperienceYetDesc {
+    return Intl.message(
+      'Add your first work experience using the form below.',
+      name: 'noExperienceYetDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete experience`
+  String get deleteExperience {
+    return Intl.message(
+      'Delete experience',
+      name: 'deleteExperience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this experience? This action cannot be undone.`
+  String get deleteExperienceConfirm {
+    return Intl.message(
+      'Are you sure you want to delete this experience? This action cannot be undone.',
+      name: 'deleteExperienceConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Experience saved successfully`
+  String get experienceSavedSuccessfully {
+    return Intl.message(
+      'Experience saved successfully',
+      name: 'experienceSavedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Experience deleted successfully`
+  String get experienceDeletedSuccessfully {
+    return Intl.message(
+      'Experience deleted successfully',
+      name: 'experienceDeletedSuccessfully',
       desc: '',
       args: [],
     );

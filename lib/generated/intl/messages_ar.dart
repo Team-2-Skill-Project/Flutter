@@ -295,15 +295,31 @@ class MessageLookup extends MessageLookupByLibrary {
     "cvAnalysisDescription": MessageLookupByLibrary.simpleMessage(
       "استخرجنا 12 مهارة وقمنا بتحديث ملفك المهني.",
     ),
+    "cvEmptyFile": MessageLookupByLibrary.simpleMessage("الملف المحدد فارغ."),
+    "cvFileTooLarge": MessageLookupByLibrary.simpleMessage(
+      "حجم الملف كبير جدًا. الحد الأقصى هو 5 MB.",
+    ),
+    "cvRefreshFailed": MessageLookupByLibrary.simpleMessage(
+      "تم رفع السيرة الذاتية، ولكن تعذر تحديث الملف.",
+    ),
     "cvResume": MessageLookupByLibrary.simpleMessage("السيرة الذاتية"),
     "cvSkillsDescription": MessageLookupByLibrary.simpleMessage(
       "تم استخراج المهارات تلقائيًا من السيرة الذاتية المرفوعة.",
+    ),
+    "cvUnsupportedFileType": MessageLookupByLibrary.simpleMessage(
+      "نوع الملف غير مدعوم. يرجى اختيار ملف PDF أو DOCX.",
     ),
     "cvUploadNotice": MessageLookupByLibrary.simpleMessage(
       "بعدين تقدر ترفع سيرتك الذاتية (اختياري).",
     ),
     "cvUploadRequirements": MessageLookupByLibrary.simpleMessage(
       "PDF أو DOCX • بحد أقصى 5 MB",
+    ),
+    "cvUploadSuccessful": MessageLookupByLibrary.simpleMessage(
+      "تم رفع السيرة الذاتية بنجاح",
+    ),
+    "cvViewFailed": MessageLookupByLibrary.simpleMessage(
+      "تعذر فتح مستند السيرة الذاتية.",
     ),
     "dark": MessageLookupByLibrary.simpleMessage("داكن"),
     "dateOfBirth": MessageLookupByLibrary.simpleMessage("تاريخ الميلاد"),
@@ -314,15 +330,38 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "delete": MessageLookupByLibrary.simpleMessage("حذف"),
     "deleteChat": MessageLookupByLibrary.simpleMessage("حذف المحادثة"),
+    "deleteEducation": MessageLookupByLibrary.simpleMessage("حذف التعليم"),
+    "deleteEducationConfirm": MessageLookupByLibrary.simpleMessage(
+      "هل أنت متأكد أنك تريد حذف هذا التعليم؟ لا يمكن التراجع عن هذا الإجراء.",
+    ),
+    "deleteExperience": MessageLookupByLibrary.simpleMessage("حذف الخبرة"),
+    "deleteExperienceConfirm": MessageLookupByLibrary.simpleMessage(
+      "هل أنت متأكد أنك تريد حذف هذه الخبرة؟ لا يمكن التراجع عن هذا الإجراء.",
+    ),
+    "deleteProject": MessageLookupByLibrary.simpleMessage("حذف المشروع"),
+    "deleteProjectConfirm": MessageLookupByLibrary.simpleMessage(
+      "هل أنت متأكد أنك تريد حذف هذا المشروع؟ لا يمكن التراجع عن هذا الإجراء.",
+    ),
     "description": MessageLookupByLibrary.simpleMessage("الوصف"),
     "draft": MessageLookupByLibrary.simpleMessage("مسودة"),
     "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
+    "editEducation": MessageLookupByLibrary.simpleMessage("تعديل التعليم"),
+    "editExperience": MessageLookupByLibrary.simpleMessage("تعديل الخبرة"),
     "editNote": MessageLookupByLibrary.simpleMessage("تعديل الملاحظة"),
     "editProfile": MessageLookupByLibrary.simpleMessage("تعديل الملف"),
+    "editProjectDetails": MessageLookupByLibrary.simpleMessage(
+      "تعديل تفاصيل المشروع",
+    ),
     "editorialScore": MessageLookupByLibrary.simpleMessage(
       "درجة اكتمال المحتوى",
     ),
     "education": MessageLookupByLibrary.simpleMessage("التعليم"),
+    "educationDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم حذف التعليم بنجاح",
+    ),
+    "educationSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم حفظ التعليم بنجاح",
+    ),
     "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "emailAddress": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "emailHint": MessageLookupByLibrary.simpleMessage("أدخل بريدك الإلكتروني"),
@@ -345,9 +384,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "experienceCompletenessHint": MessageLookupByLibrary.simpleMessage(
       "أضف المزيد من التفاصيل حول مسؤولياتك وتأثيرك. الإنجازات المحددة تساعد على زيادة ظهورك لمسؤولي التوظيف.",
     ),
+    "experienceDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم حذف الخبرة بنجاح",
+    ),
     "experienceLevel": MessageLookupByLibrary.simpleMessage("مستوى الخبرة"),
     "experienceManagementDescription": MessageLookupByLibrary.simpleMessage(
       "أضف تفاصيل عن مسؤولياتك وتأثيرك في العمل.",
+    ),
+    "experienceSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم حفظ الخبرة بنجاح",
     ),
     "experienceWithBloc": MessageLookupByLibrary.simpleMessage("خبرة في Bloc"),
     "failed": MessageLookupByLibrary.simpleMessage("فشل"),
@@ -438,6 +483,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "interviewPrep": MessageLookupByLibrary.simpleMessage("التحضير للمقابلات"),
     "interviewPrepPrompt": MessageLookupByLibrary.simpleMessage(
       "ما هي أهم أسئلة المقابلات الفنية لـ Dart و Flutter؟",
+    ),
+    "invalidDateRange": MessageLookupByLibrary.simpleMessage(
+      "يجب أن يكون تاريخ الانتهاء مساويًا لتاريخ البدء أو بعده",
     ),
     "invalidJobId": MessageLookupByLibrary.simpleMessage(
       "معرّف الوظيفة غير صالح.",
@@ -552,6 +600,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "noCoverNoteAdded": MessageLookupByLibrary.simpleMessage(
       "لم تتم إضافة رسالة تعريفية",
     ),
+    "noEducationYet": MessageLookupByLibrary.simpleMessage(
+      "لم تتم إضافة أي تعليم بعد",
+    ),
+    "noEducationYetDesc": MessageLookupByLibrary.simpleMessage(
+      "أضف سجلك التعليمي الأول باستخدام النموذج أدناه.",
+    ),
+    "noExperienceYet": MessageLookupByLibrary.simpleMessage(
+      "لم تتم إضافة أي خبرة بعد",
+    ),
+    "noExperienceYetDesc": MessageLookupByLibrary.simpleMessage(
+      "أضف خبرتك العملية الأولى باستخدام النموذج أدناه.",
+    ),
     "noFileSelected": MessageLookupByLibrary.simpleMessage("لم يتم اختيار ملف"),
     "noHistoryYet": MessageLookupByLibrary.simpleMessage("لا يوجد سجل بعد"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
@@ -566,6 +626,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noNotificationsDesc": MessageLookupByLibrary.simpleMessage(
       "سنخطرك عندما تصلك تحديثات جديدة ومهمة.",
+    ),
+    "noProjectsYet": MessageLookupByLibrary.simpleMessage(
+      "لم تتم إضافة أي مشاريع بعد",
+    ),
+    "noProjectsYetDesc": MessageLookupByLibrary.simpleMessage(
+      "أضف مشروعك الأول باستخدام الزر أعلاه.",
     ),
     "noSavedJobsYet": MessageLookupByLibrary.simpleMessage(
       "لا يوجد وظائف متاحة حالياً",
@@ -675,6 +741,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "جودة الملف الشخصي",
     ),
     "profileSynced": MessageLookupByLibrary.simpleMessage("تمت مزامنة الملف"),
+    "projectDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم حذف المشروع بنجاح",
+    ),
     "projectDescriptionHelper": MessageLookupByLibrary.simpleMessage(
       "وضّح أهداف المشروع والتقنيات المستخدمة",
     ),
@@ -684,6 +753,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "projectName": MessageLookupByLibrary.simpleMessage("اسم المشروع"),
     "projectNameHint": MessageLookupByLibrary.simpleMessage(
       "مثال: HealthTracker Companion",
+    ),
+    "projectSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم حفظ المشروع بنجاح",
     ),
     "projectUrl": MessageLookupByLibrary.simpleMessage("رابط المشروع"),
     "projects": MessageLookupByLibrary.simpleMessage("المشاريع"),

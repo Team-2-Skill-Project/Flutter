@@ -2,9 +2,11 @@ import 'package:MatchIn/core/utils/profile_formatters.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_state.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/career_preferences_widgets/career_preferences_profile_card.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/cv_widgets/cv_profile_card.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/cv_widgets/cv_profile_section.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/education_widgets/education_profile_card.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/education_widgets/education_profile_item_data.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/experience_widgets/experience_profile_card.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/experience_widgets/experience_profile_item_data.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/profile_header.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/profile_overview_card.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/projects_widgets/projects_profile_card.dart';
@@ -28,20 +30,14 @@ class ProfileViewBody extends StatelessWidget {
           builder: (context, state) {
             if (state is ProfileLoading) {
               return Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 32.h,
-                ),
-                child: const Center(
-                  child: CircularProgressIndicator(),
-                ),
+                padding: EdgeInsets.symmetric(vertical: 32.h),
+                child: const Center(child: CircularProgressIndicator()),
               );
             }
 
             if (state is ProfileFailure) {
               return Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 32.h,
-                ),
+                padding: EdgeInsets.symmetric(vertical: 32.h),
                 child: Center(child: Text(state.message)),
               );
             }
@@ -49,6 +45,8 @@ class ProfileViewBody extends StatelessWidget {
             if (state is ProfileSuccess) {
               final profile = state.profile;
               final details = profile.profile;
+              final careerPreferences = profile.careerPreferences;
+              final cvDocument = profile.cvDocument;
 
               return Column(
                 children: [
@@ -56,55 +54,111 @@ class ProfileViewBody extends StatelessWidget {
                     name: profile.user.name,
                     avatarUrl: profile.user.avatar,
                     jobTitle: details?.jobTitle ?? '',
-                    location: ProfileFormatters.location(
-                      details,
-                    ),
-                    summary:
-                        details?.professionalSummary ?? '',
+                    location: ProfileFormatters.location(details),
+                    summary: details?.professionalSummary ?? '',
                     githubUrl: details?.githubUrl,
                     linkedinUrl: details?.linkedinUrl,
                   ),
                   SizedBox(height: 16.h),
                   EducationProfileCard(
-                    educations: const [],
-                    onEdit: () {
-                      context.push(
+                    educations: profile.education
+                        .map(
+                          (item) => EducationProfileItemData(
+                            degree: item.degree,
+                            institution: item.institution,
+                            startDate: item.startDate,
+                            endDate: item.endDate,
+                            grade: item.grade,
+                          ),
+                        )
+                        .toList(),
+                    onEdit: () async {
+                      final changed = await context.push<bool>(
                         '/profile/editEducation',
                       );
+                      if (changed == true && context.mounted) {
+                        context.read<ProfileCubit>().getCandidateProfile();
+                      }
                     },
                   ),
                   SizedBox(height: 16.h),
                   ExperienceProfileCard(
-                    experiences: const [],
-                    onEdit: () {
-                      context.push(
+                    experiences: profile.experience
+                        .map(
+                          (item) => ExperienceProfileItemData(
+                            jobTitle: item.jobTitle,
+                            companyName: item.companyName,
+                            employmentType: item.employmentType,
+                            country: item.country,
+                            city: item.city,
+                            description: item.description,
+                            technologies: item.technologies,
+                            startDate: item.startDate,
+                            endDate: item.endDate,
+                            isCurrent: item.isCurrent,
+                          ),
+                        )
+                        .toList(),
+                    onEdit: () async {
+                      final changed = await context.push<bool>(
                         '/profile/editExperience',
                       );
+                      if (changed == true && context.mounted) {
+                        context.read<ProfileCubit>().getCandidateProfile();
+                      }
                     },
                   ),
                   SizedBox(height: 16.h),
                   SkillsProfileCard(
-                    skills: const [],
-                    onEdit: () {
-                      context.push('/profile/skills');
+                    skills: profile.skills.map((skill) => skill.name).toList(),
+                    onEdit: () async {
+                      final changed = await context.push<bool>(
+                        '/profile/skills',
+                      );
+                      if (changed == true && context.mounted) {
+                        context.read<ProfileCubit>().getCandidateProfile();
+                      }
                     },
-                    onAddSkill: () {
-                      context.push('/profile/skills');
+                    onAddSkill: () async {
+                      final changed = await context.push<bool>(
+                        '/profile/skills',
+                      );
+                      if (changed == true && context.mounted) {
+                        context.read<ProfileCubit>().getCandidateProfile();
+                      }
                     },
                   ),
                   SizedBox(height: 16.h),
                   ProjectsProfileCard(
-                    projects: const [],
-                    onEdit: () {
-                      context.push('/profile/projects');
+                    projects: profile.projects,
+                    onEdit: () async {
+                      final changed = await context.push<bool>(
+                        '/profile/projects',
+                      );
+                      if (changed == true && context.mounted) {
+                        context.read<ProfileCubit>().getCandidateProfile();
+                      }
                     },
                   ),
                   SizedBox(height: 16.h),
-                  const CvProfileCard(hasCv: false),
+                  CvProfileSection(cvDocument: cvDocument),
                   SizedBox(height: 16.h),
                   CareerPreferencesProfileCard(
-                    onEdit: () {
-                      context.push('/profile/careerPref');
+                    targetRole: careerPreferences?.targetRole,
+                    jobType: careerPreferences?.jobType,
+                    workMode: careerPreferences?.workMode,
+                    preferredLocation: _preferredLocation(
+                      careerPreferences?.preferredCountry,
+                      careerPreferences?.preferredCity,
+                    ),
+                    experienceLevel: careerPreferences?.experienceLevel,
+                    onEdit: () async {
+                      final changed = await context.push<bool>(
+                        '/profile/careerPref',
+                      );
+                      if (changed == true && context.mounted) {
+                        context.read<ProfileCubit>().getCandidateProfile();
+                      }
                     },
                   ),
                 ],
@@ -117,4 +171,15 @@ class ProfileViewBody extends StatelessWidget {
       ],
     );
   }
+}
+
+String? _preferredLocation(String? country, String? city) {
+  final parts = [
+    city,
+    country,
+  ].where((part) => part != null && part.trim().isNotEmpty).toList();
+  if (parts.isEmpty) {
+    return null;
+  }
+  return parts.join(', ');
 }

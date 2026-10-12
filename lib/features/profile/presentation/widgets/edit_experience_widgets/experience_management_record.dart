@@ -1,4 +1,4 @@
-import 'package:MatchIn/features/profile/presentation/widgets/edit_experience_widgets/experience_record_data.dart';
+import 'package:MatchIn/features/profile/domain/entities/experience_entity.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_experience_widgets/experience_skill_chip.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -12,15 +12,25 @@ class ExperienceManagementRecord extends StatelessWidget {
     super.key,
   });
 
-  final ExperienceRecordData experience;
+  final ExperienceEntity experience;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
+
+  String? get _location {
+    final parts = [
+      experience.city,
+      experience.country,
+    ].where((part) => part != null && part.trim().isNotEmpty).toList();
+    if (parts.isEmpty) return null;
+    return parts.join(', ');
+  }
 
   @override
   Widget build(BuildContext context) {
     final locale = S.of(context);
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
+    final location = _location;
 
     return Container(
       width: double.infinity,
@@ -89,8 +99,7 @@ class ExperienceManagementRecord extends StatelessWidget {
                 ),
             ],
           ),
-          if (_hasText(experience.location) ||
-              _hasText(experience.workMode)) ...[
+          if (location != null) ...[
             SizedBox(height: 10.h),
             Row(
               children: [
@@ -102,10 +111,7 @@ class ExperienceManagementRecord extends StatelessWidget {
                 SizedBox(width: 4.w),
                 Expanded(
                   child: Text(
-                    [
-                      if (_hasText(experience.location)) experience.location!,
-                      if (_hasText(experience.workMode)) experience.workMode!,
-                    ].join(' • '),
+                    location,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: colors.onSurfaceVariant,
                     ),
@@ -124,7 +130,7 @@ class ExperienceManagementRecord extends StatelessWidget {
               ),
             ),
           ],
-          if (experience.skills.isNotEmpty) ...[
+          if (experience.technologies.isNotEmpty) ...[
             SizedBox(height: 16.h),
             Divider(color: theme.dividerColor),
             SizedBox(height: 10.h),
@@ -145,7 +151,7 @@ class ExperienceManagementRecord extends StatelessWidget {
                   child: Wrap(
                     spacing: 8.w,
                     runSpacing: 8.h,
-                    children: experience.skills
+                    children: experience.technologies
                         .map((skill) => ExperienceSkillChip(label: skill))
                         .toList(),
                   ),

@@ -7,6 +7,7 @@ class ExperienceDropdownField extends StatelessWidget {
     required this.value,
     required this.items,
     required this.onChanged,
+    this.enabled = true,
     super.key,
   });
 
@@ -14,6 +15,7 @@ class ExperienceDropdownField extends StatelessWidget {
   final String? value;
   final Map<String, String> items;
   final ValueChanged<String?> onChanged;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class ExperienceDropdownField extends StatelessWidget {
                 ),
               )
               .toList(),
-          onChanged: items.isEmpty ? null : onChanged,
+          onChanged: !enabled || items.isEmpty ? null : onChanged,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
               horizontal: 14.w,
