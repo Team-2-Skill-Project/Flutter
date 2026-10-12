@@ -47,11 +47,14 @@ abstract class ProfileRepository {
 
   Future<Either<Failure, CandidateProjectEntity>> getProject(int projectId);
 
-  Future<Either<Failure, CandidateProjectEntity>> addCandidateProject(
+  /// Returns a null entity when the mutation succeeded but the response
+  /// payload was incomplete. Callers must refresh from GET in that case.
+  Future<Either<Failure, CandidateProjectEntity?>> addCandidateProject(
     AddCandidateProjectParams params,
   );
 
-  Future<Either<Failure, CandidateProjectEntity>> updateCandidateProject(
+  /// Same incomplete-payload contract as [addCandidateProject].
+  Future<Either<Failure, CandidateProjectEntity?>> updateCandidateProject(
     UpdateCandidateProjectParams params,
   );
 

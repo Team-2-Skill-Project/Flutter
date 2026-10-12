@@ -338,6 +338,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "deleteExperienceConfirm": MessageLookupByLibrary.simpleMessage(
       "هل أنت متأكد أنك تريد حذف هذه الخبرة؟ لا يمكن التراجع عن هذا الإجراء.",
     ),
+    "deleteProject": MessageLookupByLibrary.simpleMessage("حذف المشروع"),
+    "deleteProjectConfirm": MessageLookupByLibrary.simpleMessage(
+      "هل أنت متأكد أنك تريد حذف هذا المشروع؟ لا يمكن التراجع عن هذا الإجراء.",
+    ),
     "description": MessageLookupByLibrary.simpleMessage("الوصف"),
     "draft": MessageLookupByLibrary.simpleMessage("مسودة"),
     "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
@@ -345,6 +349,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "editExperience": MessageLookupByLibrary.simpleMessage("تعديل الخبرة"),
     "editNote": MessageLookupByLibrary.simpleMessage("تعديل الملاحظة"),
     "editProfile": MessageLookupByLibrary.simpleMessage("تعديل الملف"),
+    "editProjectDetails": MessageLookupByLibrary.simpleMessage(
+      "تعديل تفاصيل المشروع",
+    ),
     "editorialScore": MessageLookupByLibrary.simpleMessage(
       "درجة اكتمال المحتوى",
     ),
@@ -620,6 +627,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "noNotificationsDesc": MessageLookupByLibrary.simpleMessage(
       "سنخطرك عندما تصلك تحديثات جديدة ومهمة.",
     ),
+    "noProjectsYet": MessageLookupByLibrary.simpleMessage(
+      "لم تتم إضافة أي مشاريع بعد",
+    ),
+    "noProjectsYetDesc": MessageLookupByLibrary.simpleMessage(
+      "أضف مشروعك الأول باستخدام الزر أعلاه.",
+    ),
     "noSavedJobsYet": MessageLookupByLibrary.simpleMessage(
       "لا يوجد وظائف متاحة حالياً",
     ),
@@ -728,6 +741,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "جودة الملف الشخصي",
     ),
     "profileSynced": MessageLookupByLibrary.simpleMessage("تمت مزامنة الملف"),
+    "projectDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم حذف المشروع بنجاح",
+    ),
     "projectDescriptionHelper": MessageLookupByLibrary.simpleMessage(
       "وضّح أهداف المشروع والتقنيات المستخدمة",
     ),
@@ -737,6 +753,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "projectName": MessageLookupByLibrary.simpleMessage("اسم المشروع"),
     "projectNameHint": MessageLookupByLibrary.simpleMessage(
       "مثال: HealthTracker Companion",
+    ),
+    "projectSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم حفظ المشروع بنجاح",
     ),
     "projectUrl": MessageLookupByLibrary.simpleMessage("رابط المشروع"),
     "projects": MessageLookupByLibrary.simpleMessage("المشاريع"),

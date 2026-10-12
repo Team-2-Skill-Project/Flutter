@@ -131,8 +131,13 @@ class ProfileViewBody extends StatelessWidget {
                   SizedBox(height: 16.h),
                   ProjectsProfileCard(
                     projects: profile.projects,
-                    onEdit: () {
-                      context.push('/profile/projects');
+                    onEdit: () async {
+                      final changed = await context.push<bool>(
+                        '/profile/projects',
+                      );
+                      if (changed == true && context.mounted) {
+                        context.read<ProfileCubit>().getCandidateProfile();
+                      }
                     },
                   ),
                   SizedBox(height: 16.h),

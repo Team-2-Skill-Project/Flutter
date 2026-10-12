@@ -273,7 +273,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<Either<Failure, CandidateProjectEntity>> addCandidateProject(
+  Future<Either<Failure, CandidateProjectEntity?>> addCandidateProject(
     AddCandidateProjectParams params,
   ) async {
     if (!await networkInfo.isConnected) {
@@ -297,7 +297,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<Either<Failure, CandidateProjectEntity>> updateCandidateProject(
+  Future<Either<Failure, CandidateProjectEntity?>> updateCandidateProject(
     UpdateCandidateProjectParams params,
   ) async {
     if (!await networkInfo.isConnected) {

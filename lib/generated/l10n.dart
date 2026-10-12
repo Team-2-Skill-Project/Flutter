@@ -3512,6 +3512,76 @@ class S {
     );
   }
 
+  /// `Edit Project Details`
+  String get editProjectDetails {
+    return Intl.message(
+      'Edit Project Details',
+      name: 'editProjectDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No projects added yet`
+  String get noProjectsYet {
+    return Intl.message(
+      'No projects added yet',
+      name: 'noProjectsYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add your first project using the button above.`
+  String get noProjectsYetDesc {
+    return Intl.message(
+      'Add your first project using the button above.',
+      name: 'noProjectsYetDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete project`
+  String get deleteProject {
+    return Intl.message(
+      'Delete project',
+      name: 'deleteProject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this project? This action cannot be undone.`
+  String get deleteProjectConfirm {
+    return Intl.message(
+      'Are you sure you want to delete this project? This action cannot be undone.',
+      name: 'deleteProjectConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Project saved successfully`
+  String get projectSavedSuccessfully {
+    return Intl.message(
+      'Project saved successfully',
+      name: 'projectSavedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Project deleted successfully`
+  String get projectDeletedSuccessfully {
+    return Intl.message(
+      'Project deleted successfully',
+      name: 'projectDeletedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Tell us what you're looking for`
   String get careerPreferencesIntroTitle {
     return Intl.message(

@@ -21,16 +21,45 @@ final class ProjectsSuccess extends ProjectsState {
     required this.projects,
     this.formProject,
     this.isFormVisible = false,
+    this.formResetToken = 0,
   });
 
   final List<CandidateProjectEntity> projects;
   final CandidateProjectEntity? formProject;
   final bool isFormVisible;
+  final int formResetToken;
 
   bool get isEditing => formProject != null;
 
   @override
-  List<Object?> get props => [projects, formProject, isFormVisible];
+  List<Object?> get props => [
+    projects,
+    formProject,
+    isFormVisible,
+    formResetToken,
+  ];
+}
+
+final class ProjectsSaving extends ProjectsState {
+  const ProjectsSaving({
+    required this.projects,
+    this.formProject,
+    this.isFormVisible = false,
+    this.formResetToken = 0,
+  });
+
+  final List<CandidateProjectEntity> projects;
+  final CandidateProjectEntity? formProject;
+  final bool isFormVisible;
+  final int formResetToken;
+
+  @override
+  List<Object?> get props => [
+    projects,
+    formProject,
+    isFormVisible,
+    formResetToken,
+  ];
 }
 
 final class ProjectsFailure extends ProjectsState {
@@ -48,6 +77,7 @@ final class ProjectsActionFailure extends ProjectsState {
     required this.message,
     required this.isFormVisible,
     this.formProject,
+    this.formResetToken = 0,
   });
 
   final List<CandidateProjectEntity> projects;
@@ -55,7 +85,14 @@ final class ProjectsActionFailure extends ProjectsState {
 
   final bool isFormVisible;
   final CandidateProjectEntity? formProject;
+  final int formResetToken;
 
   @override
-  List<Object?> get props => [projects, message, isFormVisible, formProject];
+  List<Object?> get props => [
+    projects,
+    message,
+    isFormVisible,
+    formProject,
+    formResetToken,
+  ];
 }

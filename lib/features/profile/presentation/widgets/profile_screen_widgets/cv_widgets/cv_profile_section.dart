@@ -6,7 +6,7 @@ import 'package:MatchIn/features/profile/presentation/cubits/cv_cubit/cv_upload_
 import 'package:MatchIn/features/profile/presentation/cubits/cv_cubit/cv_upload_state.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_state.dart';
-import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/cv_widgets/cv_document_viewer.dart';
+import 'package:MatchIn/core/widgets/helpers/url_launcher_helper.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/cv_widgets/cv_file_validator.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/cv_widgets/cv_profile_card.dart';
 import 'package:MatchIn/generated/l10n.dart';
@@ -64,11 +64,11 @@ class CvProfileSection extends StatelessWidget {
   }
 
   Future<void> _view(BuildContext context, String? url) async {
-    if (!CvDocumentViewer.isViewable(url)) {
+    if (!UrlLauncherHelper.isViewable(url)) {
       _showMessage(context, S.of(context).cvViewFailed);
       return;
     }
-    final opened = await CvDocumentViewer.open(url);
+    final opened = await UrlLauncherHelper.open(url);
     if (!context.mounted) return;
     if (!opened) {
       _showMessage(context, S.of(context).cvViewFailed);

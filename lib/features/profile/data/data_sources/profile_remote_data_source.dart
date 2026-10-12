@@ -40,11 +40,15 @@ abstract class ProfileRemoteDataSource {
 
   Future<CandidateProjectModel> getProject(int projectId);
 
-  Future<CandidateProjectModel> addCandidateProject(
+  /// Returns null when the mutation succeeded (2xx) but the response
+  /// payload is not a complete record. Callers must refresh from GET
+  /// instead of using defaults.
+  Future<CandidateProjectModel?> addCandidateProject(
     AddCandidateProjectParams params,
   );
 
-  Future<CandidateProjectModel> updateCandidateProject(
+  /// Same incomplete-payload contract as [addCandidateProject].
+  Future<CandidateProjectModel?> updateCandidateProject(
     UpdateCandidateProjectParams params,
   );
 

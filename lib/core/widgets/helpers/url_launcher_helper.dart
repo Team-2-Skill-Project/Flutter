@@ -1,13 +1,13 @@
 import 'package:url_launcher/url_launcher.dart';
 
-/// Opens a CV document URL through a platform-compatible mechanism.
+/// Opens an HTTP(S) URL through a platform-compatible mechanism.
 ///
 /// Only absolute HTTP(S) URLs are considered viewable. Storage paths
 /// and other backend-internal references are never treated as public
-/// URLs. Returns false (never throws) when the document cannot be
-/// opened so the UI can show localized feedback instead.
-class CvDocumentViewer {
-  const CvDocumentViewer._();
+/// URLs. Returns false (never throws) when the URL cannot be opened
+/// so callers can show localized feedback instead.
+class UrlLauncherHelper {
+  const UrlLauncherHelper._();
 
   static bool isViewable(String? url) {
     final trimmed = url?.trim() ?? '';

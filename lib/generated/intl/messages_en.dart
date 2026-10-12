@@ -342,6 +342,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "deleteExperienceConfirm": MessageLookupByLibrary.simpleMessage(
       "Are you sure you want to delete this experience? This action cannot be undone.",
     ),
+    "deleteProject": MessageLookupByLibrary.simpleMessage("Delete project"),
+    "deleteProjectConfirm": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to delete this project? This action cannot be undone.",
+    ),
     "description": MessageLookupByLibrary.simpleMessage("Description"),
     "draft": MessageLookupByLibrary.simpleMessage("Draft"),
     "edit": MessageLookupByLibrary.simpleMessage("Edit"),
@@ -349,6 +353,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "editExperience": MessageLookupByLibrary.simpleMessage("Edit experience"),
     "editNote": MessageLookupByLibrary.simpleMessage("Edit Note"),
     "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
+    "editProjectDetails": MessageLookupByLibrary.simpleMessage(
+      "Edit Project Details",
+    ),
     "editorialScore": MessageLookupByLibrary.simpleMessage("EDITORIAL SCORE"),
     "education": MessageLookupByLibrary.simpleMessage("Education"),
     "educationDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
@@ -630,6 +637,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "noNotificationsDesc": MessageLookupByLibrary.simpleMessage(
       "We\'ll let you know when important updates arrive.",
     ),
+    "noProjectsYet": MessageLookupByLibrary.simpleMessage(
+      "No projects added yet",
+    ),
+    "noProjectsYetDesc": MessageLookupByLibrary.simpleMessage(
+      "Add your first project using the button above.",
+    ),
     "noSavedJobsYet": MessageLookupByLibrary.simpleMessage("No saved jobs yet"),
     "noUnreadNotifications": MessageLookupByLibrary.simpleMessage(
       "No unread notifications",
@@ -742,6 +755,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Profile Match Quality",
     ),
     "profileSynced": MessageLookupByLibrary.simpleMessage("Profile synced"),
+    "projectDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Project deleted successfully",
+    ),
     "projectDescriptionHelper": MessageLookupByLibrary.simpleMessage(
       "Describe goals and tech stack",
     ),
@@ -751,6 +767,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "projectName": MessageLookupByLibrary.simpleMessage("Project Name"),
     "projectNameHint": MessageLookupByLibrary.simpleMessage(
       "e.g. HealthTracker Companion",
+    ),
+    "projectSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Project saved successfully",
     ),
     "projectUrl": MessageLookupByLibrary.simpleMessage("Project URL"),
     "projects": MessageLookupByLibrary.simpleMessage("Projects"),

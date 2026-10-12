@@ -195,10 +195,14 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       EndPoint.candidateProject(projectId),
     );
 
-    return _parseProjectResponse(response);
+    final project = _parseProjectResponse(response);
+    if (project == null) {
+      throw const FormatException('Invalid candidate project data format');
+    }
+    return project;
   }
 
-  CandidateProjectModel _parseProjectResponse(dynamic response) {
+  CandidateProjectModel? _parseProjectResponse(dynamic response) {
     if (response is! Map<String, dynamic>) {
       throw const FormatException('Invalid candidate project response format');
     }
@@ -209,11 +213,11 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       throw const FormatException('Invalid candidate project data format');
     }
 
-    return CandidateProjectModel.fromJson(data);
+    return CandidateProjectModel.tryParseMutation(data);
   }
 
   @override
-  Future<CandidateProjectModel> addCandidateProject(
+  Future<CandidateProjectModel?> addCandidateProject(
     AddCandidateProjectParams params,
   ) async {
     final response = await apiConsumer.post(
@@ -233,19 +237,26 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   }
 
   @override
-  Future<CandidateProjectModel> updateCandidateProject(
+  Future<CandidateProjectModel?> updateCandidateProject(
     UpdateCandidateProjectParams params,
   ) async {
     final response = await apiConsumer.patch(
       EndPoint.candidateProject(params.projectId),
       data: {
-        if (params.name != null) 'name': params.name,
-        if (params.description != null) 'description': params.description,
-        if (params.technologies != null) 'technologies': params.technologies,
-        if (params.projectUrl != null) 'project_url': params.projectUrl,
-        if (params.githubUrl != null) 'github_url': params.githubUrl,
-        if (params.startDate != null) 'start_date': params.startDate,
-        if (params.endDate != null) 'end_date': params.endDate,
+        if (UpdateCandidateProjectParams.isSet(params.name))
+          'name': params.name as String?,
+        if (UpdateCandidateProjectParams.isSet(params.description))
+          'description': params.description as String?,
+        if (UpdateCandidateProjectParams.isSet(params.technologies))
+          'technologies': params.technologies as List<String>?,
+        if (UpdateCandidateProjectParams.isSet(params.projectUrl))
+          'project_url': params.projectUrl as String?,
+        if (UpdateCandidateProjectParams.isSet(params.githubUrl))
+          'github_url': params.githubUrl as String?,
+        if (UpdateCandidateProjectParams.isSet(params.startDate))
+          'start_date': params.startDate as String?,
+        if (UpdateCandidateProjectParams.isSet(params.endDate))
+          'end_date': params.endDate as String?,
       },
     );
 
