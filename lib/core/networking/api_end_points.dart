@@ -61,6 +61,12 @@ abstract class EndPoint {
   static String candidateEducation(int educationId) =>
       'candidate/educations/$educationId';
 
+  // Candidate Experiences
+  static const String candidateExperiences = 'candidate/experiences';
+
+  static String candidateExperience(int experienceId) =>
+      'candidate/experiences/$experienceId';
+
   // Career Preferences
   static const String careerPreferences = 'candidate/career-preferences';
 

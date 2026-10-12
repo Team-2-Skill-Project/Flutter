@@ -81,14 +81,17 @@ import 'package:MatchIn/features/jobsAndApplications/presentation/cubit/jobs_fee
 import 'package:MatchIn/features/profile/domain/use_cases/add_candidate_project_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/add_candidate_skill_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/add_education_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/add_experience_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/delete_candidate_project_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/delete_education_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/delete_experience_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_cached_candidate_profile_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_profile_for_edit_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_profile_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_projects_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_skills_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_educations_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/get_experiences_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_career_preferences_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_project_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/remove_candidate_skill_use_case.dart';
@@ -97,11 +100,13 @@ import 'package:MatchIn/features/profile/domain/use_cases/search_skills_use_case
 import 'package:MatchIn/features/profile/domain/use_cases/update_candidate_profile_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/update_candidate_project_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/update_education_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/update_experience_use_case.dart';
 
 import 'package:MatchIn/features/profile/presentation/cubits/career_cubit/career_preferences_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/edit_profile_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/education_cubit/edit_education_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/cubits/experience_cubit/edit_experience_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/projects_cubit/projects_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/skills_cubit/skills_cubit.dart';
 
@@ -718,6 +723,32 @@ Future<void> setupServiceLocator() async {
 
   getIt.registerLazySingleton<DeleteEducationUseCase>(
     () => DeleteEducationUseCase(repository: getIt()),
+  );
+
+  // Experience use cases and cubit
+
+  getIt.registerFactory<EditExperienceCubit>(
+    () => EditExperienceCubit(
+      getExperiencesUseCase: getIt(),
+      addExperienceUseCase: getIt(),
+      updateExperienceUseCase: getIt(),
+      deleteExperienceUseCase: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<GetExperiencesUseCase>(
+    () => GetExperiencesUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<AddExperienceUseCase>(
+    () => AddExperienceUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<UpdateExperienceUseCase>(
+    () => UpdateExperienceUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<DeleteExperienceUseCase>(
+    () => DeleteExperienceUseCase(repository: getIt()),
   );
 
   // career preferences

@@ -4087,6 +4087,76 @@ class S {
     );
   }
 
+  /// `Edit experience`
+  String get editExperience {
+    return Intl.message(
+      'Edit experience',
+      name: 'editExperience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No experience added yet`
+  String get noExperienceYet {
+    return Intl.message(
+      'No experience added yet',
+      name: 'noExperienceYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add your first work experience using the form below.`
+  String get noExperienceYetDesc {
+    return Intl.message(
+      'Add your first work experience using the form below.',
+      name: 'noExperienceYetDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete experience`
+  String get deleteExperience {
+    return Intl.message(
+      'Delete experience',
+      name: 'deleteExperience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this experience? This action cannot be undone.`
+  String get deleteExperienceConfirm {
+    return Intl.message(
+      'Are you sure you want to delete this experience? This action cannot be undone.',
+      name: 'deleteExperienceConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Experience saved successfully`
+  String get experienceSavedSuccessfully {
+    return Intl.message(
+      'Experience saved successfully',
+      name: 'experienceSavedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Experience deleted successfully`
+  String get experienceDeletedSuccessfully {
+    return Intl.message(
+      'Experience deleted successfully',
+      name: 'experienceDeletedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Help`
   String get help {
     return Intl.message('Help', name: 'help', desc: '', args: []);

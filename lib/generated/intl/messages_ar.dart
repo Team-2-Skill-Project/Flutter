@@ -318,10 +318,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "deleteEducationConfirm": MessageLookupByLibrary.simpleMessage(
       "هل أنت متأكد أنك تريد حذف هذا التعليم؟ لا يمكن التراجع عن هذا الإجراء.",
     ),
+    "deleteExperience": MessageLookupByLibrary.simpleMessage("حذف الخبرة"),
+    "deleteExperienceConfirm": MessageLookupByLibrary.simpleMessage(
+      "هل أنت متأكد أنك تريد حذف هذه الخبرة؟ لا يمكن التراجع عن هذا الإجراء.",
+    ),
     "description": MessageLookupByLibrary.simpleMessage("الوصف"),
     "draft": MessageLookupByLibrary.simpleMessage("مسودة"),
     "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
     "editEducation": MessageLookupByLibrary.simpleMessage("تعديل التعليم"),
+    "editExperience": MessageLookupByLibrary.simpleMessage("تعديل الخبرة"),
     "editNote": MessageLookupByLibrary.simpleMessage("تعديل الملاحظة"),
     "editProfile": MessageLookupByLibrary.simpleMessage("تعديل الملف"),
     "editorialScore": MessageLookupByLibrary.simpleMessage(
@@ -356,9 +361,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "experienceCompletenessHint": MessageLookupByLibrary.simpleMessage(
       "أضف المزيد من التفاصيل حول مسؤولياتك وتأثيرك. الإنجازات المحددة تساعد على زيادة ظهورك لمسؤولي التوظيف.",
     ),
+    "experienceDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم حذف الخبرة بنجاح",
+    ),
     "experienceLevel": MessageLookupByLibrary.simpleMessage("مستوى الخبرة"),
     "experienceManagementDescription": MessageLookupByLibrary.simpleMessage(
       "أضف تفاصيل عن مسؤولياتك وتأثيرك في العمل.",
+    ),
+    "experienceSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم حفظ الخبرة بنجاح",
     ),
     "experienceWithBloc": MessageLookupByLibrary.simpleMessage("خبرة في Bloc"),
     "failed": MessageLookupByLibrary.simpleMessage("فشل"),
@@ -571,6 +582,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noEducationYetDesc": MessageLookupByLibrary.simpleMessage(
       "أضف سجلك التعليمي الأول باستخدام النموذج أدناه.",
+    ),
+    "noExperienceYet": MessageLookupByLibrary.simpleMessage(
+      "لم تتم إضافة أي خبرة بعد",
+    ),
+    "noExperienceYetDesc": MessageLookupByLibrary.simpleMessage(
+      "أضف خبرتك العملية الأولى باستخدام النموذج أدناه.",
     ),
     "noFileSelected": MessageLookupByLibrary.simpleMessage("لم يتم اختيار ملف"),
     "noHistoryYet": MessageLookupByLibrary.simpleMessage("لا يوجد سجل بعد"),

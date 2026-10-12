@@ -6,16 +6,19 @@ import 'package:MatchIn/features/profile/data/data_sources/profile_remote_data_s
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_project_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_skill_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_education_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/add_experience_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_project_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_skill_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/career_preference_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/education_entity.dart';
+import 'package:MatchIn/features/profile/domain/entities/experience_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/skill_search_result_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_profile_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_project_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_education_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/update_experience_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/user_profile_entity.dart';
 import 'package:MatchIn/features/profile/domain/repositories/profile_repository.dart';
 import 'package:dartz/dartz.dart';
@@ -416,6 +419,99 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
     try {
       await remoteDataSource.deleteEducation(educationId);
+
+      return const Right(unit);
+    } on ServerException catch (e) {
+      return Left(
+        ServerFailure(
+          message: e.errorModel.errorMessage,
+          fieldErrors: e.errorModel.fieldErrors,
+        ),
+      );
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  // Candidate Experiences
+  @override
+  Future<Either<Failure, List<ExperienceEntity>>> getExperiences() async {
+    if (!await networkInfo.isConnected) {
+      return const Left(OfflineFailure());
+    }
+
+    try {
+      final experiences = await remoteDataSource.getExperiences();
+
+      return Right(experiences);
+    } on ServerException catch (e) {
+      return Left(
+        ServerFailure(
+          message: e.errorModel.errorMessage,
+          fieldErrors: e.errorModel.fieldErrors,
+        ),
+      );
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ExperienceEntity?>> addExperience(
+    AddExperienceParams params,
+  ) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(OfflineFailure());
+    }
+
+    try {
+      final experience = await remoteDataSource.addExperience(params);
+
+      return Right(experience);
+    } on ServerException catch (e) {
+      return Left(
+        ServerFailure(
+          message: e.errorModel.errorMessage,
+          fieldErrors: e.errorModel.fieldErrors,
+        ),
+      );
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ExperienceEntity?>> updateExperience(
+    UpdateExperienceParams params,
+  ) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(OfflineFailure());
+    }
+
+    try {
+      final experience = await remoteDataSource.updateExperience(params);
+
+      return Right(experience);
+    } on ServerException catch (e) {
+      return Left(
+        ServerFailure(
+          message: e.errorModel.errorMessage,
+          fieldErrors: e.errorModel.fieldErrors,
+        ),
+      );
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteExperience(int experienceId) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(OfflineFailure());
+    }
+
+    try {
+      await remoteDataSource.deleteExperience(experienceId);
 
       return const Right(unit);
     } on ServerException catch (e) {

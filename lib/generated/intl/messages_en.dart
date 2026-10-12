@@ -318,10 +318,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "deleteEducationConfirm": MessageLookupByLibrary.simpleMessage(
       "Are you sure you want to delete this education? This action cannot be undone.",
     ),
+    "deleteExperience": MessageLookupByLibrary.simpleMessage(
+      "Delete experience",
+    ),
+    "deleteExperienceConfirm": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to delete this experience? This action cannot be undone.",
+    ),
     "description": MessageLookupByLibrary.simpleMessage("Description"),
     "draft": MessageLookupByLibrary.simpleMessage("Draft"),
     "edit": MessageLookupByLibrary.simpleMessage("Edit"),
     "editEducation": MessageLookupByLibrary.simpleMessage("Edit education"),
+    "editExperience": MessageLookupByLibrary.simpleMessage("Edit experience"),
     "editNote": MessageLookupByLibrary.simpleMessage("Edit Note"),
     "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
     "editorialScore": MessageLookupByLibrary.simpleMessage("EDITORIAL SCORE"),
@@ -356,9 +363,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "experienceCompletenessHint": MessageLookupByLibrary.simpleMessage(
       "Add more details about your responsibilities and impact. Specific achievements increase recruiter discovery.",
     ),
+    "experienceDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Experience deleted successfully",
+    ),
     "experienceLevel": MessageLookupByLibrary.simpleMessage("Experience Level"),
     "experienceManagementDescription": MessageLookupByLibrary.simpleMessage(
       "Add details about your responsibilities and impact.",
+    ),
+    "experienceSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Experience saved successfully",
     ),
     "experienceWithBloc": MessageLookupByLibrary.simpleMessage(
       "Experience with Bloc",
@@ -577,6 +590,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noEducationYetDesc": MessageLookupByLibrary.simpleMessage(
       "Add your first education record using the form below.",
+    ),
+    "noExperienceYet": MessageLookupByLibrary.simpleMessage(
+      "No experience added yet",
+    ),
+    "noExperienceYetDesc": MessageLookupByLibrary.simpleMessage(
+      "Add your first work experience using the form below.",
     ),
     "noFileSelected": MessageLookupByLibrary.simpleMessage("No file selected"),
     "noHistoryYet": MessageLookupByLibrary.simpleMessage("No history yet"),

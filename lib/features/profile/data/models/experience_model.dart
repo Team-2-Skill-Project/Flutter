@@ -63,4 +63,35 @@ class ExperienceModel extends ExperienceEntity {
       'is_current': isCurrent,
     };
   }
+
+  /// Strict parser for POST/PATCH mutation responses.
+  ///
+  /// Returns null when the payload is not a complete record: an
+  /// invalid `id`, or a blank `company_name`/`job_title` (the identity
+  /// pair every complete record carries). Callers must treat null as
+  /// "mutation accepted but payload unusable" and refresh from GET
+  /// instead of replacing list data with defaults.
+  static ExperienceModel? tryParseMutation(Map<String, dynamic> json) {
+    final id = (json['id'] as num?)?.toInt() ?? 0;
+    if (id <= 0) return null;
+
+    final companyName =
+        (json['company_name'] ??
+                json['companyName'] ??
+                json['company'] ??
+                json['organization'])
+            ?.toString()
+            .trim() ??
+        '';
+    if (companyName.isEmpty) return null;
+
+    final jobTitle =
+        (json['job_title'] ?? json['jobTitle'] ?? json['title'])
+            ?.toString()
+            .trim() ??
+        '';
+    if (jobTitle.isEmpty) return null;
+
+    return ExperienceModel.fromJson(json);
+  }
 }

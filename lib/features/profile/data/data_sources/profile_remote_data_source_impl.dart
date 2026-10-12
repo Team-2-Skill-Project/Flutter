@@ -6,15 +6,18 @@ import 'package:MatchIn/features/profile/data/models/candidate_project_model.dar
 import 'package:MatchIn/features/profile/data/models/candidate_skill_model.dart';
 import 'package:MatchIn/features/profile/data/models/career_preference_model.dart';
 import 'package:MatchIn/features/profile/data/models/education_model.dart';
+import 'package:MatchIn/features/profile/data/models/experience_model.dart';
 import 'package:MatchIn/features/profile/data/models/skill_search_result_model.dart';
 import 'package:MatchIn/features/profile/data/models/user_profile_model.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_project_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_skill_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_education_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/add_experience_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_profile_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_project_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_education_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/update_experience_params.dart';
 
 class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   const ProfileRemoteDataSourceImpl({required this.apiConsumer});
@@ -342,6 +345,108 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
     }
 
     return EducationModel.tryParseMutation(data);
+  }
+
+  // Candidate Experiences
+
+  @override
+  Future<List<ExperienceModel>> getExperiences() async {
+    final response = await apiConsumer.get(EndPoint.candidateExperiences);
+
+    if (response is! Map<String, dynamic>) {
+      throw const FormatException(
+        'Invalid response format for candidate experiences',
+      );
+    }
+
+    final data = response['data'];
+
+    if (data is! List) {
+      throw const FormatException('Invalid candidate experiences data format');
+    }
+
+    return data
+        .map(
+          (experience) =>
+              ExperienceModel.fromJson(experience as Map<String, dynamic>),
+        )
+        .toList();
+  }
+
+  @override
+  Future<ExperienceModel?> addExperience(AddExperienceParams params) async {
+    final response = await apiConsumer.post(
+      EndPoint.candidateExperiences,
+      data: {
+        'job_title': params.jobTitle,
+        'company_name': params.companyName,
+        if (params.employmentType != null)
+          'employment_type': params.employmentType,
+        if (params.country != null) 'country': params.country,
+        if (params.city != null) 'city': params.city,
+        if (params.description != null) 'description': params.description,
+        if (params.technologies.isNotEmpty) 'technologies': params.technologies,
+        'is_current': params.isCurrent,
+        if (params.startDate != null) 'start_date': params.startDate,
+        if (params.endDate != null) 'end_date': params.endDate,
+      },
+    );
+
+    return _parseExperienceResponse(response);
+  }
+
+  @override
+  Future<ExperienceModel?> updateExperience(
+    UpdateExperienceParams params,
+  ) async {
+    final response = await apiConsumer.patch(
+      EndPoint.candidateExperience(params.experienceId),
+      data: {
+        if (UpdateExperienceParams.isSet(params.jobTitle))
+          'job_title': params.jobTitle as String?,
+        if (UpdateExperienceParams.isSet(params.companyName))
+          'company_name': params.companyName as String?,
+        if (UpdateExperienceParams.isSet(params.employmentType))
+          'employment_type': params.employmentType as String?,
+        if (UpdateExperienceParams.isSet(params.country))
+          'country': params.country as String?,
+        if (UpdateExperienceParams.isSet(params.city))
+          'city': params.city as String?,
+        if (UpdateExperienceParams.isSet(params.description))
+          'description': params.description as String?,
+        if (UpdateExperienceParams.isSet(params.technologies))
+          'technologies': params.technologies as List<String>?,
+        if (UpdateExperienceParams.isSet(params.isCurrent))
+          'is_current': params.isCurrent as bool?,
+        if (UpdateExperienceParams.isSet(params.startDate))
+          'start_date': params.startDate as String?,
+        if (UpdateExperienceParams.isSet(params.endDate))
+          'end_date': params.endDate as String?,
+      },
+    );
+
+    return _parseExperienceResponse(response);
+  }
+
+  @override
+  Future<void> deleteExperience(int experienceId) async {
+    await apiConsumer.delete(EndPoint.candidateExperience(experienceId));
+  }
+
+  ExperienceModel? _parseExperienceResponse(dynamic response) {
+    if (response is! Map<String, dynamic>) {
+      throw const FormatException(
+        'Invalid candidate experience response format',
+      );
+    }
+
+    final data = response['data'];
+
+    if (data is! Map<String, dynamic>) {
+      throw const FormatException('Invalid candidate experience data format');
+    }
+
+    return ExperienceModel.tryParseMutation(data);
   }
 
   // career preferences

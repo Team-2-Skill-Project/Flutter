@@ -3,16 +3,19 @@ import 'package:MatchIn/core/errors/failures.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_project_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_skill_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_education_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/add_experience_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_project_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_skill_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/career_preference_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/education_entity.dart';
+import 'package:MatchIn/features/profile/domain/entities/experience_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/skill_search_result_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_profile_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_project_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_education_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/update_experience_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/user_profile_entity.dart';
 
 abstract class ProfileRepository {
@@ -67,6 +70,22 @@ abstract class ProfileRepository {
   );
 
   Future<Either<Failure, Unit>> deleteEducation(int educationId);
+
+  // Candidate Experiences
+  Future<Either<Failure, List<ExperienceEntity>>> getExperiences();
+
+  /// Returns a null entity when the mutation succeeded but the response
+  /// payload was incomplete. Callers must refresh from GET in that case.
+  Future<Either<Failure, ExperienceEntity?>> addExperience(
+    AddExperienceParams params,
+  );
+
+  /// Same incomplete-payload contract as [addExperience].
+  Future<Either<Failure, ExperienceEntity?>> updateExperience(
+    UpdateExperienceParams params,
+  );
+
+  Future<Either<Failure, Unit>> deleteExperience(int experienceId);
 
   // Career Preferences
   Future<Either<Failure, CareerPreferenceEntity?>> getCareerPreferences();

@@ -6,11 +6,13 @@ class ExperienceFormActions extends StatelessWidget {
   const ExperienceFormActions({
     required this.onCancel,
     required this.onSave,
+    this.isSaving = false,
     super.key,
   });
 
   final VoidCallback onCancel;
   final VoidCallback onSave;
+  final bool isSaving;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class ExperienceFormActions extends StatelessWidget {
           child: SizedBox(
             height: 54.h,
             child: OutlinedButton(
-              onPressed: onCancel,
+              onPressed: isSaving ? null : onCancel,
               style: OutlinedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.surface,
                 foregroundColor: Theme.of(context).colorScheme.primary,
@@ -39,7 +41,7 @@ class ExperienceFormActions extends StatelessWidget {
         SizedBox(
           height: 54.h,
           child: FilledButton(
-            onPressed: onSave,
+            onPressed: isSaving ? null : onSave,
             style: FilledButton.styleFrom(
               backgroundColor: Theme.of(context).colorScheme.primary,
               foregroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -47,7 +49,13 @@ class ExperienceFormActions extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12.r),
               ),
             ),
-            child: Text(locale.saveExperience),
+            child: isSaving
+                ? SizedBox(
+                    width: 24.r,
+                    height: 24.r,
+                    child: const CircularProgressIndicator(strokeWidth: 2.5),
+                  )
+                : Text(locale.saveExperience),
           ),
         ),
       ],
