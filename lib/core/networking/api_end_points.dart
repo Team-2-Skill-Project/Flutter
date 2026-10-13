@@ -1,8 +1,7 @@
 ///* EndPoints: the endpoints of the api
 abstract class EndPoint {
-  //TODO: change these values
   static const String baseUrl =
-      'https://similarly-postposted-filled-row.trycloudflare.com/api/';
+      'https://medicines-asked-plays-nutritional.trycloudflare.com/api/';
 
   static const String login = 'auth/login';
   static const String register = 'auth/register';
