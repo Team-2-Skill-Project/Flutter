@@ -1,5 +1,6 @@
 import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/core/routing/cubit/main_navigation_cubit.dart';
+import 'package:MatchIn/core/widgets/offline_indicator_widget.dart';
 import 'package:MatchIn/features/chatbot/presentation/views/ai_chat_view.dart';
 import 'package:MatchIn/features/home/presentation/views/home_view.dart';
 import 'package:MatchIn/features/profile/presentation/views/profile_view.dart';
@@ -30,7 +31,14 @@ class MainNavigationWidget extends StatelessWidget {
     return BlocBuilder<MainNavigationCubit, int>(
       builder: (context, currentIndex) {
         return Scaffold(
-          body: IndexedStack(index: currentIndex, children: _pages),
+          body: Column(
+            children: [
+              Expanded(
+                child: IndexedStack(index: currentIndex, children: _pages),
+              ),
+              const OfflineIndicatorWidget(),
+            ],
+          ),
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
               color: colors.surface,

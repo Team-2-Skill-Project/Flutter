@@ -11,4 +11,6 @@ abstract interface class ProfileLocalDataSource {
   Future<void> cacheUserProfile(UserProfileModel profile);
 
   Future<UserProfileModel?> getCachedUserProfile();
+
+  Future<String?> getCachedUserName();
 }

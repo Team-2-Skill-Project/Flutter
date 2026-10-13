@@ -144,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "askChatBot": MessageLookupByLibrary.simpleMessage("اسأل المساعد"),
     "at": MessageLookupByLibrary.simpleMessage("في"),
     "back": MessageLookupByLibrary.simpleMessage("رجوع"),
+    "backOnline": MessageLookupByLibrary.simpleMessage("تمت استعادة الاتصال"),
     "backToJobs": MessageLookupByLibrary.simpleMessage("العودة للوظائف"),
     "backToLogin": MessageLookupByLibrary.simpleMessage("العودة لتسجيل الدخول"),
     "buildMyRoadmap": MessageLookupByLibrary.simpleMessage(
@@ -232,6 +233,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "confirmPasswordHint": MessageLookupByLibrary.simpleMessage(
       "أعد إدخال كلمة المرور",
+    ),
+    "connectionSlowRetrying": MessageLookupByLibrary.simpleMessage(
+      "الاتصال بطيء. جارٍ إعادة المحاولة...",
     ),
     "contactAddressPlaceholder": MessageLookupByLibrary.simpleMessage(
       "١٠٠ جادة الابتكار، مجمع التكنولوجيا، جناح ٤٠٠",
@@ -647,6 +651,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "notifications": MessageLookupByLibrary.simpleMessage("الإشعارات"),
     "notificationsTitle": MessageLookupByLibrary.simpleMessage("الإشعارات"),
     "offer": MessageLookupByLibrary.simpleMessage("العرض"),
+    "offlineStatusShowingSaved": MessageLookupByLibrary.simpleMessage(
+      "أنت غير متصل بالإنترنت. يتم عرض البيانات المحفوظة.",
+    ),
     "older": MessageLookupByLibrary.simpleMessage("أقدم"),
     "onSite": MessageLookupByLibrary.simpleMessage("من مقر العمل"),
     "onboardingBullet1": MessageLookupByLibrary.simpleMessage(
@@ -1016,6 +1023,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "usedInTwoProjects": MessageLookupByLibrary.simpleMessage(
       "استخدمتها في مشروعين",
     ),
+    "userFallback": MessageLookupByLibrary.simpleMessage("المستخدم"),
     "verificationCodeLabel": MessageLookupByLibrary.simpleMessage("رمز التحقق"),
     "verifiedQualifications": MessageLookupByLibrary.simpleMessage("المؤهلات"),
     "verify": MessageLookupByLibrary.simpleMessage("تحقق"),

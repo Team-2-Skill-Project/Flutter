@@ -19,6 +19,17 @@ class SharedPreferencesService {
     return _sharedPreferencesHelper.getData(key: CacheKey.isLoggedIn) ?? false;
   }
 
+  Future<void> saveUserId(int id) async {
+    await _sharedPreferencesHelper.saveData(
+      key: CacheKey.id,
+      value: id,
+    );
+  }
+
+  int? getUserId() {
+    return _sharedPreferencesHelper.getData(key: CacheKey.id);
+  }
+
   /// Clears only the logged-in session. Guest flag is intentionally kept
   /// so a 401 auto-logout (interceptor) can't wipe "Continue as Guest".
   /// Explicit logout clears guest separately (see Settings logout).

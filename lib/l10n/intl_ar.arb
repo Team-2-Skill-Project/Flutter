@@ -577,8 +577,11 @@
   "guestModeTitle": "أنت في وضع الضيف",
   "guestModeMessage": "يرجى تسجيل الدخول للوصول إلى هذه الميزة.",
   "shareJobLinkUnavailable": "رابط الوظيفة غير متوفر لهذه الوظيفة.",
-  "saveJobFailed": "تعذر حفظ الوظيفة. يرجى المحاولة مرة أخرى."
-
+  "saveJobFailed": "تعذر حفظ الوظيفة. يرجى المحاولة مرة أخرى.",
+  "offlineStatusShowingSaved": "أنت غير متصل بالإنترنت. يتم عرض البيانات المحفوظة.",
+  "connectionSlowRetrying": "الاتصال بطيء. جارٍ إعادة المحاولة...",
+  "backOnline": "تمت استعادة الاتصال",
+  "userFallback": "المستخدم"
 }
 
 

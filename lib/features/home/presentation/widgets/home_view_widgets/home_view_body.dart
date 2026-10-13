@@ -5,7 +5,7 @@ import 'package:MatchIn/features/home/presentation/cubit/home_state.dart';
 import 'package:MatchIn/features/home/presentation/widgets/home_view_widgets/home_card_view_matches_jobs.dart';
 import 'package:MatchIn/features/home/presentation/widgets/home_view_widgets/home_header.dart';
 import 'package:MatchIn/features/home/presentation/widgets/home_view_widgets/home_search_field.dart';
-import 'package:MatchIn/features/home/presentation/widgets/home_view_widgets/home_indicator_header.dart';
+import 'package:MatchIn/features/home/presentation/widgets/home_view_widgets/home_header_skeleton.dart';
 import 'package:MatchIn/features/home/presentation/widgets/home_view_widgets/recommended_jobs_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +25,7 @@ class HomeViewBody extends StatelessWidget {
           builder: (context, state) {
             return switch (state) {
               HomeInitial() ||
-              HomeLoading() => const HomeInicatorHeader(),
+              HomeLoading() => const HomeHeaderSkeleton(),
               HomeError(:final message) => AppErrorWidget(
                 message: message,
                 onRetry: () => context.read<HomeCubit>().getHomeDashboard(),

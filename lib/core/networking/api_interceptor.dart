@@ -5,6 +5,8 @@ import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:dio/dio.dart';
 
+import 'package:MatchIn/core/networking/connectivity_cubit.dart';
+
 ///* APi interceptor used to handle api requests
 ///* It will add access token in request header
 ///* and refresh token if access token is expired
@@ -14,11 +16,13 @@ class ApiInterceptor extends Interceptor {
     this.dio, {
     required this.secureStorageService,
     required this.sharedPreferencesService,
+    this.connectivityCubit,
   });
 
   final Dio dio;
   final SecureStorageService secureStorageService;
   final SharedPreferencesService sharedPreferencesService;
+  final ConnectivityCubit? connectivityCubit;
 
   // This Completer prevent multiple refresh token requests
   static Completer<bool>? _refreshCompleter;
@@ -44,10 +48,25 @@ class ApiInterceptor extends Interceptor {
     super.onRequest(options, handler);
   }
 
+  @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    connectivityCubit?.reportNetworkSuccess();
+    super.onResponse(response, handler);
+  }
+
   ///! ======================= on error =======================
   /// This will be called when request throw error
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
+    final isTimeout = err.type == DioExceptionType.connectionTimeout ||
+        err.type == DioExceptionType.sendTimeout ||
+        err.type == DioExceptionType.receiveTimeout;
+    final isOffline = err.type == DioExceptionType.connectionError;
+
+    if (isTimeout || isOffline) {
+      connectivityCubit?.reportNetworkError(isTimeout: isTimeout);
+    }
+
     // if error is not unauthorized return normal error
     if (err.response?.statusCode != 401) {
       return super.onError(err, handler);

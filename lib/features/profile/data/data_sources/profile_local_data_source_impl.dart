@@ -11,11 +11,26 @@ class ProfileLocalDataSourceImpl implements ProfileLocalDataSource {
 
   final SharedPreferencesHelper sharedPreferencesHelper;
 
+  String _candidateProfileKey() {
+    final userId = sharedPreferencesHelper.getData(key: CacheKey.id);
+    if (userId != null && userId is int && userId > 0) {
+      return '${CacheKey.candidateProfile}_$userId';
+    }
+    return CacheKey.candidateProfile;
+  }
+
   @override
   Future<CandidateProfileModel?> getCachedCandidateProfile() async {
-    final rawJson = sharedPreferencesHelper.getString(
-      key: CacheKey.candidateProfile,
+    String? rawJson = sharedPreferencesHelper.getString(
+      key: _candidateProfileKey(),
     );
+
+    // Fallback to legacy default key if user-scoped key is empty
+    if (rawJson == null || rawJson.isEmpty) {
+      rawJson = sharedPreferencesHelper.getString(
+        key: CacheKey.candidateProfile,
+      );
+    }
 
     if (rawJson == null || rawJson.isEmpty) {
       return null;
@@ -39,6 +54,11 @@ class ProfileLocalDataSourceImpl implements ProfileLocalDataSource {
     final rawJson = jsonEncode(profile.toJson());
 
     await sharedPreferencesHelper.saveData(
+      key: _candidateProfileKey(),
+      value: rawJson,
+    );
+    // Also save under general key for backward compatibility
+    await sharedPreferencesHelper.saveData(
       key: CacheKey.candidateProfile,
       value: rawJson,
     );
@@ -46,6 +66,7 @@ class ProfileLocalDataSourceImpl implements ProfileLocalDataSource {
 
   @override
   Future<void> clearCachedCandidateProfile() async {
+    await sharedPreferencesHelper.deleteData(key: _candidateProfileKey());
     await sharedPreferencesHelper.deleteData(key: CacheKey.candidateProfile);
   }
 
@@ -70,5 +91,22 @@ class ProfileLocalDataSourceImpl implements ProfileLocalDataSource {
     } catch (_) {
       return null;
     }
+  }
+
+  @override
+  Future<String?> getCachedUserName() async {
+    // 1. Try candidate profile first
+    final candidateProfile = await getCachedCandidateProfile();
+    if (candidateProfile != null && candidateProfile.user.name.trim().isNotEmpty) {
+      return candidateProfile.user.name.trim();
+    }
+
+    // 2. Try user profile
+    final userProfile = await getCachedUserProfile();
+    if (userProfile != null && userProfile.name.trim().isNotEmpty) {
+      return userProfile.name.trim();
+    }
+
+    return null;
   }
 }

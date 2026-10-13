@@ -2,7 +2,7 @@
 abstract class EndPoint {
   //TODO: change these values
   static const String baseUrl =
-      'https://iptvdemo.serv5group.com/backyousef/api/';
+      'https://skillmatch.iptvdemo.serv5group.com/api/';
 
   static const String login = 'auth/login';
   static const String register = 'auth/register';

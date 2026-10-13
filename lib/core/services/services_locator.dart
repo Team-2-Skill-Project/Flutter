@@ -2,6 +2,7 @@ import 'package:MatchIn/core/cache/secure_storage_helper.dart';
 import 'package:MatchIn/core/cache/shared_preferences_helper.dart';
 import 'package:MatchIn/core/networking/api_consumer.dart';
 import 'package:MatchIn/core/networking/dio_consumer.dart';
+import 'package:MatchIn/core/networking/connectivity_cubit.dart';
 import 'package:MatchIn/core/networking/network_info.dart';
 import 'package:MatchIn/core/routing/cubit/main_navigation_cubit.dart';
 import 'package:MatchIn/core/services/file_picker_service.dart';
@@ -34,10 +35,13 @@ import 'package:MatchIn/features/chatbot/domain/use_cases/get_chat_history_use_c
 import 'package:MatchIn/features/chatbot/domain/use_cases/save_chat_use_case.dart';
 import 'package:MatchIn/features/chatbot/domain/use_cases/send_message_use_case.dart';
 import 'package:MatchIn/features/chatbot/presentation/cubit/chatbot_cubit.dart';
+import 'package:MatchIn/features/home/data/data_sources/home_local_data_source.dart';
+import 'package:MatchIn/features/home/data/data_sources/home_local_data_source_impl.dart';
 import 'package:MatchIn/features/home/data/data_sources/home_remote_data_source_impl.dart';
 import 'package:MatchIn/features/home/data/data_sources/home_remote_data_source.dart';
 import 'package:MatchIn/features/home/data/repositories/home_repository_impl.dart';
 import 'package:MatchIn/features/home/domain/repositories/home_repository.dart';
+import 'package:MatchIn/features/home/domain/use_cases/get_cached_home_dashboard_use_case.dart';
 import 'package:MatchIn/features/home/domain/use_cases/get_home_dashboard_use_case.dart';
 import 'package:MatchIn/features/home/presentation/cubit/home_cubit.dart';
 import 'package:MatchIn/features/profile/data/data_sources/profile_local_data_source.dart';
@@ -402,23 +406,40 @@ Future<void> setupServiceLocator() async {
   // Home Feature
   // =========================================================
 
+  getIt.registerLazySingleton<HomeLocalDataSource>(
+    () => HomeLocalDataSourceImpl(
+      profileLocalDataSource: getIt(),
+      sharedPreferencesHelper: getIt(),
+    ),
+  );
+
   getIt.registerLazySingleton<HomeRemoteDataSource>(
     () => HomeRemoteDataSourceImpl(
       apiConsumer: getIt(),
-      profileLocalDataSource: getIt(),
     ),
   );
 
   getIt.registerLazySingleton<HomeRepository>(
-    () => HomeRepositoryImpl(remoteDataSource: getIt()),
+    () => HomeRepositoryImpl(
+      remoteDataSource: getIt(),
+      localDataSource: getIt(),
+      profileLocalDataSource: getIt(),
+    ),
   );
 
   getIt.registerLazySingleton<GetHomeDashboardUseCase>(
     () => GetHomeDashboardUseCase(repository: getIt()),
   );
 
+  getIt.registerLazySingleton<GetCachedHomeDashboardUseCase>(
+    () => GetCachedHomeDashboardUseCase(repository: getIt()),
+  );
+
   getIt.registerLazySingleton<HomeCubit>(
-    () => HomeCubit(getHomeDashboardUseCase: getIt()),
+    () => HomeCubit(
+      getHomeDashboardUseCase: getIt(),
+      getCachedHomeDashboardUseCase: getIt(),
+    ),
   );
 
   // =========================================================
@@ -479,6 +500,10 @@ Future<void> setupServiceLocator() async {
 
   getIt.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
 
+  getIt.registerLazySingleton<ConnectivityCubit>(
+    () => ConnectivityCubit(networkInfo: getIt())..checkConnectivity(),
+  );
+
   getIt.registerLazySingleton<Dio>(() => Dio());
 
   getIt.registerLazySingleton<ApiConsumer>(
@@ -486,6 +511,7 @@ Future<void> setupServiceLocator() async {
       dio: getIt(),
       secureStorageService: getIt(),
       sharedPreferencesService: getIt(),
+      connectivityCubit: getIt(),
     ),
   );
 

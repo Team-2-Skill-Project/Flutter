@@ -2,6 +2,7 @@ import 'package:MatchIn/core/errors/exceptions.dart';
 import 'package:MatchIn/core/networking/api_consumer.dart';
 import 'package:MatchIn/core/networking/api_end_points.dart';
 import 'package:MatchIn/core/networking/api_interceptor.dart';
+import 'package:MatchIn/core/networking/connectivity_cubit.dart';
 import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:dio/dio.dart';
@@ -13,6 +14,7 @@ class DioConsumer extends ApiConsumer {
     required this.dio,
     required SecureStorageService secureStorageService,
     required SharedPreferencesService sharedPreferencesService,
+    ConnectivityCubit? connectivityCubit,
   }) {
     //! =================== Configurations ===================
     // takeing base url from api end point
@@ -24,6 +26,7 @@ class DioConsumer extends ApiConsumer {
         dio,
         secureStorageService: secureStorageService,
         sharedPreferencesService: sharedPreferencesService,
+        connectivityCubit: connectivityCubit,
       ),
     );
 

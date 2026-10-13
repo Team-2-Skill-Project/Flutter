@@ -144,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "askChatBot": MessageLookupByLibrary.simpleMessage("Ask Chat Bot"),
     "at": MessageLookupByLibrary.simpleMessage("at"),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
+    "backOnline": MessageLookupByLibrary.simpleMessage("Back online"),
     "backToJobs": MessageLookupByLibrary.simpleMessage("Back to Jobs"),
     "backToLogin": MessageLookupByLibrary.simpleMessage("Back to login"),
     "buildMyRoadmap": MessageLookupByLibrary.simpleMessage("Build My Roadmap"),
@@ -234,6 +235,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
     "confirmPasswordHint": MessageLookupByLibrary.simpleMessage(
       "Re-enter your password",
+    ),
+    "connectionSlowRetrying": MessageLookupByLibrary.simpleMessage(
+      "Connection is slow. Retrying...",
     ),
     "contactAddressPlaceholder": MessageLookupByLibrary.simpleMessage(
       "100 Innovation Boulevard, Tech Park, Suite 400",
@@ -655,6 +659,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
     "notificationsTitle": MessageLookupByLibrary.simpleMessage("Notifications"),
     "offer": MessageLookupByLibrary.simpleMessage("Offer"),
+    "offlineStatusShowingSaved": MessageLookupByLibrary.simpleMessage(
+      "You\'re offline. Showing saved data.",
+    ),
     "older": MessageLookupByLibrary.simpleMessage("Older"),
     "onSite": MessageLookupByLibrary.simpleMessage("On-site"),
     "onboardingBullet1": MessageLookupByLibrary.simpleMessage(
@@ -1050,6 +1057,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "usedInTwoProjects": MessageLookupByLibrary.simpleMessage(
       "Used in 2 projects",
     ),
+    "userFallback": MessageLookupByLibrary.simpleMessage("User"),
     "verificationCodeLabel": MessageLookupByLibrary.simpleMessage(
       "VERIFICATION CODE",
     ),
