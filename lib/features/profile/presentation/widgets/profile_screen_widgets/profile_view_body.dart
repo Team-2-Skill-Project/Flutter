@@ -1,4 +1,5 @@
 import 'package:MatchIn/core/utils/profile_formatters.dart';
+import 'package:MatchIn/core/widgets/error/app_error.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_state.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/career_preferences_widgets/career_preferences_profile_card.dart';
@@ -9,6 +10,7 @@ import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_wid
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/experience_widgets/experience_profile_item_data.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/profile_header.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/profile_overview_card.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/profile_skeleton.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/projects_widgets/projects_profile_card.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/skills_widgets/skills_profile_card.dart';
 import 'package:flutter/material.dart';
@@ -28,17 +30,18 @@ class ProfileViewBody extends StatelessWidget {
         SizedBox(height: 16.h),
         BlocBuilder<ProfileCubit, ProfileState>(
           builder: (context, state) {
-            if (state is ProfileLoading) {
-              return Padding(
-                padding: EdgeInsets.symmetric(vertical: 32.h),
-                child: const Center(child: CircularProgressIndicator()),
-              );
+            if (state is ProfileInitial || state is ProfileLoading) {
+              return const ProfileSkeleton();
             }
 
             if (state is ProfileFailure) {
               return Padding(
                 padding: EdgeInsets.symmetric(vertical: 32.h),
-                child: Center(child: Text(state.message)),
+                child: AppErrorWidget(
+                  message: state.message,
+                  onRetry: () =>
+                      context.read<ProfileCubit>().getCandidateProfile(),
+                ),
               );
             }
 

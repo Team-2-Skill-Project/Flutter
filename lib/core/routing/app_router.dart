@@ -57,6 +57,14 @@ abstract final class AppRouter {
     return null;
   }
 
+  static String _heroPrefixFromExtra(Object? extra) {
+    if (extra is Map<String, dynamic>) {
+      final value = extra['heroPrefix'];
+      if (value is String && value.isNotEmpty) return value;
+    }
+    return 'feed';
+  }
+
   static CustomTransitionPage<dynamic> _buildTransitionPage({
     required GoRouterState state,
     required Widget child,
@@ -167,10 +175,11 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kJobDetailsView,
         pageBuilder: (context, state) {
-          final job = state.extra as JobEntity;
+          final job = _jobFromExtra(state.extra);
+          final heroPrefix = _heroPrefixFromExtra(state.extra);
           return _buildTransitionPage(
             state: state,
-            child: JobDetailsView(job: job),
+            child: JobDetailsView(job: job, heroPrefix: heroPrefix),
           );
         },
       ),

@@ -395,6 +395,7 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<JobsFeedCubit>(
     () => JobsFeedCubit(
       getJobsUseCase: getIt(),
+      getCachedJobsUseCase: getIt(),
       searchJobsUseCase: getIt(),
       refreshJobsUseCase: getIt(),
       toggleSaveJobUseCase: getIt(),

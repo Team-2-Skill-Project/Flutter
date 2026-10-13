@@ -15,6 +15,7 @@ class FakeProfileRepository extends Fake
     implements ProfileRepository {
   Either<Failure, CandidateProfileEntity>?
   candidateProfileResult;
+  Either<Failure, CandidateProfileEntity?>? cachedProfileResult;
 
   @override
   Future<Either<Failure, CandidateProfileEntity>>
@@ -25,12 +26,7 @@ class FakeProfileRepository extends Fake
   @override
   Future<Either<Failure, CandidateProfileEntity?>>
   getCachedCandidateProfile() async {
-    return Right(
-      candidateProfileResult?.fold(
-        (_) => null,
-        (profile) => profile,
-      ),
-    );
+    return cachedProfileResult ?? const Right(null);
   }
 }
 
@@ -65,9 +61,10 @@ void main() {
 
   group('ProfileCubit', () {
     blocTest<ProfileCubit, ProfileState>(
-      'emits [ProfileLoading, ProfileSuccess] when getCandidateProfile succeeds',
+      'emits [ProfileLoading, ProfileSuccess] on first fetch with empty cache',
       build: () {
         repo.candidateProfileResult = Right(_makeProfile());
+        repo.cachedProfileResult = const Right(null);
         return _buildCubit(repo);
       },
       act: (cubit) => cubit.getCandidateProfile(),
@@ -78,11 +75,42 @@ void main() {
     );
 
     blocTest<ProfileCubit, ProfileState>(
-      'emits [ProfileLoading, ProfileFailure] when getCandidateProfile fails',
+      'emits cached first then fresh on refresh with cache available',
+      build: () {
+        repo.candidateProfileResult = Right(_makeProfile());
+        repo.cachedProfileResult = Right(_makeProfile());
+        return _buildCubit(repo);
+      },
+      act: (cubit) => cubit.getCandidateProfile(),
+      expect: () => [
+        ProfileSuccess(profile: _makeProfile(), isRefreshing: true),
+        ProfileSuccess(profile: _makeProfile()),
+      ],
+    );
+
+    blocTest<ProfileCubit, ProfileState>(
+      'preserves cache when remote refresh fails',
       build: () {
         repo.candidateProfileResult = const Left(
           ServerFailure(message: 'Profile fetch failed'),
         );
+        repo.cachedProfileResult = Right(_makeProfile());
+        return _buildCubit(repo);
+      },
+      act: (cubit) => cubit.getCandidateProfile(),
+      expect: () => [
+        ProfileSuccess(profile: _makeProfile(), isRefreshing: true),
+        ProfileSuccess(profile: _makeProfile()),
+      ],
+    );
+
+    blocTest<ProfileCubit, ProfileState>(
+      'emits [ProfileLoading, ProfileFailure] when no cache and remote fails',
+      build: () {
+        repo.candidateProfileResult = const Left(
+          ServerFailure(message: 'Profile fetch failed'),
+        );
+        repo.cachedProfileResult = const Right(null);
         return _buildCubit(repo);
       },
       act: (cubit) => cubit.getCandidateProfile(),

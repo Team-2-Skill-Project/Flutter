@@ -38,6 +38,10 @@ class FakeSectionRepository extends Fake implements ProfileRepository {
   }
 
   @override
+  Future<Either<Failure, CandidateProfileEntity?>>
+  getCachedCandidateProfile() async => const Right(null);
+
+  @override
   Future<Either<Failure, CvUploadReceipt?>> uploadCv(
     CvUploadInput input,
   ) async {

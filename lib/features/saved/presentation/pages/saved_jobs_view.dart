@@ -248,6 +248,7 @@ class _SavedJobsContentState extends State<_SavedJobsContent> {
                   child: FadeInAnimation(
                     child: JobCard(
                       job: job.toJobEntity(),
+                      heroPrefix: 'saved',
                       showShareButton: true,
                       onSave: () {
                         if (!requireAuth(context)) return;

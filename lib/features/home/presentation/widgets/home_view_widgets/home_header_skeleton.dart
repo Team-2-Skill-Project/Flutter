@@ -19,14 +19,14 @@ class HomeHeaderSkeleton extends StatelessWidget {
             children: [
               showImage(image: Assets.iconsTextLogo),
               const Spacer(),
-              const AppCircleIconButton(
+              AppCircleIconButton(
                 icon: Icons.notifications_none_rounded,
-                onTap: null,
+                onTap: () {},
               ),
               SizedBox(width: 8.w),
-              const AppCircleIconButton(
+              AppCircleIconButton(
                 icon: Icons.settings_outlined,
-                onTap: null,
+                onTap: () {},
               ),
             ],
           ),
