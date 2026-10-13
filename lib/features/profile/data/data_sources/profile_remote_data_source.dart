@@ -18,7 +18,7 @@ import 'package:MatchIn/features/profile/domain/entities/update_candidate_projec
 import 'package:MatchIn/features/profile/domain/entities/update_education_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_experience_params.dart';
 
-abstract class ProfileRemoteDataSource {
+abstract interface class ProfileRemoteDataSource {
   Future<CandidateProfileModel> getCandidateProfile();
 
   Future<CandidateProfileModel> updateCandidateProfile(
