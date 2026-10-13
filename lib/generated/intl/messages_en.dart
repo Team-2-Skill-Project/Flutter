@@ -220,6 +220,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "completeRegistration": MessageLookupByLibrary.simpleMessage(
       "Complete Registration",
     ),
+    "completeProfilePrompt": MessageLookupByLibrary.simpleMessage(
+      "Complete your profile to start adding your education, experience, skills, and more.",
+    ),
+    "createProfile": MessageLookupByLibrary.simpleMessage("Create Profile"),
+    "userFieldsNotSavedYet": MessageLookupByLibrary.simpleMessage(
+      "Name and phone number can't be saved yet and were not sent to the server.",
+    ),
     "completedPercentage": m0,
     "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
     "confirmClearAllChats": MessageLookupByLibrary.simpleMessage(
@@ -575,6 +582,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Mentioned in job requirements",
     ),
     "midLevel": MessageLookupByLibrary.simpleMessage("Mid-Level"),
+    "militaryCompleted": MessageLookupByLibrary.simpleMessage("Completed"),
+    "militaryExempted": MessageLookupByLibrary.simpleMessage("Exempted"),
+    "militaryFinalExemption": MessageLookupByLibrary.simpleMessage(
+      "Final Exemption",
+    ),
+    "militaryPostponed": MessageLookupByLibrary.simpleMessage("Postponed"),
     "militaryStatus": MessageLookupByLibrary.simpleMessage("Military Status"),
     "minutesAgo": m4,
     "monthYearHint": MessageLookupByLibrary.simpleMessage("MM / YYYY"),

@@ -105,7 +105,12 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
       return Right(profile);
     } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.errorModel.errorMessage));
+      return Left(
+        ServerFailure(
+          message: e.errorModel.errorMessage,
+          fieldErrors: e.errorModel.fieldErrors,
+        ),
+      );
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -123,7 +128,12 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
       return Right(profile);
     } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.errorModel.errorMessage));
+      return Left(
+        ServerFailure(
+          message: e.errorModel.errorMessage,
+          fieldErrors: e.errorModel.fieldErrors,
+        ),
+      );
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }

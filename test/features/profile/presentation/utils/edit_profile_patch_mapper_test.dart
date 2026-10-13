@@ -127,5 +127,66 @@ void main() {
 
       expect(params.hasChanges, isFalse);
     });
+
+    test('builds a create request from user input on null baseline', () {
+      const baseline = CandidateProfileEntity(
+        profileExists: false,
+        user: ProfileUserEntity(
+          id: 1,
+          name: 'New User',
+          email: 'new@example.com',
+          role: 'candidate',
+          isActive: true,
+        ),
+      );
+
+      final params = EditProfilePatchMapper.fromDiff(
+        baseline: baseline,
+        dateOfBirth: '2000-01-01',
+        gender: 'male',
+        jobTitle: 'Junior Flutter Developer',
+        country: null,
+        state: null,
+        city: null,
+        githubUrl: '',
+        linkedinUrl: '',
+        militaryStatus: null,
+      );
+
+      expect(params.hasChanges, isTrue);
+      expect(params.dateOfBirth as String?, '2000-01-01');
+      expect(params.gender as String?, 'male');
+      expect(params.jobTitle as String?, 'Junior Flutter Developer');
+      expect(UpdateCandidateProfileParams.isSet(params.country), isFalse);
+      expect(UpdateCandidateProfileParams.isSet(params.githubUrl), isFalse);
+    });
+
+    test('sends only changed location fields through PATCH', () {
+      final params = mapCurrent(
+        makeBaseline(),
+        country: 'Germany',
+        state: 'Bavaria',
+        city: 'Munich',
+      );
+
+      expect(params.hasChanges, isTrue);
+      expect(params.country as String?, 'Germany');
+      expect(params.state as String?, 'Bavaria');
+      expect(params.city as String?, 'Munich');
+      expect(UpdateCandidateProfileParams.isSet(params.jobTitle), isFalse);
+      expect(UpdateCandidateProfileParams.isSet(params.gender), isFalse);
+      expect(
+        UpdateCandidateProfileParams.isSet(params.militaryStatus),
+        isFalse,
+      );
+    });
+
+    test('sends a changed military status through PATCH', () {
+      final params = mapCurrent(makeBaseline(), militaryStatus: 'completed');
+
+      expect(params.hasChanges, isTrue);
+      expect(params.militaryStatus as String?, 'completed');
+      expect(UpdateCandidateProfileParams.isSet(params.country), isFalse);
+    });
   });
 }

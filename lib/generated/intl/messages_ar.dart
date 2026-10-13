@@ -216,6 +216,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "completeRegistration": MessageLookupByLibrary.simpleMessage(
       "إكمال التسجيل",
     ),
+    "completeProfilePrompt": MessageLookupByLibrary.simpleMessage(
+      "أكمل ملفك الشخصي لبدء إضافة تعليمك وخبراتك ومهاراتك والمزيد.",
+    ),
+    "createProfile": MessageLookupByLibrary.simpleMessage("إنشاء الملف الشخصي"),
+    "userFieldsNotSavedYet": MessageLookupByLibrary.simpleMessage(
+      "لا يمكن حفظ الاسم ورقم الهاتف بعد، ولم يتم إرسالهما إلى الخادم.",
+    ),
     "completedPercentage": m0,
     "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
     "confirmClearAllChats": MessageLookupByLibrary.simpleMessage(
@@ -567,6 +574,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "مذكورة في متطلبات الوظيفة",
     ),
     "midLevel": MessageLookupByLibrary.simpleMessage("Mid-Level"),
+    "militaryCompleted": MessageLookupByLibrary.simpleMessage("أدى الخدمة"),
+    "militaryExempted": MessageLookupByLibrary.simpleMessage("معفى"),
+    "militaryFinalExemption": MessageLookupByLibrary.simpleMessage(
+      "إعفاء نهائي",
+    ),
+    "militaryPostponed": MessageLookupByLibrary.simpleMessage("مؤجل"),
     "militaryStatus": MessageLookupByLibrary.simpleMessage("الحالة العسكرية"),
     "minutesAgo": m4,
     "monthYearHint": MessageLookupByLibrary.simpleMessage("شهر / سنة"),

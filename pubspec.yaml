@@ -9,6 +9,7 @@ environment:
   sdk: ^3.13.2
 
 dependencies:
+  countrify: ^2.5.0
   cupertino_icons: ^1.0.8
   dartz: ^0.10.1
   dio: ^5.11.1

@@ -40,6 +40,7 @@ import 'package:MatchIn/features/home/data/repositories/home_repository_impl.dar
 import 'package:MatchIn/features/home/domain/repositories/home_repository.dart';
 import 'package:MatchIn/features/home/domain/use_cases/get_home_dashboard_use_case.dart';
 import 'package:MatchIn/features/home/presentation/cubit/home_cubit.dart';
+import 'package:MatchIn/features/profile/data/data_sources/location/location_catalog.dart';
 import 'package:MatchIn/features/profile/data/data_sources/profile_local_data_source.dart';
 import 'package:MatchIn/features/profile/data/data_sources/profile_local_data_source_impl.dart';
 import 'package:MatchIn/features/profile/data/data_sources/profile_remote_data_source.dart';
@@ -613,6 +614,8 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<ProfileRemoteDataSource>(
     () => ProfileRemoteDataSourceImpl(apiConsumer: getIt()),
   );
+
+  getIt.registerLazySingleton<LocationCatalog>(() => const LocationCatalog());
 
   // Profile Use Cases and cubit
   getIt.registerLazySingleton<GetCandidateProfileUseCase>(

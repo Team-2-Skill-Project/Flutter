@@ -2,6 +2,7 @@ import 'package:MatchIn/core/utils/profile_formatters.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_state.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/career_preferences_widgets/career_preferences_profile_card.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/profile_creation_prompt_dialog.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/cv_widgets/cv_profile_section.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/education_widgets/education_profile_card.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/education_widgets/education_profile_item_data.dart';
@@ -47,6 +48,7 @@ class ProfileViewBody extends StatelessWidget {
               final details = profile.profile;
               final careerPreferences = profile.careerPreferences;
               final cvDocument = profile.cvDocument;
+              final profileExists = profile.profileExists;
 
               return Column(
                 children: [
@@ -73,12 +75,12 @@ class ProfileViewBody extends StatelessWidget {
                         )
                         .toList(),
                     onEdit: () async {
-                      final changed = await context.push<bool>(
-                        '/profile/editEducation',
+                      await _openManagementOrPrompt(
+                        context,
+                        profileExists: profileExists,
+                        open: () =>
+                            context.push<bool>('/profile/editEducation'),
                       );
-                      if (changed == true && context.mounted) {
-                        context.read<ProfileCubit>().getCandidateProfile();
-                      }
                     },
                   ),
                   SizedBox(height: 16.h),
@@ -100,44 +102,41 @@ class ProfileViewBody extends StatelessWidget {
                         )
                         .toList(),
                     onEdit: () async {
-                      final changed = await context.push<bool>(
-                        '/profile/editExperience',
+                      await _openManagementOrPrompt(
+                        context,
+                        profileExists: profileExists,
+                        open: () =>
+                            context.push<bool>('/profile/editExperience'),
                       );
-                      if (changed == true && context.mounted) {
-                        context.read<ProfileCubit>().getCandidateProfile();
-                      }
                     },
                   ),
                   SizedBox(height: 16.h),
                   SkillsProfileCard(
                     skills: profile.skills.map((skill) => skill.name).toList(),
                     onEdit: () async {
-                      final changed = await context.push<bool>(
-                        '/profile/skills',
+                      await _openManagementOrPrompt(
+                        context,
+                        profileExists: profileExists,
+                        open: () => context.push<bool>('/profile/skills'),
                       );
-                      if (changed == true && context.mounted) {
-                        context.read<ProfileCubit>().getCandidateProfile();
-                      }
                     },
                     onAddSkill: () async {
-                      final changed = await context.push<bool>(
-                        '/profile/skills',
+                      await _openManagementOrPrompt(
+                        context,
+                        profileExists: profileExists,
+                        open: () => context.push<bool>('/profile/skills'),
                       );
-                      if (changed == true && context.mounted) {
-                        context.read<ProfileCubit>().getCandidateProfile();
-                      }
                     },
                   ),
                   SizedBox(height: 16.h),
                   ProjectsProfileCard(
                     projects: profile.projects,
                     onEdit: () async {
-                      final changed = await context.push<bool>(
-                        '/profile/projects',
+                      await _openManagementOrPrompt(
+                        context,
+                        profileExists: profileExists,
+                        open: () => context.push<bool>('/profile/projects'),
                       );
-                      if (changed == true && context.mounted) {
-                        context.read<ProfileCubit>().getCandidateProfile();
-                      }
                     },
                   ),
                   SizedBox(height: 16.h),
@@ -153,12 +152,11 @@ class ProfileViewBody extends StatelessWidget {
                     ),
                     experienceLevel: careerPreferences?.experienceLevel,
                     onEdit: () async {
-                      final changed = await context.push<bool>(
-                        '/profile/careerPref',
+                      await _openManagementOrPrompt(
+                        context,
+                        profileExists: profileExists,
+                        open: () => context.push<bool>('/profile/careerPref'),
                       );
-                      if (changed == true && context.mounted) {
-                        context.read<ProfileCubit>().getCandidateProfile();
-                      }
                     },
                   ),
                 ],
@@ -182,4 +180,31 @@ String? _preferredLocation(String? country, String? city) {
     return null;
   }
   return parts.join(', ');
+}
+
+/// Opens a management screen when the candidate profile exists.
+///
+/// When [profileExists] is false, shows the creation prompt instead and
+/// navigates to the existing Edit Profile screen only if the user taps
+/// "Create Profile". Never triggers management GET requests that are
+/// guaranteed to return 404, and never creates a profile automatically.
+Future<void> _openManagementOrPrompt(
+  BuildContext context, {
+  required bool profileExists,
+  required Future<bool?> Function() open,
+}) async {
+  if (!profileExists) {
+    final create = await ProfileCreationPromptDialog.show(context);
+    if (create != true || !context.mounted) return;
+    final changed = await context.push<bool>('/profile/editProfile');
+    if (changed == true && context.mounted) {
+      context.read<ProfileCubit>().getCandidateProfile();
+    }
+    return;
+  }
+
+  final changed = await open();
+  if (changed == true && context.mounted) {
+    context.read<ProfileCubit>().getCandidateProfile();
+  }
 }

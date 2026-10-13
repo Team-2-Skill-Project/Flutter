@@ -161,5 +161,31 @@ void main() {
       ),
       expect: () => isEmpty,
     );
+
+    blocTest<EditProfileCubit, EditProfileState>(
+      'does nothing when params carry no changes (empty PATCH prevention)',
+      build: () => buildCubit(repo),
+      seed: () => EditProfileReady(makeProfile()),
+      act: (cubit) => cubit.updateProfile(const UpdateCandidateProfileParams()),
+      expect: () => isEmpty,
+      verify: (_) {
+        expect(repo.lastParams, isNull);
+      },
+    );
+
+    blocTest<EditProfileCubit, EditProfileState>(
+      'ignores a second save while already saving',
+      build: () {
+        repo.updateResult = Right(makeProfile(jobTitle: 'Senior Developer'));
+        return buildCubit(repo);
+      },
+      seed: () => EditProfileSaving(makeProfile()),
+      act: (cubit) => cubit.updateProfile(
+        const UpdateCandidateProfileParams().copyWith(
+          jobTitle: 'Senior Developer',
+        ),
+      ),
+      expect: () => isEmpty,
+    );
   });
 }

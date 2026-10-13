@@ -9,6 +9,7 @@ class EditProfileDropdown extends StatelessWidget {
     required this.onChanged,
     super.key,
     this.hintText,
+    this.disabledValues = const {},
   });
 
   final String label;
@@ -16,6 +17,10 @@ class EditProfileDropdown extends StatelessWidget {
   final Map<String, String> items;
   final ValueChanged<String?> onChanged;
   final String? hintText;
+
+  /// Machine values that render but cannot be selected (e.g. an option
+  /// whose backend value is not confirmed yet). Never submitted.
+  final Set<String> disabledValues;
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +79,7 @@ class EditProfileDropdown extends StatelessWidget {
           items: availableItems.entries.map((entry) {
             return DropdownMenuItem<String>(
               value: entry.key,
+              enabled: !disabledValues.contains(entry.key),
               child: Text(entry.value, overflow: TextOverflow.ellipsis),
             );
           }).toList(),

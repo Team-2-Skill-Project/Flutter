@@ -19,6 +19,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     emit(const EditProfileLoading());
 
     final result = await _getCandidateProfileForEditUseCase();
+    if (isClosed) return;
 
     result.fold(
       (failure) {
@@ -31,6 +32,10 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   }
 
   Future<void> updateProfile(UpdateCandidateProfileParams params) async {
+    // Never send an empty PATCH: callers must diff first and skip
+    // the request when nothing changed.
+    if (!params.hasChanges) return;
+
     final currentState = state;
     if (currentState is EditProfileSaving) return;
 
@@ -45,6 +50,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     emit(EditProfileSaving(baseline));
 
     final result = await _updateCandidateProfileUseCase(params);
+    if (isClosed) return;
 
     result.fold(
       (failure) {
