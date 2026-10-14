@@ -4,12 +4,13 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:MatchIn/core/networking/api_end_points.dart';
 import 'package:MatchIn/core/services/app_config_service.dart';
 import 'package:MatchIn/core/services/push_notifications_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 
-Future<void> _defaultPushInitializer(SharedPreferencesService storage) {
+Future<void> _defaultPushInitializer(
+  SharedPreferencesService storage,
+) {
   return PushNotificationsService.init(storage: storage);
 }
 
@@ -39,7 +40,8 @@ class AppInitializer {
   // --- Injectable startup hooks: static SDK singletons (FCM, Mobile Ads)
   // --- cannot run in unit tests, so tests inject fakes. Production uses
   // --- the defaults and behaves exactly as before. ---
-  final Future<void> Function(SharedPreferencesService)? pushInitializer;
+  final Future<void> Function(SharedPreferencesService)?
+  pushInitializer;
   final Future<void> Function()? adsInitializer;
 
   //! ===== Startup =====
@@ -59,19 +61,20 @@ class AppInitializer {
 
   //! ===== Runtime configuration =====
 
-  // --- Explicit update mechanism: validated URL flows into the
-  // --- centralized EndPoint and the live Dio instance. No recreation
-  // --- of Dio and no configuration logic inside the interceptor. ---
+  // --- Explicit update mechanism: validated URL flows into the live
+  // --- Dio instance. No recreation of Dio and no configuration logic
+  // --- inside the interceptor. ---
   Future<void> refreshBaseUrl() async {
     try {
       final result = await appConfigService.refresh();
-      result.fold((failure) => log('App config refresh: ${failure.message}'), (
-        baseUrl,
-      ) {
-        EndPoint.baseUrl = baseUrl;
-        dio.options.baseUrl = baseUrl;
-        log('App config refresh: using $baseUrl');
-      });
+      result.fold(
+        (failure) =>
+            log('App config refresh: ${failure.message}'),
+        (baseUrl) {
+          dio.options.baseUrl = baseUrl;
+          log('App config refresh: using $baseUrl');
+        },
+      );
     } catch (e) {
       log('App config refresh error: $e');
     }
