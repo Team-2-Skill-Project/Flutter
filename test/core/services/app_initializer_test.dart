@@ -46,7 +46,7 @@ void main() {
       sharedPreferencesService: preferencesService,
       baseUrlProvider: provider,
     );
-    dio = Dio()..options.baseUrl = EndPoint.defaultBaseUrl;
+    dio = Dio();
     pushCalls = 0;
     adsCalls = 0;
     initializer = AppInitializer(
@@ -58,7 +58,7 @@ void main() {
       adsInitializer: () async => adsCalls++,
     );
     savedBaseUrl = EndPoint.baseUrl;
-    EndPoint.baseUrl = EndPoint.defaultBaseUrl;
+    EndPoint.baseUrl = '';
   });
 
   tearDown(() {
@@ -87,15 +87,15 @@ void main() {
 
       await initializer.refreshBaseUrl();
 
-      expect(EndPoint.baseUrl, EndPoint.defaultBaseUrl);
-      expect(dio.options.baseUrl, EndPoint.defaultBaseUrl);
+      expect(EndPoint.baseUrl, isEmpty);
+      expect(dio.options.baseUrl, isEmpty);
     });
   });
 
   group('AppInitializer.init without Firebase', () {
     test('startup still works and keeps the locator-resolved url', () async {
       // --- The service locator resolves this before init() runs ---
-      EndPoint.baseUrl = EndPoint.defaultBaseUrl;
+      EndPoint.baseUrl = '';
       provider.error = FirebaseException(
         plugin: 'cloud_firestore',
         code: 'app-not-initialized',
@@ -104,7 +104,7 @@ void main() {
 
       await initializer.init();
 
-      expect(EndPoint.baseUrl, EndPoint.defaultBaseUrl);
+      expect(EndPoint.baseUrl, isEmpty);
       // --- Background hooks settle after init returns ---
       await Future<void>.delayed(const Duration(milliseconds: 50));
       // --- Startup sequence is preserved even when Firebase fails ---

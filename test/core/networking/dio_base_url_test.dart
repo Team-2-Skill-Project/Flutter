@@ -65,7 +65,7 @@ void main() {
     );
     adapter = _CaptureAdapter();
     savedBaseUrl = EndPoint.baseUrl;
-    EndPoint.baseUrl = EndPoint.defaultBaseUrl;
+    EndPoint.baseUrl = '';
   });
 
   tearDown(() {
@@ -82,6 +82,39 @@ void main() {
   }
 
   group('DioConsumer centralized base URL', () {
+    test('sends no request without a resolved base URL', () async {
+      // --- Neither Firestore nor cache provided a URL: every verb
+      // --- fails fast instead of hitting an obsolete backend. ---
+      final consumer = buildConsumer();
+
+      await expectLater(
+        consumer.get('jobs'),
+        throwsA(
+          isA<ServerException>().having(
+            (e) => e.errorModel.errorMessage,
+            'errorMessage',
+            contains('unavailable'),
+          ),
+        ),
+      );
+      await expectLater(consumer.post('jobs'), throwsA(isA<ServerException>()));
+      await expectLater(
+        consumer.put('jobs/1'),
+        throwsA(isA<ServerException>()),
+      );
+      await expectLater(
+        consumer.patch('jobs/1'),
+        throwsA(isA<ServerException>()),
+      );
+      await expectLater(
+        consumer.delete('jobs/1'),
+        throwsA(isA<ServerException>()),
+      );
+
+      // --- The adapter was never reached: zero requests sent ---
+      expect(adapter.capturedUri, isNull);
+    });
+
     test('uses the resolved EndPoint base URL', () async {
       EndPoint.baseUrl = 'https://resolved.example/api/';
 

@@ -11,7 +11,7 @@ void main() {
   setUp(() async {
     await getIt.reset();
     savedBaseUrl = EndPoint.baseUrl;
-    EndPoint.baseUrl = EndPoint.defaultBaseUrl;
+    EndPoint.baseUrl = '';
   });
 
   tearDown(() async {
@@ -30,20 +30,21 @@ void main() {
       expect(EndPoint.baseUrl, 'https://cached.example/api/');
     });
 
-    test('falls back to the EndPoint default without a cache', () async {
+    // --- No fallback exists: unresolved stays empty until Firestore ---
+    test('leaves the url unresolved without a cache', () async {
       SharedPreferences.setMockInitialValues({});
 
       await setupServiceLocator();
 
-      expect(EndPoint.baseUrl, EndPoint.defaultBaseUrl);
+      expect(EndPoint.baseUrl, isEmpty);
     });
 
-    test('falls back to the default on an invalid cache', () async {
+    test('leaves the url unresolved on an invalid cache', () async {
       SharedPreferences.setMockInitialValues({'apiBaseUrl': 'not-a-url'});
 
       await setupServiceLocator();
 
-      expect(EndPoint.baseUrl, EndPoint.defaultBaseUrl);
+      expect(EndPoint.baseUrl, isEmpty);
     });
   });
 }

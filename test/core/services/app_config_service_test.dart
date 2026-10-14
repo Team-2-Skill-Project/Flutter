@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:MatchIn/core/cache/shared_preferences_helper.dart';
 import 'package:MatchIn/core/errors/failures.dart';
-import 'package:MatchIn/core/networking/api_end_points.dart';
 import 'package:MatchIn/core/services/app_config_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -47,9 +46,7 @@ void main() {
   group('AppConfigService.isValidBaseUrl', () {
     test('accepts https urls with and without trailing slash', () {
       expect(
-        AppConfigService.isValidBaseUrl(
-          'https://start-chances-strategy-contribute.trycloudflare.com/api/',
-        ),
+        AppConfigService.isValidBaseUrl('https://backend.example.com/api/'),
         isTrue,
       );
       expect(
@@ -237,22 +234,16 @@ void main() {
       expect(configService.hasCachedBaseUrl, isTrue);
     });
 
-    test('falls back to EndPoint default when nothing is cached', () {
-      expect(configService.currentBaseUrl, EndPoint.defaultBaseUrl);
+    // --- No hardcoded fallback exists: null means no request may be sent ---
+    test('returns null when nothing is cached', () {
+      expect(configService.currentBaseUrl, isNull);
       expect(configService.hasCachedBaseUrl, isFalse);
     });
 
-    test('ignores an invalid cached value and uses the default', () async {
+    test('returns null for an invalid cached value', () async {
       await preferencesService.saveApiBaseUrl('not-a-url');
-      expect(configService.currentBaseUrl, EndPoint.defaultBaseUrl);
+      expect(configService.currentBaseUrl, isNull);
       expect(configService.hasCachedBaseUrl, isFalse);
-    });
-
-    test('the fallback url comes from EndPoint', () {
-      expect(
-        EndPoint.defaultBaseUrl,
-        'https://start-chances-strategy-contribute.trycloudflare.com/api/',
-      );
     });
   });
 }

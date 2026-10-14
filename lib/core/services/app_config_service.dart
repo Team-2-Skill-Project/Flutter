@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:MatchIn/core/errors/failures.dart';
-import 'package:MatchIn/core/networking/api_end_points.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 
 ///* AppConfigService: runtime API base-url configuration.
@@ -13,7 +12,8 @@ import 'package:MatchIn/core/services/shared_preferences_service.dart';
 ///* validates it, caches the last valid value locally, and serves it
 ///* synchronously so networking never blocks on a remote fetch. A valid
 ///* cached value is never overwritten by a missing, empty, or invalid one.
-///* Priority: Firebase Firestore > valid cache > [EndPoint.defaultBaseUrl].
+///* Priority: Firebase Firestore > valid cache. Null means no valid
+///* configuration is available and no request may be sent.
 class AppConfigService {
   AppConfigService({
     required this.sharedPreferencesService,
@@ -25,13 +25,14 @@ class AppConfigService {
 
   //! ===== Current base URL =====
 
-  // --- Synchronous snapshot: valid cache first, central fallback otherwise ---
-  String get currentBaseUrl {
+  // --- Synchronous snapshot of the valid cache, or null when no valid
+  // --- configuration exists. There is no fallback URL by design. ---
+  String? get currentBaseUrl {
     final cached = sharedPreferencesService.getApiBaseUrl();
     if (isValidBaseUrl(cached)) {
       return normalizeBaseUrl(cached!);
     }
-    return EndPoint.defaultBaseUrl;
+    return null;
   }
 
   bool get hasCachedBaseUrl =>

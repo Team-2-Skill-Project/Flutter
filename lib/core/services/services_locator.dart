@@ -549,13 +549,16 @@ Future<void> setupServiceLocator() async {
     ),
   );
 
-  // --- Central startup resolution: a valid cached base URL wins,
-  // --- otherwise EndPoint.defaultBaseUrl applies. This is the service
-  // --- locator's synchronous equivalent of "try the cached URL,
-  // --- fall back to the default on any failure": currentBaseUrl only
-  // --- reads local cache, validates it, and never throws. Runtime
-  // --- Firebase updates flow through AppInitializer.refreshBaseUrl(). ---
-  EndPoint.baseUrl = getIt<AppConfigService>().currentBaseUrl;
+  // --- Central startup resolution: a valid cached base URL applies,
+  // --- otherwise EndPoint stays unresolved (empty) until Firestore
+  // --- returns a valid URL. There is intentionally no fallback URL:
+  // --- currentBaseUrl only reads local cache, validates it, and never
+  // --- throws. Runtime Firebase updates flow through
+  // --- AppInitializer.refreshBaseUrl(). ---
+  final startupBaseUrl = getIt<AppConfigService>().currentBaseUrl;
+  if (startupBaseUrl != null) {
+    EndPoint.baseUrl = startupBaseUrl;
+  }
 
   // =========================================================
   // Applications Feature

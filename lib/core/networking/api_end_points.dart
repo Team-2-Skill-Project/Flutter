@@ -1,15 +1,13 @@
 ///* EndPoints: the endpoints of the api
 abstract class EndPoint {
-  // --- Compile-time fallback used when neither Firebase nor a valid
-  // --- cached URL is available. Single source of truth for the default. ---
-  static const String defaultBaseUrl =
+  // --- Runtime-resolved API base URL. Firebase Firestore is the only
+  // --- source of truth; there is intentionally no hardcoded fallback.
+  // --- Empty means unresolved: it is assigned a validated URL by the
+  // --- service locator at startup (valid cache) and by AppInitializer
+  // --- on Firebase refreshes. Dio refuses to send requests while empty,
+  // --- so no call ever goes to an obsolete backend. ---
+  static String baseUrl =
       'https://start-chances-strategy-contribute.trycloudflare.com/api/';
-
-  // --- Runtime-resolved base URL. Starts as [defaultBaseUrl] and is only
-  // --- ever reassigned with a validated URL by the service locator at
-  // --- startup and by AppInitializer on Firebase refreshes, so every
-  // --- Dio instance built from here follows the same configuration. ---
-  static String baseUrl = defaultBaseUrl;
 
   static const String login = 'auth/login';
   static const String register = 'auth/register';
