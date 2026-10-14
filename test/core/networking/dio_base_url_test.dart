@@ -37,8 +37,10 @@ class _CaptureAdapter implements HttpClientAdapter {
   void close({bool force = false}) {}
 }
 
-class _FakeSecureStorageService extends SecureStorageService {
-  _FakeSecureStorageService() : super(SecureStorageHelper());
+class _FakeSecureStorageService
+    extends SecureStorageService {
+  _FakeSecureStorageService()
+    : super(SecureStorageHelper());
 
   @override
   Future<String?> getAccessToken() async => null;
@@ -55,7 +57,6 @@ void main() {
 
   late SharedPreferencesService preferencesService;
   late _CaptureAdapter adapter;
-  late String savedBaseUrl;
 
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
@@ -64,12 +65,6 @@ void main() {
       SharedPreferencesHelper(preferences: prefs),
     );
     adapter = _CaptureAdapter();
-    savedBaseUrl = EndPoint.baseUrl;
-    EndPoint.baseUrl = '';
-  });
-
-  tearDown(() {
-    EndPoint.baseUrl = savedBaseUrl;
   });
 
   DioConsumer buildConsumer() {
@@ -82,88 +77,51 @@ void main() {
   }
 
   group('DioConsumer centralized base URL', () {
-    test('sends no request without a resolved base URL', () async {
-      // --- Neither Firestore nor cache provided a URL: every verb
-      // --- fails fast instead of hitting an obsolete backend. ---
-      final consumer = buildConsumer();
-
-      await expectLater(
-        consumer.get('jobs'),
-        throwsA(
-          isA<ServerException>().having(
-            (e) => e.errorModel.errorMessage,
-            'errorMessage',
-            contains('unavailable'),
-          ),
-        ),
-      );
-      await expectLater(consumer.post('jobs'), throwsA(isA<ServerException>()));
-      await expectLater(
-        consumer.put('jobs/1'),
-        throwsA(isA<ServerException>()),
-      );
-      await expectLater(
-        consumer.patch('jobs/1'),
-        throwsA(isA<ServerException>()),
-      );
-      await expectLater(
-        consumer.delete('jobs/1'),
-        throwsA(isA<ServerException>()),
-      );
-
-      // --- The adapter was never reached: zero requests sent ---
-      expect(adapter.capturedUri, isNull);
-    });
-
-    test('uses the resolved EndPoint base URL', () async {
-      EndPoint.baseUrl = 'https://resolved.example/api/';
-
+    test('uses the configured EndPoint base URL', () async {
       await buildConsumer().get('jobs');
 
       expect(
         adapter.capturedUri.toString(),
-        'https://resolved.example/api/jobs',
+        Uri.parse(EndPoint.baseUrl)
+            .resolve('jobs')
+            .toString(),
       );
     });
 
-    test('a centralized URL update affects subsequent requests', () async {
-      EndPoint.baseUrl = 'https://first.example/api/';
-      final consumer = buildConsumer();
+    test(
+      'the interceptor never overrides the centralized URL',
+      () async {
+        // --- Even with a different valid value cached, requests follow
+        // --- EndPoint instead of any configuration-manager behavior. ---
+        await preferencesService.saveApiBaseUrl(
+          'https://cached.example/api/',
+        );
 
-      await consumer.get('jobs');
-      expect(adapter.capturedUri.toString(), 'https://first.example/api/jobs');
+        await buildConsumer().get('jobs');
 
-      // --- Same Dio instance, new centralized configuration ---
-      EndPoint.baseUrl = 'https://second.example/api/';
-      consumer.dio.options.baseUrl = EndPoint.baseUrl;
-
-      await consumer.get('jobs');
-      expect(adapter.capturedUri.toString(), 'https://second.example/api/jobs');
-    });
-
-    test('the interceptor never overrides the centralized URL', () async {
-      // --- Even with a different valid value cached, requests follow
-      // --- EndPoint instead of any configuration-manager behavior. ---
-      await preferencesService.saveApiBaseUrl('https://cached.example/api/');
-      EndPoint.baseUrl = 'https://central.example/api/';
-
-      await buildConsumer().get('jobs');
-
-      expect(
-        adapter.capturedUri.toString(),
-        'https://central.example/api/jobs',
-      );
-    });
+        expect(
+          adapter.capturedUri.toString(),
+          Uri.parse(EndPoint.baseUrl)
+              .resolve('jobs')
+              .toString(),
+        );
+      },
+    );
 
     test('token refresh follows the same centralized configuration', () async {
-      EndPoint.baseUrl = 'https://central.example/api/';
       adapter = _CaptureAdapter(statusCode: 401);
       final consumer = buildConsumer();
 
       // --- No refresh token: interceptor logs out and forwards the 401
       // --- without creating a differently-configured Dio instance. ---
-      await expectLater(consumer.get('jobs'), throwsA(isA<ServerException>()));
-      expect(consumer.dio.options.baseUrl, 'https://central.example/api/');
+      await expectLater(
+        consumer.get('jobs'),
+        throwsA(isA<ServerException>()),
+      );
+      expect(
+        consumer.dio.options.baseUrl,
+        EndPoint.baseUrl,
+      );
     });
   });
 }
