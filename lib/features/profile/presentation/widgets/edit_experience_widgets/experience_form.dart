@@ -457,10 +457,9 @@ class _ExperienceFormState extends State<ExperienceForm> {
                                     },
                                   ),
                                   SizedBox(height: 18.h),
-                                  // Local-only filter scoping the city
-                                  // options. Experience has no state
-                                  // field in the API, so this value is
-                                  // never submitted.
+                                  // Local-only filter for city options.
+                                  // Experience has no state field, so this
+                                  // value is never submitted.
                                   ExperienceDropdownField(
                                     label: locale.stateGovernorate,
                                     value: state,

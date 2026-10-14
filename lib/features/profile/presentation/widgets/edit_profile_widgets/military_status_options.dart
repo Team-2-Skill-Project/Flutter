@@ -14,11 +14,9 @@ class MilitaryStatusOptions {
 
   /// Placeholder key for the "Final Exemption" display option.
   ///
-  /// The backend machine value for final exemption is not confirmed in
-  /// any Swagger contract or codebase source, so this key is always
-  /// listed in [disabledValues] and is never submitted. Replace it with
-  /// the confirmed value (and remove it from [disabledValues]) once the
-  /// backend documents it.
+  /// The backend machine value is unconfirmed, so this key stays in
+  /// [disabledValues] and is never submitted. Replace it once the
+  /// backend documents the value.
   /// TODO(backend-contract): confirm the military_status machine value
   /// for "Final Exemption", then enable submission of this option.
   static const String finalExemptionPlaceholder = 'final_exemption_unconfirmed';

@@ -38,9 +38,8 @@ class PersonalInformationCard extends StatelessWidget {
       title: locale.personalInformation,
       child: Column(
         children: [
-          // TODO(user-profile): Name belongs to the User object. There is
-          // no confirmed update endpoint yet, so edits are kept locally
-          // and never sent through PATCH /candidate/profile.
+          // TODO(user-profile): Name lives on the User object with no
+          // confirmed update endpoint; edits stay local, never PATCHed.
           EditProfileField(
             label: locale.fullName,
             controller: fullNameController,
@@ -55,10 +54,8 @@ class PersonalInformationCard extends StatelessWidget {
           SizedBox(height: 16.h),
           GenderSelector(value: gender, onChanged: onGenderChanged),
           SizedBox(height: 16.h),
-          // TODO(user-profile): Phone belongs to the User object. There
-          // is no confirmed update endpoint yet, so edits are kept
-          // locally and never sent through PATCH /candidate/profile.
-          // Calling codes come from the shared LocationCatalog dataset.
+          // TODO(user-profile): Phone lives on the User object with no
+          // confirmed update endpoint; edits stay local, never PATCHed.
           ProfilePhoneField(
             controller: phoneController,
             countryCode: countryCode,

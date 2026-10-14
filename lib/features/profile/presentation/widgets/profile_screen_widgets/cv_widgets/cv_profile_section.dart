@@ -104,9 +104,8 @@ class CvProfileSection extends StatelessWidget {
             final uploading = state is CvUploading;
             final document = cvDocument;
             return CvProfileCard(
-              // Existence follows the selected current document, never
-              // file_url availability: the backend provides metadata
-              // without a confirmed file URL.
+              // Existence follows the selected current document, not
+              // file_url availability (no confirmed file URL exists).
               hasCv: document != null,
               fileName: document?.fileName,
               status: document?.status,

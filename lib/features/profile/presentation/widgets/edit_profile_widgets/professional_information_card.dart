@@ -37,10 +37,9 @@ class ProfessionalInformationCard extends StatelessWidget {
             controller: jobTitleController,
           ),
           SizedBox(height: 16.h),
-          // Military status machine values are documented per option in
-          // MilitaryStatusOptions. "Final Exemption" has no confirmed
-          // backend value, so it renders disabled and is never submitted.
-          // Unknown existing backend values keep displaying.
+          // Military status options are documented in
+          // MilitaryStatusOptions; "Final Exemption" stays disabled
+          // until its backend value is confirmed.
           EditProfileDropdown(
             label: locale.militaryStatus,
             value: militaryStatus,

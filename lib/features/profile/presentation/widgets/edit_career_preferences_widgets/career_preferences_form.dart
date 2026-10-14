@@ -355,8 +355,7 @@ class _CareerPreferencesFormState extends State<CareerPreferencesForm> {
               openToRelocation: _openToRelocation.value,
 
               // Country/City come from the local dataset; State stays
-              // a local-only filter because the API has no
-              // preferred_state and it is never submitted.
+              // a local-only filter (no preferred_state in the API).
               onCountryPressed: _pickCountry,
               onStatePressed: _pickState,
               onCityPressed: _pickCity,

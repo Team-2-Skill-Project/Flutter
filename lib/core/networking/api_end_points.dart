@@ -1,7 +1,7 @@
 ///* EndPoints: the endpoints of the api
 abstract class EndPoint {
   static const String baseUrl =
-      'https://macro-clock-considerations-symbol.trycloudflare.com/api/';
+      'https://iptvdemo.serv5group.com/api/';
 
   static const String login = 'auth/login';
   static const String register = 'auth/register';
