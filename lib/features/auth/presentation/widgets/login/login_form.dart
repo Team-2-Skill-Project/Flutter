@@ -1,14 +1,10 @@
-import 'package:MatchIn/core/services/services_locator.dart';
-import 'package:MatchIn/core/services/secure_storage_service.dart';
-import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/core/widgets/custom_button.dart';
 import 'package:MatchIn/core/widgets/custom_text_field.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/core/utils/validator.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:MatchIn/features/profile/data/data_sources/profile_local_data_source.dart';
-import 'package:MatchIn/features/profile/data/models/user_profile_model.dart';
+import 'package:MatchIn/features/auth/presentation/helpers/auth_success_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -146,34 +142,7 @@ class _LoginFormState extends State<LoginForm> {
           BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) async {
               if (state is LoginSuccess) {
-                final prefs = getIt<SharedPreferencesService>();
-                final secureStorage = getIt<SecureStorageService>();
-                // Save tokens to secure storage so the interceptor can attach them
-                final token = state.loginModel.accessToken;
-                final refreshToken = state.loginModel.refreshToken ?? '';
-                await secureStorage.saveTokens(
-                  accessToken: token,
-                  refreshToken: refreshToken,
-                );
-                await prefs.setLoggedIn(true);
-                await prefs.setGuest(false);
-                final user = state.loginModel.user;
-                if (user != null) {
-                  await prefs.saveUserId(user.id);
-                  final profileLocal = getIt<ProfileLocalDataSource>();
-                  await profileLocal.cacheUserProfile(
-                    UserProfileModel(
-                      id: user.id,
-                      name: user.name,
-                      email: user.email,
-                      jobTitle: '',
-                      location: '',
-                    ),
-                  );
-                }
-                if (context.mounted) {
-                  context.go(AppRoutes.kHomeView);
-                }
+                await handleLoginSuccess(context, state.loginModel);
               } else if (state is LoginFailure) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

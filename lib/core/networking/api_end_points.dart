@@ -1,7 +1,24 @@
+import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/core/services/shared_preferences_service.dart';
+
 ///* EndPoints: the endpoints of the api
 abstract class EndPoint {
-  static const String baseUrl =
+  // --- Compile-time fallback used when neither Firebase nor a valid
+  // --- cached URL is available. Single source of truth for the default. ---
+  static const String defaultBaseUrl =
       'https://start-chances-strategy-contribute.trycloudflare.com/api/';
+
+  // --- Runtime-resolved base URL. Starts as [defaultBaseUrl] and is only
+  // --- ever reassigned by AppInitializer with a validated URL, so every
+  // --- Dio instance built from here follows the same configuration. ---
+  static Future<String> baseUrl() async {
+    try {
+      final result = await getIt<SharedPreferencesService>().getBaseUrl();
+      return await result;
+    } catch (e) {
+      return defaultBaseUrl;
+    }
+  }
 
   static const String login = 'auth/login';
   static const String register = 'auth/register';

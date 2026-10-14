@@ -17,7 +17,7 @@ class DioConsumer extends ApiConsumer {
     ConnectivityCubit? connectivityCubit,
   }) {
     //! =================== Configurations ===================
-    // takeing base url from api end point
+    // takeing base url from the centralized end point configuration
     dio.options.baseUrl = EndPoint.baseUrl;
 
     // adding api interceptor

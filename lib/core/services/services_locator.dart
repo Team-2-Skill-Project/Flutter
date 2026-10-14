@@ -5,7 +5,10 @@ import 'package:MatchIn/core/networking/dio_consumer.dart';
 import 'package:MatchIn/core/networking/connectivity_cubit.dart';
 import 'package:MatchIn/core/networking/network_info.dart';
 import 'package:MatchIn/core/routing/cubit/main_navigation_cubit.dart';
+import 'package:MatchIn/core/services/app_config_service.dart';
+import 'package:MatchIn/core/services/app_initializer.dart';
 import 'package:MatchIn/core/services/file_picker_service.dart';
+import 'package:MatchIn/core/services/google_sign_in_service.dart';
 import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/core/widgets/ads/rewarded_ad_manager.dart';
@@ -15,6 +18,7 @@ import 'package:MatchIn/features/auth/data/repositories/auth_repository_impl.dar
 import 'package:MatchIn/features/auth/domain/repositories/auth_repository.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/forgot_password_use_case.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/login_use_case.dart';
+import 'package:MatchIn/features/auth/domain/use_cases/login_with_google_use_case.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/register_use_case.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/resend_otp_use_case.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/reset_password_use_case.dart';
@@ -190,6 +194,10 @@ Future<void> setupServiceLocator() async {
     () => LoginUseCase(repository: getIt()),
   );
 
+  getIt.registerLazySingleton<LoginWithGoogleUseCase>(
+    () => LoginWithGoogleUseCase(repository: getIt()),
+  );
+
   getIt.registerLazySingleton<VerifyOtpUseCase>(
     () => VerifyOtpUseCase(repository: getIt()),
   );
@@ -211,7 +219,12 @@ Future<void> setupServiceLocator() async {
   );
 
   getIt.registerFactory<AuthCubit>(
-    () => AuthCubit(loginUseCase: getIt(), registerUseCase: getIt()),
+    () => AuthCubit(
+      loginUseCase: getIt(),
+      registerUseCase: getIt(),
+      googleSignInService: getIt(),
+      loginWithGoogleUseCase: getIt(),
+    ),
   );
 
   getIt.registerFactory<OtpCubit>(
@@ -415,9 +428,7 @@ Future<void> setupServiceLocator() async {
   );
 
   getIt.registerLazySingleton<HomeRemoteDataSource>(
-    () => HomeRemoteDataSourceImpl(
-      apiConsumer: getIt(),
-    ),
+    () => HomeRemoteDataSourceImpl(apiConsumer: getIt()),
   );
 
   getIt.registerLazySingleton<HomeRepository>(
@@ -495,6 +506,8 @@ Future<void> setupServiceLocator() async {
 
   getIt.registerLazySingleton<FilePickerService>(() => FilePickerService());
 
+  getIt.registerLazySingleton<GoogleSignInService>(() => GoogleSignInService());
+
   // =========================================================
   // Networking
   // =========================================================
@@ -505,6 +518,17 @@ Future<void> setupServiceLocator() async {
     () => ConnectivityCubit(networkInfo: getIt())..checkConnectivity(),
   );
 
+  getIt.registerLazySingleton<BaseUrlProvider>(
+    () => FirestoreBaseUrlProvider(),
+  );
+
+  getIt.registerLazySingleton<AppConfigService>(
+    () => AppConfigService(
+      sharedPreferencesService: getIt(),
+      baseUrlProvider: getIt(),
+    ),
+  );
+
   getIt.registerLazySingleton<Dio>(() => Dio());
 
   getIt.registerLazySingleton<ApiConsumer>(
@@ -513,6 +537,14 @@ Future<void> setupServiceLocator() async {
       secureStorageService: getIt(),
       sharedPreferencesService: getIt(),
       connectivityCubit: getIt(),
+    ),
+  );
+
+  getIt.registerLazySingleton<AppInitializer>(
+    () => AppInitializer(
+      appConfigService: getIt(),
+      sharedPreferencesService: getIt(),
+      dio: getIt(),
     ),
   );
 
@@ -813,6 +845,7 @@ Future<void> setupServiceLocator() async {
       sharedPreferencesService: getIt(),
       secureStorageService: getIt(),
       profileLocalDataSource: getIt(),
+      googleSignInService: getIt(),
     ),
   );
 

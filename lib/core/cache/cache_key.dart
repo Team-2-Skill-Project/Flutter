@@ -20,6 +20,7 @@ abstract class CacheKey {
   static const String notificationsEnabled = 'notifications_enabled';
   static const String languageCode = 'language_code';
   static const String themeMode = 'theme_mode';
+  static const String apiBaseUrl = 'apiBaseUrl';
 }
 
 // TODO Profile Cache:

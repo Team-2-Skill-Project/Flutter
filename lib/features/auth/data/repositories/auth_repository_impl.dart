@@ -140,4 +140,22 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(ServerFailure(message: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, LoginModel>> loginWithGoogle({
+    required String idToken,
+  }) async {
+    try {
+      final loginModel = await remoteDataSource.loginWithGoogle(
+        idToken: idToken,
+      );
+      return Right(loginModel);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors));
+    } on OfflineException {
+      return const Left(OfflineFailure());
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
 }

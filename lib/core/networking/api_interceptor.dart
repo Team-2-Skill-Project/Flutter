@@ -58,7 +58,8 @@ class ApiInterceptor extends Interceptor {
   /// This will be called when request throw error
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
-    final isTimeout = err.type == DioExceptionType.connectionTimeout ||
+    final isTimeout =
+        err.type == DioExceptionType.connectionTimeout ||
         err.type == DioExceptionType.sendTimeout ||
         err.type == DioExceptionType.receiveTimeout;
     final isOffline = err.type == DioExceptionType.connectionError;
@@ -119,7 +120,8 @@ class ApiInterceptor extends Interceptor {
     }
 
     try {
-      // create new dio instance for refresh token request
+      // create new dio instance for refresh token request, following the
+      // same centralized configuration as every other API request
       final refreshDio = Dio(BaseOptions(baseUrl: EndPoint.baseUrl));
 
       // call refresh token endpoint

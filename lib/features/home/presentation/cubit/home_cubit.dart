@@ -13,7 +13,20 @@ class HomeCubit extends Cubit<HomeState> {
   final GetHomeDashboardUseCase getHomeDashboardUseCase;
   final GetCachedHomeDashboardUseCase getCachedHomeDashboardUseCase;
 
+  bool _isFetching = false;
+
   Future<void> getHomeDashboard() async {
+    // --- Prevent overlapping dashboard requests (initial load vs. pull-to-refresh) ---
+    if (_isFetching) return;
+    _isFetching = true;
+    try {
+      await _loadDashboard();
+    } finally {
+      _isFetching = false;
+    }
+  }
+
+  Future<void> _loadDashboard() async {
     HomeDashboardEntity? cachedDashboard;
 
     // 1. Instantly load from local cache if available

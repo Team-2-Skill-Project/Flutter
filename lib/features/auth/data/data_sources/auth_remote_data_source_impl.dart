@@ -1,3 +1,5 @@
+import 'package:MatchIn/core/errors/error_model.dart';
+import 'package:MatchIn/core/errors/exceptions.dart';
 import 'package:MatchIn/core/networking/api_consumer.dart';
 import 'package:MatchIn/core/networking/api_end_points.dart';
 import 'package:MatchIn/features/auth/data/data_sources/auth_remote_data_source.dart';
@@ -82,5 +84,19 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     );
     // هنا السيرفر رد علينا، فبناخد الرد (response) وندخله جوه المودل عشان يتحول لمتغيرات نقدر نستخدمها
     return LoginModel.fromJson(response);
+  }
+
+  @override
+  Future<LoginModel> loginWithGoogle({required String idToken}) async {
+    // --- No invented endpoint: the backend exposes no Google/social login
+    // --- route (see EndPoint + docs/API_DOCUMENTATION.md), so there is
+    // --- nothing truthful to call. Fail explicitly instead of faking auth.
+    throw ServerException(
+      errorModel: const ErrorModel(
+        statusCode: 501,
+        errorMessage:
+            'Google sign-in is not supported by the backend yet. Missing endpoint: a server route exchanging the Google ID token for app tokens.',
+      ),
+    );
   }
 }

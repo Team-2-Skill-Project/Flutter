@@ -38,6 +38,11 @@ class JobsFeedCubit extends Cubit<JobsFeedState> {
 
   JobFilterParams get currentFilterParams => _currentFilterParams;
 
+  //! ===== Refresh guard =====
+  // Tracks an in-flight pull-to-refresh so repeated pulls cannot fire
+  // overlapping requests or corrupt state.
+  bool _isRefreshingJobs = false;
+
   Future<void> getJobs({JobFilterParams? params}) async {
     if (params != null) {
       _currentFilterParams = params;
@@ -105,6 +110,16 @@ class JobsFeedCubit extends Cubit<JobsFeedState> {
   }
 
   Future<void> refreshJobs() async {
+    if (_isRefreshingJobs) return;
+    _isRefreshingJobs = true;
+    try {
+      await _performRefresh();
+    } finally {
+      _isRefreshingJobs = false;
+    }
+  }
+
+  Future<void> _performRefresh() async {
     final resetParams = _currentFilterParams.copyWith(page: 1);
     _currentFilterParams = resetParams;
 
