@@ -9,11 +9,6 @@ import 'package:MatchIn/core/services/app_config_service.dart';
 import 'package:MatchIn/core/services/push_notifications_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 
-///* AppInitializer: single application bootstrap entry point.
-///* Owns the startup sequence so main.dart stays minimal: Firebase,
-///* centralized base-url resolution, Mobile Ads, background config
-///* refresh, and push notifications. Every step degrades gracefully and
-///* [init] never throws, so the app always reaches runApp().
 Future<void> _defaultPushInitializer(SharedPreferencesService storage) {
   return PushNotificationsService.init(storage: storage);
 }
@@ -22,6 +17,12 @@ Future<void> _defaultAdsInitializer() {
   return MobileAds.instance.initialize();
 }
 
+///* AppInitializer: single application bootstrap entry point.
+///* Owns the startup sequence so main.dart stays minimal: Firebase,
+///* Mobile Ads, background config refresh, and push notifications.
+///* The startup base URL is resolved centrally by the service locator;
+///* Firebase refreshes land through [refreshBaseUrl]. Every step degrades
+///* gracefully and [init] never throws, so the app always reaches runApp().
 class AppInitializer {
   AppInitializer({
     required this.appConfigService,
@@ -44,11 +45,10 @@ class AppInitializer {
   //! ===== Startup =====
 
   // --- Preserves the existing startup sequence and error handling ---
+  // --- (the startup base URL was already resolved centrally by the
+  // --- service locator before init() runs). ---
   Future<void> init() async {
     await _initFirebase();
-
-    // --- Resolve synchronously before any API request can run ---
-    _applyStartupBaseUrl();
 
     // --- Refresh and push setup never delay the first frame ---
     unawaited(refreshBaseUrl());
@@ -87,12 +87,6 @@ class AppInitializer {
     } catch (e) {
       log('Firebase init error: $e');
     }
-  }
-
-  // --- Valid cache applies immediately; the central fallback covers
-  // --- first launches while Firestore refreshes in the background. ---
-  void _applyStartupBaseUrl() {
-    EndPoint.baseUrl = appConfigService.currentBaseUrl;
   }
 
   // --- Initialized before runApp so RewardedAd.load() in the roadmap

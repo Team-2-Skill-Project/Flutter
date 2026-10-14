@@ -93,7 +93,9 @@ void main() {
   });
 
   group('AppInitializer.init without Firebase', () {
-    test('startup still works and uses the fallback url', () async {
+    test('startup still works and keeps the locator-resolved url', () async {
+      // --- The service locator resolves this before init() runs ---
+      EndPoint.baseUrl = EndPoint.defaultBaseUrl;
       provider.error = FirebaseException(
         plugin: 'cloud_firestore',
         code: 'app-not-initialized',
@@ -110,8 +112,8 @@ void main() {
       expect(adsCalls, 1);
     });
 
-    test('startup prefers a valid cached url while offline', () async {
-      await preferencesService.saveApiBaseUrl('https://cached.example/api/');
+    test('init never disturbs the centralized url on failure', () async {
+      EndPoint.baseUrl = 'https://resolved.example/api/';
       provider.error = FirebaseException(
         plugin: 'cloud_firestore',
         code: 'unavailable',
@@ -119,7 +121,7 @@ void main() {
 
       await initializer.init();
 
-      expect(EndPoint.baseUrl, 'https://cached.example/api/');
+      expect(EndPoint.baseUrl, 'https://resolved.example/api/');
     });
   });
 }

@@ -175,6 +175,4 @@ class SharedPreferencesService {
     return _sharedPreferencesHelper.getString(key: CacheKey.themeMode) ??
         'system';
   }
-
-  Future<Future<String>> getBaseUrl() async {}
 }

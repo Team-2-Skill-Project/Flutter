@@ -1,6 +1,7 @@
 import 'package:MatchIn/core/cache/secure_storage_helper.dart';
 import 'package:MatchIn/core/cache/shared_preferences_helper.dart';
 import 'package:MatchIn/core/networking/api_consumer.dart';
+import 'package:MatchIn/core/networking/api_end_points.dart';
 import 'package:MatchIn/core/networking/dio_consumer.dart';
 import 'package:MatchIn/core/networking/connectivity_cubit.dart';
 import 'package:MatchIn/core/networking/network_info.dart';
@@ -547,6 +548,14 @@ Future<void> setupServiceLocator() async {
       dio: getIt(),
     ),
   );
+
+  // --- Central startup resolution: a valid cached base URL wins,
+  // --- otherwise EndPoint.defaultBaseUrl applies. This is the service
+  // --- locator's synchronous equivalent of "try the cached URL,
+  // --- fall back to the default on any failure": currentBaseUrl only
+  // --- reads local cache, validates it, and never throws. Runtime
+  // --- Firebase updates flow through AppInitializer.refreshBaseUrl(). ---
+  EndPoint.baseUrl = getIt<AppConfigService>().currentBaseUrl;
 
   // =========================================================
   // Applications Feature
