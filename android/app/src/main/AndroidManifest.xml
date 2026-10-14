@@ -18,8 +18,7 @@
 
     <application
         android:label="MatchIn"
-        android:name="${applicationName}"git merge origin/main
-
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
           
           

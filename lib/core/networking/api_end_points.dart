@@ -15,14 +15,11 @@ abstract class EndPoint {
   static const String logout = 'auth/logout';
 
   // Email Verification
-  static const String verifyEmailOtp =
-      'auth/verify-email-otp';
-  static const String resendEmailOtp =
-      'auth/resend-email-otp';
+  static const String verifyEmailOtp = 'auth/verify-email-otp';
+  static const String resendEmailOtp = 'auth/resend-email-otp';
 
   // Password Recovery
-  static const String forgotPassword =
-      'auth/forgot-password';
+  static const String forgotPassword = 'auth/forgot-password';
   static const String verifyPasswordResetOtp =
       'auth/forgot-password/verify-otp';
   static const String resetPassword = 'auth/reset-password';
@@ -33,26 +30,20 @@ abstract class EndPoint {
   static const String chatMessage = 'chatbot/chat';
   static const String savedJobs = 'saved-jobs';
   static const String jobs = 'jobs';
-  static String jobDetails(dynamic jobPostId) =>
-      'jobs/$jobPostId';
+  static String jobDetails(dynamic jobPostId) => 'jobs/$jobPostId';
 
-  static String saveJob(dynamic jobPostId) =>
-      'jobs/$jobPostId/save';
+  static String saveJob(dynamic jobPostId) => 'jobs/$jobPostId/save';
 
   // Applications
   static const String applications = 'applications';
-  static String applicationDetails(dynamic id) =>
-      'applications/$id';
+  static String applicationDetails(dynamic id) => 'applications/$id';
   static String updateApplicationStatus(dynamic id) =>
       'applications/$id/status';
-  static String withdrawApplication(dynamic id) =>
-      'applications/$id/withdraw';
+  static String withdrawApplication(dynamic id) => 'applications/$id/withdraw';
 
-  static String applicationNotes(dynamic id) =>
-      'applications/$id/notes';
+  static String applicationNotes(dynamic id) => 'applications/$id/notes';
   // Candidate Profile
-  static const String candidateProfile =
-      'candidate/profile';
+  static const String candidateProfile = 'candidate/profile';
 
   // Candidate Skills
   static const String candidateSkills = 'candidate/skills';
@@ -64,22 +55,19 @@ abstract class EndPoint {
   static const String searchSkills = 'skills/search';
 
   // Candidate Projects
-  static const String candidateProjects =
-      'candidate/projects';
+  static const String candidateProjects = 'candidate/projects';
 
   static String candidateProject(int projectId) =>
       'candidate/projects/$projectId';
 
   // Candidate Educations
-  static const String candidateEducations =
-      'candidate/educations';
+  static const String candidateEducations = 'candidate/educations';
 
   static String candidateEducation(int educationId) =>
       'candidate/educations/$educationId';
 
   // Candidate Experiences
-  static const String candidateExperiences =
-      'candidate/experiences';
+  static const String candidateExperiences = 'candidate/experiences';
 
   static String candidateExperience(int experienceId) =>
       'candidate/experiences/$experienceId';
@@ -88,17 +76,13 @@ abstract class EndPoint {
   static const String cvUpload = 'cv/upload';
 
   // Career Preferences
-  static const String careerPreferences =
-      'candidate/career-preferences';
+  static const String careerPreferences = 'candidate/career-preferences';
 
   // Notifications
   static const String notifications = 'notifications';
-  static const String notificationsUnreadCount =
-      'notifications/unread-count';
-  static const String notificationsReadAll =
-      'notifications/read-all';
-  static String markNotificationAsRead(dynamic id) =>
-      'notifications/$id/read';
+  static const String notificationsUnreadCount = 'notifications/unread-count';
+  static const String notificationsReadAll = 'notifications/read-all';
+  static String markNotificationAsRead(dynamic id) => 'notifications/$id/read';
 }
 
 ///* ApiKeys: the keys of the api
@@ -113,8 +97,7 @@ abstract class ApiKey {
   static const String name = 'name';
   static const String role = 'role';
   static const String password = 'password';
-  static const String passwordConfirmation =
-      'password_confirmation';
+  static const String passwordConfirmation = 'password_confirmation';
   static const String page = 'page';
   static const String perPage = 'per_page';
   static const String jobId = 'job_id';
@@ -134,14 +117,10 @@ abstract class ApiKey {
   static const String state = 'state';
   static const String city = 'city';
   static const String source = 'source';
-  static const String applicationMethod =
-      'application_method';
-  static const String isVerifiedCompany =
-      'is_verified_company';
-  static const String requiredSkillIds =
-      'required_skill_ids[]';
-  static const String preferredSkillIds =
-      'preferred_skill_ids[]';
+  static const String applicationMethod = 'application_method';
+  static const String isVerifiedCompany = 'is_verified_company';
+  static const String requiredSkillIds = 'required_skill_ids[]';
+  static const String preferredSkillIds = 'preferred_skill_ids[]';
   static const String coverLetter = 'cover_letter';
   static const String notes = 'notes';
   static const String reason = 'reason';
@@ -171,7 +150,6 @@ abstract class ApiHeaderKey {
   static const String accept = 'Accept';
   static const String contentType = 'Content-Type';
 
-  static String getAuthorizationValue({
-    required String? accessToken,
-  }) => '${ApiHeaderKey.bearer} $accessToken';
+  static String getAuthorizationValue({required String? accessToken}) =>
+      '${ApiHeaderKey.bearer} $accessToken';
 }
