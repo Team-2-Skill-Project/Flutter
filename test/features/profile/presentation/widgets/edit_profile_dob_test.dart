@@ -8,6 +8,7 @@ import 'package:MatchIn/features/profile/domain/entities/update_candidate_profil
 import 'package:MatchIn/features/profile/domain/repositories/profile_repository.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_profile_for_edit_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/update_candidate_profile_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/upload_avatar_use_case.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/edit_profile_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/views/edit_profile_view.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/edit_profile_field.dart';
@@ -56,6 +57,7 @@ Future<void> _pumpEditProfile(WidgetTester tester) async {
         repo,
       ),
       updateCandidateProfileUseCase: UpdateCandidateProfileUseCase(repo),
+      uploadAvatarUseCase: UploadAvatarUseCase(repository: repo),
     ),
   );
   getIt.registerLazySingleton<LocationCatalog>(() => const LocationCatalog());

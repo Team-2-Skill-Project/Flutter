@@ -4,6 +4,7 @@ import 'package:MatchIn/features/profile/domain/entities/add_candidate_project_p
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_skill_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_education_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_experience_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/avatar_upload_input.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_project_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_skill_entity.dart';
@@ -97,6 +98,14 @@ abstract class ProfileRepository {
   /// carries no usable receipt. Callers must refresh the Main Profile
   /// from GET instead of fabricating document data. Remote-only.
   Future<Either<Failure, CvUploadReceipt?>> uploadCv(CvUploadInput input);
+
+  // Avatar Upload
+  /// Uploads the candidate avatar image. Remote-only.
+  ///
+  /// TODO(avatar-backend): the endpoint, HTTP method, multipart field,
+  /// and response schema are pending backend documentation. Nothing
+  /// may call this until the contract lands.
+  Future<Either<Failure, Unit>> uploadAvatar(AvatarUploadInput input);
 
   // Career Preferences
   Future<Either<Failure, CareerPreferenceEntity?>> getCareerPreferences();

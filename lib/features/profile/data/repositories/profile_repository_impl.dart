@@ -7,6 +7,7 @@ import 'package:MatchIn/features/profile/domain/entities/add_candidate_project_p
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_skill_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_education_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_experience_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/avatar_upload_input.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_project_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_skill_entity.dart';
@@ -557,6 +558,35 @@ class ProfileRepositoryImpl implements ProfileRepository {
           message: e.errorModel.errorMessage,
           fieldErrors: e.errorModel.fieldErrors,
         ),
+      );
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  // Avatar Upload
+  @override
+  Future<Either<Failure, Unit>> uploadAvatar(AvatarUploadInput input) async {
+    if (!await networkInfo.isConnected) {
+      return const Left(OfflineFailure());
+    }
+
+    try {
+      await remoteDataSource.uploadAvatar(input);
+
+      return const Right(unit);
+    } on ServerException catch (e) {
+      return Left(
+        ServerFailure(
+          message: e.errorModel.errorMessage,
+          fieldErrors: e.errorModel.fieldErrors,
+        ),
+      );
+    } on UnimplementedError {
+      // TODO(avatar-backend): remove this branch once the remote avatar
+      // upload is implemented against the documented contract.
+      return const Left(
+        ServerFailure(message: 'Avatar upload is not available yet.'),
       );
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));

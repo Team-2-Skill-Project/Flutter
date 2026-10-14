@@ -143,6 +143,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "askChatBot": MessageLookupByLibrary.simpleMessage("اسأل المساعد"),
     "at": MessageLookupByLibrary.simpleMessage("في"),
+    "avatarUploadUnavailable": MessageLookupByLibrary.simpleMessage(
+      "رفع الصورة غير متاح بعد.",
+    ),
     "back": MessageLookupByLibrary.simpleMessage("رجوع"),
     "backToJobs": MessageLookupByLibrary.simpleMessage("العودة للوظائف"),
     "backToLogin": MessageLookupByLibrary.simpleMessage("العودة لتسجيل الدخول"),
@@ -201,7 +204,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "chatSuggestion4": MessageLookupByLibrary.simpleMessage(
       "ما المهارات التي يجب أن أتعلمها؟",
     ),
+    "chooseAnother": MessageLookupByLibrary.simpleMessage("اختر صورة أخرى"),
     "chooseFile": MessageLookupByLibrary.simpleMessage("اختر ملفًا"),
+    "chooseFromGallery": MessageLookupByLibrary.simpleMessage("اختر من المعرض"),
     "chooseStrongPassword": MessageLookupByLibrary.simpleMessage(
       "اختر كلمة مرور قوية لم تستخدمها من قبل.",
     ),
@@ -478,6 +483,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "iAgreeToTerms": MessageLookupByLibrary.simpleMessage(
       "أوافق على الشروط وسياسة الخصوصية",
     ),
+    "imageTooLarge": MessageLookupByLibrary.simpleMessage(
+      "حجم الصورة كبير جدًا. الحد الأقصى 5 ميجابايت.",
+    ),
     "inReview": MessageLookupByLibrary.simpleMessage("قيد المراجعة"),
     "institutionHint": MessageLookupByLibrary.simpleMessage(
       "ابحث أو أدخل اسم المؤسسة",
@@ -490,6 +498,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "invalidDateRange": MessageLookupByLibrary.simpleMessage(
       "يجب أن يكون تاريخ الانتهاء مساويًا لتاريخ البدء أو بعده",
+    ),
+    "invalidImageType": MessageLookupByLibrary.simpleMessage(
+      "نوع الصورة غير مدعوم. استخدم JPG أو PNG أو WEBP.",
     ),
     "invalidJobId": MessageLookupByLibrary.simpleMessage(
       "معرّف الوظيفة غير صالح.",
@@ -735,6 +746,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "preferredWorkModeLabel": MessageLookupByLibrary.simpleMessage(
       "نمط العمل المفضل",
     ),
+    "previewPhoto": MessageLookupByLibrary.simpleMessage("معاينة الصورة"),
     "previous7Days": MessageLookupByLibrary.simpleMessage("السابق 7 يوما"),
     "privacyAndSupport": MessageLookupByLibrary.simpleMessage(
       "الخصوصية والدعم",
@@ -967,6 +979,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "مستند داعم (اختياري)",
     ),
     "system": MessageLookupByLibrary.simpleMessage("تلقائي (النظام)"),
+    "takePhoto": MessageLookupByLibrary.simpleMessage("التقط صورة"),
     "targetRole": MessageLookupByLibrary.simpleMessage("الوظيفة المستهدفة"),
     "tasksCompleted": MessageLookupByLibrary.simpleMessage("مهام مكتملة"),
     "technicalCultureFitStage": MessageLookupByLibrary.simpleMessage(

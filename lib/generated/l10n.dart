@@ -3877,6 +3877,71 @@ class S {
     );
   }
 
+  /// `Take Photo`
+  String get takePhoto {
+    return Intl.message('Take Photo', name: 'takePhoto', desc: '', args: []);
+  }
+
+  /// `Choose from Gallery`
+  String get chooseFromGallery {
+    return Intl.message(
+      'Choose from Gallery',
+      name: 'chooseFromGallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preview Photo`
+  String get previewPhoto {
+    return Intl.message(
+      'Preview Photo',
+      name: 'previewPhoto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Another`
+  String get chooseAnother {
+    return Intl.message(
+      'Choose Another',
+      name: 'chooseAnother',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Avatar upload is not available yet.`
+  String get avatarUploadUnavailable {
+    return Intl.message(
+      'Avatar upload is not available yet.',
+      name: 'avatarUploadUnavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unsupported image type. Use JPG, PNG, or WEBP.`
+  String get invalidImageType {
+    return Intl.message(
+      'Unsupported image type. Use JPG, PNG, or WEBP.',
+      name: 'invalidImageType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image is too large. Maximum size is 5 MB.`
+  String get imageTooLarge {
+    return Intl.message(
+      'Image is too large. Maximum size is 5 MB.',
+      name: 'imageTooLarge',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Save Changes`
   String get saveChanges {
     return Intl.message(

@@ -5,6 +5,7 @@ import 'package:MatchIn/core/networking/dio_consumer.dart';
 import 'package:MatchIn/core/networking/network_info.dart';
 import 'package:MatchIn/core/routing/cubit/main_navigation_cubit.dart';
 import 'package:MatchIn/core/services/file_picker_service.dart';
+import 'package:MatchIn/core/services/profile_image_picker_service.dart';
 import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/core/widgets/ads/rewarded_ad_manager.dart';
@@ -102,6 +103,7 @@ import 'package:MatchIn/features/profile/domain/use_cases/update_candidate_profi
 import 'package:MatchIn/features/profile/domain/use_cases/update_candidate_project_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/update_education_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/update_experience_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/upload_avatar_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/upload_cv_use_case.dart';
 
 import 'package:MatchIn/features/profile/presentation/cubits/career_cubit/career_preferences_cubit.dart';
@@ -474,6 +476,10 @@ Future<void> setupServiceLocator() async {
 
   getIt.registerLazySingleton<FilePickerService>(() => FilePickerService());
 
+  getIt.registerLazySingleton<ProfileImagePickerService>(
+    () => ProfileImagePickerService(),
+  );
+
   // =========================================================
   // Networking
   // =========================================================
@@ -640,7 +646,12 @@ Future<void> setupServiceLocator() async {
     () => EditProfileCubit(
       getCandidateProfileForEditUseCase: getIt(),
       updateCandidateProfileUseCase: getIt(),
+      uploadAvatarUseCase: getIt(),
     ),
+  );
+
+  getIt.registerLazySingleton<UploadAvatarUseCase>(
+    () => UploadAvatarUseCase(repository: getIt()),
   );
 
   getIt.registerLazySingleton<GetCandidateProfileForEditUseCase>(

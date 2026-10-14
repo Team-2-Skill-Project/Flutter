@@ -15,6 +15,7 @@ import 'package:MatchIn/features/profile/domain/entities/add_candidate_project_p
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_skill_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_education_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_experience_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/avatar_upload_input.dart';
 import 'package:MatchIn/features/profile/domain/entities/cv_upload_input.dart';
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_profile_params.dart';
@@ -482,6 +483,18 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
     }
 
     return CvUploadReceiptModel.tryParseReceipt(response);
+  }
+
+  // Avatar Upload
+  @override
+  Future<void> uploadAvatar(AvatarUploadInput input) async {
+    // TODO(avatar-backend): implement the multipart upload once the
+    // endpoint, HTTP method, field name, and response schema are
+    // documented. Do NOT invent them here. This throw intentionally
+    // fires before any network operation.
+    throw UnimplementedError(
+      'Avatar upload API contract is pending backend support.',
+    );
   }
 
   // career preferences

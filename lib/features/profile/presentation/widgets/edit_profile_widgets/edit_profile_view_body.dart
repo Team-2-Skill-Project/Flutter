@@ -1,4 +1,11 @@
+import 'dart:async';
+import 'dart:typed_data';
+
 import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/core/services/profile_image_picker_service.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/avatar_file_validator.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/avatar_preview_dialog.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/avatar_source_sheet.dart';
 import 'package:MatchIn/core/widgets/error/app_error.dart';
 import 'package:MatchIn/features/profile/data/data_sources/location/location_catalog.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entity.dart';
@@ -79,6 +86,13 @@ class EditProfileViewBody extends StatelessWidget {
               );
             }
             return _EditProfileForm(initialProfile: baseline, isSaving: false);
+          case EditProfileAvatarStaged():
+            return _EditProfileForm(
+              initialProfile: state.profile,
+              isSaving: false,
+              avatarBytes: state.avatarBytes,
+              avatarFileName: state.fileName,
+            );
           case EditProfileSuccess():
             return _EditProfileForm(
               initialProfile: state.profile,
@@ -91,10 +105,20 @@ class EditProfileViewBody extends StatelessWidget {
 }
 
 class _EditProfileForm extends StatefulWidget {
-  const _EditProfileForm({required this.initialProfile, this.isSaving = false});
+  const _EditProfileForm({
+    required this.initialProfile,
+    this.isSaving = false,
+    this.avatarBytes,
+    this.avatarFileName,
+  });
 
   final CandidateProfileEntity initialProfile;
   final bool isSaving;
+
+  /// Staged in-memory avatar preview from [EditProfileAvatarStaged].
+  /// Display only; never persisted by this form.
+  final Uint8List? avatarBytes;
+  final String? avatarFileName;
 
   @override
   State<_EditProfileForm> createState() => _EditProfileFormState();
@@ -255,12 +279,72 @@ class _EditProfileFormState extends State<_EditProfileForm> {
     context.read<EditProfileCubit>().updateProfile(params);
   }
 
-  void _showPendingUserEditsNotice() {
+  void _showMessage(String message) {
+    if (!mounted) return;
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(content: Text(S.of(context).userFieldsNotSavedYet)),
-      );
+      ..showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  void _showPendingUserEditsNotice() {
+    _showMessage(S.of(context).userFieldsNotSavedYet);
+  }
+
+  /// Change Photo flow: source sheet → platform pick → validation →
+  /// cubit staging → preview dialog. Cancellation at any step keeps
+  /// the existing avatar; nothing is persisted here.
+  Future<void> _pickAndStageAvatar() async {
+    if (widget.isSaving) return;
+    final locale = S.of(context);
+
+    final source = await AvatarSourceSheet.show(context);
+    if (source == null || !mounted) return;
+
+    final picked = await getIt<ProfileImagePickerService>().pickProfileImage(
+      source,
+    );
+    if (!mounted) return;
+    if (picked == null) return;
+
+    final error = AvatarFileValidator.validate(
+      fileName: picked.name,
+      sizeBytes: picked.bytes.length,
+      hasContent: picked.bytes.isNotEmpty,
+      unsupportedMessage: locale.invalidImageType,
+      tooLargeMessage: locale.imageTooLarge,
+      emptyMessage: locale.cvEmptyFile,
+    );
+    if (error != null) {
+      _showMessage(error);
+      return;
+    }
+    if (!mounted) return;
+
+    final cubit = context.read<EditProfileCubit>();
+    await cubit.stageAvatar(avatarBytes: picked.bytes, fileName: picked.name);
+    if (!mounted) return;
+
+    final staged = cubit.state;
+    if (staged is! EditProfileAvatarStaged) return;
+
+    final action = await AvatarPreviewDialog.show(
+      context,
+      bytes: staged.avatarBytes,
+      fileName: staged.fileName,
+    );
+    if (!mounted) return;
+
+    switch (action) {
+      case AvatarPreviewAction.confirm:
+        await context.read<EditProfileCubit>().confirmAvatarUpload();
+      case AvatarPreviewAction.retake:
+        context.read<EditProfileCubit>().clearStagedAvatar();
+        // Fire-and-forget restart so retakes don't nest awaits.
+        unawaited(_pickAndStageAvatar());
+      case AvatarPreviewAction.cancel:
+      case null:
+        if (mounted) context.read<EditProfileCubit>().clearStagedAvatar();
+    }
   }
 
   Future<void> _pickDateOfBirth() async {
@@ -323,8 +407,13 @@ class _EditProfileFormState extends State<_EditProfileForm> {
 
         SizedBox(height: 24.h),
 
-        // Profile picture (display-only: no supported update endpoint).
-        ProfilePhotoEditor(avatarUrl: widget.initialProfile.user.avatar),
+        // Profile picture: staged preview takes precedence while
+        // picking; Change Photo and the camera badge share one flow.
+        ProfilePhotoEditor(
+          avatarUrl: widget.initialProfile.user.avatar,
+          previewBytes: widget.avatarBytes,
+          onChangePhoto: widget.isSaving ? null : _pickAndStageAvatar,
+        ),
 
         SizedBox(height: 24.h),
 

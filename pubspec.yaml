@@ -35,6 +35,7 @@ dependencies:
   go_router: ^18.0.1
   google_mobile_ads: ^9.1.0
   google_nav_bar: ^5.0.7
+  image_picker: ^1.1.2
   intl: ^0.20.3
   lottie: ^3.5.1
   otp_animated_fields: ^0.1.1
@@ -46,6 +47,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
+  intl_utils: ^2.8.1
 
 flutter:
   uses-material-design: true

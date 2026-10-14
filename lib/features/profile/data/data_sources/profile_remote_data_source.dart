@@ -11,6 +11,7 @@ import 'package:MatchIn/features/profile/domain/entities/add_candidate_project_p
 import 'package:MatchIn/features/profile/domain/entities/add_candidate_skill_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_education_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_experience_params.dart';
+import 'package:MatchIn/features/profile/domain/entities/avatar_upload_input.dart';
 import 'package:MatchIn/features/profile/domain/entities/cv_upload_input.dart';
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_candidate_profile_params.dart';
@@ -85,6 +86,14 @@ abstract class ProfileRemoteDataSource {
   /// carries no usable receipt. Callers must refresh the Main Profile
   /// from GET instead of fabricating document data.
   Future<CvUploadReceiptModel?> uploadCv(CvUploadInput input);
+
+  // Avatar Upload
+  /// Uploads the candidate avatar image.
+  ///
+  /// TODO(avatar-backend): the endpoint, HTTP method, multipart field,
+  /// and response schema are pending backend documentation. Nothing
+  /// may call this until the contract lands.
+  Future<void> uploadAvatar(AvatarUploadInput input);
 
   // Career Preferences
   Future<CareerPreferenceModel?> getCareerPreferences();

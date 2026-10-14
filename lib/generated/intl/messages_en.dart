@@ -143,6 +143,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "askChatBot": MessageLookupByLibrary.simpleMessage("Ask Chat Bot"),
     "at": MessageLookupByLibrary.simpleMessage("at"),
+    "avatarUploadUnavailable": MessageLookupByLibrary.simpleMessage(
+      "Avatar upload is not available yet.",
+    ),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
     "backToJobs": MessageLookupByLibrary.simpleMessage("Back to Jobs"),
     "backToLogin": MessageLookupByLibrary.simpleMessage("Back to login"),
@@ -203,7 +206,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "chatSuggestion4": MessageLookupByLibrary.simpleMessage(
       "What skills should I learn next?",
     ),
+    "chooseAnother": MessageLookupByLibrary.simpleMessage("Choose Another"),
     "chooseFile": MessageLookupByLibrary.simpleMessage("Choose File"),
+    "chooseFromGallery": MessageLookupByLibrary.simpleMessage(
+      "Choose from Gallery",
+    ),
     "chooseStrongPassword": MessageLookupByLibrary.simpleMessage(
       "Choose a strong password you haven’t used before.",
     ),
@@ -488,6 +495,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "iAgreeToTerms": MessageLookupByLibrary.simpleMessage(
       "I agree to the Terms & Privacy Policy",
     ),
+    "imageTooLarge": MessageLookupByLibrary.simpleMessage(
+      "Image is too large. Maximum size is 5 MB.",
+    ),
     "inReview": MessageLookupByLibrary.simpleMessage("In Review"),
     "institutionHint": MessageLookupByLibrary.simpleMessage(
       "Search or enter institution name",
@@ -500,6 +510,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "invalidDateRange": MessageLookupByLibrary.simpleMessage(
       "End date must be on or after the start date",
+    ),
+    "invalidImageType": MessageLookupByLibrary.simpleMessage(
+      "Unsupported image type. Use JPG, PNG, or WEBP.",
     ),
     "invalidJobId": MessageLookupByLibrary.simpleMessage("Invalid job ID."),
     "invalidVerificationCode": MessageLookupByLibrary.simpleMessage(
@@ -749,6 +762,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "preferredWorkModeLabel": MessageLookupByLibrary.simpleMessage(
       "Preferred work mode",
     ),
+    "previewPhoto": MessageLookupByLibrary.simpleMessage("Preview Photo"),
     "previous7Days": MessageLookupByLibrary.simpleMessage("Previous 7 days"),
     "privacyAndSupport": MessageLookupByLibrary.simpleMessage(
       "PRIVACY & SUPPORT",
@@ -999,6 +1013,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Supporting Document (Optional)",
     ),
     "system": MessageLookupByLibrary.simpleMessage("System"),
+    "takePhoto": MessageLookupByLibrary.simpleMessage("Take Photo"),
     "targetRole": MessageLookupByLibrary.simpleMessage("Target role"),
     "tasksCompleted": MessageLookupByLibrary.simpleMessage("Tasks completed"),
     "technicalCultureFitStage": MessageLookupByLibrary.simpleMessage(
