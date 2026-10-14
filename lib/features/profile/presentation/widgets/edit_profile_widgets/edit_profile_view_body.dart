@@ -133,7 +133,7 @@ class _EditProfileFormState extends State<_EditProfileForm> {
     _fullNameController = TextEditingController(text: user.name);
 
     _dateOfBirthController = TextEditingController(
-      text: details?.dateOfBirth ?? '',
+      text: ProfileFormValidator.normalizeDateForDisplay(details?.dateOfBirth),
     );
 
     _phoneController = TextEditingController(text: user.phone ?? '');
@@ -269,7 +269,9 @@ class _EditProfileFormState extends State<_EditProfileForm> {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final initialDate =
-        ProfileFormValidator.parseDate(_dateOfBirthController.text.trim()) ??
+        ProfileFormValidator.parseDisplayDate(
+          _dateOfBirthController.text.trim(),
+        ) ??
         today;
 
     final picked = await showDatePicker(

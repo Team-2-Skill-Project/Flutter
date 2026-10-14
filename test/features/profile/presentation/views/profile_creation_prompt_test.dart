@@ -29,6 +29,7 @@ class FakePromptRepository extends Fake implements ProfileRepository {
 
   final bool profileExists;
   int educationsCalls = 0;
+  int profileCalls = 0;
 
   CandidateProfileEntity _profileForFlag() {
     if (profileExists) {
@@ -57,6 +58,7 @@ class FakePromptRepository extends Fake implements ProfileRepository {
 
   @override
   Future<Either<Failure, CandidateProfileEntity>> getCandidateProfile() async {
+    profileCalls++;
     return Right(_profileForFlag());
   }
 
@@ -88,6 +90,20 @@ class _StubPicker implements FilePickerService {
   Future<PickedFile?> pickCvBytes() async => null;
 }
 
+class _AutoPopTrue extends StatelessWidget {
+  const _AutoPopTrue({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (context.mounted) context.pop(true);
+    });
+    return Scaffold(body: Text(label));
+  }
+}
+
 Future<void> _pumpProfile(
   WidgetTester tester,
   FakePromptRepository repo,
@@ -115,7 +131,7 @@ Future<void> _pumpProfile(
       ),
       GoRoute(
         path: '/profile/editEducation',
-        builder: (_, _) => const Scaffold(body: Text('education stub')),
+        builder: (_, _) => const _AutoPopTrue(label: 'education stub'),
       ),
     ],
   );
@@ -193,14 +209,15 @@ void main() {
     });
 
     testWidgets(
-      'management tap navigates directly when profile_exists is true',
+      'returning true from a management screen refreshes Main Profile',
       (tester) async {
         final repo = FakePromptRepository(profileExists: true);
         await _pumpProfile(tester, repo);
+        expect(repo.profileCalls, 1);
 
         await _tapEducationEdit(tester);
 
-        expect(find.text('education stub'), findsOneWidget);
+        expect(repo.profileCalls, 2);
         expect(
           find.text(
             'Complete your profile to start adding your education, '

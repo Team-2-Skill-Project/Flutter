@@ -217,15 +217,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "companyHint": MessageLookupByLibrary.simpleMessage(
       "e.g. Studio Craft Ltd.",
     ),
-    "completeRegistration": MessageLookupByLibrary.simpleMessage(
-      "Complete Registration",
-    ),
     "completeProfilePrompt": MessageLookupByLibrary.simpleMessage(
       "Complete your profile to start adding your education, experience, skills, and more.",
     ),
-    "createProfile": MessageLookupByLibrary.simpleMessage("Create Profile"),
-    "userFieldsNotSavedYet": MessageLookupByLibrary.simpleMessage(
-      "Name and phone number can't be saved yet and were not sent to the server.",
+    "completeRegistration": MessageLookupByLibrary.simpleMessage(
+      "Complete Registration",
     ),
     "completedPercentage": m0,
     "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
@@ -285,6 +281,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "createNewPassword": MessageLookupByLibrary.simpleMessage(
       "Create a new password",
     ),
+    "createProfile": MessageLookupByLibrary.simpleMessage("Create Profile"),
     "csOrRelated": MessageLookupByLibrary.simpleMessage("CS or related"),
     "currentPassword": MessageLookupByLibrary.simpleMessage("Current Password"),
     "currentRecords": MessageLookupByLibrary.simpleMessage("Current Records"),
@@ -1062,6 +1059,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "usedInTwoProjects": MessageLookupByLibrary.simpleMessage(
       "Used in 2 projects",
+    ),
+    "userFieldsNotSavedYet": MessageLookupByLibrary.simpleMessage(
+      "Name and phone number can\'t be saved yet and were not sent to the server.",
     ),
     "verificationCodeLabel": MessageLookupByLibrary.simpleMessage(
       "VERIFICATION CODE",

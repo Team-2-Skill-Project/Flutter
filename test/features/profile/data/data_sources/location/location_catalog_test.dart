@@ -66,4 +66,16 @@ void main() {
       expect(await catalog.citiesForState('Egypt', ''), isEmpty);
     });
   });
+
+  group('LocationCatalog resolveStateName', () {
+    test('resolves the parent state of a known city', () async {
+      expect(await catalog.resolveStateName('Egypt', 'Bulaq'), 'Cairo');
+    });
+
+    test('returns null for unknown cities or countries', () async {
+      expect(await catalog.resolveStateName('Egypt', 'Atlantis'), isNull);
+      expect(await catalog.resolveStateName('Atlantis', 'Cairo'), isNull);
+      expect(await catalog.resolveStateName('Egypt', ''), isNull);
+    });
+  });
 }

@@ -253,7 +253,10 @@ class _EducationFormState extends State<EducationForm> {
           ),
           SizedBox(height: 18.h),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            // Bottom-aligned so both date inputs sit at the same
+            // vertical position even when the labels wrap to a
+            // different number of lines.
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Expanded(
                 child: EducationFormField(

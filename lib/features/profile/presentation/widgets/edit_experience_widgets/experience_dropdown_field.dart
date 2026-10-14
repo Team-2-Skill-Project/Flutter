@@ -20,7 +20,19 @@ class ExperienceDropdownField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final hasValue = value != null && items.containsKey(value);
+
+    final availableItems = Map<String, String>.from(items);
+
+    // Preserve unknown existing backend values for display without
+    // altering the confirmed option set.
+    final currentValue = value?.trim();
+    if (currentValue != null &&
+        currentValue.isNotEmpty &&
+        !availableItems.containsKey(currentValue)) {
+      availableItems[currentValue] = currentValue;
+    }
+
+    final hasValue = currentValue != null && currentValue.isNotEmpty;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,9 +45,9 @@ class ExperienceDropdownField extends StatelessWidget {
         ),
         SizedBox(height: 8.h),
         DropdownButtonFormField<String>(
-          initialValue: hasValue ? value : null,
+          initialValue: hasValue ? currentValue : null,
           isExpanded: true,
-          items: items.entries
+          items: availableItems.entries
               .map(
                 (entry) => DropdownMenuItem(
                   value: entry.key,

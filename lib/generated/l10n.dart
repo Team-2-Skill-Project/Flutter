@@ -2725,36 +2725,6 @@ class S {
     );
   }
 
-  /// `Complete your profile to start adding your education, experience, skills, and more.`
-  String get completeProfilePrompt {
-    return Intl.message(
-      'Complete your profile to start adding your education, experience, skills, and more.',
-      name: 'completeProfilePrompt',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Create Profile`
-  String get createProfile {
-    return Intl.message(
-      'Create Profile',
-      name: 'createProfile',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Name and phone number can't be saved yet and were not sent to the server.`
-  String get userFieldsNotSavedYet {
-    return Intl.message(
-      'Name and phone number can\'t be saved yet and were not sent to the server.',
-      name: 'userFieldsNotSavedYet',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Welcome Back!`
   String get welcomeBack {
     return Intl.message(
@@ -4367,6 +4337,36 @@ class S {
     return Intl.message(
       'Profile synced',
       name: 'profileSynced',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Complete your profile to start adding your education, experience, skills, and more.`
+  String get completeProfilePrompt {
+    return Intl.message(
+      'Complete your profile to start adding your education, experience, skills, and more.',
+      name: 'completeProfilePrompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Profile`
+  String get createProfile {
+    return Intl.message(
+      'Create Profile',
+      name: 'createProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name and phone number can't be saved yet and were not sent to the server.`
+  String get userFieldsNotSavedYet {
+    return Intl.message(
+      'Name and phone number can\'t be saved yet and were not sent to the server.',
+      name: 'userFieldsNotSavedYet',
       desc: '',
       args: [],
     );

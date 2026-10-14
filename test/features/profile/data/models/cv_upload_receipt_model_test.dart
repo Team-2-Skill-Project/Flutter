@@ -32,6 +32,72 @@ void main() {
         }),
         isNull,
       );
+      expect(
+        CvUploadReceiptModel.tryParseReceipt({
+          'data': {'id': 'not-a-number'},
+        }),
+        isNull,
+      );
+      expect(
+        CvUploadReceiptModel.tryParseReceipt({
+          'data': {'id': '0'},
+        }),
+        isNull,
+      );
+    });
+
+    test('parses the current JSON:API-style 201 response', () {
+      final receipt = CvUploadReceiptModel.tryParseReceipt({
+        'status': 'success',
+        'message': 'CV uploaded successfully.',
+        'data': {
+          'id': '10',
+          'type': 'cvDocuments',
+          'attributes': {
+            'original_filename': 'cv.pdf',
+            'mime_type': 'application/pdf',
+            'file_size': 123456,
+            'version': 2,
+            'is_current': true,
+            'status': 'uploaded',
+          },
+        },
+      });
+
+      expect(receipt, isNotNull);
+      expect(receipt!.id, 10);
+      expect(receipt.version, 2);
+      expect(receipt.status, 'uploaded');
+    });
+
+    test('accepts numeric ids and string versions', () {
+      final receipt = CvUploadReceiptModel.tryParseReceipt({
+        'data': {
+          'id': 10,
+          'attributes': {'version': '3', 'status': 'processing'},
+        },
+      });
+
+      expect(receipt, isNotNull);
+      expect(receipt!.id, 10);
+      expect(receipt.version, 3);
+      expect(receipt.status, 'processing');
+    });
+
+    test('attributes override top-level version and status', () {
+      final receipt = CvUploadReceiptModel.tryParseReceipt({
+        'data': {
+          'id': '11',
+          'version': 1,
+          'status': 'processing',
+          'attributes': {'version': 2, 'status': 'uploaded'},
+        },
+      });
+
+      expect(receipt, isNotNull);
+      expect(receipt!.id, 11);
+      expect(receipt.version, 2);
+      expect(receipt.status, 'uploaded');
     });
 
     test('returns null for non-map responses', () {

@@ -62,6 +62,12 @@ class ProfilePhoneField extends StatelessWidget {
                 initialValue: selectedCode,
                 isExpanded: true,
 
+                // Menu rows show name + code, while the closed field
+                // shows only the calling code (e.g. "+20").
+                selectedItemBuilder: (context) => availableCodes.keys
+                    .map((code) => Text(code, overflow: TextOverflow.ellipsis))
+                    .toList(),
+
                 icon: Icon(
                   Icons.keyboard_arrow_down_rounded,
                   color: colors.onSurfaceVariant,

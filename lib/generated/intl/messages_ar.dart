@@ -213,15 +213,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "clearAllChats": MessageLookupByLibrary.simpleMessage("مسح جميع المحادثات"),
     "company": MessageLookupByLibrary.simpleMessage("الشركة"),
     "companyHint": MessageLookupByLibrary.simpleMessage("مثال: شركة Tech"),
-    "completeRegistration": MessageLookupByLibrary.simpleMessage(
-      "إكمال التسجيل",
-    ),
     "completeProfilePrompt": MessageLookupByLibrary.simpleMessage(
       "أكمل ملفك الشخصي لبدء إضافة تعليمك وخبراتك ومهاراتك والمزيد.",
     ),
-    "createProfile": MessageLookupByLibrary.simpleMessage("إنشاء الملف الشخصي"),
-    "userFieldsNotSavedYet": MessageLookupByLibrary.simpleMessage(
-      "لا يمكن حفظ الاسم ورقم الهاتف بعد، ولم يتم إرسالهما إلى الخادم.",
+    "completeRegistration": MessageLookupByLibrary.simpleMessage(
+      "إكمال التسجيل",
     ),
     "completedPercentage": m0,
     "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
@@ -281,6 +277,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "createNewPassword": MessageLookupByLibrary.simpleMessage(
       "إنشاء كلمة مرور جديدة",
     ),
+    "createProfile": MessageLookupByLibrary.simpleMessage("إنشاء الملف الشخصي"),
     "csOrRelated": MessageLookupByLibrary.simpleMessage(
       "علوم حاسب أو مجال ذو صلة",
     ),
@@ -1028,6 +1025,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "usedInTwoProjects": MessageLookupByLibrary.simpleMessage(
       "استخدمتها في مشروعين",
+    ),
+    "userFieldsNotSavedYet": MessageLookupByLibrary.simpleMessage(
+      "لا يمكن حفظ الاسم ورقم الهاتف بعد، ولم يتم إرسالهما إلى الخادم.",
     ),
     "verificationCodeLabel": MessageLookupByLibrary.simpleMessage("رمز التحقق"),
     "verifiedQualifications": MessageLookupByLibrary.simpleMessage("المؤهلات"),

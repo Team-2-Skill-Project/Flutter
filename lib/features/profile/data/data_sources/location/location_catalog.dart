@@ -79,6 +79,28 @@ class LocationCatalog {
     return const {};
   }
 
+  /// Resolves the parent state name for [cityName] in [countryName].
+  ///
+  /// Used to initialize a local-only state filter from saved
+  /// country/city data. Returns null when the city cannot be resolved
+  /// to a dataset state; callers must keep any existing value.
+  Future<String?> resolveStateName(String countryName, String cityName) async {
+    final country = _countryByName(countryName);
+    final normalized = cityName.trim().toLowerCase();
+    if (country == null || normalized.isEmpty) return null;
+    final matches = await GeoRepository.instance.searchCities(
+      countryIso2: country.alpha2Code,
+      query: cityName.trim(),
+      limit: 20,
+    );
+    for (final match in matches) {
+      if (match.city.name.trim().toLowerCase() == normalized) {
+        return match.state.name;
+      }
+    }
+    return null;
+  }
+
   Country? _countryByName(String name) {
     final normalized = name.trim().toLowerCase();
     if (normalized.isEmpty) return null;

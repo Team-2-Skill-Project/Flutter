@@ -1,5 +1,6 @@
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/experience_widgets/experience_profile_item_data.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/experience_widgets/experience_technology_chip.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/profile_form_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -140,13 +141,17 @@ class ExperienceProfileItem extends StatelessWidget {
   }
 
   String _formatDate() {
-    final start = experience.startDate?.trim() ?? '';
+    final start = ProfileFormValidator.normalizeDateForDisplay(
+      experience.startDate,
+    );
 
     if (experience.isCurrent) {
       return start.isEmpty ? 'Present' : '$start – Present';
     }
 
-    final end = experience.endDate?.trim() ?? '';
+    final end = ProfileFormValidator.normalizeDateForDisplay(
+      experience.endDate,
+    );
 
     if (start.isEmpty && end.isEmpty) {
       return '';

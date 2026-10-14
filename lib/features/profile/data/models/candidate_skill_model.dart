@@ -1,3 +1,4 @@
+import 'package:MatchIn/features/profile/data/models/json_parsing.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_skill_entity.dart';
 
 class CandidateSkillModel extends CandidateSkillEntity {
@@ -16,10 +17,10 @@ class CandidateSkillModel extends CandidateSkillEntity {
     }
 
     return CandidateSkillModel(
-      id: (json['id'] as num?)?.toInt() ?? 0,
-      skillId: (json['skill_id'] as num?)?.toInt() ?? 0,
-      source: json['source']?.toString() ?? 'manual',
-      proficiencyLevel: json['proficiency_level']?.toString(),
+      id: JsonParsing.parseId(json['id']) ?? 0,
+      skillId: JsonParsing.parseId(json['skill_id']) ?? 0,
+      source: JsonParsing.parseString(json['source']) ?? 'manual',
+      proficiencyLevel: JsonParsing.parseString(json['proficiency_level']),
       name: skill['name']?.toString() ?? '',
     );
   }

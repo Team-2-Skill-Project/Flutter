@@ -3,6 +3,7 @@ import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:MatchIn/features/profile/domain/entities/cv_document_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/cv_upload_input.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/cv_cubit/cv_upload_cubit.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/profile_form_validator.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/cv_cubit/cv_upload_state.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_state.dart';
@@ -103,10 +104,17 @@ class CvProfileSection extends StatelessWidget {
             final uploading = state is CvUploading;
             final document = cvDocument;
             return CvProfileCard(
-              hasCv: document?.fileName != null || document?.fileUrl != null,
+              // Existence follows the selected current document, never
+              // file_url availability: the backend provides metadata
+              // without a confirmed file URL.
+              hasCv: document != null,
               fileName: document?.fileName,
               status: document?.status,
-              updatedText: document?.updatedAt,
+              updatedText: document?.updatedAt == null
+                  ? null
+                  : ProfileFormValidator.normalizeDateForDisplay(
+                      document?.updatedAt,
+                    ),
               onUpload: uploading ? null : () => _pickAndUpload(context),
               onView: uploading
                   ? null

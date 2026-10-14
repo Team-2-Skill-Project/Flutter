@@ -118,6 +118,32 @@ void main() {
       expect(await remoteDataSource.uploadCv(testInput()), isNull);
     });
 
+    test('parses the current 201 JSON:API-style payload', () async {
+      fakeApiConsumer.postResponse = {
+        'status': 'success',
+        'message': 'CV uploaded successfully.',
+        'data': {
+          'id': '10',
+          'type': 'cvDocuments',
+          'attributes': {
+            'original_filename': 'cv.pdf',
+            'mime_type': 'application/pdf',
+            'file_size': 123456,
+            'version': 2,
+            'is_current': true,
+            'status': 'uploaded',
+          },
+        },
+      };
+
+      final receipt = await remoteDataSource.uploadCv(testInput());
+
+      expect(receipt, isNotNull);
+      expect(receipt!.id, 10);
+      expect(receipt.version, 2);
+      expect(receipt.status, 'uploaded');
+    });
+
     test('throws FormatException for a non-map envelope', () async {
       fakeApiConsumer.postResponse = 'ok';
 
