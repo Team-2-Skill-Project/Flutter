@@ -1,3 +1,4 @@
+import 'package:MatchIn/features/profile/data/models/json_parsing.dart';
 import 'package:MatchIn/features/profile/domain/entities/experience_entity.dart';
 
 class ExperienceModel extends ExperienceEntity {
@@ -17,7 +18,7 @@ class ExperienceModel extends ExperienceEntity {
 
   factory ExperienceModel.fromJson(Map<String, dynamic> json) {
     return ExperienceModel(
-      id: (json['id'] as num?)?.toInt() ?? 0,
+      id: JsonParsing.parseId(json['id']) ?? 0,
       jobTitle:
           (json['job_title'] ?? json['jobTitle'] ?? json['title'])
               ?.toString() ??
@@ -34,16 +35,13 @@ class ExperienceModel extends ExperienceEntity {
       country: json['country']?.toString(),
       city: json['city']?.toString(),
       description: json['description']?.toString(),
-      technologies:
-          (json['technologies'] as List<dynamic>?)
-              ?.map((item) => item.toString())
-              .toList() ??
-          const [],
+      technologies: JsonParsing.parseStringList(json['technologies']),
       startDate: (json['start_date'] ?? json['startDate'])?.toString(),
       endDate: (json['end_date'] ?? json['endDate'])?.toString(),
       isCurrent:
-          (json['is_current'] ?? json['isCurrent'] ?? json['is_current_role'])
-              as bool? ??
+          JsonParsing.parseBoolFlag(
+            json['is_current'] ?? json['isCurrent'] ?? json['is_current_role'],
+          ) ??
           false,
     );
   }
@@ -72,7 +70,7 @@ class ExperienceModel extends ExperienceEntity {
   /// "mutation accepted but payload unusable" and refresh from GET
   /// instead of replacing list data with defaults.
   static ExperienceModel? tryParseMutation(Map<String, dynamic> json) {
-    final id = (json['id'] as num?)?.toInt() ?? 0;
+    final id = JsonParsing.parseId(json['id']) ?? 0;
     if (id <= 0) return null;
 
     final companyName =

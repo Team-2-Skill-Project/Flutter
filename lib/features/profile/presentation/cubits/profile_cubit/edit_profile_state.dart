@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entity.dart';
 import 'package:equatable/equatable.dart';
 
@@ -51,6 +53,24 @@ final class EditProfileActionFailure extends EditProfileState {
 
   @override
   List<Object?> get props => [message, profile];
+}
+
+/// A picked avatar staged for preview. Holds the in-memory image only;
+/// nothing is persisted. The form stays mounted and all controllers
+/// are preserved. Clearing returns to [EditProfileReady].
+final class EditProfileAvatarStaged extends EditProfileState {
+  const EditProfileAvatarStaged(
+    this.profile, {
+    required this.avatarBytes,
+    required this.fileName,
+  });
+
+  final CandidateProfileEntity profile;
+  final Uint8List avatarBytes;
+  final String fileName;
+
+  @override
+  List<Object?> get props => [profile, avatarBytes, fileName];
 }
 
 final class EditProfileSuccess extends EditProfileState {

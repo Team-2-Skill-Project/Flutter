@@ -1,8 +1,19 @@
+import 'dart:async';
+import 'dart:typed_data';
+
+import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/core/services/profile_image_picker_service.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/avatar_file_validator.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/avatar_preview_dialog.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/avatar_source_sheet.dart';
 import 'package:MatchIn/core/widgets/error/app_error.dart';
+import 'package:MatchIn/features/profile/data/data_sources/location/location_catalog.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entity.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/edit_profile_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/edit_profile_state.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/edit_profile_patch_mapper.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/military_status_options.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/profile_screen_widgets/profile_form_validator.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/edit_profile_actions.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/personal_information_card.dart';
 import 'package:MatchIn/features/profile/presentation/widgets/edit_profile_widgets/professional_information_card.dart';
@@ -75,6 +86,13 @@ class EditProfileViewBody extends StatelessWidget {
               );
             }
             return _EditProfileForm(initialProfile: baseline, isSaving: false);
+          case EditProfileAvatarStaged():
+            return _EditProfileForm(
+              initialProfile: state.profile,
+              isSaving: false,
+              avatarBytes: state.avatarBytes,
+              avatarFileName: state.fileName,
+            );
           case EditProfileSuccess():
             return _EditProfileForm(
               initialProfile: state.profile,
@@ -87,10 +105,20 @@ class EditProfileViewBody extends StatelessWidget {
 }
 
 class _EditProfileForm extends StatefulWidget {
-  const _EditProfileForm({required this.initialProfile, this.isSaving = false});
+  const _EditProfileForm({
+    required this.initialProfile,
+    this.isSaving = false,
+    this.avatarBytes,
+    this.avatarFileName,
+  });
 
   final CandidateProfileEntity initialProfile;
   final bool isSaving;
+
+  /// Staged in-memory avatar preview from [EditProfileAvatarStaged].
+  /// Display only; never persisted by this form.
+  final Uint8List? avatarBytes;
+  final String? avatarFileName;
 
   @override
   State<_EditProfileForm> createState() => _EditProfileFormState();
@@ -111,6 +139,14 @@ class _EditProfileFormState extends State<_EditProfileForm> {
   late final ValueNotifier<String?> _state;
   late final ValueNotifier<String?> _city;
 
+  late final ValueNotifier<Map<String, String>> _stateOptions;
+  late final ValueNotifier<Map<String, String>> _cityOptions;
+
+  int _statesRequest = 0;
+  int _citiesRequest = 0;
+
+  LocationCatalog get _locationCatalog => getIt<LocationCatalog>();
+
   @override
   void initState() {
     super.initState();
@@ -121,7 +157,7 @@ class _EditProfileFormState extends State<_EditProfileForm> {
     _fullNameController = TextEditingController(text: user.name);
 
     _dateOfBirthController = TextEditingController(
-      text: details?.dateOfBirth ?? '',
+      text: ProfileFormValidator.normalizeDateForDisplay(details?.dateOfBirth),
     );
 
     _phoneController = TextEditingController(text: user.phone ?? '');
@@ -145,6 +181,41 @@ class _EditProfileFormState extends State<_EditProfileForm> {
     _state = ValueNotifier<String?>(details?.state);
 
     _city = ValueNotifier<String?>(details?.city);
+
+    _stateOptions = ValueNotifier<Map<String, String>>(const {});
+
+    _cityOptions = ValueNotifier<Map<String, String>>(const {});
+
+    _loadStatesForCountry(_country.value);
+    if (_country.value != null && _state.value != null) {
+      _loadCitiesForState(_country.value, _state.value);
+    }
+  }
+
+  /// Loads state options for [countryName] from the local dataset.
+  ///
+  /// Stale responses from superseded requests are discarded so rapid
+  /// country changes cannot repopulate options for the wrong country.
+  Future<void> _loadStatesForCountry(String? countryName) async {
+    final request = ++_statesRequest;
+    final options = countryName == null
+        ? const <String, String>{}
+        : await _locationCatalog.statesForCountry(countryName);
+    if (!mounted || request != _statesRequest) return;
+    _stateOptions.value = options;
+  }
+
+  /// Loads city options for [stateName] in [countryName].
+  Future<void> _loadCitiesForState(
+    String? countryName,
+    String? stateName,
+  ) async {
+    final request = ++_citiesRequest;
+    final options = countryName == null || stateName == null
+        ? const <String, String>{}
+        : await _locationCatalog.citiesForState(countryName, stateName);
+    if (!mounted || request != _citiesRequest) return;
+    _cityOptions.value = options;
   }
 
   @override
@@ -162,6 +233,8 @@ class _EditProfileFormState extends State<_EditProfileForm> {
     _country.dispose();
     _state.dispose();
     _city.dispose();
+    _stateOptions.dispose();
+    _cityOptions.dispose();
 
     super.dispose();
   }
@@ -182,20 +255,126 @@ class _EditProfileFormState extends State<_EditProfileForm> {
       militaryStatus: _militaryStatus.value,
     );
 
-    // No supported field changed: skip the PATCH and return
-    // a negative result so Main Profile does not refresh.
+    // Name/Phone belong to the User object and have no confirmed update
+    // endpoint: they are never included in PATCH /candidate/profile.
+    // Inform the user instead of silently discarding their edits.
+    final baselineUser = widget.initialProfile.user;
+    final hasPendingUserEdits =
+        _fullNameController.text.trim() != baselineUser.name.trim() ||
+        _phoneController.text.trim() != (baselineUser.phone ?? '').trim();
+    if (hasPendingUserEdits) {
+      _showPendingUserEditsNotice();
+    }
+
+    // No supported field changed: skip the PATCH and stay on screen so
+    // entered values (including unsaved Name/Phone) are preserved.
+    // A negative result is only returned when nothing was edited at all.
     if (!params.hasChanges) {
-      Navigator.of(context).pop(false);
+      if (!hasPendingUserEdits) {
+        Navigator.of(context).pop(false);
+      }
       return;
     }
 
     context.read<EditProfileCubit>().updateProfile(params);
   }
 
+  void _showMessage(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  void _showPendingUserEditsNotice() {
+    _showMessage(S.of(context).userFieldsNotSavedYet);
+  }
+
+  /// Change Photo flow: source sheet → platform pick → validation →
+  /// cubit staging → preview dialog. Cancellation at any step keeps
+  /// the existing avatar; nothing is persisted here.
+  Future<void> _pickAndStageAvatar() async {
+    if (widget.isSaving) return;
+    final locale = S.of(context);
+
+    final source = await AvatarSourceSheet.show(context);
+    if (source == null || !mounted) return;
+
+    final picked = await getIt<ProfileImagePickerService>().pickProfileImage(
+      source,
+    );
+    if (!mounted) return;
+    if (picked == null) return;
+
+    final error = AvatarFileValidator.validate(
+      fileName: picked.name,
+      sizeBytes: picked.bytes.length,
+      hasContent: picked.bytes.isNotEmpty,
+      unsupportedMessage: locale.invalidImageType,
+      tooLargeMessage: locale.imageTooLarge,
+      emptyMessage: locale.cvEmptyFile,
+    );
+    if (error != null) {
+      _showMessage(error);
+      return;
+    }
+    if (!mounted) return;
+
+    final cubit = context.read<EditProfileCubit>();
+    await cubit.stageAvatar(avatarBytes: picked.bytes, fileName: picked.name);
+    if (!mounted) return;
+
+    final staged = cubit.state;
+    if (staged is! EditProfileAvatarStaged) return;
+
+    final action = await AvatarPreviewDialog.show(
+      context,
+      bytes: staged.avatarBytes,
+      fileName: staged.fileName,
+    );
+    if (!mounted) return;
+
+    switch (action) {
+      case AvatarPreviewAction.confirm:
+        await context.read<EditProfileCubit>().confirmAvatarUpload();
+      case AvatarPreviewAction.retake:
+        context.read<EditProfileCubit>().clearStagedAvatar();
+        // Fire-and-forget restart so retakes don't nest awaits.
+        unawaited(_pickAndStageAvatar());
+      case AvatarPreviewAction.cancel:
+      case null:
+        if (mounted) context.read<EditProfileCubit>().clearStagedAvatar();
+    }
+  }
+
+  Future<void> _pickDateOfBirth() async {
+    if (widget.isSaving) return;
+
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final initialDate =
+        ProfileFormValidator.parseDisplayDate(
+          _dateOfBirthController.text.trim(),
+        ) ??
+        today;
+
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: initialDate.isAfter(today) ? today : initialDate,
+      firstDate: DateTime(1950),
+      lastDate: today,
+    );
+    if (picked == null) return;
+    _dateOfBirthController.text = ProfileFormValidator.formatDate(picked);
+  }
+
   @override
   Widget build(BuildContext context) {
     final locale = S.of(context);
     final theme = Theme.of(context);
+    final arabic = Localizations.localeOf(context).languageCode == 'ar';
+    final countryOptions = _locationCatalog.countries(arabic: arabic);
+    final callingCodes = _locationCatalog.callingCodes(arabic: arabic);
 
     return ListView(
       padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 32.h),
@@ -228,8 +407,13 @@ class _EditProfileFormState extends State<_EditProfileForm> {
 
         SizedBox(height: 24.h),
 
-        // Profile picture (display-only: no supported update endpoint).
-        ProfilePhotoEditor(avatarUrl: widget.initialProfile.user.avatar),
+        // Profile picture: staged preview takes precedence while
+        // picking; Change Photo and the camera badge share one flow.
+        ProfilePhotoEditor(
+          avatarUrl: widget.initialProfile.user.avatar,
+          previewBytes: widget.avatarBytes,
+          onChangePhoto: widget.isSaving ? null : _pickAndStageAvatar,
+        ),
 
         SizedBox(height: 24.h),
 
@@ -247,8 +431,7 @@ class _EditProfileFormState extends State<_EditProfileForm> {
                   gender: gender,
                   countryCode: countryCode,
 
-                  // Country calling codes require a verified data source.
-                  countryCodes: const {},
+                  countryCodes: callingCodes,
 
                   onGenderChanged: (value) {
                     _gender.value = value;
@@ -256,6 +439,7 @@ class _EditProfileFormState extends State<_EditProfileForm> {
                   onCountryCodeChanged: (value) {
                     _countryCode.value = value;
                   },
+                  onDateOfBirthTap: _pickDateOfBirth,
                 );
               },
             );
@@ -271,10 +455,9 @@ class _EditProfileFormState extends State<_EditProfileForm> {
             return ProfessionalInformationCard(
               jobTitleController: _jobTitleController,
               militaryStatus: militaryStatus,
-
-              // Backend enum values are not confirmed yet.
-              militaryStatusItems: const {},
-
+              militaryStatusItems: MilitaryStatusOptions.items(locale),
+              militaryStatusDisabledValues:
+                  MilitaryStatusOptions.disabledValues,
               onMilitaryStatusChanged: (value) {
                 _militaryStatus.value = value;
               },
@@ -294,28 +477,37 @@ class _EditProfileFormState extends State<_EditProfileForm> {
                 return ValueListenableBuilder<String?>(
                   valueListenable: _city,
                   builder: (context, city, child) {
-                    return ProfileLocationCard(
-                      country: country,
-                      state: state,
-                      city: city,
-
-                      // Location options will come from
-                      // a verified location data source.
-                      countries: const {},
-                      states: const {},
-                      cities: const {},
-
-                      onCountryChanged: (value) {
-                        _country.value = value;
-                        _state.value = null;
-                        _city.value = null;
-                      },
-                      onStateChanged: (value) {
-                        _state.value = value;
-                        _city.value = null;
-                      },
-                      onCityChanged: (value) {
-                        _city.value = value;
+                    return ValueListenableBuilder<Map<String, String>>(
+                      valueListenable: _stateOptions,
+                      builder: (context, stateOptions, child) {
+                        return ValueListenableBuilder<Map<String, String>>(
+                          valueListenable: _cityOptions,
+                          builder: (context, cityOptions, child) {
+                            return ProfileLocationCard(
+                              country: country,
+                              state: state,
+                              city: city,
+                              countries: countryOptions,
+                              states: stateOptions,
+                              cities: cityOptions,
+                              onCountryChanged: (value) {
+                                _country.value = value;
+                                _state.value = null;
+                                _city.value = null;
+                                _cityOptions.value = const {};
+                                _loadStatesForCountry(value);
+                              },
+                              onStateChanged: (value) {
+                                _state.value = value;
+                                _city.value = null;
+                                _loadCitiesForState(_country.value, value);
+                              },
+                              onCityChanged: (value) {
+                                _city.value = value;
+                              },
+                            );
+                          },
+                        );
                       },
                     );
                   },

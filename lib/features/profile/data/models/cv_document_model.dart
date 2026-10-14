@@ -1,3 +1,4 @@
+import 'package:MatchIn/features/profile/data/models/json_parsing.dart';
 import 'package:MatchIn/features/profile/domain/entities/cv_document_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/cv_processing_status.dart';
 
@@ -17,7 +18,7 @@ class CvDocumentModel extends CvDocumentEntity {
 
   factory CvDocumentModel.fromJson(Map<String, dynamic> json) {
     return CvDocumentModel(
-      id: (json['id'] as num?)?.toInt(),
+      id: JsonParsing.parseId(json['id']),
       fileName:
           (json['file_name'] ??
                   json['fileName'] ??
@@ -30,9 +31,11 @@ class CvDocumentModel extends CvDocumentEntity {
       // Never treat storage paths as public URLs: only accept
       // explicit file URL keys.
       fileUrl: (json['file_url'] ?? json['fileUrl'] ?? json['url'])?.toString(),
-      status: _statusFrom(json['status']?.toString()),
-      version: (json['version'] as num?)?.toInt(),
-      isCurrent: (json['is_current'] ?? json['isCurrent']) as bool?,
+      status: _statusFrom(JsonParsing.parseString(json['status'])),
+      version: JsonParsing.parseId(json['version']),
+      isCurrent: JsonParsing.parseBoolFlag(
+        json['is_current'] ?? json['isCurrent'],
+      ),
       processedAt: (json['processed_at'] ?? json['processedAt'])?.toString(),
       updatedAt: (json['updated_at'] ?? json['updatedAt'])?.toString(),
       failureReason: (json['failure_reason'] ?? json['failureReason'])
@@ -40,13 +43,18 @@ class CvDocumentModel extends CvDocumentEntity {
     );
   }
 
-  /// Backend machine string → domain enum. Only documented values
-  /// (`processing`, `completed`, `failed`) plus their identical UI
-  /// tokens map to known states; everything else is [unknown].
+  /// Backend machine string → domain enum. Documented values
+  /// (`uploaded`, `processing`, `completed`, `failed`) plus their
+  /// identical UI tokens map to known states; everything else is
+  /// [unknown]. `uploaded` means the file reached the server and is
+  /// awaiting analysis, so it maps to [analyzing] — an HTTP upload
+  /// failure is reported separately through `CvUploadFailure` and
+  /// must not be confused with analysis status.
   static CvProcessingStatus? _statusFrom(String? value) {
     if (value == null) return null;
     switch (value.trim().toLowerCase()) {
       case 'processing':
+      case 'uploaded':
       case 'analyzing':
         return CvProcessingStatus.analyzing;
       case 'completed':

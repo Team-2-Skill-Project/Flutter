@@ -11,6 +11,7 @@ class ProfessionalInformationCard extends StatelessWidget {
     required this.militaryStatus,
     required this.militaryStatusItems,
     required this.onMilitaryStatusChanged,
+    this.militaryStatusDisabledValues = const {},
     super.key,
   });
 
@@ -18,6 +19,10 @@ class ProfessionalInformationCard extends StatelessWidget {
   final String? militaryStatus;
   final Map<String, String> militaryStatusItems;
   final ValueChanged<String?> onMilitaryStatusChanged;
+
+  /// Machine values rendered but not selectable (unconfirmed backend
+  /// values). Never submitted.
+  final Set<String> militaryStatusDisabledValues;
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +37,14 @@ class ProfessionalInformationCard extends StatelessWidget {
             controller: jobTitleController,
           ),
           SizedBox(height: 16.h),
+          // Military status options are documented in
+          // MilitaryStatusOptions; "Final Exemption" stays disabled
+          // until its backend value is confirmed.
           EditProfileDropdown(
             label: locale.militaryStatus,
             value: militaryStatus,
             items: militaryStatusItems,
+            disabledValues: militaryStatusDisabledValues,
             onChanged: onMilitaryStatusChanged,
           ),
         ],

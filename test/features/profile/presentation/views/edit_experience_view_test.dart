@@ -1,5 +1,6 @@
 import 'package:MatchIn/core/errors/failures.dart';
 import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/features/profile/data/data_sources/location/location_catalog.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_experience_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/experience_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_experience_params.dart';
@@ -73,6 +74,7 @@ Future<void> pumpHarness(
       deleteExperienceUseCase: DeleteExperienceUseCase(repository: repo),
     ),
   );
+  getIt.registerLazySingleton<LocationCatalog>(() => const LocationCatalog());
 
   await tester.pumpWidget(
     ScreenUtilInit(

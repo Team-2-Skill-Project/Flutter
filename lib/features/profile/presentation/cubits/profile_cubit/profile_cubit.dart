@@ -12,8 +12,10 @@ class ProfileCubit extends Cubit<ProfileState> {
     required this.getCachedCandidateProfileUseCase,
   }) : super(const ProfileInitial());
 
-  final GetCandidateProfileUseCase getCandidateProfileUseCase;
-  final GetCachedCandidateProfileUseCase getCachedCandidateProfileUseCase;
+  final GetCandidateProfileUseCase
+  getCandidateProfileUseCase;
+  final GetCachedCandidateProfileUseCase
+  getCachedCandidateProfileUseCase;
 
   Future<void> getCandidateProfile() async {
     CandidateProfileEntity? cachedProfile;

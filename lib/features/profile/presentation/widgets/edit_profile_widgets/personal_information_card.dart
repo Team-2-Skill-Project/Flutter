@@ -16,6 +16,7 @@ class PersonalInformationCard extends StatelessWidget {
     required this.countryCodes,
     required this.onGenderChanged,
     required this.onCountryCodeChanged,
+    required this.onDateOfBirthTap,
     super.key,
   });
 
@@ -27,6 +28,7 @@ class PersonalInformationCard extends StatelessWidget {
   final Map<String, String> countryCodes;
   final ValueChanged<String> onGenderChanged;
   final ValueChanged<String?> onCountryCodeChanged;
+  final VoidCallback onDateOfBirthTap;
 
   @override
   Widget build(BuildContext context) {
@@ -36,31 +38,29 @@ class PersonalInformationCard extends StatelessWidget {
       title: locale.personalInformation,
       child: Column(
         children: [
-          // User resource field: no supported update endpoint yet.
-          // Visible but read-only until the contract is confirmed.
+          // TODO(user-profile): Name lives on the User object with no
+          // confirmed update endpoint; edits stay local, never PATCHed.
           EditProfileField(
             label: locale.fullName,
             controller: fullNameController,
-            readOnly: true,
           ),
           SizedBox(height: 16.h),
           EditProfileField(
             label: locale.dateOfBirth,
             controller: dateOfBirthController,
             readOnly: true,
-            onTap: () {},
+            onTap: onDateOfBirthTap,
           ),
           SizedBox(height: 16.h),
           GenderSelector(value: gender, onChanged: onGenderChanged),
           SizedBox(height: 16.h),
-          // User resource field: no supported update endpoint yet.
-          // Visible but disabled until the contract is confirmed.
+          // TODO(user-profile): Phone lives on the User object with no
+          // confirmed update endpoint; edits stay local, never PATCHed.
           ProfilePhoneField(
             controller: phoneController,
             countryCode: countryCode,
             countryCodes: countryCodes,
             onCountryCodeChanged: onCountryCodeChanged,
-            enabled: false,
           ),
         ],
       ),

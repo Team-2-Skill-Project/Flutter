@@ -3836,6 +3836,111 @@ class S {
     );
   }
 
+  /// `Completed`
+  String get militaryCompleted {
+    return Intl.message(
+      'Completed',
+      name: 'militaryCompleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Exempted`
+  String get militaryExempted {
+    return Intl.message(
+      'Exempted',
+      name: 'militaryExempted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Postponed`
+  String get militaryPostponed {
+    return Intl.message(
+      'Postponed',
+      name: 'militaryPostponed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Final Exemption`
+  String get militaryFinalExemption {
+    return Intl.message(
+      'Final Exemption',
+      name: 'militaryFinalExemption',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Take Photo`
+  String get takePhoto {
+    return Intl.message('Take Photo', name: 'takePhoto', desc: '', args: []);
+  }
+
+  /// `Choose from Gallery`
+  String get chooseFromGallery {
+    return Intl.message(
+      'Choose from Gallery',
+      name: 'chooseFromGallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preview Photo`
+  String get previewPhoto {
+    return Intl.message(
+      'Preview Photo',
+      name: 'previewPhoto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Another`
+  String get chooseAnother {
+    return Intl.message(
+      'Choose Another',
+      name: 'chooseAnother',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Avatar upload is not available yet.`
+  String get avatarUploadUnavailable {
+    return Intl.message(
+      'Avatar upload is not available yet.',
+      name: 'avatarUploadUnavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unsupported image type. Use JPG, PNG, or WEBP.`
+  String get invalidImageType {
+    return Intl.message(
+      'Unsupported image type. Use JPG, PNG, or WEBP.',
+      name: 'invalidImageType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image is too large. Maximum size is 5 MB.`
+  String get imageTooLarge {
+    return Intl.message(
+      'Image is too large. Maximum size is 5 MB.',
+      name: 'imageTooLarge',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Save Changes`
   String get saveChanges {
     return Intl.message(
@@ -4296,6 +4401,36 @@ class S {
     return Intl.message(
       'Profile synced',
       name: 'profileSynced',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Complete your profile to start adding your education, experience, skills, and more.`
+  String get completeProfilePrompt {
+    return Intl.message(
+      'Complete your profile to start adding your education, experience, skills, and more.',
+      name: 'completeProfilePrompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Profile`
+  String get createProfile {
+    return Intl.message(
+      'Create Profile',
+      name: 'createProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name and phone number can't be saved yet and were not sent to the server.`
+  String get userFieldsNotSavedYet {
+    return Intl.message(
+      'Name and phone number can\'t be saved yet and were not sent to the server.',
+      name: 'userFieldsNotSavedYet',
       desc: '',
       args: [],
     );

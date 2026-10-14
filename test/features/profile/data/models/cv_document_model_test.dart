@@ -31,9 +31,14 @@ void main() {
     });
 
     test('maps unknown and legacy values to unknown', () {
-      expect(statusOf('uploaded'), CvProcessingStatus.unknown);
       expect(statusOf('pending'), CvProcessingStatus.unknown);
+      expect(statusOf('archived'), CvProcessingStatus.unknown);
       expect(statusOf(null), isNull);
+    });
+
+    test('maps uploaded to analyzing (awaiting analysis)', () {
+      expect(statusOf('uploaded'), CvProcessingStatus.analyzing);
+      expect(statusOf('Uploaded'), CvProcessingStatus.analyzing);
     });
 
     test('round-trips through canonical tokens', () {
@@ -192,7 +197,13 @@ void main() {
       final profile = CandidateProfileModel.fromJson({
         ...userJson(),
         'profile_exists': true,
-        'cvDocuments': [doc(id: 2, isCurrent: true)],
+        'profile': const {'id': 1, 'job_title': 'Developer'},
+        'cv_document': const {
+          'id': 2,
+          'file_name': 'cv.pdf',
+          'status': 'completed',
+          'is_current': true,
+        },
       });
 
       final restored = CandidateProfileModel.fromJson(profile.toJson());

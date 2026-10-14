@@ -1,3 +1,5 @@
+import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/features/profile/data/data_sources/location/location_catalog.dart';
 import 'package:MatchIn/features/profile/domain/entities/add_experience_params.dart';
 import 'package:MatchIn/features/profile/domain/entities/experience_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/update_experience_params.dart';
@@ -34,7 +36,6 @@ class ExperienceForm extends StatefulWidget {
 class _ExperienceFormState extends State<ExperienceForm> {
   late final TextEditingController _jobTitleController;
   late final TextEditingController _companyController;
-  late final TextEditingController _locationController;
   late final TextEditingController _startDateController;
   late final TextEditingController _endDateController;
   late final TextEditingController _descriptionController;
@@ -45,16 +46,19 @@ class _ExperienceFormState extends State<ExperienceForm> {
   late final ValueNotifier<DateTime?> _endDate;
   late final ValueNotifier<bool> _isCurrent;
 
-  bool get _isEditing => widget.initialExperience != null;
+  late final ValueNotifier<String?> _country;
+  late final ValueNotifier<String?> _state;
+  late final ValueNotifier<String?> _city;
 
-  static String _locationDisplay(ExperienceEntity? experience) {
-    final parts = [
-      experience?.city,
-      experience?.country,
-    ].where((part) => part != null && part.trim().isNotEmpty).toList();
-    if (parts.isEmpty) return '';
-    return parts.join(', ');
-  }
+  late final ValueNotifier<Map<String, String>> _stateOptions;
+  late final ValueNotifier<Map<String, String>> _cityOptions;
+
+  int _statesRequest = 0;
+  int _citiesRequest = 0;
+
+  LocationCatalog get _locationCatalog => getIt<LocationCatalog>();
+
+  bool get _isEditing => widget.initialExperience != null;
 
   @override
   void initState() {
@@ -65,9 +69,6 @@ class _ExperienceFormState extends State<ExperienceForm> {
     _jobTitleController = TextEditingController(text: initial?.jobTitle ?? '');
     _companyController = TextEditingController(
       text: initial?.companyName ?? '',
-    );
-    _locationController = TextEditingController(
-      text: _locationDisplay(initial),
     );
     _startDateController = TextEditingController(
       text: initial?.startDate ?? '',
@@ -90,13 +91,62 @@ class _ExperienceFormState extends State<ExperienceForm> {
       ProfileFormValidator.parseDate(initial?.endDate),
     );
     _isCurrent = ValueNotifier<bool>(initial?.isCurrent ?? false);
+
+    _country = ValueNotifier<String?>(initial?.country);
+    _state = ValueNotifier<String?>(null);
+    _city = ValueNotifier<String?>(initial?.city);
+
+    _stateOptions = ValueNotifier<Map<String, String>>(const {});
+    _cityOptions = ValueNotifier<Map<String, String>>(const {});
+
+    _loadStatesForCountry(_country.value);
+    if (_country.value != null && _city.value != null) {
+      _resolveStateForCity(_country.value, _city.value);
+    }
+  }
+
+  Future<void> _loadStatesForCountry(String? countryName) async {
+    final request = ++_statesRequest;
+    final options = countryName == null
+        ? const <String, String>{}
+        : await _locationCatalog.statesForCountry(countryName);
+    if (!mounted || request != _statesRequest) return;
+    _stateOptions.value = options;
+  }
+
+  Future<void> _loadCitiesForState(
+    String? countryName,
+    String? stateName,
+  ) async {
+    final request = ++_citiesRequest;
+    final options = countryName == null || stateName == null
+        ? const <String, String>{}
+        : await _locationCatalog.citiesForState(countryName, stateName);
+    if (!mounted || request != _citiesRequest) return;
+    _cityOptions.value = options;
+  }
+
+  /// Resolves the local-only state filter from saved country/city data
+  /// so city options are scoped on entry. Never submitted.
+  Future<void> _resolveStateForCity(
+    String? countryName,
+    String? cityName,
+  ) async {
+    if (countryName == null || cityName == null) return;
+    final resolved = await _locationCatalog.resolveStateName(
+      countryName,
+      cityName,
+    );
+    if (!mounted) return;
+    if (resolved == null || _state.value != null) return;
+    _state.value = resolved;
+    _loadCitiesForState(countryName, resolved);
   }
 
   @override
   void dispose() {
     _jobTitleController.dispose();
     _companyController.dispose();
-    _locationController.dispose();
     _startDateController.dispose();
     _endDateController.dispose();
     _descriptionController.dispose();
@@ -106,6 +156,11 @@ class _ExperienceFormState extends State<ExperienceForm> {
     _startDate.dispose();
     _endDate.dispose();
     _isCurrent.dispose();
+    _country.dispose();
+    _state.dispose();
+    _city.dispose();
+    _stateOptions.dispose();
+    _cityOptions.dispose();
 
     super.dispose();
   }
@@ -191,6 +246,8 @@ class _ExperienceFormState extends State<ExperienceForm> {
           jobTitle: jobTitle,
           companyName: companyName,
           employmentType: _employmentType.value,
+          country: _normalizedOrNull(_country.value ?? ''),
+          city: _normalizedOrNull(_city.value ?? ''),
           description: _normalizedOrNull(_descriptionController.text),
           technologies: technologies,
           isCurrent: isCurrent,
@@ -219,6 +276,16 @@ class _ExperienceFormState extends State<ExperienceForm> {
         experienceId: baseline.id,
         employmentType: _employmentType.value,
       );
+    }
+
+    final country = _normalizedOrNull(_country.value ?? '');
+    if (country != _normalizedOrNull(baseline.country ?? '')) {
+      params = params.copyWith(experienceId: baseline.id, country: country);
+    }
+
+    final city = _normalizedOrNull(_city.value ?? '');
+    if (city != _normalizedOrNull(baseline.city ?? '')) {
+      params = params.copyWith(experienceId: baseline.id, city: city);
     }
 
     final description = _normalizedOrNull(_descriptionController.text);
@@ -337,11 +404,9 @@ class _ExperienceFormState extends State<ExperienceForm> {
                   ),
                   SizedBox(width: 12.w),
                   Expanded(
-                    // TODO(experience-backend): Before production,
-                    // verify backend support for Experience Location
-                    // and Work Mode fields, then enable editing and
-                    // connect them to the confirmed API contract.
-                    // Do not submit these fields until verified.
+                    // TODO(experience-backend):
+                    // Enable Experience Work Mode when the backend
+                    // provides a confirmed request/response contract.
                     child: ExperienceDropdownField(
                       label: locale.workMode,
                       value: null,
@@ -355,11 +420,79 @@ class _ExperienceFormState extends State<ExperienceForm> {
             },
           ),
           SizedBox(height: 18.h),
-          ExperienceFormField(
-            label: locale.location,
-            controller: _locationController,
-            hintText: locale.locationHint,
-            readOnly: true,
+          ValueListenableBuilder<String?>(
+            valueListenable: _country,
+            builder: (context, country, child) {
+              return ValueListenableBuilder<String?>(
+                valueListenable: _state,
+                builder: (context, state, child) {
+                  return ValueListenableBuilder<String?>(
+                    valueListenable: _city,
+                    builder: (context, city, child) {
+                      return ValueListenableBuilder<Map<String, String>>(
+                        valueListenable: _stateOptions,
+                        builder: (context, stateOptions, child) {
+                          return ValueListenableBuilder<Map<String, String>>(
+                            valueListenable: _cityOptions,
+                            builder: (context, cityOptions, child) {
+                              final arabic =
+                                  Localizations.localeOf(context)
+                                      .languageCode ==
+                                  'ar';
+                              final countries = _locationCatalog.countries(
+                                arabic: arabic,
+                              );
+                              return Column(
+                                children: [
+                                  ExperienceDropdownField(
+                                    label: locale.country,
+                                    value: country,
+                                    items: countries,
+                                    onChanged: (value) {
+                                      _country.value = value;
+                                      _state.value = null;
+                                      _city.value = null;
+                                      _cityOptions.value = const {};
+                                      _loadStatesForCountry(value);
+                                    },
+                                  ),
+                                  SizedBox(height: 18.h),
+                                  // Local-only filter for city options.
+                                  // Experience has no state field, so this
+                                  // value is never submitted.
+                                  ExperienceDropdownField(
+                                    label: locale.stateGovernorate,
+                                    value: state,
+                                    items: stateOptions,
+                                    onChanged: (value) {
+                                      _state.value = value;
+                                      _city.value = null;
+                                      _loadCitiesForState(
+                                        _country.value,
+                                        value,
+                                      );
+                                    },
+                                  ),
+                                  SizedBox(height: 18.h),
+                                  ExperienceDropdownField(
+                                    label: locale.city,
+                                    value: city,
+                                    items: cityOptions,
+                                    onChanged: (value) {
+                                      _city.value = value;
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+              );
+            },
           ),
           SizedBox(height: 18.h),
           Row(

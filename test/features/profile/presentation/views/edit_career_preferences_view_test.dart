@@ -1,5 +1,6 @@
 import 'package:MatchIn/core/errors/failures.dart';
 import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/features/profile/data/data_sources/location/location_catalog.dart';
 import 'package:MatchIn/features/profile/domain/entities/career_preference_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/save_career_preferences_params.dart';
 import 'package:MatchIn/features/profile/domain/repositories/profile_repository.dart';
@@ -81,6 +82,7 @@ Future<void> pumpHarness(
       ),
     ),
   );
+  getIt.registerLazySingleton<LocationCatalog>(() => const LocationCatalog());
 
   await tester.pumpWidget(
     ScreenUtilInit(

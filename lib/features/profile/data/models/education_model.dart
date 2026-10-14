@@ -1,3 +1,4 @@
+import 'package:MatchIn/features/profile/data/models/json_parsing.dart';
 import 'package:MatchIn/features/profile/domain/entities/education_entity.dart';
 
 class EducationModel extends EducationEntity {
@@ -17,7 +18,7 @@ class EducationModel extends EducationEntity {
 
   factory EducationModel.fromJson(Map<String, dynamic> json) {
     return EducationModel(
-      id: (json['id'] as num?)?.toInt() ?? 0,
+      id: JsonParsing.parseId(json['id']) ?? 0,
       degree:
           (json['degree'] ?? json['degree_name'] ?? json['title'])
               ?.toString() ??
@@ -34,7 +35,9 @@ class EducationModel extends EducationEntity {
       fieldOfStudy:
           (json['field_of_study'] ?? json['fieldOfStudy'] ?? json['field'])
               ?.toString(),
-      isCurrent: (json['is_current'] ?? json['isCurrent']) as bool? ?? false,
+      isCurrent:
+          JsonParsing.parseBoolFlag(json['is_current'] ?? json['isCurrent']) ??
+          false,
       description: json['description']?.toString(),
       source: json['source']?.toString(),
       startDate: (json['start_date'] ?? json['startDate'])?.toString(),
@@ -67,7 +70,7 @@ class EducationModel extends EducationEntity {
   /// null as "mutation accepted but payload unusable" and refresh from
   /// GET instead of replacing list data with defaults.
   static EducationModel? tryParseMutation(Map<String, dynamic> json) {
-    final id = (json['id'] as num?)?.toInt() ?? 0;
+    final id = JsonParsing.parseId(json['id']) ?? 0;
     if (id <= 0) return null;
 
     final institution =
