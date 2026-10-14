@@ -590,5 +590,9 @@
   "guestModeTitle": "You are in guest mode",
   "guestModeMessage": "Please log in to access this feature.",
   "shareJobLinkUnavailable": "Job link is not available for this job.",
-  "saveJobFailed": "Couldn't save the job. Please try again."
+  "saveJobFailed": "Couldn't save the job. Please try again.",
+  "offlineStatusShowingSaved": "You're offline. Showing saved data.",
+  "connectionSlowRetrying": "Connection is slow. Retrying...",
+  "backOnline": "Back online",
+  "userFallback": "User"
 }

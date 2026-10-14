@@ -106,7 +106,10 @@ class TrackingApplicationViewBody extends StatelessWidget {
                       onViewJob: () {
                         context.push(
                           AppRoutes.kJobDetailsView,
-                          extra: currentApp?.job ?? job,
+                          extra: <String, dynamic>{
+                            'job': currentApp?.job ?? job,
+                            'heroPrefix': 'tracking',
+                          },
                         );
                       },
                       job: currentApp?.job ?? job,

@@ -91,6 +91,8 @@ class JobsRepositoryImpl implements JobsRepository {
   @override
   Future<Either<Failure, JobEntity>> getJobDetails(String jobId) async {
     if (!await networkInfo.isConnected) {
+      final cached = await localDataSource.findCachedJobById(jobId);
+      if (cached != null) return Right(cached.toEntity());
       return const Left(OfflineFailure());
     }
 
@@ -98,10 +100,14 @@ class JobsRepositoryImpl implements JobsRepository {
       final model = await remoteDataSource.getJobDetails(jobId);
       return Right(model.toEntity());
     } on ServerException catch (e) {
+      final cached = await localDataSource.findCachedJobById(jobId);
+      if (cached != null) return Right(cached.toEntity());
       return Left(
         ServerFailure(message: e.errorModel.errorMessage, fieldErrors: e.errorModel.fieldErrors),
       );
     } catch (e) {
+      final cached = await localDataSource.findCachedJobById(jobId);
+      if (cached != null) return Right(cached.toEntity());
       return Left(ServerFailure(message: e.toString()));
     }
   }

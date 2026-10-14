@@ -1,7 +1,13 @@
 ///* EndPoints: the endpoints of the api
 abstract class EndPoint {
-  static const String baseUrl =
-      'https://iptvdemo.serv5group.com/api/';
+  // --- Runtime-resolved API base URL. Firebase Firestore is the only
+  // --- source of truth; there is intentionally no hardcoded fallback.
+  // --- Empty means unresolved: it is assigned a validated URL by the
+  // --- service locator at startup (valid cache) and by AppInitializer
+  // --- on Firebase refreshes. Dio refuses to send requests while empty,
+  // --- so no call ever goes to an obsolete backend. ---
+  static String baseUrl =
+      'https://start-chances-strategy-contribute.trycloudflare.com/api/';
 
   static const String login = 'auth/login';
   static const String register = 'auth/register';

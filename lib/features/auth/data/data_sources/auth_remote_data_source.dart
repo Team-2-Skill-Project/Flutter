@@ -27,4 +27,6 @@ abstract class AuthRemoteDataSource {
     required String email,
     required String password,
   });
+
+  Future<LoginModel> loginWithGoogle({required String idToken});
 }

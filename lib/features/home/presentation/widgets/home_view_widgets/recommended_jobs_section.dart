@@ -54,6 +54,7 @@ class RecommendedJobsSection extends StatelessWidget {
                 ),
                 JobsFeedLoaded(:final jobs) => AnimatedJobCardList(
                   jobs: jobs.take(3).toList(),
+                  heroPrefix: 'home',
                   showShareButton: true,
                   onSave: (id) {
                     if (!requireAuth(context)) return;
@@ -63,6 +64,7 @@ class RecommendedJobsSection extends StatelessWidget {
                 ),
                 JobsFeedOfflineWithCache(:final jobs) => AnimatedJobCardList(
                   jobs: jobs.take(3).toList(),
+                  heroPrefix: 'home',
                   showShareButton: true,
                   onSave: (id) {
                     if (!requireAuth(context)) return;

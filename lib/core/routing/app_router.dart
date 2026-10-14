@@ -57,21 +57,24 @@ abstract final class AppRouter {
     return null;
   }
 
-  static CustomTransitionPage<dynamic>
-  _buildTransitionPage({
+  static String _heroPrefixFromExtra(Object? extra) {
+    if (extra is Map<String, dynamic>) {
+      final value = extra['heroPrefix'];
+      if (value is String && value.isNotEmpty) return value;
+    }
+    return 'feed';
+  }
+
+  static CustomTransitionPage<dynamic> _buildTransitionPage({
     required GoRouterState state,
     required Widget child,
   }) {
     return CustomTransitionPage(
       key: state.pageKey,
       child: child,
-      transitionsBuilder:
-          (context, animation, secondaryAnimation, child) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
-          },
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(opacity: animation, child: child);
+      },
     );
   }
 
@@ -118,10 +121,7 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kSplashView,
         pageBuilder: (context, state) {
-          return _buildTransitionPage(
-            state: state,
-            child: const SplashView(),
-          );
+          return _buildTransitionPage(state: state, child: const SplashView());
         },
       ),
 
@@ -129,10 +129,7 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kOnboardingView,
         pageBuilder: (context, state) {
-          return _buildTransitionPage(
-            state: state,
-            child: const Onb1(),
-          );
+          return _buildTransitionPage(state: state, child: const Onb1());
         },
       ),
 
@@ -142,7 +139,7 @@ abstract final class AppRouter {
         pageBuilder: (context, state) {
           return _buildTransitionPage(
             state: state,
-            child: const MainNavigationScreen(),
+            child: const MainNavigationWidget(),
           );
         },
       ),
@@ -151,8 +148,7 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kWebView,
         pageBuilder: (context, state) {
-          final args =
-              state.extra as Map<String, dynamic>? ?? {};
+          final args = state.extra as Map<String, dynamic>? ?? {};
 
           final url = args['url'] as String? ?? '';
           final title = args['title'] as String?;
@@ -179,10 +175,11 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kJobDetailsView,
         pageBuilder: (context, state) {
-          final job = state.extra as JobEntity;
+          final job = _jobFromExtra(state.extra);
+          final heroPrefix = _heroPrefixFromExtra(state.extra);
           return _buildTransitionPage(
             state: state,
-            child: JobDetailsView(job: job),
+            child: JobDetailsView(job: job, heroPrefix: heroPrefix),
           );
         },
       ),
@@ -268,10 +265,7 @@ abstract final class AppRouter {
       GoRoute(
         path: AppRoutes.kLoginView,
         pageBuilder: (context, state) {
-          return _buildTransitionPage(
-            state: state,
-            child: const LoginView(),
-          );
+          return _buildTransitionPage(state: state, child: const LoginView());
         },
       ),
 
@@ -283,8 +277,8 @@ abstract final class AppRouter {
           final email = extra is Map<String, dynamic>
               ? extra['email'] as String? ?? 'user@example.com'
               : extra is String
-                  ? extra
-                  : 'user@example.com';
+              ? extra
+              : 'user@example.com';
           return _buildTransitionPage(
             state: state,
             child: BlocProvider(
@@ -307,9 +301,7 @@ abstract final class AppRouter {
             child: BlocProvider(
               create: (_) => getIt<OtpCubit>(),
               child: OtpVerificationView(
-                email:
-                    state.extra as String? ??
-                    'user@example.com',
+                email: state.extra as String? ?? 'user@example.com',
                 mode: OtpMode.emailVerification,
               ),
             ),
@@ -326,9 +318,7 @@ abstract final class AppRouter {
             child: BlocProvider(
               create: (_) => getIt<ResetPasswordCubit>(),
               child: CreateNewPasswordView(
-                email:
-                    state.extra as String? ??
-                    'user@example.com',
+                email: state.extra as String? ?? 'user@example.com',
               ),
             ),
           );

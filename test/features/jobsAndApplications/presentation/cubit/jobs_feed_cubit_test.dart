@@ -8,6 +8,7 @@ import 'package:MatchIn/features/jobsAndApplications/domain/entities/job_filter_
 import 'package:MatchIn/features/jobsAndApplications/domain/entities/job_pagination_entity.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/repositories/jobs_repository.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/apply_for_job_use_case.dart';
+import 'package:MatchIn/features/jobsAndApplications/domain/use_case/get_cached_jobs_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/get_jobs_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/refresh_jobs_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/search_jobs_use_case.dart';
@@ -112,6 +113,7 @@ PaginatedJobsEntity _makePaginated({
 JobsFeedCubit _makeCubit(FakeJobsRepository repo) {
   return JobsFeedCubit(
     getJobsUseCase: GetJobsUseCase(repository: repo),
+    getCachedJobsUseCase: GetCachedJobsUseCase(repository: repo),
     searchJobsUseCase: SearchJobsUseCase(repository: repo),
     refreshJobsUseCase: RefreshJobsUseCase(repository: repo),
     toggleSaveJobUseCase: ToggleSaveJobUseCase(repository: repo),

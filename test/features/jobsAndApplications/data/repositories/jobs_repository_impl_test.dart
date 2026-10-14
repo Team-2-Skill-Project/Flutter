@@ -66,6 +66,16 @@ class FakeJobsLocalDataSource implements JobsLocalDataSource {
   Future<PaginatedJobsModel?> getCachedJobs(String cacheKey) async {
     return _storage[cacheKey];
   }
+
+  @override
+  Future<JobModel?> findCachedJobById(String jobId) async {
+    for (final entry in _storage.values) {
+      for (final job in entry.data) {
+        if (job.id.toString() == jobId) return job;
+      }
+    }
+    return null;
+  }
 }
 
 void main() {

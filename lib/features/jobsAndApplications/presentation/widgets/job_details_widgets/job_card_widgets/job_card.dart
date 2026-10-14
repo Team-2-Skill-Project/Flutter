@@ -6,6 +6,7 @@ import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/widgets/matching_status/matching_status.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/entities/job_entity.dart';
 import 'package:MatchIn/features/jobsAndApplications/presentation/widgets/job_details_widgets/job_card_widgets/job_card_header.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/widgets/job_details_widgets/job_card_widgets/job_hero_tags.dart';
 import 'package:MatchIn/features/jobsAndApplications/presentation/widgets/job_details_widgets/job_card_widgets/job_card_posted_date.dart';
 import 'package:MatchIn/features/jobsAndApplications/presentation/widgets/job_details_widgets/job_card_widgets/job_card_skills_section.dart';
 import 'package:MatchIn/features/jobsAndApplications/presentation/widgets/job_details_widgets/jobs_info_job_card.dart';
@@ -22,6 +23,7 @@ class JobCard extends StatelessWidget {
     this.onTap,
     this.onApply,
     this.onSave,
+    this.heroPrefix = 'feed',
   });
 
   final JobEntity job;
@@ -32,12 +34,17 @@ class JobCard extends StatelessWidget {
   final VoidCallback? onApply;
   final VoidCallback? onSave;
 
+  /// List-source prefix scoping Hero tags ('home', 'feed', 'search', 'saved').
+  final String heroPrefix;
+
   bool get _isApplied =>
       job.applicationStatus != JobApplicationStatus.notApplied;
 
-  ///* Hero tag scoped to the job's unique ID — guarantees no duplicate tags
-  ///* across the list, even when the same job appears multiple times.
-  String get _heroTag => 'company_avatar_${job.id}';
+  ///* Scoped Hero tags: prefix + job id + element. The details screen reuses
+  ///* the originating [heroPrefix] passed via navigation extra, so the same
+  ///* job in Home / Feed / Search / Saved never produces duplicate tags.
+  String get _heroTag =>
+      JobHeroTags.avatar(prefix: heroPrefix, jobId: job.id);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +56,7 @@ class JobCard extends StatelessWidget {
             onTap ??
             () => context.push(
               AppRoutes.kJobDetailsView,
-              extra: job,
+              extra: <String, dynamic>{'job': job, 'heroPrefix': heroPrefix},
             ),
         child: Padding(
           padding: EdgeInsets.all(16.r),
@@ -65,6 +72,8 @@ class JobCard extends StatelessWidget {
                 onShare: onShare,
                 onSave: onSave,
                 heroTag: _heroTag,
+                heroPrefix: heroPrefix,
+                jobId: job.id,
               ),
               SizedBox(height: 14.h),
               Wrap(

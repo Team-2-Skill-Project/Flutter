@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -4845,6 +4844,36 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `You're offline. Showing saved data.`
+  String get offlineStatusShowingSaved {
+    return Intl.message(
+      'You\'re offline. Showing saved data.',
+      name: 'offlineStatusShowingSaved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connection is slow. Retrying...`
+  String get connectionSlowRetrying {
+    return Intl.message(
+      'Connection is slow. Retrying...',
+      name: 'connectionSlowRetrying',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back online`
+  String get backOnline {
+    return Intl.message('Back online', name: 'backOnline', desc: '', args: []);
+  }
+
+  /// `User`
+  String get userFallback {
+    return Intl.message('User', name: 'userFallback', desc: '', args: []);
   }
 }
 

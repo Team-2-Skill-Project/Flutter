@@ -87,4 +87,18 @@ class AuthMockRemoteDataSourceImpl implements AuthRemoteDataSource {
       tokenType: 'bearer',
     );
   }
+
+  @override
+  Future<LoginModel> loginWithGoogle({required String idToken}) async {
+    await Future.delayed(const Duration(milliseconds: 800));
+    // --- Mirrors the real data source: no mock success is returned because
+    // --- the backend provides no Google login endpoint to emulate.
+    throw ServerException(
+      errorModel: const ErrorModel(
+        statusCode: 501,
+        errorMessage:
+            'Google sign-in is not supported by the backend yet. Missing endpoint: a server route exchanging the Google ID token for app tokens.',
+      ),
+    );
+  }
 }

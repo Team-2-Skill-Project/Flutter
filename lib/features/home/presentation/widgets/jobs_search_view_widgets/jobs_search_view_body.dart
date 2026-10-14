@@ -122,6 +122,7 @@ class _JobsSearchViewBodyState extends State<JobsSearchViewBody> {
                             SizedBox(height: 12.h),
                             AnimatedJobCardList(
                               jobs: jobs,
+                              heroPrefix: 'search',
                               showShareButton: true,
                               onSave: (id) {
                                 if (!requireAuth(context)) return;
@@ -150,6 +151,7 @@ class _JobsSearchViewBodyState extends State<JobsSearchViewBody> {
                             ],
                             AnimatedJobCardList(
                               jobs: jobs,
+                              heroPrefix: 'search',
                               showShareButton: true,
                               onSave: (id) {
                                 if (!requireAuth(context)) return;

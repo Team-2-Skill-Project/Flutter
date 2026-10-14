@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/entities/job_entity.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/entities/job_filter_params.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/apply_for_job_use_case.dart';
+import 'package:MatchIn/features/jobsAndApplications/domain/use_case/get_cached_jobs_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/get_jobs_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/refresh_jobs_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/use_case/search_jobs_use_case.dart';
@@ -13,6 +14,7 @@ import 'package:MatchIn/features/jobsAndApplications/presentation/cubit/jobs_fee
 class JobsFeedCubit extends Cubit<JobsFeedState> {
   JobsFeedCubit({
     required this.getJobsUseCase,
+    required this.getCachedJobsUseCase,
     required this.searchJobsUseCase,
     required this.refreshJobsUseCase,
     required this.toggleSaveJobUseCase,
@@ -20,6 +22,7 @@ class JobsFeedCubit extends Cubit<JobsFeedState> {
   }) : super(const JobsFeedInitial());
 
   final GetJobsUseCase getJobsUseCase;
+  final GetCachedJobsUseCase getCachedJobsUseCase;
   final SearchJobsUseCase searchJobsUseCase;
   final RefreshJobsUseCase refreshJobsUseCase;
   final ToggleSaveJobUseCase toggleSaveJobUseCase;
@@ -35,20 +38,60 @@ class JobsFeedCubit extends Cubit<JobsFeedState> {
 
   JobFilterParams get currentFilterParams => _currentFilterParams;
 
+  //! ===== Refresh guard =====
+  // Tracks an in-flight pull-to-refresh so repeated pulls cannot fire
+  // overlapping requests or corrupt state.
+  bool _isRefreshingJobs = false;
+
   Future<void> getJobs({JobFilterParams? params}) async {
     if (params != null) {
       _currentFilterParams = params;
     }
 
-    //! ===== Emit loading with current filter params =====
-    // Passing filterParams ensures the filter-chip BlocBuilder rebuilds
-    // immediately with the selected filter rather than waiting for the API.
-    emit(JobsFeedLoading(filterParams: _currentFilterParams));
+    // 1. Emit cached jobs immediately when available (offline-first).
+    final cachedResult = await getCachedJobsUseCase(
+      params: _currentFilterParams,
+    );
+    final cachedEntity = cachedResult.fold((_) => null, (entity) => entity);
+    final hasCache =
+        cachedEntity != null && cachedEntity.jobs.isNotEmpty;
+    if (hasCache) {
+      emit(
+        JobsFeedLoaded(
+          jobs: cachedEntity.jobs,
+          pagination: cachedEntity.pagination,
+          filterParams: _currentFilterParams,
+          isFromCache: true,
+          isRefreshing: true,
+        ),
+      );
+    } else {
+      //! ===== Emit loading with current filter params =====
+      // Passing filterParams ensures the filter-chip BlocBuilder rebuilds
+      // immediately with the selected filter rather than waiting for the API.
+      emit(JobsFeedLoading(filterParams: _currentFilterParams));
+    }
 
+    // 2. Refresh from remote in the background; preserve cache on failure.
     final result = await getJobsUseCase(params: _currentFilterParams);
 
     result.fold(
-      (failure) => emit(JobsFeedError(failure.message)),
+      (failure) {
+        if (hasCache) {
+          final currentState = state;
+          if (currentState is JobsFeedLoaded) {
+            emit(
+              currentState.copyWith(
+                isRefreshing: false,
+                isFromCache: true,
+                errorMessage: failure.message,
+              ),
+            );
+          }
+        } else {
+          emit(JobsFeedError(failure.message));
+        }
+      },
       (paginatedEntity) {
         if (paginatedEntity.jobs.isEmpty) {
           emit(const JobsFeedEmpty());
@@ -67,6 +110,16 @@ class JobsFeedCubit extends Cubit<JobsFeedState> {
   }
 
   Future<void> refreshJobs() async {
+    if (_isRefreshingJobs) return;
+    _isRefreshingJobs = true;
+    try {
+      await _performRefresh();
+    } finally {
+      _isRefreshingJobs = false;
+    }
+  }
+
+  Future<void> _performRefresh() async {
     final resetParams = _currentFilterParams.copyWith(page: 1);
     _currentFilterParams = resetParams;
 

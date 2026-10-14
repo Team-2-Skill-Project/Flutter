@@ -17,12 +17,13 @@ final class ProfileLoading extends ProfileState {
 }
 
 final class ProfileSuccess extends ProfileState {
-  const ProfileSuccess({required this.profile});
+  const ProfileSuccess({required this.profile, this.isRefreshing = false});
 
   final CandidateProfileEntity profile;
+  final bool isRefreshing;
 
   @override
-  List<Object?> get props => [profile];
+  List<Object?> get props => [profile, isRefreshing];
 }
 
 final class ProfileFailure extends ProfileState {

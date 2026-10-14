@@ -39,6 +39,9 @@ class _FakeProfileLocalDataSource implements ProfileLocalDataSource {
 
   @override
   Future<UserProfileModel?> getCachedUserProfile() async => null;
+
+  @override
+  Future<String?> getCachedUserName() async => null;
 }
 
 class _FakeSecureStorageService implements SecureStorageService {

@@ -17,8 +17,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class JobDetailsViewBody extends StatelessWidget {
-  const JobDetailsViewBody({super.key, required this.job});
+  const JobDetailsViewBody({super.key, required this.job, this.heroPrefix = 'feed'});
   final JobEntity job;
+
+  /// Originating list prefix so Hero tags match the tapped card.
+  final String heroPrefix;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,7 @@ class JobDetailsViewBody extends StatelessWidget {
                 padding: EdgeInsets.all(16.r),
                 child: ListView(
                   children: [
-                    JobCard(job: currentJob),
+                    JobCard(job: currentJob, heroPrefix: heroPrefix),
                     Gap(14.h),
                     const JobMatchCard(),
                     Gap(14.h),
