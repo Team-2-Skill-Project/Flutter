@@ -5671,6 +5671,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Retry`
+  String get retry {
+    return Intl.message(
+      'Retry',
+      name: 'retry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rename Chat`
+  String get editTitle {
+    return Intl.message(
+      'Rename Chat',
+      name: 'editTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter new title`
+  String get enterNewTitle {
+    return Intl.message(
+      'Enter new title',
+      name: 'enterNewTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Suggested Prompts`
+  String get suggestedPrompts {
+    return Intl.message(
+      'Suggested Prompts',
+      name: 'suggestedPrompts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AI Career Mentor`
+  String get careerMentor {
+    return Intl.message(
+      'AI Career Mentor',
+      name: 'careerMentor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Candidate Context`
+  String get contextPreview {
+    return Intl.message(
+      'Candidate Context',
+      name: 'contextPreview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Archived`
+  String get archived {
+    return Intl.message(
+      'Archived',
+      name: 'archived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Grounded on your verified skills, experience, and target roles.`
+  String get careerGroundingContext {
+    return Intl.message(
+      'Grounded on your verified skills, experience, and target roles.',
+      name: 'careerGroundingContext',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

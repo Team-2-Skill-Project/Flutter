@@ -594,5 +594,14 @@
   "offlineStatusShowingSaved": "You're offline. Showing saved data.",
   "connectionSlowRetrying": "Connection is slow. Retrying...",
   "backOnline": "Back online",
-  "userFallback": "User"
+  "userFallback": "User",
+  "retry": "Retry",
+  "save": "Save",
+  "editTitle": "Rename Chat",
+  "enterNewTitle": "Enter new title",
+  "suggestedPrompts": "Suggested Prompts",
+  "careerMentor": "AI Career Mentor",
+  "contextPreview": "Candidate Context",
+  "archived": "Archived",
+  "careerGroundingContext": "Grounded on your verified skills, experience, and target roles."
 }

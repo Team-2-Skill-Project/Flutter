@@ -10,6 +10,7 @@ import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/core/widgets/app_web_view.dart';
 import 'package:MatchIn/core/widgets/main_navigation_screen.dart';
+import 'package:MatchIn/features/chatbot/presentation/views/ai_chat_view.dart';
 import 'package:MatchIn/features/jobsAndApplications/domain/entities/job_entity.dart';
 import 'package:MatchIn/features/jobsAndApplications/presentation/views/application_questions_view.dart';
 import 'package:MatchIn/features/jobsAndApplications/presentation/views/application_submitted_view.dart';
@@ -140,6 +141,17 @@ abstract final class AppRouter {
           return _buildTransitionPage(
             state: state,
             child: const MainNavigationWidget(),
+          );
+        },
+      ),
+
+      // AI Chatbot
+      GoRoute(
+        path: AppRoutes.kChatBotView,
+        pageBuilder: (context, state) {
+          return _buildTransitionPage(
+            state: state,
+            child: const AiChatView(),
           );
         },
       ),

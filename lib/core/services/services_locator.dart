@@ -31,15 +31,19 @@ import 'package:MatchIn/features/auth/presentation/cubit/otp_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/reset_password_cubit.dart';
 import 'package:MatchIn/features/chatbot/data/data_sources/chatbot_local_data_source.dart';
 import 'package:MatchIn/features/chatbot/data/data_sources/chatbot_local_data_source_impl.dart';
-import 'package:MatchIn/features/chatbot/data/data_sources/chatbot_mock_remote_data_source_impl.dart';
 import 'package:MatchIn/features/chatbot/data/data_sources/chatbot_remote_data_source.dart';
+import 'package:MatchIn/features/chatbot/data/data_sources/chatbot_remote_data_source_impl.dart';
 import 'package:MatchIn/features/chatbot/data/repositories/chatbot_repository_impl.dart';
 import 'package:MatchIn/features/chatbot/domain/repositories/chatbot_repository.dart';
 import 'package:MatchIn/features/chatbot/domain/use_cases/clear_all_chats_use_case.dart';
+import 'package:MatchIn/features/chatbot/domain/use_cases/create_conversation_use_case.dart';
 import 'package:MatchIn/features/chatbot/domain/use_cases/delete_chat_use_case.dart';
 import 'package:MatchIn/features/chatbot/domain/use_cases/get_chat_history_use_case.dart';
+import 'package:MatchIn/features/chatbot/domain/use_cases/get_context_preview_use_case.dart';
+import 'package:MatchIn/features/chatbot/domain/use_cases/get_conversation_details_use_case.dart';
 import 'package:MatchIn/features/chatbot/domain/use_cases/save_chat_use_case.dart';
 import 'package:MatchIn/features/chatbot/domain/use_cases/send_message_use_case.dart';
+import 'package:MatchIn/features/chatbot/domain/use_cases/update_conversation_use_case.dart';
 import 'package:MatchIn/features/chatbot/presentation/cubit/chatbot_cubit.dart';
 import 'package:MatchIn/features/home/data/data_sources/home_local_data_source.dart';
 import 'package:MatchIn/features/home/data/data_sources/home_local_data_source_impl.dart';
@@ -278,7 +282,9 @@ Future<void> setupServiceLocator() async {
   // =========================================================
 
   getIt.registerLazySingleton<ChatbotRemoteDataSource>(
-    () => ChatbotMockRemoteDataSourceImpl(),
+    () => ChatbotRemoteDataSourceImpl(
+      apiConsumer: getIt(),
+    ),
   );
 
   getIt.registerLazySingleton<ChatbotLocalDataSource>(
@@ -291,6 +297,8 @@ Future<void> setupServiceLocator() async {
     () => ChatbotRepositoryImpl(
       remoteDataSource: getIt(),
       localDataSource: getIt(),
+      networkInfo: getIt(),
+      sharedPreferencesService: getIt(),
     ),
   );
 
@@ -298,8 +306,20 @@ Future<void> setupServiceLocator() async {
     () => GetChatHistoryUseCase(repository: getIt()),
   );
 
+  getIt.registerLazySingleton<GetConversationDetailsUseCase>(
+    () => GetConversationDetailsUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<CreateConversationUseCase>(
+    () => CreateConversationUseCase(repository: getIt()),
+  );
+
   getIt.registerLazySingleton<SendMessageUseCase>(
     () => SendMessageUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<UpdateConversationUseCase>(
+    () => UpdateConversationUseCase(repository: getIt()),
   );
 
   getIt.registerLazySingleton<SaveChatUseCase>(
@@ -314,13 +334,21 @@ Future<void> setupServiceLocator() async {
     () => ClearAllChatsUseCase(repository: getIt()),
   );
 
+  getIt.registerLazySingleton<GetContextPreviewUseCase>(
+    () => GetContextPreviewUseCase(repository: getIt()),
+  );
+
   getIt.registerFactory<ChatbotCubit>(
     () => ChatbotCubit(
       getChatHistoryUseCase: getIt(),
+      getConversationDetailsUseCase: getIt(),
+      createConversationUseCase: getIt(),
       sendMessageUseCase: getIt(),
-      saveChatUseCase: getIt(),
+      updateConversationUseCase: getIt(),
       deleteChatUseCase: getIt(),
       clearAllChatsUseCase: getIt(),
+      getContextPreviewUseCase: getIt(),
+      sharedPreferencesService: getIt(),
     ),
   );
 

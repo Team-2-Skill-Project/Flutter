@@ -595,7 +595,16 @@
   "offlineStatusShowingSaved": "أنت غير متصل بالإنترنت. يتم عرض البيانات المحفوظة.",
   "connectionSlowRetrying": "الاتصال بطيء. جارٍ إعادة المحاولة...",
   "backOnline": "تمت استعادة الاتصال",
-  "userFallback": "المستخدم"
+  "userFallback": "المستخدم",
+  "retry": "إعادة المحاولة",
+  "save": "حفظ",
+  "editTitle": "تعديل عنوان المحادثة",
+  "enterNewTitle": "أدخل العنوان الجديد",
+  "suggestedPrompts": "اقتراحات للمتابعة",
+  "careerMentor": "المرشد المهني الذكي",
+  "contextPreview": "سياق المرشح",
+  "archived": "مؤرشفة",
+  "careerGroundingContext": "مبني على مهاراتك الموثقة، خبراتك، وأدوارك المستهدفة."
 }
 
 

@@ -18,6 +18,7 @@ abstract final class AppRoutes {
 
   // Main
   static const String kHomeView = '/home';
+  static const String kChatBotView = '/chat';
 
   // Jobs
   static const String kJobsSearchView = '/jobs/search';
