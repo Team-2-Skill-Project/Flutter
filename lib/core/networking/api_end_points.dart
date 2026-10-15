@@ -92,6 +92,11 @@ abstract class EndPoint {
   static const String careerPreferences =
       'candidate/career-preferences';
 
+  // Roadmaps
+  static const String roadmaps = 'roadmaps';
+
+  static String roadmapDetails(int roadmapId) => 'roadmaps/$roadmapId';
+
   // Notifications
   static const String notifications = 'notifications';
   static const String notificationsUnreadCount =

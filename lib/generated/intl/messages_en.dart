@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m8(count) =>
       "${Intl.plural(count, one: '1 year ago', other: '${count} years ago')}";
 
+  static String m9(hours) => "${hours}h";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(
     _,
@@ -654,6 +656,7 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Experience with Bloc",
         ),
+    "estimatedHours": m9,
     "failed": MessageLookupByLibrary.simpleMessage(
       "Failed",
     ),
@@ -906,6 +909,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "linkedin": MessageLookupByLibrary.simpleMessage(
       "LinkedIn",
     ),
+    "loadMore": MessageLookupByLibrary.simpleMessage(
+      "Load More",
+    ),
     "loadingAd": MessageLookupByLibrary.simpleMessage(
       "Loading Ad...",
     ),
@@ -1076,6 +1082,9 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Add your first project using the button above.",
         ),
+    "noRoadmaps": MessageLookupByLibrary.simpleMessage(
+      "No roadmaps yet",
+    ),
     "noSavedJobsYet": MessageLookupByLibrary.simpleMessage(
       "No saved jobs yet",
     ),
@@ -1492,6 +1501,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "selectLanguage": MessageLookupByLibrary.simpleMessage(
       "Select Language",
+    ),
+    "selectRoadmap": MessageLookupByLibrary.simpleMessage(
+      "Select Roadmap",
     ),
     "selectTheme": MessageLookupByLibrary.simpleMessage(
       "Select Theme",

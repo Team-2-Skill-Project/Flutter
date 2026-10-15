@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m8(count) =>
       "${Intl.plural(count, one: 'منذ سنة', two: 'منذ سنتين', few: 'منذ ${count} سنوات', other: 'منذ ${count} سنة')}";
 
+  static String m9(hours) => "${hours} س";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(
     _,
@@ -641,6 +643,7 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "خبرة في Bloc",
         ),
+    "estimatedHours": m9,
     "failed": MessageLookupByLibrary.simpleMessage("فشل"),
     "failedToLoadAd": MessageLookupByLibrary.simpleMessage(
       "فشل تحميل الإعلان",
@@ -882,6 +885,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "linkedin": MessageLookupByLibrary.simpleMessage(
       "LinkedIn",
     ),
+    "loadMore": MessageLookupByLibrary.simpleMessage(
+      "تحميل المزيد",
+    ),
     "loadingAd": MessageLookupByLibrary.simpleMessage(
       "جارٍ تحميل الإعلان...",
     ),
@@ -1052,6 +1058,9 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "أضف مشروعك الأول باستخدام الزر أعلاه.",
         ),
+    "noRoadmaps": MessageLookupByLibrary.simpleMessage(
+      "لا توجد خارطات طريق بعد",
+    ),
     "noSavedJobsYet": MessageLookupByLibrary.simpleMessage(
       "لا يوجد وظائف متاحة حالياً",
     ),
@@ -1460,6 +1469,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "select": MessageLookupByLibrary.simpleMessage("اختر"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage(
       "اختر اللغة",
+    ),
+    "selectRoadmap": MessageLookupByLibrary.simpleMessage(
+      "اختر خارطة الطريق",
     ),
     "selectTheme": MessageLookupByLibrary.simpleMessage(
       "اختر المظهر",

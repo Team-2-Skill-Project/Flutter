@@ -123,6 +123,12 @@ import 'package:MatchIn/features/profile/presentation/cubits/experience_cubit/ed
 import 'package:MatchIn/features/profile/presentation/cubits/projects_cubit/projects_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/skills_cubit/skills_cubit.dart';
 
+import 'package:MatchIn/features/roadmap/data/data_sources/roadmap_remote_data_source.dart';
+import 'package:MatchIn/features/roadmap/data/data_sources/roadmap_remote_data_source_impl.dart';
+import 'package:MatchIn/features/roadmap/data/repositories/roadmap_repository_impl.dart';
+import 'package:MatchIn/features/roadmap/domain/repositories/roadmap_repository.dart';
+import 'package:MatchIn/features/roadmap/domain/use_cases/get_roadmap_details_use_case.dart';
+import 'package:MatchIn/features/roadmap/domain/use_cases/get_roadmaps_use_case.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/skill_task_cubit/skill_task_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/treasure_cubit/treasure_cubit.dart';
@@ -260,8 +266,31 @@ Future<void> setupServiceLocator() async {
     () => RewardedAdManager(),
   );
 
+  getIt.registerLazySingleton<RoadmapRemoteDataSource>(
+    () => RoadmapRemoteDataSourceImpl(apiConsumer: getIt()),
+  );
+
+  getIt.registerLazySingleton<RoadmapRepository>(
+    () => RoadmapRepositoryImpl(
+      remoteDataSource: getIt(),
+      networkInfo: getIt(),
+    ),
+  );
+
+  getIt.registerLazySingleton<GetRoadmapsUseCase>(
+    () => GetRoadmapsUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<GetRoadmapDetailsUseCase>(
+    () => GetRoadmapDetailsUseCase(repository: getIt()),
+  );
+
   getIt.registerFactory<RoadmapCubit>(
-    () => RoadmapCubit(sharedPreferencesService: getIt()),
+    () => RoadmapCubit(
+      sharedPreferencesService: getIt(),
+      getRoadmapsUseCase: getIt(),
+      getRoadmapDetailsUseCase: getIt(),
+    ),
   );
 
   getIt.registerFactory<TreasureCubit>(
