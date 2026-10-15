@@ -1,11 +1,16 @@
+import 'dart:async';
+
 import 'package:MatchIn/core/widgets/error/app_error.dart';
 import 'package:MatchIn/core/widgets/loading/app_loading.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/domain/entities/roadmap_entity.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
+import 'package:MatchIn/features/roadmap/presentation/manager/skill_task_cubit/skill_task_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/treasure_cubit/treasure_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/utils/roadmap_node_mapper.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_content_widget.dart';
+import 'package:MatchIn/features/roadmap/presentation/widgets/generate_roadmap_sheet.dart';
+import 'package:MatchIn/features/roadmap/presentation/widgets/refresh_roadmap_sheet.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_selector_sheet.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -35,30 +40,42 @@ class RoadmapViewBody extends StatelessWidget {
             if (state.roadmaps.isEmpty) return _emptyView(context);
             return const AppLoadingWidget();
           case RoadmapDetailsSuccess():
-            final locale = S.of(context);
-            final mapped = RoadmapNodeMapper.mapMilestones(
-              state.details.milestones,
-              durationLabel: (hours) => locale.estimatedHours(hours),
+            return _detailsView(
+              context,
+              details: state.details,
+              rewardedAdXp: state.rewardedAdXp,
             );
-            return Column(
-              children: [
-                _selectorBar(context, state.details),
-                Expanded(
-                  child: BlocBuilder<TreasureCubit, TreasureState>(
-                    builder: (context, treasureState) {
-                      final collectedTreasures = treasureState is TreasureLoaded
-                          ? treasureState.collectedTreasures
-                          : <int>{};
-
-                      return RoadmapContentWidget(
-                        nodes: mapped,
-                        collectedTreasures: collectedTreasures,
-                        rewardedAdXp: state.rewardedAdXp,
-                      );
-                    },
-                  ),
-                ),
-              ],
+          case RoadmapGenerating():
+            if (state.details == null) {
+              return const AppLoadingWidget();
+            }
+            return _detailsView(
+              context,
+              details: state.details!,
+              rewardedAdXp: state.rewardedAdXp,
+            );
+          case RoadmapGenerateFailure():
+            if (state.details == null) return _emptyView(context);
+            return _detailsView(
+              context,
+              details: state.details!,
+              rewardedAdXp: state.rewardedAdXp,
+            );
+          case RoadmapAiRefreshing():
+            if (state.details == null) {
+              return const AppLoadingWidget();
+            }
+            return _detailsView(
+              context,
+              details: state.details!,
+              rewardedAdXp: state.rewardedAdXp,
+            );
+          case RoadmapAiRefreshFailure():
+            if (state.details == null) return _emptyView(context);
+            return _detailsView(
+              context,
+              details: state.details!,
+              rewardedAdXp: state.rewardedAdXp,
             );
           case RoadmapFailure():
             return AppErrorWidget(
@@ -92,15 +109,54 @@ class RoadmapViewBody extends StatelessWidget {
               style: theme.textTheme.titleMedium,
               textAlign: TextAlign.center,
             ),
+            SizedBox(height: 20.h),
+            FilledButton.icon(
+              onPressed: () => _openGenerateSheet(context),
+              icon: const Icon(Icons.add_rounded),
+              label: Text(S.of(context).generateRoadmap),
+            ),
           ],
         ),
       ),
     );
   }
 
+  Widget _detailsView(
+    BuildContext context, {
+    required RoadmapEntity details,
+    required int rewardedAdXp,
+  }) {
+    final locale = S.of(context);
+    final mapped = RoadmapNodeMapper.mapMilestones(
+      details.milestones,
+      durationLabel: (hours) => locale.estimatedHours(hours),
+    );
+    return Column(
+      children: [
+        _selectorBar(context, details),
+        Expanded(
+          child: BlocBuilder<TreasureCubit, TreasureState>(
+            builder: (context, treasureState) {
+              final collectedTreasures = treasureState is TreasureLoaded
+                  ? treasureState.collectedTreasures
+                  : <int>{};
+
+              return RoadmapContentWidget(
+                nodes: mapped,
+                collectedTreasures: collectedTreasures,
+                rewardedAdXp: rewardedAdXp,
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _selectorBar(BuildContext context, RoadmapEntity details) {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
+    final locale = S.of(context);
     return InkWell(
       onTap: () => _openSelector(context),
       borderRadius: BorderRadius.circular(12.r),
@@ -139,6 +195,25 @@ class RoadmapViewBody extends StatelessWidget {
                 ],
               ),
             ),
+            BlocBuilder<SkillTaskCubit, SkillTaskState>(
+              builder: (context, skillState) {
+                return BlocBuilder<RoadmapCubit, RoadmapState>(
+                  builder: (context, roadmapState) {
+                    final busy =
+                        roadmapState is RoadmapAiRefreshing ||
+                        roadmapState is RoadmapGenerating ||
+                        roadmapState is RoadmapLoading ||
+                        roadmapState is RoadmapsLoading ||
+                        skillState.completingTaskIds.isNotEmpty;
+                    return IconButton(
+                      tooltip: locale.refreshRoadmap,
+                      icon: const Icon(Icons.refresh_rounded),
+                      onPressed: busy ? null : () => _openRefreshSheet(context),
+                    );
+                  },
+                );
+              },
+            ),
             Icon(
               Icons.keyboard_arrow_down_rounded,
               color: colors.onSurfaceVariant,
@@ -151,11 +226,21 @@ class RoadmapViewBody extends StatelessWidget {
 
   Future<void> _openSelector(BuildContext context) async {
     final cubit = context.read<RoadmapCubit>();
-    final selected = await RoadmapSelectorSheet.show(
-      context,
-      cubit: cubit,
-    );
+    // Refresh in the background; the sheet opens instantly on the
+    // snapshot and rebuilds live when fresh rows arrive.
+    unawaited(cubit.refreshRoadmapList());
+    final selected = await RoadmapSelectorSheet.show(context, cubit: cubit);
     if (selected == null || !context.mounted) return;
     await context.read<RoadmapCubit>().selectRoadmap(selected);
+  }
+
+  Future<void> _openGenerateSheet(BuildContext context) async {
+    final cubit = context.read<RoadmapCubit>();
+    await GenerateRoadmapSheet.show(context, cubit: cubit);
+  }
+
+  Future<void> _openRefreshSheet(BuildContext context) async {
+    final cubit = context.read<RoadmapCubit>();
+    await RefreshRoadmapSheet.show(context, cubit: cubit);
   }
 }

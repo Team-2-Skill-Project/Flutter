@@ -8,6 +8,8 @@ import 'package:MatchIn/features/roadmap/domain/entities/roadmaps_params.dart';
 import 'package:MatchIn/features/roadmap/domain/repositories/roadmap_repository.dart';
 import 'package:MatchIn/features/roadmap/domain/use_cases/get_roadmap_details_use_case.dart';
 import 'package:MatchIn/features/roadmap/domain/use_cases/get_roadmaps_use_case.dart';
+import 'package:MatchIn/features/roadmap/domain/use_cases/generate_roadmap_use_case.dart';
+import 'package:MatchIn/features/roadmap/domain/use_cases/refresh_roadmap_use_case.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/roadmap_selector_sheet.dart';
 import 'package:MatchIn/generated/l10n.dart';
@@ -78,6 +80,8 @@ Future<RoadmapCubit> _readyCubit(FakeSheetRepository repo) async {
     ),
     getRoadmapsUseCase: GetRoadmapsUseCase(repository: repo),
     getRoadmapDetailsUseCase: GetRoadmapDetailsUseCase(repository: repo),
+    generateRoadmapUseCase: GenerateRoadmapUseCase(repository: repo),
+    refreshRoadmapUseCase: RefreshRoadmapUseCase(repository: repo),
   );
   addTearDown(cubit.close);
   await cubit.loadRoadmaps();
@@ -183,6 +187,23 @@ void main() {
       expect(find.text('Cloud Architect'), findsOneWidget);
       expect(find.text('Backend Pro'), findsOneWidget);
       expect(find.byType(SnackBar), findsOneWidget);
+    });
+
+    testWidgets('generate row opens the generation form', (tester) async {
+      final cubit = await _readyCubit(FakeSheetRepository([_page1]));
+      await _pumpHost(
+        tester,
+        cubit,
+        onOpen: (context) => RoadmapSelectorSheet.show(context, cubit: cubit),
+      );
+
+      await tester.tap(find.text('open'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Generate Roadmap'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Target role'), findsOneWidget);
+      expect(find.text('Notes'), findsOneWidget);
     });
   });
 }

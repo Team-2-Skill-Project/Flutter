@@ -3,6 +3,10 @@ import 'package:MatchIn/core/networking/api_end_points.dart';
 import 'package:MatchIn/features/roadmap/data/data_sources/roadmap_remote_data_source.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_model.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_pagination_model.dart';
+import 'package:MatchIn/features/roadmap/data/models/roadmap_task_model.dart';
+import 'package:MatchIn/features/roadmap/domain/entities/complete_roadmap_task_params.dart';
+import 'package:MatchIn/features/roadmap/domain/entities/generate_roadmap_params.dart';
+import 'package:MatchIn/features/roadmap/domain/entities/refresh_roadmap_params.dart';
 import 'package:MatchIn/features/roadmap/domain/entities/roadmaps_params.dart';
 
 class RoadmapRemoteDataSourceImpl implements RoadmapRemoteDataSource {
@@ -54,6 +58,69 @@ class RoadmapRemoteDataSourceImpl implements RoadmapRemoteDataSource {
     final data = response['data'];
     if (data is! Map<String, dynamic>) {
       throw const FormatException('Invalid roadmap details data format');
+    }
+
+    return RoadmapModel.fromJson(data);
+  }
+
+  @override
+  Future<RoadmapModel> generateRoadmap(GenerateRoadmapParams params) async {
+    final response = await apiConsumer.post(
+      EndPoint.roadmaps,
+      data: params.toJson(),
+    );
+
+    if (response is! Map<String, dynamic>) {
+      throw const FormatException('Invalid roadmap generation response');
+    }
+
+    final data = response['data'];
+    if (data is! Map<String, dynamic>) {
+      throw const FormatException('Invalid roadmap generation data format');
+    }
+
+    return RoadmapModel.fromJson(data);
+  }
+
+  @override
+  Future<RoadmapTaskModel> completeRoadmapTask(
+    CompleteRoadmapTaskParams params,
+  ) async {
+    final response = await apiConsumer.patch(
+      EndPoint.roadmapTaskComplete(params.taskId),
+      data: {
+        if (params.completionNote != null)
+          'completion_note': params.completionNote,
+      },
+    );
+
+    if (response is! Map<String, dynamic>) {
+      throw const FormatException('Invalid task completion response format');
+    }
+
+    final data = response['data'];
+    if (data is! Map<String, dynamic>) {
+      throw const FormatException('Invalid task completion data format');
+    }
+
+    return RoadmapTaskModel.fromJson(data);
+  }
+
+  @override
+  Future<RoadmapModel> refreshRoadmap(RefreshRoadmapParams params) async {
+    final reason = params.reason?.trim();
+    final response = await apiConsumer.post(
+      EndPoint.roadmapRefresh(params.roadmapId),
+      data: {if (reason != null && reason.isNotEmpty) 'reason': reason},
+    );
+
+    if (response is! Map<String, dynamic>) {
+      throw const FormatException('Invalid roadmap refresh response format');
+    }
+
+    final data = response['data'];
+    if (data is! Map<String, dynamic>) {
+      throw const FormatException('Invalid roadmap refresh data format');
     }
 
     return RoadmapModel.fromJson(data);
