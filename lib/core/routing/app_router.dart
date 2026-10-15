@@ -58,6 +58,22 @@ abstract final class AppRouter {
     return null;
   }
 
+  static String? _cvFileNameFromExtra(Object? extra) {
+    if (extra is Map<String, dynamic>) {
+      final value = extra['cvFileName'] ?? extra['cvName'];
+      if (value is String && value.isNotEmpty) return value;
+    }
+    return null;
+  }
+
+  static String? _cvFileSizeFromExtra(Object? extra) {
+    if (extra is Map<String, dynamic>) {
+      final value = extra['cvFileSize'] ?? extra['cvSize'];
+      if (value is String && value.isNotEmpty) return value;
+    }
+    return null;
+  }
+
   static String _heroPrefixFromExtra(Object? extra) {
     if (extra is Map<String, dynamic>) {
       final value = extra['heroPrefix'];
@@ -382,6 +398,8 @@ abstract final class AppRouter {
             child: ReviewApplicationView(
               job: job,
               coverLetter: _coverLetterFromExtra(state.extra),
+              cvFileName: _cvFileNameFromExtra(state.extra),
+              cvFileSize: _cvFileSizeFromExtra(state.extra),
             ),
           );
         },

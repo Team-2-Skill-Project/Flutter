@@ -1,3 +1,4 @@
+import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/widgets/register/register_footer.dart';
@@ -8,9 +9,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 
 class RegisterView extends StatelessWidget {
   const RegisterView({super.key});
+
+  void _handleBack(BuildContext context) {
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      context.go(AppRoutes.kLoginView);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,24 +29,31 @@ class RegisterView extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => GetIt.instance<AuthCubit>(),
-      child: Scaffold(
-        backgroundColor: AppColors.background,
-        appBar: AppBar(
+      child: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, _) {
+          if (!didPop) {
+            _handleBack(context);
+          }
+        },
+        child: Scaffold(
           backgroundColor: AppColors.background,
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: AppColors.midnightBlue),
-            onPressed: () => Navigator.pop(context),
-          ),
-          title: Text(
-            locale.createAccount,
-            style: theme.textTheme.titleLarge?.copyWith(
-              color: AppColors.midnightBlue,
-              fontWeight: FontWeight.bold,
+          appBar: AppBar(
+            backgroundColor: AppColors.background,
+            elevation: 0,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back, color: AppColors.midnightBlue),
+              onPressed: () => _handleBack(context),
             ),
+            title: Text(
+              locale.createAccount,
+              style: theme.textTheme.titleLarge?.copyWith(
+                color: AppColors.midnightBlue,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            centerTitle: true,
           ),
-          centerTitle: true,
-        ),
         body: SafeArea(
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
@@ -60,6 +77,7 @@ class RegisterView extends StatelessWidget {
               ),
             ],
           ),
+        ),
         ),
       ),
     );

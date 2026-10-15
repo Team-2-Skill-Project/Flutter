@@ -51,7 +51,11 @@ class JobDetailsViewBody extends StatelessWidget {
                 padding: EdgeInsets.all(16.r),
                 child: ListView(
                   children: [
-                    JobCard(job: currentJob, heroPrefix: heroPrefix),
+                    JobCard(
+                      job: currentJob,
+                      heroPrefix: heroPrefix,
+                      onTap: () {},
+                    ),
                     Gap(14.h),
                     const JobMatchCard(),
                     Gap(14.h),

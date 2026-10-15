@@ -146,7 +146,11 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
     if (context.canPop()) {
       context.pop();
     } else {
-      context.go(AppRoutes.kLoginView);
+      context.go(
+        widget.mode == OtpMode.emailVerification
+            ? AppRoutes.kRegisterView
+            : AppRoutes.kLoginView,
+      );
     }
   }
 
@@ -171,12 +175,19 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
           CustomSnackBar.showError(context, message: state.message);
         }
       },
-      child: Scaffold(
-        backgroundColor: theme.scaffoldBackgroundColor,
-        appBar: CustomAppBar(
-          title: S.of(context).enterVerificationCode,
-          onBack: _handleBack,
-        ),
+      child: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, _) {
+          if (!didPop) {
+            _handleBack();
+          }
+        },
+        child: Scaffold(
+          backgroundColor: theme.scaffoldBackgroundColor,
+          appBar: CustomAppBar(
+            title: S.of(context).enterVerificationCode,
+            onBack: _handleBack,
+          ),
         body: SafeArea(
           child: SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -200,6 +211,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
               ],
             ),
           ),
+        ),
         ),
       ),
     );

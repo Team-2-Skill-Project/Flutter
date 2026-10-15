@@ -47,7 +47,13 @@ class RegisterFooter extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () => context.go(AppRoutes.kLoginView),
+              onTap: () {
+                if (context.canPop()) {
+                  context.pop();
+                } else {
+                  context.push(AppRoutes.kLoginView);
+                }
+              },
               child: Padding(
                 padding: EdgeInsets.all(4.w),
                 child: Text(
