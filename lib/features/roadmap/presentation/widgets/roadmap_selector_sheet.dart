@@ -1,6 +1,7 @@
 import 'package:MatchIn/core/extensions/bottom_sheet_extensions.dart';
 import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
+import 'package:MatchIn/features/roadmap/presentation/widgets/generate_roadmap_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -69,9 +70,33 @@ class _RoadmapSelectorContent extends StatelessWidget {
             builder: (context, scrollController) {
               return ListView.builder(
                 controller: scrollController,
-                itemCount: items.length + (cubit.hasMorePages ? 1 : 0),
+                itemCount: items.length + (cubit.hasMorePages ? 1 : 0) + 1,
                 itemBuilder: (context, index) {
-                  if (index >= items.length) {
+                  if (index == 0) {
+                    return ListTile(
+                      leading: Icon(
+                        Icons.add_circle_outline_rounded,
+                        color: theme.colorScheme.primary,
+                      ),
+                      title: Text(
+                        locale.generateRoadmap,
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: theme.colorScheme.primary,
+                        ),
+                      ),
+                      onTap: () async {
+                        final newId = await GenerateRoadmapSheet.show(
+                          context,
+                          cubit: cubit,
+                        );
+                        if (newId == null || !context.mounted) return;
+                        Navigator.of(context).pop();
+                      },
+                    );
+                  }
+                  final itemIndex = index - 1;
+                  if (itemIndex >= items.length) {
                     return Padding(
                       padding: EdgeInsets.only(top: 8.h, bottom: 12.h),
                       child: Center(
@@ -94,7 +119,7 @@ class _RoadmapSelectorContent extends StatelessWidget {
                       ),
                     );
                   }
-                  final roadmap = items[index];
+                  final roadmap = items[itemIndex];
                   final selected = roadmap.id == selectedId;
                   return ListTile(
                     title: Text(

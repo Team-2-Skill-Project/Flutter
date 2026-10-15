@@ -38,6 +38,61 @@ final class RoadmapDetailsSuccess extends RoadmapState {
   final int rewardedAdXp;
 }
 
+/// AI generation in progress. Carries the currently displayed content
+/// so the main view never flashes loading over it; the form sheet
+/// shows its own progress indicator.
+final class RoadmapGenerating extends RoadmapState {
+  RoadmapGenerating({this.details, this.rewardedAdXp = 0});
+
+  final RoadmapEntity? details;
+  final int rewardedAdXp;
+}
+
+/// Generation failed. Carries the content to keep showing plus
+/// server feedback for inline display in the form sheet. Never
+/// replaces loaded content with a full-screen error.
+final class RoadmapGenerateFailure extends RoadmapState {
+  RoadmapGenerateFailure({
+    required this.message,
+    this.fieldErrors = const {},
+    this.details,
+    this.rewardedAdXp = 0,
+  });
+
+  final String message;
+  final Map<String, List<String>> fieldErrors;
+  final RoadmapEntity? details;
+  final int rewardedAdXp;
+}
+
+/// AI refresh in progress. Carries the currently displayed content so
+/// the main view never flashes loading over it; the refresh sheet
+/// shows its own progress indicator. Distinct from [RoadmapGenerating]
+/// (create-new) and from GET synchronization.
+final class RoadmapAiRefreshing extends RoadmapState {
+  RoadmapAiRefreshing({this.details, this.rewardedAdXp = 0});
+
+  final RoadmapEntity? details;
+  final int rewardedAdXp;
+}
+
+/// AI refresh failed. Carries the content to keep showing plus server
+/// feedback for inline display in the refresh sheet. Never replaces
+/// loaded content with a full-screen error.
+final class RoadmapAiRefreshFailure extends RoadmapState {
+  RoadmapAiRefreshFailure({
+    required this.message,
+    this.fieldErrors = const {},
+    this.details,
+    this.rewardedAdXp = 0,
+  });
+
+  final String message;
+  final Map<String, List<String>> fieldErrors;
+  final RoadmapEntity? details;
+  final int rewardedAdXp;
+}
+
 final class RoadmapFailure extends RoadmapState {
   RoadmapFailure({required this.errorMessage});
 

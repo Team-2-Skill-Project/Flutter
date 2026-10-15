@@ -735,6 +735,186 @@ class S {
     );
   }
 
+  /// `Generate Roadmap`
+  String get generateRoadmap {
+    return Intl.message(
+      'Generate Roadmap',
+      name: 'generateRoadmap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. Backend Engineer`
+  String get targetRoleHint {
+    return Intl.message(
+      'e.g. Backend Engineer',
+      name: 'targetRoleHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. Focus on distributed systems`
+  String get notesHint {
+    return Intl.message(
+      'e.g. Focus on distributed systems',
+      name: 'notesHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Generating roadmap...`
+  String get generatingRoadmap {
+    return Intl.message(
+      'Generating roadmap...',
+      name: 'generatingRoadmap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Roadmap generated successfully`
+  String get generationSuccess {
+    return Intl.message(
+      'Roadmap generated successfully',
+      name: 'generationSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Roadmap generation failed`
+  String get generationFailed {
+    return Intl.message(
+      'Roadmap generation failed',
+      name: 'generationFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refresh Roadmap`
+  String get refreshRoadmap {
+    return Intl.message(
+      'Refresh Roadmap',
+      name: 'refreshRoadmap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refresh the selected roadmap using the latest available information.`
+  String get refreshRoadmapDescription {
+    return Intl.message(
+      'Refresh the selected roadmap using the latest available information.',
+      name: 'refreshRoadmapDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refreshing may change your roadmap milestones and tasks.`
+  String get refreshRoadmapWarning {
+    return Intl.message(
+      'Refreshing may change your roadmap milestones and tasks.',
+      name: 'refreshRoadmapWarning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reason for refresh (optional)`
+  String get refreshReasonLabel {
+    return Intl.message(
+      'Reason for refresh (optional)',
+      name: 'refreshReasonLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What would you like to focus on?`
+  String get refreshReasonHint {
+    return Intl.message(
+      'What would you like to focus on?',
+      name: 'refreshReasonHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Refresh`
+  String get confirmRefresh {
+    return Intl.message(
+      'Confirm Refresh',
+      name: 'confirmRefresh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refreshing roadmap...`
+  String get refreshingRoadmap {
+    return Intl.message(
+      'Refreshing roadmap...',
+      name: 'refreshingRoadmap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Roadmap refreshed successfully`
+  String get roadmapRefreshedSuccessfully {
+    return Intl.message(
+      'Roadmap refreshed successfully',
+      name: 'roadmapRefreshedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to refresh roadmap`
+  String get roadmapAiRefreshFailed {
+    return Intl.message(
+      'Failed to refresh roadmap',
+      name: 'roadmapAiRefreshFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Task completed successfully`
+  String get taskCompleted {
+    return Intl.message(
+      'Task completed successfully',
+      name: 'taskCompleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Task completion failed`
+  String get taskCompletionFailed {
+    return Intl.message(
+      'Task completion failed',
+      name: 'taskCompletionFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Couldn't refresh roadmap details`
+  String get roadmapRefreshFailed {
+    return Intl.message(
+      'Couldn\'t refresh roadmap details',
+      name: 'roadmapRefreshFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `No roadmaps yet`
   String get noRoadmaps {
     return Intl.message(

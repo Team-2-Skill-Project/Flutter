@@ -33,9 +33,7 @@ class RoadmapView extends StatelessWidget {
             BlocProvider(
               create: (_) => getIt<TreasureCubit>()..loadCollectedTreasures(),
             ),
-            BlocProvider(
-              create: (_) => getIt<SkillTaskCubit>()..loadCompletedTasks(),
-            ),
+            BlocProvider(create: (_) => getIt<SkillTaskCubit>()),
           ],
           child: RoadmapViewBody(nodes: nodes),
         ),
