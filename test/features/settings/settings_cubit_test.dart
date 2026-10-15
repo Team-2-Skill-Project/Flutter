@@ -3,6 +3,9 @@ import 'package:MatchIn/core/services/secure_storage_service.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/features/profile/data/data_sources/profile_local_data_source.dart';
 import 'package:MatchIn/features/profile/data/models/candidate_profile_model.dart';
+import 'package:MatchIn/features/profile/data/models/cv_local_file_model.dart';
+import 'package:MatchIn/features/profile/data/models/cv_pending_upload_model.dart';
+import 'package:MatchIn/features/profile/data/models/cv_upload_marker_model.dart';
 import 'package:MatchIn/features/profile/data/models/user_profile_model.dart';
 import 'package:MatchIn/features/settings/data/data_sources/settings_local_data_source_impl.dart';
 import 'package:MatchIn/features/settings/data/data_sources/settings_remote_data_source.dart';
@@ -42,6 +45,33 @@ class _FakeProfileLocalDataSource implements ProfileLocalDataSource {
 
   @override
   Future<String?> getCachedUserName() async => null;
+
+  @override
+  String currentUserScopeId() => '';
+
+  @override
+  Future<void> savePendingCvUpload(CvPendingUploadModel pending) async {}
+
+  @override
+  Future<CvPendingUploadModel?> getPendingCvUpload() async => null;
+
+  @override
+  Future<void> clearPendingCvUpload() async {}
+
+  @override
+  Future<void> saveUploadedCvMarker(CvUploadMarkerModel marker) async {}
+
+  @override
+  Future<CvUploadMarkerModel?> getUploadedCvMarker() async => null;
+
+  @override
+  Future<void> clearUploadedCvMarker() async {}
+
+  @override
+  Future<void> saveCachedCvFile(CvLocalFileModel file) async {}
+
+  @override
+  Future<CvLocalFileModel?> getCachedCvFile() async => null;
 }
 
 class _FakeSecureStorageService implements SecureStorageService {

@@ -271,6 +271,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الملف المحدد فارغ."),
         "cvFileTooLarge": MessageLookupByLibrary.simpleMessage(
             "حجم الملف كبير جدًا. الحد الأقصى هو 5 MB."),
+        "cvPendingUpload": MessageLookupByLibrary.simpleMessage(
+            "تم الحفظ على هذا الجهاز — سيتم الرفع عند عودة الاتصال"),
         "cvRefreshFailed": MessageLookupByLibrary.simpleMessage(
             "تم رفع السيرة الذاتية، ولكن تعذر تحديث الملف."),
         "cvResume": MessageLookupByLibrary.simpleMessage("السيرة الذاتية"),

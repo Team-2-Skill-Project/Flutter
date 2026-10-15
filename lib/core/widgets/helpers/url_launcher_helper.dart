@@ -29,4 +29,22 @@ class UrlLauncherHelper {
       return false;
     }
   }
+
+  /// Opens a local file through a platform-compatible mechanism.
+  ///
+  /// Only non-empty paths are attempted. Returns false (never throws)
+  /// when the file cannot be opened so callers can show localized
+  /// feedback instead.
+  static Future<bool> openFile(String? path) async {
+    final trimmed = path?.trim() ?? '';
+    if (trimmed.isEmpty) return false;
+    try {
+      return await launchUrl(
+        Uri.file(trimmed),
+        mode: LaunchMode.externalApplication,
+      );
+    } catch (_) {
+      return false;
+    }
+  }
 }

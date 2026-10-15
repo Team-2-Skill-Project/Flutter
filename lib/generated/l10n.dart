@@ -2760,6 +2760,16 @@ class S {
     );
   }
 
+  /// `Saved on this device — will upload when you're back online`
+  String get cvPendingUpload {
+    return Intl.message(
+      'Saved on this device — will upload when you\'re back online',
+      name: 'cvPendingUpload',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Uploaded`
   String get uploaded {
     return Intl.message(

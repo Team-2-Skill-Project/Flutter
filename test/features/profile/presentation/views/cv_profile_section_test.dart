@@ -6,6 +6,8 @@ import 'package:MatchIn/core/services/picked_file.dart';
 import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/cv_document_entity.dart';
+import 'package:MatchIn/features/profile/domain/entities/cv_local_file.dart';
+import 'package:MatchIn/features/profile/domain/entities/cv_pending_upload.dart';
 import 'package:MatchIn/features/profile/domain/entities/cv_processing_status.dart';
 import 'package:MatchIn/features/profile/domain/entities/cv_upload_input.dart';
 import 'package:MatchIn/features/profile/domain/entities/cv_upload_receipt.dart';
@@ -13,6 +15,9 @@ import 'package:MatchIn/features/profile/domain/entities/profile_user_entity.dar
 import 'package:MatchIn/features/profile/domain/repositories/profile_repository.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_cached_candidate_profile_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_profile_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/get_local_cv_file_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/get_pending_cv_upload_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/retry_pending_cv_upload_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/upload_cv_use_case.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/cv_cubit/cv_upload_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
@@ -29,6 +34,7 @@ import 'package:flutter_test/flutter_test.dart';
 class FakeSectionRepository extends Fake implements ProfileRepository {
   Either<Failure, CandidateProfileEntity>? profileResult;
   Either<Failure, CvUploadReceipt?>? uploadResult;
+  Either<Failure, CvPendingUpload?> pendingResult = const Right(null);
   int profileCalls = 0;
 
   @override
@@ -46,6 +52,21 @@ class FakeSectionRepository extends Fake implements ProfileRepository {
     CvUploadInput input,
   ) async {
     return uploadResult!;
+  }
+
+  @override
+  Future<Either<Failure, CvPendingUpload?>> getPendingCvUpload() async {
+    return pendingResult;
+  }
+
+  @override
+  Future<Either<Failure, CvUploadReceipt?>> retryPendingCvUpload() async {
+    return uploadResult!;
+  }
+
+  @override
+  Future<Either<Failure, CvLocalFile?>> getLocalCvFile() async {
+    return const Right(null);
   }
 }
 
@@ -97,7 +118,14 @@ Future<void> pumpSection(
   });
 
   getIt.registerFactory<CvUploadCubit>(
-    () => CvUploadCubit(uploadCvUseCase: UploadCvUseCase(repository: repo)),
+    () => CvUploadCubit(
+      uploadCvUseCase: UploadCvUseCase(repository: repo),
+      getPendingCvUploadUseCase: GetPendingCvUploadUseCase(repository: repo),
+      retryPendingCvUploadUseCase: RetryPendingCvUploadUseCase(
+        repository: repo,
+      ),
+      getLocalCvFileUseCase: GetLocalCvFileUseCase(repository: repo),
+    ),
   );
 
   await tester.pumpWidget(
@@ -176,9 +204,52 @@ void main() {
       await tester.tap(find.byIcon(Icons.edit_outlined));
       await tester.pumpAndSettle();
 
-      expect(find.text('Upload failed'), findsOneWidget);
+      // Snackbar + inline retryable banner both surface the message
+      // while the previously uploaded CV card is preserved.
+      expect(find.text('Upload failed'), findsWidgets);
       expect(find.text('old-cv.pdf'), findsOneWidget);
+      expect(find.text('Upload your CV'), findsNothing);
       expect(repo.profileCalls, 0);
+    });
+
+    testWidgets('upload success shows the file while the profile lags', (
+      tester,
+    ) async {
+      picker.fileToReturn = pdfFile();
+      repo.uploadResult = const Right(
+        CvUploadReceipt(id: 2, version: 2, status: 'processing'),
+      );
+      // Refreshed profile still lags (no CV yet): the locally known
+      // upload name must replace the empty state immediately.
+      repo.profileResult = const Right(
+        CandidateProfileEntity(profileExists: true, user: _user),
+      );
+      await pumpSection(tester, repo: repo);
+
+      await tester.tap(find.text('Choose File'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('CV uploaded successfully'), findsOneWidget);
+      expect(find.text('my-cv.pdf'), findsOneWidget);
+      expect(find.text('Upload your CV'), findsNothing);
+      expect(find.text('View CV'), findsOneWidget);
+      expect(repo.profileCalls, 1);
+    });
+
+    testWidgets('persisted CV without a filename still shows uploaded UI', (
+      tester,
+    ) async {
+      // Server records may expose only id/status; existence alone
+      // must never render as the empty upload state.
+      const nameless = CvDocumentEntity(
+        id: 5,
+        status: CvProcessingStatus.analyzing,
+      );
+      await pumpSection(tester, repo: repo, cvDocument: nameless);
+
+      expect(find.text('Upload your CV'), findsNothing);
+      expect(find.text('No file selected'), findsNothing);
+      expect(find.text('View CV'), findsOneWidget);
     });
 
     testWidgets('refresh failure after upload shows refresh feedback', (
@@ -198,6 +269,29 @@ void main() {
         find.text('CV uploaded, but the profile could not be refreshed.'),
         findsOneWidget,
       );
+    });
+
+    testWidgets('stored pending upload restores pending state', (tester) async {
+      repo.pendingResult = Right(
+        CvPendingUpload(
+          fileName: 'offline-cv.pdf',
+          extension: 'pdf',
+          sizeBytes: 4,
+          bytes: Uint8List.fromList([1, 2, 3, 4]),
+          userId: '1',
+          savedAt: 1,
+        ),
+      );
+      // Still offline: the opportunistic retry keeps the pending state.
+      repo.uploadResult = const Left(OfflineFailure());
+      await pumpSection(tester, repo: repo);
+
+      expect(
+        find.text("Saved on this device — will upload when you're back online"),
+        findsOneWidget,
+      );
+      expect(find.text('offline-cv.pdf'), findsOneWidget);
+      expect(find.text('Upload your CV'), findsNothing);
     });
   });
 

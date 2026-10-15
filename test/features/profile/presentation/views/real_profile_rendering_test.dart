@@ -3,11 +3,16 @@ import 'package:MatchIn/core/services/file_picker_service.dart';
 import 'package:MatchIn/core/services/picked_file.dart';
 import 'package:MatchIn/core/services/services_locator.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entity.dart';
+import 'package:MatchIn/features/profile/domain/entities/cv_local_file.dart';
+import 'package:MatchIn/features/profile/domain/entities/cv_pending_upload.dart';
 import 'package:MatchIn/features/profile/domain/entities/cv_upload_input.dart';
 import 'package:MatchIn/features/profile/domain/entities/cv_upload_receipt.dart';
 import 'package:MatchIn/features/profile/domain/repositories/profile_repository.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_cached_candidate_profile_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_profile_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/get_local_cv_file_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/get_pending_cv_upload_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/retry_pending_cv_upload_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/upload_cv_use_case.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/cv_cubit/cv_upload_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
@@ -42,6 +47,21 @@ class FakeRenderingRepository extends Fake implements ProfileRepository {
   ) async {
     return const Right(null);
   }
+
+  @override
+  Future<Either<Failure, CvPendingUpload?>> getPendingCvUpload() async {
+    return const Right(null);
+  }
+
+  @override
+  Future<Either<Failure, CvUploadReceipt?>> retryPendingCvUpload() async {
+    return const Right(null);
+  }
+
+  @override
+  Future<Either<Failure, CvLocalFile?>> getLocalCvFile() async {
+    return const Right(null);
+  }
 }
 
 class _StubPicker implements FilePickerService {
@@ -62,7 +82,14 @@ Future<void> _pumpMainProfile(WidgetTester tester) async {
   );
   addTearDown(cubit.close);
   getIt.registerFactory<CvUploadCubit>(
-    () => CvUploadCubit(uploadCvUseCase: UploadCvUseCase(repository: repo)),
+    () => CvUploadCubit(
+      uploadCvUseCase: UploadCvUseCase(repository: repo),
+      getPendingCvUploadUseCase: GetPendingCvUploadUseCase(repository: repo),
+      retryPendingCvUploadUseCase: RetryPendingCvUploadUseCase(
+        repository: repo,
+      ),
+      getLocalCvFileUseCase: GetLocalCvFileUseCase(repository: repo),
+    ),
   );
   getIt.registerSingleton<FilePickerService>(_StubPicker());
   addTearDown(getIt.reset);

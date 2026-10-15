@@ -278,6 +278,7 @@
   "cvUploadSuccessful": "CV uploaded successfully",
   "cvViewFailed": "Could not open the CV document.",
   "cvRefreshFailed": "CV uploaded, but the profile could not be refreshed.",
+  "cvPendingUpload": "Saved on this device — will upload when you're back online",
   "uploaded": "Uploaded",
   "analyzing": "Analyzing",
   "analyzed": "Analyzed",

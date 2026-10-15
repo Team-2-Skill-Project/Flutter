@@ -62,6 +62,7 @@ import 'package:MatchIn/features/profile/data/data_sources/profile_remote_data_s
 import 'package:MatchIn/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:MatchIn/features/profile/domain/repositories/profile_repository.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_user_profile_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/retry_pending_cv_upload_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/data/data_sources/applications_local_data_source.dart';
 import 'package:MatchIn/features/jobsAndApplications/data/data_sources/applications_local_data_source_impl.dart';
 import 'package:MatchIn/features/jobsAndApplications/data/data_sources/applications_remote_data_source.dart';
@@ -103,6 +104,8 @@ import 'package:MatchIn/features/profile/domain/use_cases/delete_experience_use_
 import 'package:MatchIn/features/profile/domain/use_cases/get_cached_candidate_profile_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_profile_for_edit_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_profile_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/get_local_cv_file_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/get_pending_cv_upload_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_projects_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_candidate_skills_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_educations_use_case.dart';
@@ -964,10 +967,27 @@ Future<void> setupServiceLocator() async {
   // CV upload use case and cubit
 
   getIt.registerFactory<CvUploadCubit>(
-    () => CvUploadCubit(uploadCvUseCase: getIt()),
+    () => CvUploadCubit(
+      uploadCvUseCase: getIt(),
+      getPendingCvUploadUseCase: getIt(),
+      retryPendingCvUploadUseCase: getIt(),
+      getLocalCvFileUseCase: getIt(),
+    ),
   );
   getIt.registerLazySingleton<UploadCvUseCase>(
     () => UploadCvUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<GetPendingCvUploadUseCase>(
+    () => GetPendingCvUploadUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<RetryPendingCvUploadUseCase>(
+    () => RetryPendingCvUploadUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<GetLocalCvFileUseCase>(
+    () => GetLocalCvFileUseCase(repository: getIt()),
   );
 
   // career preferences

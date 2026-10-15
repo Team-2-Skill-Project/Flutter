@@ -270,6 +270,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("The selected file is empty."),
         "cvFileTooLarge": MessageLookupByLibrary.simpleMessage(
             "The file is too large. Maximum size is 5 MB."),
+        "cvPendingUpload": MessageLookupByLibrary.simpleMessage(
+            "Saved on this device — will upload when you\'re back online"),
         "cvRefreshFailed": MessageLookupByLibrary.simpleMessage(
             "CV uploaded, but the profile could not be refreshed."),
         "cvResume": MessageLookupByLibrary.simpleMessage("CV / Résumé"),

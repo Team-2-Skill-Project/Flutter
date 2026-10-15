@@ -73,6 +73,28 @@ class CandidateProfileModel extends CandidateProfileEntity {
     );
   }
 
+  /// Returns a copy with [document] as the selected current CV.
+  ///
+  /// Every other relation is preserved untouched, so reconciling a
+  /// just-uploaded or pending CV never drops profile data. Used by
+  /// the repository when the backend profile read lags behind a
+  /// successful upload or holds an offline pending file.
+  CandidateProfileModel copyWithCvDocument(CvDocumentModel? document) {
+    // --- The constructor requires model types, so these casts always
+    // --- succeed for instances built through it or `fromJson`. ---
+    return CandidateProfileModel(
+      profileExists: profileExists,
+      user: user as ProfileUserModel,
+      profile: profile as CandidateProfileDetailsModel?,
+      skills: skills,
+      projects: projects,
+      careerPreferences: careerPreferences as CareerPreferenceModel?,
+      education: education,
+      experience: experience,
+      cvDocument: document,
+    );
+  }
+
   /// Relation keys that mark a nested `profile` object as authoritative.
   static const _nestedRelationKeys = {
     'educations',
