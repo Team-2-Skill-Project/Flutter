@@ -7,10 +7,12 @@ import 'package:MatchIn/features/roadmap/domain/entities/complete_roadmap_task_p
 import 'package:MatchIn/features/roadmap/domain/entities/roadmap_task.dart';
 import 'package:MatchIn/features/roadmap/domain/repositories/roadmap_repository.dart';
 import 'package:MatchIn/features/roadmap/domain/use_cases/complete_roadmap_task_use_case.dart';
+import 'package:MatchIn/features/roadmap/domain/use_cases/get_cached_roadmap_use_case.dart';
 import 'package:MatchIn/features/roadmap/domain/use_cases/get_roadmap_details_use_case.dart';
 import 'package:MatchIn/features/roadmap/domain/use_cases/get_roadmaps_use_case.dart';
 import 'package:MatchIn/features/roadmap/domain/use_cases/generate_roadmap_use_case.dart';
 import 'package:MatchIn/features/roadmap/domain/use_cases/refresh_roadmap_use_case.dart';
+import 'package:MatchIn/features/roadmap/domain/use_cases/sync_roadmap_ops_use_case.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/skill_task_cubit/skill_task_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/skill_details_sheet.dart';
@@ -60,6 +62,12 @@ Future<void> _pumpSheet(
       repository: _UnusedRepository(),
     ),
     refreshRoadmapUseCase: RefreshRoadmapUseCase(
+      repository: _UnusedRepository(),
+    ),
+    getCachedRoadmapUseCase: GetCachedRoadmapUseCase(
+      repository: _UnusedRepository(),
+    ),
+    syncRoadmapOpsUseCase: SyncRoadmapOpsUseCase(
       repository: _UnusedRepository(),
     ),
   );

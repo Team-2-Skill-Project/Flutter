@@ -8,10 +8,13 @@ part 'skill_task_state.dart';
 
 /// Backend task completion for the roadmap Skill Details sheet.
 ///
-/// No optimistic updates: a task is reported completed only after the
-/// PATCH succeeds. In-flight task ids are tracked so duplicate taps for
-/// the same task collapse into a single request. This cubit holds request
-/// status only; roadmap content stays owned by [RoadmapCubit].
+/// Offline-first: online a task completes only after the PATCH succeeds;
+/// offline the change applies to the durable local cache, a sync op is
+/// queued, and [SkillTaskQueuedOffline] is emitted so the UI can refresh
+/// from the local source of truth immediately. In-flight task ids are
+/// tracked so duplicate taps for the same task collapse into one request.
+/// This cubit holds request status only; roadmap content stays owned by
+/// [RoadmapCubit].
 class SkillTaskCubit extends Cubit<SkillTaskState> {
   SkillTaskCubit({required this.completeRoadmapTaskUseCase})
     : super(const SkillTaskInitial());
@@ -21,9 +24,14 @@ class SkillTaskCubit extends Cubit<SkillTaskState> {
   final Set<int> _completingTaskIds = {};
 
   /// Completes the backend task [taskId] (a [RoadmapTask.id]).
+  /// [roadmapId] targets the cached roadmap for offline-first updates.
   /// Duplicate calls while a request for the same task is running are
   /// ignored. Emits failure without touching roadmap content.
-  Future<void> completeTask({required int taskId}) async {
+  Future<void> completeTask({
+    required int taskId,
+    int? roadmapId,
+    String? completionNote,
+  }) async {
     if (_completingTaskIds.contains(taskId)) return;
     _completingTaskIds.add(taskId);
     if (isClosed) return;
@@ -34,22 +42,39 @@ class SkillTaskCubit extends Cubit<SkillTaskState> {
     );
 
     final result = await completeRoadmapTaskUseCase(
-      CompleteRoadmapTaskParams(taskId: taskId),
+      CompleteRoadmapTaskParams(
+        taskId: taskId,
+        completionNote: completionNote,
+        roadmapId: roadmapId,
+      ),
     );
     _completingTaskIds.remove(taskId);
     if (isClosed) return;
     final remaining = Set<int>.unmodifiable(_completingTaskIds);
     result.fold(
-      (failure) => emit(
-        SkillTaskCompleteFailure(
-          taskId: taskId,
-          message: failure.message,
-          fieldErrors: failure is ServerFailure
-              ? failure.fieldErrors
-              : const {},
-          completingTaskIds: remaining,
-        ),
-      ),
+      (failure) {
+        // OfflineFailure from the repository means the mutation was
+        // persisted locally and queued for sync — not a failed action.
+        if (failure is OfflineFailure) {
+          emit(
+            SkillTaskQueuedOffline(
+              taskId: taskId,
+              completingTaskIds: remaining,
+            ),
+          );
+        } else {
+          emit(
+            SkillTaskCompleteFailure(
+              taskId: taskId,
+              message: failure.message,
+              fieldErrors: failure is ServerFailure
+                  ? failure.fieldErrors
+                  : const {},
+              completingTaskIds: remaining,
+            ),
+          );
+        }
+      },
       (task) => emit(
         SkillTaskCompleteSuccess(
           taskId: task.id,

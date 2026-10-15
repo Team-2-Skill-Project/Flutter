@@ -130,18 +130,26 @@ import 'package:MatchIn/features/profile/presentation/cubits/experience_cubit/ed
 import 'package:MatchIn/features/profile/presentation/cubits/projects_cubit/projects_cubit.dart';
 import 'package:MatchIn/features/profile/presentation/cubits/skills_cubit/skills_cubit.dart';
 
+import 'package:MatchIn/features/roadmap/data/data_sources/roadmap_local_data_source.dart';
+import 'package:MatchIn/features/roadmap/data/data_sources/roadmap_local_data_source_impl.dart';
 import 'package:MatchIn/features/roadmap/data/data_sources/roadmap_remote_data_source.dart';
 import 'package:MatchIn/features/roadmap/data/data_sources/roadmap_remote_data_source_impl.dart';
 import 'package:MatchIn/features/roadmap/data/repositories/roadmap_repository_impl.dart';
 import 'package:MatchIn/features/roadmap/domain/repositories/roadmap_repository.dart';
+import 'package:MatchIn/features/roadmap/domain/use_cases/award_xp_use_case.dart';
 import 'package:MatchIn/features/roadmap/domain/use_cases/complete_roadmap_task_use_case.dart';
+import 'package:MatchIn/features/roadmap/domain/use_cases/get_cached_roadmap_use_case.dart';
+import 'package:MatchIn/features/roadmap/domain/use_cases/get_candidate_xp_use_case.dart';
 import 'package:MatchIn/features/roadmap/domain/use_cases/get_roadmap_details_use_case.dart';
+import 'package:MatchIn/features/roadmap/domain/use_cases/get_roadmap_xp_use_case.dart';
 import 'package:MatchIn/features/roadmap/domain/use_cases/get_roadmaps_use_case.dart';
 import 'package:MatchIn/features/roadmap/domain/use_cases/generate_roadmap_use_case.dart';
 import 'package:MatchIn/features/roadmap/domain/use_cases/refresh_roadmap_use_case.dart';
+import 'package:MatchIn/features/roadmap/domain/use_cases/sync_roadmap_ops_use_case.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/skill_task_cubit/skill_task_cubit.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/treasure_cubit/treasure_cubit.dart';
+import 'package:MatchIn/features/roadmap/presentation/manager/xp_cubit/xp_cubit.dart';
 import 'package:MatchIn/features/saved/data/data_sources/saved_jobs_local_data_source.dart';
 import 'package:MatchIn/features/saved/data/data_sources/saved_jobs_local_data_source_impl.dart';
 import 'package:MatchIn/features/saved/data/data_sources/saved_jobs_remote_data_source.dart';
@@ -270,9 +278,16 @@ Future<void> setupServiceLocator() async {
     () => RoadmapRemoteDataSourceImpl(apiConsumer: getIt()),
   );
 
+  getIt.registerLazySingleton<RoadmapLocalDataSource>(
+    () => RoadmapLocalDataSourceImpl(sharedPreferencesHelper: getIt()),
+  );
+
   getIt.registerLazySingleton<RoadmapRepository>(
-    () =>
-        RoadmapRepositoryImpl(remoteDataSource: getIt(), networkInfo: getIt()),
+    () => RoadmapRepositoryImpl(
+      remoteDataSource: getIt(),
+      localDataSource: getIt(),
+      networkInfo: getIt(),
+    ),
   );
 
   getIt.registerLazySingleton<GetRoadmapsUseCase>(
@@ -295,6 +310,26 @@ Future<void> setupServiceLocator() async {
     () => RefreshRoadmapUseCase(repository: getIt()),
   );
 
+  getIt.registerLazySingleton<GetCachedRoadmapUseCase>(
+    () => GetCachedRoadmapUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<GetCandidateXpUseCase>(
+    () => GetCandidateXpUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<GetRoadmapXpUseCase>(
+    () => GetRoadmapXpUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<AwardXpUseCase>(
+    () => AwardXpUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<SyncRoadmapOpsUseCase>(
+    () => SyncRoadmapOpsUseCase(repository: getIt()),
+  );
+
   getIt.registerFactory<RoadmapCubit>(
     () => RoadmapCubit(
       sharedPreferencesService: getIt(),
@@ -302,11 +337,20 @@ Future<void> setupServiceLocator() async {
       getRoadmapDetailsUseCase: getIt(),
       generateRoadmapUseCase: getIt(),
       refreshRoadmapUseCase: getIt(),
+      getCachedRoadmapUseCase: getIt(),
+      syncRoadmapOpsUseCase: getIt(),
     ),
   );
 
   getIt.registerFactory<TreasureCubit>(
-    () => TreasureCubit(sharedPreferencesService: getIt()),
+    () => TreasureCubit(repository: getIt(), awardXpUseCase: getIt()),
+  );
+
+  getIt.registerFactory<RoadmapXpCubit>(
+    () => RoadmapXpCubit(
+      getCandidateXpUseCase: getIt(),
+      getRoadmapXpUseCase: getIt(),
+    ),
   );
 
   getIt.registerFactory<SkillTaskCubit>(
@@ -318,9 +362,7 @@ Future<void> setupServiceLocator() async {
   // =========================================================
 
   getIt.registerLazySingleton<ChatbotRemoteDataSource>(
-    () => ChatbotRemoteDataSourceImpl(
-      apiConsumer: getIt(),
-    ),
+    () => ChatbotRemoteDataSourceImpl(apiConsumer: getIt()),
   );
 
   getIt.registerLazySingleton<ChatbotLocalDataSource>(

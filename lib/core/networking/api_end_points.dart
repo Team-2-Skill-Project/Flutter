@@ -96,6 +96,10 @@ abstract class EndPoint {
   static String roadmapTaskComplete(int roadmapTaskId) =>
       'roadmap-tasks/$roadmapTaskId/complete';
 
+  static const String roadmapXp = 'roadmaps/xp';
+
+  static String roadmapDetailsXp(int roadmapId) => 'roadmaps/$roadmapId/xp';
+
   // Notifications
   static const String notifications = 'notifications';
   static const String notificationsUnreadCount = 'notifications/unread-count';
