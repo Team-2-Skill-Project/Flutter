@@ -1,8 +1,11 @@
+import 'package:MatchIn/core/errors/failures.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/forgot_password_use_case.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/resend_otp_use_case.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/verify_otp_use_case.dart';
 import 'package:MatchIn/features/auth/domain/use_cases/verify_password_reset_otp_use_case.dart';
+import 'package:MatchIn/features/auth/presentation/cubit/otp_constants.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/otp_state.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OtpCubit extends Cubit<OtpState> {
@@ -19,14 +22,29 @@ class OtpCubit extends Cubit<OtpState> {
   final VerifyPasswordResetOtpUseCase verifyPasswordResetOtpUseCase;
 
   Future<void> verifyOtp({required String email, required String otp}) async {
+    // --- Prevent duplicate API requests from rapid repeated submissions. ---
+    if (state is OtpLoading) return;
     emit(const OtpLoading());
 
-    final result = await verifyOtpUseCase(email: email, otp: otp);
+    try {
+      // --- Run the API request and the minimum animation timer together so
+      // --- fast responses still keep the verifying orbit visible. ---
+      final List<dynamic> results = await Future.wait([
+        verifyOtpUseCase(email: email, otp: otp),
+        Future.delayed(OtpConstants.minVerifyingDuration),
+      ]);
+      if (isClosed) return;
 
-    result.fold(
-      (failure) => emit(OtpVerificationError(message: failure.message)),
-      (_) => emit(const OtpVerificationSuccess()),
-    );
+      final Either<Failure, Unit> result =
+          results.first as Either<Failure, Unit>;
+      result.fold(
+        (failure) => emit(OtpVerificationError(message: failure.message)),
+        (_) => emit(const OtpVerificationSuccess()),
+      );
+    } catch (e) {
+      if (isClosed) return;
+      emit(OtpVerificationError(message: e.toString()));
+    }
   }
 
   Future<void> resendOtp({required String email}) async {
@@ -51,16 +69,28 @@ class OtpCubit extends Cubit<OtpState> {
     required String email,
     required String otp,
   }) async {
+    // --- Prevent duplicate API requests from rapid repeated submissions. ---
+    if (state is OtpLoading) return;
     emit(const OtpLoading());
 
-    final result = await verifyPasswordResetOtpUseCase(
-      email: email,
-      otp: otp,
-    );
+    try {
+      // --- Run the API request and the minimum animation timer together so
+      // --- fast responses still keep the verifying orbit visible. ---
+      final List<dynamic> results = await Future.wait([
+        verifyPasswordResetOtpUseCase(email: email, otp: otp),
+        Future.delayed(OtpConstants.minVerifyingDuration),
+      ]);
+      if (isClosed) return;
 
-    result.fold(
-      (failure) => emit(OtpVerificationError(message: failure.message)),
-      (_) => emit(const OtpVerificationSuccess()),
-    );
+      final Either<Failure, Unit> result =
+          results.first as Either<Failure, Unit>;
+      result.fold(
+        (failure) => emit(OtpVerificationError(message: failure.message)),
+        (_) => emit(const OtpVerificationSuccess()),
+      );
+    } catch (e) {
+      if (isClosed) return;
+      emit(OtpVerificationError(message: e.toString()));
+    }
   }
 }
