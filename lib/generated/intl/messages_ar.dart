@@ -139,6 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "applyNow": MessageLookupByLibrary.simpleMessage("قدّم الآن"),
     "applyingFor": MessageLookupByLibrary.simpleMessage("التقديم على"),
     "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
+    "archived": MessageLookupByLibrary.simpleMessage("مؤرشفة"),
     "askAnything": MessageLookupByLibrary.simpleMessage("اسأل أي شيء..."),
     "askCareerMentorDescription": MessageLookupByLibrary.simpleMessage(
       "اسأل مرشدك المهني عما يمكنك التركيز عليه أثناء الانتظار.",
@@ -165,10 +166,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "careerGoalHint": MessageLookupByLibrary.simpleMessage(
       "مثال: اكتساب خبرة احترافية في Flutter والمشاركة في تطوير منتجات موبايل مؤثرة.",
     ),
+    "careerGroundingContext": MessageLookupByLibrary.simpleMessage(
+      "مبني على مهاراتك الموثقة، خبراتك، وأدوارك المستهدفة.",
+    ),
     "careerGrowth": MessageLookupByLibrary.simpleMessage("التطوير المهني"),
     "careerGrowthPrompt": MessageLookupByLibrary.simpleMessage(
       "ما الخطوات التي يجب اتخاذها لأصبح مهندس تطبيقات أول؟",
     ),
+    "careerMentor": MessageLookupByLibrary.simpleMessage("المرشد المهني الذكي"),
     "careerPreferences": MessageLookupByLibrary.simpleMessage("تفضيلات مهنية"),
     "careerPreferencesIntroDescription": MessageLookupByLibrary.simpleMessage(
       "تفضيلاتك بتساعد SkillMatch يرشحلك فرص أنسب ليك.",
@@ -267,6 +272,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "contactPhoneTitle": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
     "contactUs": MessageLookupByLibrary.simpleMessage("تواصل معنا"),
+    "contextPreview": MessageLookupByLibrary.simpleMessage("سياق المرشح"),
     "continueAsGuest": MessageLookupByLibrary.simpleMessage("الدخول كضيف"),
     "continueText": MessageLookupByLibrary.simpleMessage("متابعة"),
     "continueWithGoogle": MessageLookupByLibrary.simpleMessage(
@@ -314,6 +320,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "cvEmptyFile": MessageLookupByLibrary.simpleMessage("الملف المحدد فارغ."),
     "cvFileTooLarge": MessageLookupByLibrary.simpleMessage(
       "حجم الملف كبير جدًا. الحد الأقصى هو 5 MB.",
+    ),
+    "cvPendingUpload": MessageLookupByLibrary.simpleMessage(
+      "تم الحفظ على هذا الجهاز — سيتم الرفع عند عودة الاتصال",
     ),
     "cvRefreshFailed": MessageLookupByLibrary.simpleMessage(
       "تم رفع السيرة الذاتية، ولكن تعذر تحديث الملف.",
@@ -368,6 +377,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "editProjectDetails": MessageLookupByLibrary.simpleMessage(
       "تعديل تفاصيل المشروع",
     ),
+    "editTitle": MessageLookupByLibrary.simpleMessage("تعديل عنوان المحادثة"),
     "editorialScore": MessageLookupByLibrary.simpleMessage(
       "درجة اكتمال المحتوى",
     ),
@@ -387,6 +397,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "سنة النهاية (أو المتوقعة)",
     ),
     "english": MessageLookupByLibrary.simpleMessage("الإنجليزية"),
+    "enterNewTitle": MessageLookupByLibrary.simpleMessage(
+      "أدخل العنوان الجديد",
+    ),
     "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
       "أدخل رمز التحقق",
     ),
@@ -884,6 +897,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resumeOptimizationPrompt": MessageLookupByLibrary.simpleMessage(
       "كيف يمكنني تحسين سيرتي الذاتية لوظائف مطور فلاتر؟",
     ),
+    "retry": MessageLookupByLibrary.simpleMessage("إعادة المحاولة"),
     "reviewApplication": MessageLookupByLibrary.simpleMessage("مراجعة الطلب"),
     "reviewBeforeSubmission": MessageLookupByLibrary.simpleMessage(
       "ستراجع جميع التفاصيل قبل الإرسال النهائي.",
@@ -928,6 +942,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "أدخل إجمالي راتبك الشهري المتوقع.",
     ),
     "salaryHint": MessageLookupByLibrary.simpleMessage("مثال: 24,000"),
+    "save": MessageLookupByLibrary.simpleMessage("حفظ"),
     "saveChanges": MessageLookupByLibrary.simpleMessage("حفظ التغييرات"),
     "saveEducation": MessageLookupByLibrary.simpleMessage("حفظ التعليم"),
     "saveExperience": MessageLookupByLibrary.simpleMessage("حفظ الخبرة"),
@@ -1027,6 +1042,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "submittedSuccessfully": MessageLookupByLibrary.simpleMessage("بنجاح."),
     "submittedTodayTime": MessageLookupByLibrary.simpleMessage(
       "تم التقديم اليوم الساعة 10:32 ص",
+    ),
+    "suggestedPrompts": MessageLookupByLibrary.simpleMessage(
+      "اقتراحات للمتابعة",
     ),
     "suggestedQuestions": MessageLookupByLibrary.simpleMessage("أسئلة مقترحة"),
     "suggestedRoles": MessageLookupByLibrary.simpleMessage("وظائف مقترحة"),

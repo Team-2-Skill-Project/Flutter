@@ -129,11 +129,15 @@ class _ApplyForRoleViewBodyState extends State<ApplyForRoleViewBody> {
                   helperText: s.reviewBeforeSubmission,
                   onPressed: () {
                     if (!requireAuth(context)) return;
+                    final cvFile = context.read<CvCubit>().state.file;
                     context.push(
                       AppRoutes.kreviewApplication,
                       extra: <String, dynamic>{
                         'job': widget.job,
                         if (_coverLetter != null) 'coverLetter': _coverLetter,
+                        if (cvFile != null) ...{
+                          'cvFileName': cvFile.name,
+                        },
                       },
                     );
                   },

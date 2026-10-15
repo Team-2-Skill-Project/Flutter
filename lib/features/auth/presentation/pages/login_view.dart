@@ -14,6 +14,14 @@ import 'package:go_router/go_router.dart';
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
+  void _handleBack(BuildContext context) {
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      context.go(AppRoutes.kRegisterView);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -21,25 +29,22 @@ class LoginView extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => GetIt.instance<AuthCubit>(),
-      child: Scaffold(
-        backgroundColor: AppColors.background,
-        appBar: AppBar(
+      child: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, _) {
+          if (!didPop) {
+            _handleBack(context);
+          }
+        },
+        child: Scaffold(
           backgroundColor: AppColors.background,
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: AppColors.midnightBlue),
-            // Returns to Register when Login was opened from there; when
-            // opened from another entry point (e.g. the guest-mode dialog
-            // pushed it over the current screen) pops back to preserve
-            // that context; with no back stack, goes to Register.
-            onPressed: () {
-              if (context.canPop()) {
-                context.pop();
-              } else {
-                context.go(AppRoutes.kRegisterView);
-              }
-            },
-          ),
+          appBar: AppBar(
+            backgroundColor: AppColors.background,
+            elevation: 0,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back, color: AppColors.midnightBlue),
+              onPressed: () => _handleBack(context),
+            ),
           title: Text(
             locale.login,
             style: theme.textTheme.titleLarge?.copyWith(
@@ -74,6 +79,7 @@ class LoginView extends StatelessWidget {
               const LoginFooterOuter(),
             ],
           ),
+        ),
         ),
       ),
     );

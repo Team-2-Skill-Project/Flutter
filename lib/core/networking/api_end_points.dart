@@ -28,6 +28,14 @@ abstract class EndPoint {
   static const String currentUser = 'auth/me';
 
   static const String chatMessage = 'chatbot/chat';
+
+  // AI Mentor / Chatbot
+  static const String mentorContextPreview = 'mentor/context-preview';
+  static const String mentorConversations = 'mentor/conversations';
+  static String mentorConversationDetails(dynamic conversationId) =>
+      'mentor/conversations/$conversationId';
+  static String mentorConversationMessages(dynamic conversationId) =>
+      'mentor/conversations/$conversationId/messages';
   static const String savedJobs = 'saved-jobs';
   static const String jobs = 'jobs';
   static String jobDetails(dynamic jobPostId) => 'jobs/$jobPostId';
@@ -150,6 +158,11 @@ abstract class ApiKey {
   static const String count = 'count';
   static const String updatedCount = 'updated_count';
   static const String unreadOnly = 'unread_only';
+  static const String contextMode = 'context_mode';
+  static const String suggestedActions = 'suggested_actions';
+  static const String userMessage = 'user_message';
+  static const String mentorReply = 'mentor_reply';
+  static const String isArchived = 'is_archived';
 }
 
 ///* ApiHeaderKey: the header keys of the api

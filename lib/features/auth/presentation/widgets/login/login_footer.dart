@@ -71,7 +71,13 @@ class LoginFooterOuter extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () => context.go(AppRoutes.kRegisterView),
+              onTap: () {
+                if (context.canPop()) {
+                  context.pop();
+                } else {
+                  context.push(AppRoutes.kRegisterView);
+                }
+              },
               child: Padding(
                 padding: EdgeInsets.all(4.w),
                 child: Text(

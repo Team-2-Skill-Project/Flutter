@@ -139,6 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "applyNow": MessageLookupByLibrary.simpleMessage("Apply Now"),
     "applyingFor": MessageLookupByLibrary.simpleMessage("Applying for"),
     "arabic": MessageLookupByLibrary.simpleMessage("Arabic"),
+    "archived": MessageLookupByLibrary.simpleMessage("Archived"),
     "askAnything": MessageLookupByLibrary.simpleMessage("Ask anything..."),
     "askCareerMentorDescription": MessageLookupByLibrary.simpleMessage(
       "Ask your Career Mentor what to focus on while you wait.",
@@ -165,10 +166,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "careerGoalHint": MessageLookupByLibrary.simpleMessage(
       "e.g. Gain professional Flutter experience and contribute to high-impact mobile products.",
     ),
+    "careerGroundingContext": MessageLookupByLibrary.simpleMessage(
+      "Grounded on your verified skills, experience, and target roles.",
+    ),
     "careerGrowth": MessageLookupByLibrary.simpleMessage("Career Growth"),
     "careerGrowthPrompt": MessageLookupByLibrary.simpleMessage(
       "What steps should I take to become a Senior Mobile Architect?",
     ),
+    "careerMentor": MessageLookupByLibrary.simpleMessage("AI Career Mentor"),
     "careerPreferences": MessageLookupByLibrary.simpleMessage(
       "Career Preferences",
     ),
@@ -271,6 +276,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "contactPhoneTitle": MessageLookupByLibrary.simpleMessage("Phone Number"),
     "contactUs": MessageLookupByLibrary.simpleMessage("Contact Us"),
+    "contextPreview": MessageLookupByLibrary.simpleMessage("Candidate Context"),
     "continueAsGuest": MessageLookupByLibrary.simpleMessage(
       "Continue as Guest",
     ),
@@ -318,6 +324,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "cvFileTooLarge": MessageLookupByLibrary.simpleMessage(
       "The file is too large. Maximum size is 5 MB.",
+    ),
+    "cvPendingUpload": MessageLookupByLibrary.simpleMessage(
+      "Saved on this device — will upload when you\'re back online",
     ),
     "cvRefreshFailed": MessageLookupByLibrary.simpleMessage(
       "CV uploaded, but the profile could not be refreshed.",
@@ -374,6 +383,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "editProjectDetails": MessageLookupByLibrary.simpleMessage(
       "Edit Project Details",
     ),
+    "editTitle": MessageLookupByLibrary.simpleMessage("Rename Chat"),
     "editorialScore": MessageLookupByLibrary.simpleMessage("EDITORIAL SCORE"),
     "education": MessageLookupByLibrary.simpleMessage("Education"),
     "educationDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
@@ -393,6 +403,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "End year (or expected)",
     ),
     "english": MessageLookupByLibrary.simpleMessage("English"),
+    "enterNewTitle": MessageLookupByLibrary.simpleMessage("Enter new title"),
     "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
       "Enter verification code",
     ),
@@ -894,6 +905,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resumeOptimizationPrompt": MessageLookupByLibrary.simpleMessage(
       "How can I optimize my CV for Flutter developer roles?",
     ),
+    "retry": MessageLookupByLibrary.simpleMessage("Retry"),
     "reviewApplication": MessageLookupByLibrary.simpleMessage(
       "Review Application",
     ),
@@ -938,6 +950,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Enter your expected gross monthly salary.",
     ),
     "salaryHint": MessageLookupByLibrary.simpleMessage("e.g. 24,000"),
+    "save": MessageLookupByLibrary.simpleMessage("Save"),
     "saveChanges": MessageLookupByLibrary.simpleMessage("Save Changes"),
     "saveEducation": MessageLookupByLibrary.simpleMessage("Save education"),
     "saveExperience": MessageLookupByLibrary.simpleMessage("Save experience"),
@@ -1055,6 +1068,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "submittedTodayTime": MessageLookupByLibrary.simpleMessage(
       "Submitted today at 10:32 AM",
+    ),
+    "suggestedPrompts": MessageLookupByLibrary.simpleMessage(
+      "Suggested Prompts",
     ),
     "suggestedQuestions": MessageLookupByLibrary.simpleMessage(
       "Suggested Questions",

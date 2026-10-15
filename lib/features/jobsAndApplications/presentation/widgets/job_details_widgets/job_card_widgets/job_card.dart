@@ -46,6 +46,34 @@ class JobCard extends StatelessWidget {
   String get _heroTag =>
       JobHeroTags.avatar(prefix: heroPrefix, jobId: job.id);
 
+  // Guards against rapid repeated taps pushing duplicate details screens.
+  static String? _navigatingJobId;
+  static DateTime? _lastNavigationTime;
+
+  static void navigateToJobDetails(
+    BuildContext context, {
+    required JobEntity job,
+    required String heroPrefix,
+  }) {
+    final now = DateTime.now();
+    if (_navigatingJobId == job.id &&
+        _lastNavigationTime != null &&
+        now.difference(_lastNavigationTime!) <
+            const Duration(milliseconds: 750)) {
+      return;
+    }
+    _navigatingJobId = job.id;
+    _lastNavigationTime = now;
+    context.push(
+      AppRoutes.kJobDetailsView,
+      extra: <String, dynamic>{'job': job, 'heroPrefix': heroPrefix},
+    ).then((_) {
+      if (_navigatingJobId == job.id) {
+        _navigatingJobId = null;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -54,9 +82,10 @@ class JobCard extends StatelessWidget {
       child: InkWell(
         onTap:
             onTap ??
-            () => context.push(
-              AppRoutes.kJobDetailsView,
-              extra: <String, dynamic>{'job': job, 'heroPrefix': heroPrefix},
+            () => navigateToJobDetails(
+              context,
+              job: job,
+              heroPrefix: heroPrefix,
             ),
         child: Padding(
           padding: EdgeInsets.all(16.r),

@@ -86,6 +86,8 @@ class HomeViewBody extends StatelessWidget {
                 }
                 return HomeCardViewMatchesJobs(
                   matchesCount: state.dashboard.matchesCount,
+                  onViewMatches: () =>
+                      context.push(AppRoutes.kJobsSearchView),
                 );
               },
             ),

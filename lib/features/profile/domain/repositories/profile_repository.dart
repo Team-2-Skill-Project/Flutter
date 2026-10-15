@@ -9,6 +9,8 @@ import 'package:MatchIn/features/profile/domain/entities/candidate_profile_entit
 import 'package:MatchIn/features/profile/domain/entities/candidate_project_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/candidate_skill_entity.dart';
 import 'package:MatchIn/features/profile/domain/entities/career_preference_entity.dart';
+import 'package:MatchIn/features/profile/domain/entities/cv_local_file.dart';
+import 'package:MatchIn/features/profile/domain/entities/cv_pending_upload.dart';
 import 'package:MatchIn/features/profile/domain/entities/cv_upload_input.dart';
 import 'package:MatchIn/features/profile/domain/entities/cv_upload_receipt.dart';
 import 'package:MatchIn/features/profile/domain/entities/education_entity.dart';
@@ -95,9 +97,24 @@ abstract class ProfileRepository {
 
   // CV Upload
   /// Returns a null receipt when the upload succeeded but the response
-  /// carries no usable receipt. Callers must refresh the Main Profile
-  /// from GET instead of fabricating document data. Remote-only.
+  /// carries no usable receipt. The repository records an upload
+  /// marker with the local filename, so callers refreshing the Main
+  /// Profile from GET still resolve the uploaded document.
+  /// Offline selections are stored as pending uploads and reported
+  /// as [OfflineFailure].
   Future<Either<Failure, CvUploadReceipt?>> uploadCv(CvUploadInput input);
+
+  /// Returns the locally stored pending CV upload, if any.
+  Future<Either<Failure, CvPendingUpload?>> getPendingCvUpload();
+
+  /// Uploads the stored pending CV. Clears it on success and records
+  /// an upload marker; keeps it on failure. Offline reports
+  /// [OfflineFailure] without touching the stored file.
+  Future<Either<Failure, CvUploadReceipt?>> retryPendingCvUpload();
+
+  /// Returns the CV file bytes kept on this device (pending file
+  /// first, otherwise the last uploaded/attempted file), if any.
+  Future<Either<Failure, CvLocalFile?>> getLocalCvFile();
 
   // Avatar Upload
   /// Uploads the candidate avatar image. Remote-only.
