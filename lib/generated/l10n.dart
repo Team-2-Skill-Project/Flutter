@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -722,6 +723,41 @@ class S {
   /// `Roadmap`
   String get roadmap {
     return Intl.message('Roadmap', name: 'roadmap', desc: '', args: []);
+  }
+
+  /// `Select Roadmap`
+  String get selectRoadmap {
+    return Intl.message(
+      'Select Roadmap',
+      name: 'selectRoadmap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No roadmaps yet`
+  String get noRoadmaps {
+    return Intl.message(
+      'No roadmaps yet',
+      name: 'noRoadmaps',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Load More`
+  String get loadMore {
+    return Intl.message('Load More', name: 'loadMore', desc: '', args: []);
+  }
+
+  /// `{hours}h`
+  String estimatedHours(Object hours) {
+    return Intl.message(
+      '${hours}h',
+      name: 'estimatedHours',
+      desc: '',
+      args: [hours],
+    );
   }
 
   /// `CV`

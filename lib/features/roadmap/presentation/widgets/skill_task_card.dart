@@ -5,14 +5,14 @@ import 'package:MatchIn/features/roadmap/data/models/skill_task.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/resource_button.dart';
 
 class SkillTaskCard extends StatefulWidget {
-  const SkillTaskCard({
-    super.key,
-    required this.task,
-    required this.onToggleComplete,
-  });
+  const SkillTaskCard({super.key, required this.task, this.onToggleComplete});
 
   final SkillTask task;
-  final VoidCallback onToggleComplete;
+
+  /// Null disables completion interaction (read-only). Task completion
+  /// API lands in Phase 3; until then the sheet passes null.
+  /// TODO(roadmap-phase-3): wire backend task completion here.
+  final VoidCallback? onToggleComplete;
 
   @override
   State<SkillTaskCard> createState() => _SkillTaskCardState();
@@ -89,12 +89,12 @@ class _TaskHeaderRow extends StatelessWidget {
   const _TaskHeaderRow({
     required this.task,
     required this.isExpanded,
-    required this.onToggleComplete,
+    this.onToggleComplete,
   });
 
   final SkillTask task;
   final bool isExpanded;
-  final VoidCallback onToggleComplete;
+  final VoidCallback? onToggleComplete;
 
   @override
   Widget build(BuildContext context) {

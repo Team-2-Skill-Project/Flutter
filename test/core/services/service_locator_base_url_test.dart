@@ -6,16 +6,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  late String savedBaseUrl;
-
   setUp(() async {
     await getIt.reset();
-    savedBaseUrl = EndPoint.baseUrl;
-    EndPoint.baseUrl = '';
   });
 
   tearDown(() async {
-    EndPoint.baseUrl = savedBaseUrl;
     await getIt.reset();
   });
 
@@ -27,24 +22,35 @@ void main() {
 
       await setupServiceLocator();
 
-      expect(EndPoint.baseUrl, 'https://cached.example/api/');
+      expect(
+        EndPoint.baseUrl,
+        'https://cached.example/api/',
+      );
     });
 
     // --- No fallback exists: unresolved stays empty until Firestore ---
-    test('leaves the url unresolved without a cache', () async {
-      SharedPreferences.setMockInitialValues({});
+    test(
+      'leaves the url unresolved without a cache',
+      () async {
+        SharedPreferences.setMockInitialValues({});
 
-      await setupServiceLocator();
+        await setupServiceLocator();
 
-      expect(EndPoint.baseUrl, isEmpty);
-    });
+        expect(EndPoint.baseUrl, isEmpty);
+      },
+    );
 
-    test('leaves the url unresolved on an invalid cache', () async {
-      SharedPreferences.setMockInitialValues({'apiBaseUrl': 'not-a-url'});
+    test(
+      'leaves the url unresolved on an invalid cache',
+      () async {
+        SharedPreferences.setMockInitialValues({
+          'apiBaseUrl': 'not-a-url',
+        });
 
-      await setupServiceLocator();
+        await setupServiceLocator();
 
-      expect(EndPoint.baseUrl, isEmpty);
-    });
+        expect(EndPoint.baseUrl, isEmpty);
+      },
+    );
   });
 }

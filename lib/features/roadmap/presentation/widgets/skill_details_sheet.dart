@@ -1,7 +1,7 @@
 import 'package:MatchIn/core/extensions/context_extensions.dart';
 import 'package:MatchIn/features/roadmap/data/models/roadmap_node.dart';
 import 'package:MatchIn/features/roadmap/presentation/manager/roadmap_cubit/roadmap_cubit.dart';
-import 'package:MatchIn/features/roadmap/presentation/manager/skill_task_cubit/skill_task_cubit.dart';
+import 'package:MatchIn/features/roadmap/presentation/utils/roadmap_node_mapper.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/skill_details_progress_overview.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/skill_details_section_title.dart';
 import 'package:MatchIn/features/roadmap/presentation/widgets/skill_task_card.dart';
@@ -29,10 +29,20 @@ class SkillDetailsSheet extends StatelessWidget {
         return BlocBuilder<RoadmapCubit, RoadmapState>(
           builder: (context, state) {
             RoadmapNode currentNode = node;
-            if (state is RoadmapSuccess) {
-              currentNode = state.nodes.firstWhere(
-                (n) => n.title == node.title,
-                orElse: () => node,
+            if (state is RoadmapDetailsSuccess) {
+              final nodes = RoadmapNodeMapper.mapMilestones(
+                state.details.milestones,
+                durationLabel: (hours) => l10n.estimatedHours(hours),
+              );
+              currentNode = nodes.firstWhere(
+                (candidate) =>
+                    candidate.id != null &&
+                    node.id != null &&
+                    candidate.id == node.id,
+                orElse: () => nodes.firstWhere(
+                  (candidate) => candidate.title == node.title,
+                  orElse: () => node,
+                ),
               );
             }
 
@@ -88,34 +98,14 @@ class SkillDetailsSheet extends StatelessWidget {
                       ),
                     ] else ...[
                       ...currentNode.tasks.map((task) {
+                        // TODO(roadmap-phase-3): connect backend task
+                        // completion. Until then the sheet is read-only:
+                        // null keeps the design while disabling toggles,
+                        // so nothing is written to SharedPreferences.
                         return SkillTaskCard(
                           key: ValueKey(task.id),
                           task: task,
-                          onToggleComplete: () async {
-                            final isCompletingTask = !task.isCompleted;
-                            final remainingIncompleteCount = currentNode.tasks
-                                .where((t) => !t.isCompleted)
-                                .length;
-
-                            await context
-                                .read<SkillTaskCubit>()
-                                .toggleTaskCompletion(taskId: task.id);
-
-                            if (context.mounted) {
-                              context.read<RoadmapCubit>().fetchRoadmapNodes();
-                            }
-
-                            if (isCompletingTask &&
-                                remainingIncompleteCount == 1) {
-                              await Future.delayed(
-                                const Duration(milliseconds: 300),
-                              );
-                              if (context.mounted &&
-                                  Navigator.of(context).canPop()) {
-                                Navigator.of(context).pop();
-                              }
-                            }
-                          },
+                          onToggleComplete: null,
                         );
                       }),
                     ],

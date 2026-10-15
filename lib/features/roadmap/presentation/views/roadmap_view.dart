@@ -29,9 +29,7 @@ class RoadmapView extends StatelessWidget {
       body: SafeArea(
         child: MultiBlocProvider(
           providers: [
-            BlocProvider(
-              create: (_) => getIt<RoadmapCubit>()..fetchRoadmapNodes(),
-            ),
+            BlocProvider(create: (_) => getIt<RoadmapCubit>()..loadRoadmaps()),
             BlocProvider(
               create: (_) => getIt<TreasureCubit>()..loadCollectedTreasures(),
             ),
