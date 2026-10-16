@@ -30,9 +30,7 @@ class SavedJobsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<SavedJobsCubit>(
-          create: (_) => getIt<SavedJobsCubit>(),
-        ),
+        BlocProvider<SavedJobsCubit>(create: (_) => getIt<SavedJobsCubit>()),
         BlocProvider<ApplicationsCubit>(
           create: (_) => getIt<ApplicationsCubit>(),
         ),
@@ -67,6 +65,9 @@ class _SavedJobsContentState extends State<_SavedJobsContent> {
       }
       context.read<SavedJobsCubit>().fetchSavedJobs();
       context.read<ApplicationsCubit>().fetchApplications();
+      // Replay any durable save/unsave ops queued while offline; the
+      // list refreshes automatically when sync makes progress.
+      context.read<SavedJobsCubit>().syncPendingJobs();
     });
   }
 
@@ -99,7 +100,8 @@ class _SavedJobsContentState extends State<_SavedJobsContent> {
     if (jobEntity.isExternalApply) {
       final website = jobEntity.websiteUrl?.trim() ?? '';
       final uri = Uri.tryParse(website);
-      final isValid = uri != null &&
+      final isValid =
+          uri != null &&
           uri.isAbsolute &&
           (uri.scheme == 'http' || uri.scheme == 'https');
       if (!isValid) {
@@ -168,6 +170,12 @@ class _SavedJobsContentState extends State<_SavedJobsContent> {
                         // Future sort/filter integration
                       },
                     ),
+
+                    // Pending-sync banner (durable offline intentions)
+                    if (isSavedTab &&
+                        savedState is SavedJobsLoaded &&
+                        savedState.pendingCount > 0)
+                      _PendingSyncBanner(pendingCount: savedState.pendingCount),
 
                     // List Content
                     Expanded(
@@ -364,6 +372,53 @@ class _SavedJobsContentState extends State<_SavedJobsContent> {
 
         return const SizedBox.shrink();
       },
+    );
+  }
+}
+
+/// Non-blocking banner for durably queued save/unsave intentions.
+/// The list underneath always reflects local truth; the retry action
+/// replays the queue in the foreground.
+class _PendingSyncBanner extends StatelessWidget {
+  const _PendingSyncBanner({required this.pendingCount});
+
+  final int pendingCount;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+      decoration: BoxDecoration(
+        color: context.colors.surfaceContainerHighest.withValues(alpha: 0.6),
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            Icons.cloud_off_rounded,
+            size: 16.r,
+            color: context.colors.onSurfaceVariant,
+          ),
+          SizedBox(width: 8.w),
+          Expanded(
+            child: Text(
+              S.of(context).offlineStatusShowingSaved,
+              style: context.textTheme.bodySmall?.copyWith(
+                fontSize: 12.sp,
+                color: context.colors.onSurfaceVariant,
+                fontWeight: FontWeight.w600,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          TextButton(
+            onPressed: () => context.read<SavedJobsCubit>().syncPendingJobs(),
+            child: Text('${S.of(context).retry} ($pendingCount)'),
+          ),
+        ],
+      ),
     );
   }
 }

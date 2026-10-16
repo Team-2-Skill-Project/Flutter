@@ -62,6 +62,11 @@ import 'package:MatchIn/features/profile/data/repositories/profile_repository_im
 import 'package:MatchIn/features/profile/domain/repositories/profile_repository.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/get_user_profile_use_case.dart';
 import 'package:MatchIn/features/profile/domain/use_cases/retry_pending_cv_upload_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/download_cv_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/get_cv_history_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/get_cv_status_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/retry_cv_extraction_use_case.dart';
+import 'package:MatchIn/features/profile/domain/use_cases/verify_extraction_use_case.dart';
 import 'package:MatchIn/features/jobsAndApplications/data/data_sources/applications_local_data_source.dart';
 import 'package:MatchIn/features/jobsAndApplications/data/data_sources/applications_local_data_source_impl.dart';
 import 'package:MatchIn/features/jobsAndApplications/data/data_sources/applications_remote_data_source.dart';
@@ -158,6 +163,9 @@ import 'package:MatchIn/features/saved/data/repositories/saved_jobs_repository_i
 import 'package:MatchIn/features/saved/domain/repositories/saved_jobs_repository.dart';
 import 'package:MatchIn/features/saved/domain/use_cases/get_saved_jobs_use_case.dart';
 import 'package:MatchIn/features/saved/domain/use_cases/save_job_use_case.dart';
+import 'package:MatchIn/features/saved/domain/use_cases/set_saved_job_use_case.dart';
+import 'package:MatchIn/features/saved/domain/use_cases/set_unsaved_job_use_case.dart';
+import 'package:MatchIn/features/saved/domain/use_cases/sync_saved_jobs_use_case.dart';
 import 'package:MatchIn/features/saved/domain/use_cases/unsave_job_use_case.dart';
 import 'package:MatchIn/features/saved/presentation/cubit/saved_jobs_cubit.dart';
 import 'package:MatchIn/features/settings/data/data_sources/settings_local_data_source.dart';
@@ -533,6 +541,7 @@ Future<void> setupServiceLocator() async {
       refreshJobsUseCase: getIt(),
       toggleSaveJobUseCase: getIt(),
       applyForJobUseCase: getIt(),
+      savedJobsRepository: getIt(),
     ),
   );
 
@@ -784,11 +793,24 @@ Future<void> setupServiceLocator() async {
     () => UnsaveJobUseCase(repository: getIt<SavedJobsRepository>()),
   );
 
+  getIt.registerLazySingleton<SetSavedJobUseCase>(
+    () => SetSavedJobUseCase(repository: getIt<SavedJobsRepository>()),
+  );
+
+  getIt.registerLazySingleton<SetUnsavedJobUseCase>(
+    () => SetUnsavedJobUseCase(repository: getIt<SavedJobsRepository>()),
+  );
+
+  getIt.registerLazySingleton<SyncSavedJobsUseCase>(
+    () => SyncSavedJobsUseCase(repository: getIt<SavedJobsRepository>()),
+  );
+
   getIt.registerFactory<SavedJobsCubit>(
     () => SavedJobsCubit(
       getSavedJobsUseCase: getIt<GetSavedJobsUseCase>(),
-      saveJobUseCase: getIt<SaveJobUseCase>(),
-      unsaveJobUseCase: getIt<UnsaveJobUseCase>(),
+      setSavedJobUseCase: getIt<SetSavedJobUseCase>(),
+      setUnsavedJobUseCase: getIt<SetUnsavedJobUseCase>(),
+      syncSavedJobsUseCase: getIt<SyncSavedJobsUseCase>(),
     ),
   );
 
@@ -951,6 +973,11 @@ Future<void> setupServiceLocator() async {
       getPendingCvUploadUseCase: getIt(),
       retryPendingCvUploadUseCase: getIt(),
       getLocalCvFileUseCase: getIt(),
+      getCvStatusUseCase: getIt(),
+      getCvHistoryUseCase: getIt(),
+      retryCvExtractionUseCase: getIt(),
+      verifyExtractionUseCase: getIt(),
+      downloadCvUseCase: getIt(),
     ),
   );
   getIt.registerLazySingleton<UploadCvUseCase>(
@@ -967,6 +994,26 @@ Future<void> setupServiceLocator() async {
 
   getIt.registerLazySingleton<GetLocalCvFileUseCase>(
     () => GetLocalCvFileUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<GetCvStatusUseCase>(
+    () => GetCvStatusUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<GetCvHistoryUseCase>(
+    () => GetCvHistoryUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<RetryCvExtractionUseCase>(
+    () => RetryCvExtractionUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<VerifyExtractionUseCase>(
+    () => VerifyExtractionUseCase(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<DownloadCvUseCase>(
+    () => DownloadCvUseCase(repository: getIt()),
   );
 
   // career preferences
