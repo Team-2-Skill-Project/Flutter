@@ -1,0 +1,452 @@
+import 'dart:async';
+
+import 'package:MatchIn/core/functions/require_auth.dart';
+import 'package:MatchIn/core/functions/share_job.dart';
+import 'package:MatchIn/core/routing/cubit/main_navigation_cubit.dart';
+import 'package:MatchIn/core/services/shared_preferences_service.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/cubit/applications_cubit.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/cubit/applications_state.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:go_router/go_router.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
+import 'package:MatchIn/core/routing/app_routes.dart';
+import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/core/widgets/error/app_error.dart';
+import 'package:MatchIn/generated/l10n.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/widgets/job_details_widgets/job_card_widgets/job_card.dart';
+import 'package:MatchIn/features/saved/domain/entities/saved_job_entity.dart';
+import 'package:MatchIn/features/saved/presentation/cubit/saved_jobs_cubit.dart';
+import 'package:MatchIn/features/saved/presentation/cubit/saved_jobs_state.dart';
+import 'package:MatchIn/features/saved/presentation/models/saved_tab_type.dart';
+import 'package:MatchIn/features/saved/presentation/widgets/applied_job_card.dart';
+import 'package:MatchIn/features/saved/presentation/widgets/saved_segmented_tab.dart';
+import 'package:MatchIn/features/saved/presentation/widgets/saved_summary_bar.dart';
+import 'package:MatchIn/features/saved/presentation/widgets/saved_top_bar.dart';
+
+class SavedJobsView extends StatelessWidget {
+  const SavedJobsView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<SavedJobsCubit>(create: (_) => getIt<SavedJobsCubit>()),
+        BlocProvider<ApplicationsCubit>(
+          create: (_) => getIt<ApplicationsCubit>(),
+        ),
+      ],
+      child: const _SavedJobsContent(),
+    );
+  }
+}
+
+class _SavedJobsContent extends StatefulWidget {
+  const _SavedJobsContent();
+
+  @override
+  State<_SavedJobsContent> createState() => _SavedJobsContentState();
+}
+
+class _SavedJobsContentState extends State<_SavedJobsContent> {
+  SavedTabType _activeTab = SavedTabType.saved;
+  final ScrollController _scrollController = ScrollController();
+  StreamSubscription<int>? _navSubscription;
+
+  /// Index of this screen in the main bottom navigation
+  /// (see MainNavigationWidget tab order / openSavedJobs).
+  static const int _savedTabIndex = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+    // Protected screen: guests see the login dialog instead of firing
+    // authenticated requests; signed-in users load both tabs.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      if (!getIt<SharedPreferencesService>().isLoggedIn()) {
+        requireAuth(context);
+        return;
+      }
+      context.read<SavedJobsCubit>().fetchSavedJobs();
+      context.read<ApplicationsCubit>().fetchApplications();
+      // Replay any durable save/unsave ops queued while offline; the
+      // list refreshes automatically when sync makes progress.
+      context.read<SavedJobsCubit>().syncPendingJobs();
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // The IndexedStack keeps this screen alive across tab switches:
+    // refresh from the local source of truth (and replay queued ops)
+    // every time the tab becomes visible, so bookmarks toggled on
+    // Home/Search/Details appear without reopening the app.
+    _navSubscription ??= context.read<MainNavigationCubit>().stream.listen(
+      _onTabChangedExternally,
+    );
+  }
+
+  void _onTabChangedExternally(int index) {
+    if (!mounted || index != _savedTabIndex) return;
+    final cubit = context.read<SavedJobsCubit>();
+    cubit.fetchSavedJobs(isRefresh: true);
+    cubit.syncPendingJobs();
+  }
+
+  @override
+  void dispose() {
+    _navSubscription?.cancel();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      context.read<SavedJobsCubit>().loadMoreSavedJobs();
+    }
+  }
+
+  void _onTabChanged(SavedTabType tab) {
+    if (_activeTab != tab) {
+      setState(() {
+        _activeTab = tab;
+      });
+    }
+  }
+
+  void _onApplyToJob(SavedJobEntity job) {
+    if (!requireAuth(context)) return;
+    final jobEntity = job.toJobEntity();
+    // External listings open the employer's website and are never
+    // recorded as submitted merely for opening the link.
+    if (jobEntity.isExternalApply) {
+      final website = jobEntity.websiteUrl?.trim() ?? '';
+      final uri = Uri.tryParse(website);
+      final isValid =
+          uri != null &&
+          uri.isAbsolute &&
+          (uri.scheme == 'http' || uri.scheme == 'https');
+      if (!isValid) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(S.of(context).shareJobLinkUnavailable)),
+        );
+        return;
+      }
+      context.push(
+        AppRoutes.kWebView,
+        extra: <String, dynamic>{'url': website, 'title': jobEntity.title},
+      );
+      return;
+    }
+    context.push(AppRoutes.kapplyForRole, extra: jobEntity);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isSavedTab = _activeTab == SavedTabType.saved;
+
+    return BlocBuilder<ApplicationsCubit, ApplicationsState>(
+      builder: (context, appState) {
+        return BlocBuilder<SavedJobsCubit, SavedJobsState>(
+          builder: (context, savedState) {
+            int savedCount = 0;
+            if (savedState is SavedJobsLoaded) {
+              savedCount = savedState.jobs.length;
+            }
+
+            int appCount = 0;
+            if (appState is ApplicationsLoaded) {
+              appCount = appState.total;
+            }
+
+            return Scaffold(
+              body: SafeArea(
+                child: Column(
+                  children: [
+                    // Top App Bar
+                    SavedTopBar(
+                      title: isSavedTab
+                          ? S.of(context).savedJobs
+                          : S.of(context).applications,
+                      onSearchTap: () {
+                        context.push(AppRoutes.kJobsSearchView);
+                      },
+                    ),
+
+                    // Segmented Tab Selector (Saved / Applied)
+                    SavedSegmentedTab(
+                      activeTab: _activeTab,
+                      onTabChanged: _onTabChanged,
+                    ),
+
+                    // Summary Bar
+                    SavedSummaryBar(
+                      countText: isSavedTab
+                          ? '$savedCount ${S.of(context).opportunities}'
+                          : '$appCount ${S.of(context).applications}',
+                      actionLabel: isSavedTab
+                          ? S.of(context).mostRelevant
+                          : S.of(context).all,
+                      actionIcon: isSavedTab ? Icons.sort : Icons.filter_list,
+                      onActionTap: () {
+                        // Future sort/filter integration
+                      },
+                    ),
+
+                    // Pending-sync banner (durable offline intentions)
+                    if (isSavedTab &&
+                        savedState is SavedJobsLoaded &&
+                        savedState.pendingCount > 0)
+                      _PendingSyncBanner(pendingCount: savedState.pendingCount),
+
+                    // List Content
+                    Expanded(
+                      child: isSavedTab
+                          ? _buildSavedJobsList(savedState)
+                          : _buildAppliedJobsList(),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Widget _buildSavedJobsList(SavedJobsState state) {
+    if (state is SavedJobsLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (state is SavedJobsError) {
+      return AppErrorWidget(
+        message: state.message,
+        onRetry: () {
+          context.read<SavedJobsCubit>().fetchSavedJobs();
+        },
+      );
+    }
+
+    if (state is SavedJobsLoaded) {
+      if (state.jobs.isEmpty) {
+        return RefreshIndicator(
+          onRefresh: () =>
+              context.read<SavedJobsCubit>().fetchSavedJobs(isRefresh: true),
+          child: ListView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            children: [
+              SizedBox(height: 120.h),
+              Center(
+                child: Text(
+                  S.of(context).noSavedJobsYet,
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    color: context.colors.onSurface.withValues(alpha: 0.6),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+
+      return RefreshIndicator(
+        onRefresh: () =>
+            context.read<SavedJobsCubit>().fetchSavedJobs(isRefresh: true),
+        child: AnimationLimiter(
+          child: ListView.separated(
+            controller: _scrollController,
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 24.h),
+            itemCount: state.jobs.length + (state.isLoadingMore ? 1 : 0),
+            separatorBuilder: (context, index) => SizedBox(height: 12.h),
+            itemBuilder: (context, index) {
+              if (index == state.jobs.length) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16.h),
+                  child: const Center(child: CircularProgressIndicator()),
+                );
+              }
+
+              final job = state.jobs[index];
+              return AnimationConfiguration.staggeredList(
+                position: index,
+                duration: const Duration(milliseconds: 375),
+                child: SlideAnimation(
+                  verticalOffset: 50.0,
+                  child: FadeInAnimation(
+                    child: JobCard(
+                      job: job.toJobEntity(),
+                      heroPrefix: 'saved',
+                      showShareButton: true,
+                      onSave: () {
+                        if (!requireAuth(context)) return;
+                        context.read<SavedJobsCubit>().toggleBookmark(job);
+                      },
+                      onShare: () => shareJob(context, job.toJobEntity()),
+                      onApply: () => _onApplyToJob(job),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      );
+    }
+
+    return const SizedBox.shrink();
+  }
+
+  Widget _buildAppliedJobsList() {
+    return BlocBuilder<ApplicationsCubit, ApplicationsState>(
+      builder: (context, state) {
+        if (state is ApplicationsLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (state is ApplicationsError) {
+          return AppErrorWidget(
+            message: state.message,
+            onRetry: () {
+              context.read<ApplicationsCubit>().fetchApplications();
+            },
+          );
+        }
+
+        if (state is ApplicationsEmpty) {
+          return RefreshIndicator(
+            onRefresh: () => context
+                .read<ApplicationsCubit>()
+                .fetchApplications(isRefresh: true),
+            child: ListView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              children: [
+                SizedBox(height: 120.h),
+                Center(
+                  child: Text(
+                    S.of(context).noApplicationsYet,
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      color: context.colors.onSurface.withValues(alpha: 0.6),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+
+        if (state is ApplicationsLoaded) {
+          return RefreshIndicator(
+            onRefresh: () => context
+                .read<ApplicationsCubit>()
+                .fetchApplications(isRefresh: true),
+            child: AnimationLimiter(
+              child: ListView.separated(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 24.h),
+                itemCount:
+                    state.applications.length + (state.isLoadingMore ? 1 : 0),
+                separatorBuilder: (context, index) => SizedBox(height: 12.h),
+                itemBuilder: (context, index) {
+                  if (index == state.applications.length) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.h),
+                      child: const Center(child: CircularProgressIndicator()),
+                    );
+                  }
+
+                  final application = state.applications[index];
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    duration: const Duration(milliseconds: 375),
+                    child: SlideAnimation(
+                      verticalOffset: 50.0,
+                      child: FadeInAnimation(
+                        child: AppliedJobCard(
+                          applicationEntity: application,
+                          onCardTap: () {
+                            if (application.job != null) {
+                              context.push(
+                                AppRoutes.ktrackingApplication,
+                                extra: application.job,
+                              );
+                            }
+                          },
+                          onViewApplicationTap: () {
+                            if (application.job != null) {
+                              context.push(
+                                AppRoutes.ktrackingApplication,
+                                extra: application.job,
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          );
+        }
+
+        return const SizedBox.shrink();
+      },
+    );
+  }
+}
+
+/// Non-blocking banner for durably queued save/unsave intentions.
+/// The list underneath always reflects local truth; the retry action
+/// replays the queue in the foreground.
+class _PendingSyncBanner extends StatelessWidget {
+  const _PendingSyncBanner({required this.pendingCount});
+
+  final int pendingCount;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+      decoration: BoxDecoration(
+        color: context.colors.surfaceContainerHighest.withValues(alpha: 0.6),
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            Icons.cloud_off_rounded,
+            size: 16.r,
+            color: context.colors.onSurfaceVariant,
+          ),
+          SizedBox(width: 8.w),
+          Expanded(
+            child: Text(
+              S.of(context).offlineStatusShowingSaved,
+              style: context.textTheme.bodySmall?.copyWith(
+                fontSize: 12.sp,
+                color: context.colors.onSurfaceVariant,
+                fontWeight: FontWeight.w600,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          TextButton(
+            onPressed: () => context.read<SavedJobsCubit>().syncPendingJobs(),
+            child: Text('${S.of(context).retry} ($pendingCount)'),
+          ),
+        ],
+      ),
+    );
+  }
+}

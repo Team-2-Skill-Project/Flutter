@@ -4,6 +4,13 @@ abstract class AuthRemoteDataSource {
 
   Future<void> resendOtp({required String email});
 
+  Future<void> forgotPassword({required String email});
+
+  Future<void> verifyPasswordResetOtp({
+    required String email,
+    required String otp,
+  });
+
   Future<void> resetPassword({
     required String email,
     required String newPassword,
@@ -20,4 +27,6 @@ abstract class AuthRemoteDataSource {
     required String email,
     required String password,
   });
+
+  Future<LoginModel> loginWithGoogle({required String idToken});
 }

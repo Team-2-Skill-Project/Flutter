@@ -1,3 +1,4 @@
+import 'package:MatchIn/core/routing/app_routes.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:MatchIn/features/auth/presentation/widgets/login/login_footer.dart';
@@ -13,6 +14,14 @@ import 'package:go_router/go_router.dart';
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
+  void _handleBack(BuildContext context) {
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      context.go(AppRoutes.kRegisterView);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -20,15 +29,22 @@ class LoginView extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => GetIt.instance<AuthCubit>(),
-      child: Scaffold(
-        backgroundColor: AppColors.background,
-        appBar: AppBar(
+      child: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, _) {
+          if (!didPop) {
+            _handleBack(context);
+          }
+        },
+        child: Scaffold(
           backgroundColor: AppColors.background,
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: AppColors.midnightBlue),
-            onPressed: () => context.pop(),
-          ),
+          appBar: AppBar(
+            backgroundColor: AppColors.background,
+            elevation: 0,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back, color: AppColors.midnightBlue),
+              onPressed: () => _handleBack(context),
+            ),
           title: Text(
             locale.login,
             style: theme.textTheme.titleLarge?.copyWith(
@@ -63,6 +79,7 @@ class LoginView extends StatelessWidget {
               const LoginFooterOuter(),
             ],
           ),
+        ),
         ),
       ),
     );

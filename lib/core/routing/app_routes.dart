@@ -18,6 +18,7 @@ abstract final class AppRoutes {
 
   // Main
   static const String kHomeView = '/home';
+  static const String kChatBotView = '/chat';
 
   // Jobs
   static const String kJobsSearchView = '/jobs/search';
@@ -38,4 +39,28 @@ abstract final class AppRoutes {
 
   // WebView
   static const String kWebView = '/webView';
+
+  // Profile
+  static const String keditSkillsView = '/profile/skills';
+
+  //static const String kProfileSkillsView ='/profile/editProfile';
+
+  static const String keditProjectsView =
+      '/profile/projects';
+  static const String keditcareerPrefView =
+      '/profile/careerPref';
+
+  static const String kChangePasswordView =
+      '/changePassword';
+
+  static const String keditProfileView =
+      '/profile/editProfile';
+  static const String keditEducationView =
+      '/profile/editEducation';
+  static const String keditExperience =
+      '/profile/editExperience';
+
+  static const String kPrivacyPolicyView = '/privacyPolicy';
+  static const String kContactUsView = '/contactUs';
+  static const String kFollowUsView = '/followUs';
 }

@@ -850,6 +850,226 @@ class S {
     );
   }
 
+  /// `Select Roadmap`
+  String get selectRoadmap {
+    return Intl.message(
+      'Select Roadmap',
+      name: 'selectRoadmap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Generate Roadmap`
+  String get generateRoadmap {
+    return Intl.message(
+      'Generate Roadmap',
+      name: 'generateRoadmap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. Backend Engineer`
+  String get targetRoleHint {
+    return Intl.message(
+      'e.g. Backend Engineer',
+      name: 'targetRoleHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. Focus on distributed systems`
+  String get notesHint {
+    return Intl.message(
+      'e.g. Focus on distributed systems',
+      name: 'notesHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Generating roadmap...`
+  String get generatingRoadmap {
+    return Intl.message(
+      'Generating roadmap...',
+      name: 'generatingRoadmap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Roadmap generated successfully`
+  String get generationSuccess {
+    return Intl.message(
+      'Roadmap generated successfully',
+      name: 'generationSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Roadmap generation failed`
+  String get generationFailed {
+    return Intl.message(
+      'Roadmap generation failed',
+      name: 'generationFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refresh Roadmap`
+  String get refreshRoadmap {
+    return Intl.message(
+      'Refresh Roadmap',
+      name: 'refreshRoadmap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refresh the selected roadmap using the latest available information.`
+  String get refreshRoadmapDescription {
+    return Intl.message(
+      'Refresh the selected roadmap using the latest available information.',
+      name: 'refreshRoadmapDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refreshing may change your roadmap milestones and tasks.`
+  String get refreshRoadmapWarning {
+    return Intl.message(
+      'Refreshing may change your roadmap milestones and tasks.',
+      name: 'refreshRoadmapWarning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reason for refresh (optional)`
+  String get refreshReasonLabel {
+    return Intl.message(
+      'Reason for refresh (optional)',
+      name: 'refreshReasonLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What would you like to focus on?`
+  String get refreshReasonHint {
+    return Intl.message(
+      'What would you like to focus on?',
+      name: 'refreshReasonHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Refresh`
+  String get confirmRefresh {
+    return Intl.message(
+      'Confirm Refresh',
+      name: 'confirmRefresh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refreshing roadmap...`
+  String get refreshingRoadmap {
+    return Intl.message(
+      'Refreshing roadmap...',
+      name: 'refreshingRoadmap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Roadmap refreshed successfully`
+  String get roadmapRefreshedSuccessfully {
+    return Intl.message(
+      'Roadmap refreshed successfully',
+      name: 'roadmapRefreshedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to refresh roadmap`
+  String get roadmapAiRefreshFailed {
+    return Intl.message(
+      'Failed to refresh roadmap',
+      name: 'roadmapAiRefreshFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Task completed successfully`
+  String get taskCompleted {
+    return Intl.message(
+      'Task completed successfully',
+      name: 'taskCompleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Task completion failed`
+  String get taskCompletionFailed {
+    return Intl.message(
+      'Task completion failed',
+      name: 'taskCompletionFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Couldn't refresh roadmap details`
+  String get roadmapRefreshFailed {
+    return Intl.message(
+      'Couldn\'t refresh roadmap details',
+      name: 'roadmapRefreshFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No roadmaps yet`
+  String get noRoadmaps {
+    return Intl.message(
+      'No roadmaps yet',
+      name: 'noRoadmaps',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Load More`
+  String get loadMore {
+    return Intl.message(
+      'Load More',
+      name: 'loadMore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{hours}h`
+  String estimatedHours(Object hours) {
+    return Intl.message(
+      '${hours}h',
+      name: 'estimatedHours',
+      desc: '',
+      args: [hours],
+    );
+  }
+
   /// `CV`
   String get cv {
     return Intl.message(
@@ -1175,6 +1395,216 @@ class S {
     return Intl.message(
       '© 2025 SkillMatch. All rights reserved.',
       name: 'copyright',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Arabic`
+  String get arabic {
+    return Intl.message(
+      'Arabic',
+      name: 'arabic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark`
+  String get dark {
+    return Intl.message(
+      'Dark',
+      name: 'dark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `System`
+  String get system {
+    return Intl.message(
+      'System',
+      name: 'system',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current Password`
+  String get currentPassword {
+    return Intl.message(
+      'Current Password',
+      name: 'currentPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password changed successfully`
+  String get changePasswordSuccess {
+    return Intl.message(
+      'Password changed successfully',
+      name: 'changePasswordSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your new password must be at least 8 characters long and contain uppercase, lowercase, number, and special character.`
+  String get changePasswordDescription {
+    return Intl.message(
+      'Your new password must be at least 8 characters long and contain uppercase, lowercase, number, and special character.',
+      name: 'changePasswordDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get in touch with us`
+  String get getInTouch {
+    return Intl.message(
+      'Get in touch with us',
+      name: 'getInTouch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email Support`
+  String get contactEmailTitle {
+    return Intl.message(
+      'Email Support',
+      name: 'contactEmailTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone Number`
+  String get contactPhoneTitle {
+    return Intl.message(
+      'Phone Number',
+      name: 'contactPhoneTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Office Location`
+  String get contactAddressTitle {
+    return Intl.message(
+      'Office Location',
+      name: 'contactAddressTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Support Hours`
+  String get contactHoursTitle {
+    return Intl.message(
+      'Support Hours',
+      name: 'contactHoursTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `support@skillmatch.com`
+  String get contactEmailPlaceholder {
+    return Intl.message(
+      'support@skillmatch.com',
+      name: 'contactEmailPlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `+1 (555) 019-2834`
+  String get contactPhonePlaceholder {
+    return Intl.message(
+      '+1 (555) 019-2834',
+      name: 'contactPhonePlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `100 Innovation Boulevard, Tech Park, Suite 400`
+  String get contactAddressPlaceholder {
+    return Intl.message(
+      '100 Innovation Boulevard, Tech Park, Suite 400',
+      name: 'contactAddressPlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Monday - Friday, 9:00 AM - 6:00 PM`
+  String get contactHoursPlaceholder {
+    return Intl.message(
+      'Monday - Friday, 9:00 AM - 6:00 PM',
+      name: 'contactHoursPlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connect with us across our social channels to stay updated with opportunities and news.`
+  String get followUsDescription {
+    return Intl.message(
+      'Connect with us across our social channels to stay updated with opportunities and news.',
+      name: 'followUsDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log Out`
+  String get logOutConfirmationTitle {
+    return Intl.message(
+      'Log Out',
+      name: 'logOutConfirmationTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to log out of your account?`
+  String get logOutConfirmationMessage {
+    return Intl.message(
+      'Are you sure you want to log out of your account?',
+      name: 'logOutConfirmationMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Language`
+  String get selectLanguage {
+    return Intl.message(
+      'Select Language',
+      name: 'selectLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Theme`
+  String get selectTheme {
+    return Intl.message(
+      'Select Theme',
+      name: 'selectTheme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copied to clipboard`
+  String get copiedToClipboard {
+    return Intl.message(
+      'Copied to clipboard',
+      name: 'copiedToClipboard',
       desc: '',
       args: [],
     );
@@ -2490,6 +2920,76 @@ class S {
     );
   }
 
+  /// `Unsupported file type. Please choose a PDF or DOCX file.`
+  String get cvUnsupportedFileType {
+    return Intl.message(
+      'Unsupported file type. Please choose a PDF or DOCX file.',
+      name: 'cvUnsupportedFileType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The file is too large. Maximum size is 5 MB.`
+  String get cvFileTooLarge {
+    return Intl.message(
+      'The file is too large. Maximum size is 5 MB.',
+      name: 'cvFileTooLarge',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The selected file is empty.`
+  String get cvEmptyFile {
+    return Intl.message(
+      'The selected file is empty.',
+      name: 'cvEmptyFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CV uploaded successfully`
+  String get cvUploadSuccessful {
+    return Intl.message(
+      'CV uploaded successfully',
+      name: 'cvUploadSuccessful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Could not open the CV document.`
+  String get cvViewFailed {
+    return Intl.message(
+      'Could not open the CV document.',
+      name: 'cvViewFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CV uploaded, but the profile could not be refreshed.`
+  String get cvRefreshFailed {
+    return Intl.message(
+      'CV uploaded, but the profile could not be refreshed.',
+      name: 'cvRefreshFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saved on this device — will upload when you're back online`
+  String get cvPendingUpload {
+    return Intl.message(
+      'Saved on this device — will upload when you\'re back online',
+      name: 'cvPendingUpload',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Uploaded`
   String get uploaded {
     return Intl.message(
@@ -2685,16 +3185,6 @@ class S {
     return Intl.message(
       'What skills should I learn next?',
       name: 'chatSuggestion4',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Copied to clipboard`
-  String get copiedToClipboard {
-    return Intl.message(
-      'Copied to clipboard',
-      name: 'copiedToClipboard',
       desc: '',
       args: [],
     );
@@ -3345,6 +3835,2158 @@ class S {
     return Intl.message(
       'Access your verified career pathways and opportunities.',
       name: 'accessYourPathways',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fair Match`
+  String get fairMatch {
+    return Intl.message(
+      'Fair Match',
+      name: 'fairMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Just now`
+  String get justNow {
+    return Intl.message(
+      'Just now',
+      name: 'justNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{count, plural, =1{1 minute ago} other{{count} minutes ago}}`
+  String minutesAgo(int count) {
+    return Intl.plural(
+      count,
+      one: '1 minute ago',
+      other: '$count minutes ago',
+      name: 'minutesAgo',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count, plural, =1{1 hour ago} other{{count} hours ago}}`
+  String hoursAgo(int count) {
+    return Intl.plural(
+      count,
+      one: '1 hour ago',
+      other: '$count hours ago',
+      name: 'hoursAgo',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count, plural, =1{1 day ago} other{{count} days ago}}`
+  String daysAgo(int count) {
+    return Intl.plural(
+      count,
+      one: '1 day ago',
+      other: '$count days ago',
+      name: 'daysAgo',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count, plural, =1{1 week ago} other{{count} weeks ago}}`
+  String weeksAgo(int count) {
+    return Intl.plural(
+      count,
+      one: '1 week ago',
+      other: '$count weeks ago',
+      name: 'weeksAgo',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count, plural, =1{1 month ago} other{{count} months ago}}`
+  String monthsAgo(int count) {
+    return Intl.plural(
+      count,
+      one: '1 month ago',
+      other: '$count months ago',
+      name: 'monthsAgo',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count, plural, =1{1 year ago} other{{count} years ago}}`
+  String yearsAgo(int count) {
+    return Intl.plural(
+      count,
+      one: '1 year ago',
+      other: '$count years ago',
+      name: 'yearsAgo',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Continue as Guest`
+  String get continueAsGuest {
+    return Intl.message(
+      'Continue as Guest',
+      name: 'continueAsGuest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Watch Ad`
+  String get watchAd {
+    return Intl.message(
+      'Watch Ad',
+      name: 'watchAd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Watch Ad & Earn 50 XP`
+  String get watchAdEarnXp {
+    return Intl.message(
+      'Watch Ad & Earn 50 XP',
+      name: 'watchAdEarnXp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading Ad...`
+  String get loadingAd {
+    return Intl.message(
+      'Loading Ad...',
+      name: 'loadingAd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reward Earned!`
+  String get rewardEarned {
+    return Intl.message(
+      'Reward Earned!',
+      name: 'rewardEarned',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `+50 XP`
+  String get plus50Xp {
+    return Intl.message(
+      '+50 XP',
+      name: 'plus50Xp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ad Not Available`
+  String get adNotAvailable {
+    return Intl.message(
+      'Ad Not Available',
+      name: 'adNotAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to Load Ad`
+  String get failedToLoadAd {
+    return Intl.message(
+      'Failed to Load Ad',
+      name: 'failedToLoadAd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `🎉 Congratulations! You earned +50 XP!`
+  String get adRewardSuccess {
+    return Intl.message(
+      '🎉 Congratulations! You earned +50 XP!',
+      name: 'adRewardSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ad closed early. No XP awarded.`
+  String get adDismissedNoReward {
+    return Intl.message(
+      'Ad closed early. No XP awarded.',
+      name: 'adDismissedNoReward',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No saved jobs yet`
+  String get noSavedJobsYet {
+    return Intl.message(
+      'No saved jobs yet',
+      name: 'noSavedJobsYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skills Profile`
+  String get skillsProfile {
+    return Intl.message(
+      'Skills Profile',
+      name: 'skillsProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skills help SkillMatch understand which opportunities fit you.`
+  String get skillsProfileDescription {
+    return Intl.message(
+      'Skills help SkillMatch understand which opportunities fit you.',
+      name: 'skillsProfileDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile Match Quality`
+  String get profileMatchQuality {
+    return Intl.message(
+      'Profile Match Quality',
+      name: 'profileMatchQuality',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add New Skill`
+  String get addNewSkill {
+    return Intl.message(
+      'Add New Skill',
+      name: 'addNewSkill',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add a skill (e.g. Docker, GraphQL)`
+  String get addSkillHint {
+    return Intl.message(
+      'Add a skill (e.g. Docker, GraphQL)',
+      name: 'addSkillHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add`
+  String get add {
+    return Intl.message(
+      'Add',
+      name: 'add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Suggestions`
+  String get suggestions {
+    return Intl.message(
+      'Suggestions',
+      name: 'suggestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Extracted automatically from your uploaded resume.`
+  String get cvSkillsDescription {
+    return Intl.message(
+      'Extracted automatically from your uploaded resume.',
+      name: 'cvSkillsDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Added manually`
+  String get addedManually {
+    return Intl.message(
+      'Added manually',
+      name: 'addedManually',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manage all skills`
+  String get manageAllSkills {
+    return Intl.message(
+      'Manage all skills',
+      name: 'manageAllSkills',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{count} skills`
+  String skillsCount(Object count) {
+    return Intl.message(
+      '$count skills',
+      name: 'skillsCount',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Add project links and measurable outcomes to strengthen your profile.`
+  String get projectsImprovementHint {
+    return Intl.message(
+      'Add project links and measurable outcomes to strengthen your profile.',
+      name: 'projectsImprovementHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View live project`
+  String get viewLiveProject {
+    return Intl.message(
+      'View live project',
+      name: 'viewLiveProject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View GitHub repository`
+  String get viewGithubRepository {
+    return Intl.message(
+      'View GitHub repository',
+      name: 'viewGithubRepository',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` Add New Project`
+  String get addNewProject {
+    return Intl.message(
+      ' Add New Project',
+      name: 'addNewProject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Project Details`
+  String get addProjectDetails {
+    return Intl.message(
+      'Add Project Details',
+      name: 'addProjectDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Draft`
+  String get draft {
+    return Intl.message(
+      'Draft',
+      name: 'draft',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Project Name`
+  String get projectName {
+    return Intl.message(
+      'Project Name',
+      name: 'projectName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. HealthTracker Companion`
+  String get projectNameHint {
+    return Intl.message(
+      'e.g. HealthTracker Companion',
+      name: 'projectNameHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get description {
+    return Intl.message(
+      'Description',
+      name: 'description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Describe goals, your role, and overall product purpose...`
+  String get projectDescriptionHint {
+    return Intl.message(
+      'Describe goals, your role, and overall product purpose...',
+      name: 'projectDescriptionHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Describe goals and tech stack`
+  String get projectDescriptionHelper {
+    return Intl.message(
+      'Describe goals and tech stack',
+      name: 'projectDescriptionHelper',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Technologies / Skills`
+  String get technologiesSkills {
+    return Intl.message(
+      'Technologies / Skills',
+      name: 'technologiesSkills',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. TypeScript, GraphQL`
+  String get technologiesHint {
+    return Intl.message(
+      'e.g. TypeScript, GraphQL',
+      name: 'technologiesHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Project URL`
+  String get projectUrl {
+    return Intl.message(
+      'Project URL',
+      name: 'projectUrl',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GitHub Repository URL`
+  String get githubRepositoryUrl {
+    return Intl.message(
+      'GitHub Repository URL',
+      name: 'githubRepositoryUrl',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start Date`
+  String get startDate {
+    return Intl.message(
+      'Start Date',
+      name: 'startDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End Date`
+  String get endDate {
+    return Intl.message(
+      'End Date',
+      name: 'endDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `MM / YYYY`
+  String get monthYearHint {
+    return Intl.message(
+      'MM / YYYY',
+      name: 'monthYearHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ongoing project`
+  String get ongoingProject {
+    return Intl.message(
+      'Ongoing project',
+      name: 'ongoingProject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Key Achievements`
+  String get keyAchievements {
+    return Intl.message(
+      'Key Achievements',
+      name: 'keyAchievements',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. Optimized database queries reducing API latency by 42%...`
+  String get keyAchievementsHint {
+    return Intl.message(
+      'e.g. Optimized database queries reducing API latency by 42%...',
+      name: 'keyAchievementsHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add measurable outcomes when possible (e.g. reduced load time by 30%).`
+  String get keyAchievementsHelper {
+    return Intl.message(
+      'Add measurable outcomes when possible (e.g. reduced load time by 30%).',
+      name: 'keyAchievementsHelper',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Project`
+  String get saveProject {
+    return Intl.message(
+      'Save Project',
+      name: 'saveProject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Project Details`
+  String get editProjectDetails {
+    return Intl.message(
+      'Edit Project Details',
+      name: 'editProjectDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No projects added yet`
+  String get noProjectsYet {
+    return Intl.message(
+      'No projects added yet',
+      name: 'noProjectsYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add your first project using the button above.`
+  String get noProjectsYetDesc {
+    return Intl.message(
+      'Add your first project using the button above.',
+      name: 'noProjectsYetDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete project`
+  String get deleteProject {
+    return Intl.message(
+      'Delete project',
+      name: 'deleteProject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this project? This action cannot be undone.`
+  String get deleteProjectConfirm {
+    return Intl.message(
+      'Are you sure you want to delete this project? This action cannot be undone.',
+      name: 'deleteProjectConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Project saved successfully`
+  String get projectSavedSuccessfully {
+    return Intl.message(
+      'Project saved successfully',
+      name: 'projectSavedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Project deleted successfully`
+  String get projectDeletedSuccessfully {
+    return Intl.message(
+      'Project deleted successfully',
+      name: 'projectDeletedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tell us what you're looking for`
+  String get careerPreferencesIntroTitle {
+    return Intl.message(
+      'Tell us what you\'re looking for',
+      name: 'careerPreferencesIntroTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your preferences help SkillMatch recommend more relevant opportunities.`
+  String get careerPreferencesIntroDescription {
+    return Intl.message(
+      'Your preferences help SkillMatch recommend more relevant opportunities.',
+      name: 'careerPreferencesIntroDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Required`
+  String get required {
+    return Intl.message(
+      'Required',
+      name: 'required',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Suggested Roles`
+  String get suggestedRoles {
+    return Intl.message(
+      'Suggested Roles',
+      name: 'suggestedRoles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Experience Level`
+  String get experienceLevel {
+    return Intl.message(
+      'Experience Level',
+      name: 'experienceLevel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Student`
+  String get student {
+    return Intl.message(
+      'Student',
+      name: 'student',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Junior`
+  String get junior {
+    return Intl.message(
+      'Junior',
+      name: 'junior',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mid-Level`
+  String get midLevel {
+    return Intl.message(
+      'Mid-Level',
+      name: 'midLevel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Senior`
+  String get senior {
+    return Intl.message(
+      'Senior',
+      name: 'senior',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Multi-select`
+  String get multiSelect {
+    return Intl.message(
+      'Multi-select',
+      name: 'multiSelect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Part-time`
+  String get partTime {
+    return Intl.message(
+      'Part-time',
+      name: 'partTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contract`
+  String get contract {
+    return Intl.message(
+      'Contract',
+      name: 'contract',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Freelance`
+  String get freelance {
+    return Intl.message(
+      'Freelance',
+      name: 'freelance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Flexible`
+  String get flexible {
+    return Intl.message(
+      'Flexible',
+      name: 'flexible',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Country`
+  String get country {
+    return Intl.message(
+      'Country',
+      name: 'country',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `State / Governorate`
+  String get stateGovernorate {
+    return Intl.message(
+      'State / Governorate',
+      name: 'stateGovernorate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `City`
+  String get city {
+    return Intl.message(
+      'City',
+      name: 'city',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I’m open to opportunities anywhere`
+  String get openToOpportunitiesAnywhere {
+    return Intl.message(
+      'I’m open to opportunities anywhere',
+      name: 'openToOpportunitiesAnywhere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Career Goal`
+  String get careerGoal {
+    return Intl.message(
+      'Career Goal',
+      name: 'careerGoal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. Gain professional Flutter experience and contribute to high-impact mobile products.`
+  String get careerGoalHint {
+    return Intl.message(
+      'e.g. Gain professional Flutter experience and contribute to high-impact mobile products.',
+      name: 'careerGoalHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tell us briefly what you want to achieve next.`
+  String get careerGoalHelper {
+    return Intl.message(
+      'Tell us briefly what you want to achieve next.',
+      name: 'careerGoalHelper',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Preferences`
+  String get savePreferences {
+    return Intl.message(
+      'Save Preferences',
+      name: 'savePreferences',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Career preferences saved successfully`
+  String get careerPreferencesSavedSuccessfully {
+    return Intl.message(
+      'Career preferences saved successfully',
+      name: 'careerPreferencesSavedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personal Information`
+  String get personalInformation {
+    return Intl.message(
+      'Personal Information',
+      name: 'personalInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Professional Information`
+  String get professionalInformation {
+    return Intl.message(
+      'Professional Information',
+      name: 'professionalInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Professional Links`
+  String get professionalLinks {
+    return Intl.message(
+      'Professional Links',
+      name: 'professionalLinks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change photo`
+  String get changePhoto {
+    return Intl.message(
+      'Change photo',
+      name: 'changePhoto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date of birth`
+  String get dateOfBirth {
+    return Intl.message(
+      'Date of birth',
+      name: 'dateOfBirth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gender`
+  String get gender {
+    return Intl.message(
+      'Gender',
+      name: 'gender',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Male`
+  String get male {
+    return Intl.message(
+      'Male',
+      name: 'male',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Female`
+  String get female {
+    return Intl.message(
+      'Female',
+      name: 'female',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Prefer not to say`
+  String get preferNotToSay {
+    return Intl.message(
+      'Prefer not to say',
+      name: 'preferNotToSay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Military Status`
+  String get militaryStatus {
+    return Intl.message(
+      'Military Status',
+      name: 'militaryStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Completed`
+  String get militaryCompleted {
+    return Intl.message(
+      'Completed',
+      name: 'militaryCompleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Exempted`
+  String get militaryExempted {
+    return Intl.message(
+      'Exempted',
+      name: 'militaryExempted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Postponed`
+  String get militaryPostponed {
+    return Intl.message(
+      'Postponed',
+      name: 'militaryPostponed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Final Exemption`
+  String get militaryFinalExemption {
+    return Intl.message(
+      'Final Exemption',
+      name: 'militaryFinalExemption',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Take Photo`
+  String get takePhoto {
+    return Intl.message(
+      'Take Photo',
+      name: 'takePhoto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose from Gallery`
+  String get chooseFromGallery {
+    return Intl.message(
+      'Choose from Gallery',
+      name: 'chooseFromGallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preview Photo`
+  String get previewPhoto {
+    return Intl.message(
+      'Preview Photo',
+      name: 'previewPhoto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Another`
+  String get chooseAnother {
+    return Intl.message(
+      'Choose Another',
+      name: 'chooseAnother',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Avatar upload is not available yet.`
+  String get avatarUploadUnavailable {
+    return Intl.message(
+      'Avatar upload is not available yet.',
+      name: 'avatarUploadUnavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unsupported image type. Use JPG, PNG, or WEBP.`
+  String get invalidImageType {
+    return Intl.message(
+      'Unsupported image type. Use JPG, PNG, or WEBP.',
+      name: 'invalidImageType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image is too large. Maximum size is 5 MB.`
+  String get imageTooLarge {
+    return Intl.message(
+      'Image is too large. Maximum size is 5 MB.',
+      name: 'imageTooLarge',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Changes`
+  String get saveChanges {
+    return Intl.message(
+      'Save Changes',
+      name: 'saveChanges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Academic History`
+  String get academicHistory {
+    return Intl.message(
+      'Academic History',
+      name: 'academicHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keep your education history accurate and up to date.`
+  String get academicHistoryDescription {
+    return Intl.message(
+      'Keep your education history accurate and up to date.',
+      name: 'academicHistoryDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verified Qualifications`
+  String get verifiedQualifications {
+    return Intl.message(
+      'Verified Qualifications',
+      name: 'verifiedQualifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add New Education`
+  String get addNewEducation {
+    return Intl.message(
+      'Add New Education',
+      name: 'addNewEducation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Degree`
+  String get degree {
+    return Intl.message(
+      'Degree',
+      name: 'degree',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. Master of Science, Bachelor of Arts`
+  String get degreeHint {
+    return Intl.message(
+      'e.g. Master of Science, Bachelor of Arts',
+      name: 'degreeHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Field of Study`
+  String get fieldOfStudy {
+    return Intl.message(
+      'Field of Study',
+      name: 'fieldOfStudy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. Software Engineering, Information Systems`
+  String get fieldOfStudyHint {
+    return Intl.message(
+      'e.g. Software Engineering, Information Systems',
+      name: 'fieldOfStudyHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `School / University`
+  String get schoolUniversity {
+    return Intl.message(
+      'School / University',
+      name: 'schoolUniversity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search or enter institution name`
+  String get institutionHint {
+    return Intl.message(
+      'Search or enter institution name',
+      name: 'institutionHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start year`
+  String get startYear {
+    return Intl.message(
+      'Start year',
+      name: 'startYear',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End year (or expected)`
+  String get endYearExpected {
+    return Intl.message(
+      'End year (or expected)',
+      name: 'endYearExpected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select`
+  String get select {
+    return Intl.message(
+      'Select',
+      name: 'select',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Currently studying here`
+  String get currentlyStudyingHere {
+    return Intl.message(
+      'Currently studying here',
+      name: 'currentlyStudyingHere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GPA (Optional)`
+  String get gpaOptional {
+    return Intl.message(
+      'GPA (Optional)',
+      name: 'gpaOptional',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. 3.4 / 4.0 or First Class`
+  String get gpaHint {
+    return Intl.message(
+      'e.g. 3.4 / 4.0 or First Class',
+      name: 'gpaHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save education`
+  String get saveEducation {
+    return Intl.message(
+      'Save education',
+      name: 'saveEducation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit education`
+  String get editEducation {
+    return Intl.message(
+      'Edit education',
+      name: 'editEducation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No education added yet`
+  String get noEducationYet {
+    return Intl.message(
+      'No education added yet',
+      name: 'noEducationYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add your first education record using the form below.`
+  String get noEducationYetDesc {
+    return Intl.message(
+      'Add your first education record using the form below.',
+      name: 'noEducationYetDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete education`
+  String get deleteEducation {
+    return Intl.message(
+      'Delete education',
+      name: 'deleteEducation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this education? This action cannot be undone.`
+  String get deleteEducationConfirm {
+    return Intl.message(
+      'Are you sure you want to delete this education? This action cannot be undone.',
+      name: 'deleteEducationConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Education saved successfully`
+  String get educationSavedSuccessfully {
+    return Intl.message(
+      'Education saved successfully',
+      name: 'educationSavedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Education deleted successfully`
+  String get educationDeletedSuccessfully {
+    return Intl.message(
+      'Education deleted successfully',
+      name: 'educationDeletedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End date must be on or after the start date`
+  String get invalidDateRange {
+    return Intl.message(
+      'End date must be on or after the start date',
+      name: 'invalidDateRange',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add experience`
+  String get addExperience {
+    return Intl.message(
+      'Add experience',
+      name: 'addExperience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add New Experience`
+  String get addNewExperience {
+    return Intl.message(
+      'Add New Experience',
+      name: 'addNewExperience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Job title`
+  String get jobTitle {
+    return Intl.message(
+      'Job title',
+      name: 'jobTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. Lead Product Designer`
+  String get jobTitleHint {
+    return Intl.message(
+      'e.g. Lead Product Designer',
+      name: 'jobTitleHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Company`
+  String get company {
+    return Intl.message(
+      'Company',
+      name: 'company',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. Studio Craft Ltd.`
+  String get companyHint {
+    return Intl.message(
+      'e.g. Studio Craft Ltd.',
+      name: 'companyHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Employment type`
+  String get employmentType {
+    return Intl.message(
+      'Employment type',
+      name: 'employmentType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Location`
+  String get location {
+    return Intl.message(
+      'Location',
+      name: 'location',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. London, UK or Cairo, Egypt`
+  String get locationHint {
+    return Intl.message(
+      'e.g. London, UK or Cairo, Egypt',
+      name: 'locationHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I currently work here`
+  String get currentlyWorkHere {
+    return Intl.message(
+      'I currently work here',
+      name: 'currentlyWorkHere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Responsibilities / Description`
+  String get responsibilitiesDescription {
+    return Intl.message(
+      'Responsibilities / Description',
+      name: 'responsibilitiesDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Outline your primary duties, notable team initiatives, and concrete impact.`
+  String get responsibilitiesHint {
+    return Intl.message(
+      'Outline your primary duties, notable team initiatives, and concrete impact.',
+      name: 'responsibilitiesHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Related skills`
+  String get relatedSkills {
+    return Intl.message(
+      'Related skills',
+      name: 'relatedSkills',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type related skills`
+  String get relatedSkillsHint {
+    return Intl.message(
+      'Type related skills',
+      name: 'relatedSkillsHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save experience`
+  String get saveExperience {
+    return Intl.message(
+      'Save experience',
+      name: 'saveExperience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit experience`
+  String get editExperience {
+    return Intl.message(
+      'Edit experience',
+      name: 'editExperience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No experience added yet`
+  String get noExperienceYet {
+    return Intl.message(
+      'No experience added yet',
+      name: 'noExperienceYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add your first work experience using the form below.`
+  String get noExperienceYetDesc {
+    return Intl.message(
+      'Add your first work experience using the form below.',
+      name: 'noExperienceYetDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete experience`
+  String get deleteExperience {
+    return Intl.message(
+      'Delete experience',
+      name: 'deleteExperience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this experience? This action cannot be undone.`
+  String get deleteExperienceConfirm {
+    return Intl.message(
+      'Are you sure you want to delete this experience? This action cannot be undone.',
+      name: 'deleteExperienceConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Experience saved successfully`
+  String get experienceSavedSuccessfully {
+    return Intl.message(
+      'Experience saved successfully',
+      name: 'experienceSavedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Experience deleted successfully`
+  String get experienceDeletedSuccessfully {
+    return Intl.message(
+      'Experience deleted successfully',
+      name: 'experienceDeletedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help`
+  String get help {
+    return Intl.message(
+      'Help',
+      name: 'help',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile synced`
+  String get profileSynced {
+    return Intl.message(
+      'Profile synced',
+      name: 'profileSynced',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Complete your profile to start adding your education, experience, skills, and more.`
+  String get completeProfilePrompt {
+    return Intl.message(
+      'Complete your profile to start adding your education, experience, skills, and more.',
+      name: 'completeProfilePrompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Profile`
+  String get createProfile {
+    return Intl.message(
+      'Create Profile',
+      name: 'createProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name and phone number can't be saved yet and were not sent to the server.`
+  String get userFieldsNotSavedYet {
+    return Intl.message(
+      'Name and phone number can\'t be saved yet and were not sent to the server.',
+      name: 'userFieldsNotSavedYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recruiter Visibility`
+  String get recruiterVisibility {
+    return Intl.message(
+      'Recruiter Visibility',
+      name: 'recruiterVisibility',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Candidates with fully detailed academic credentials receive more recruiter visibility on SkillMatch.`
+  String get recruiterVisibilityDescription {
+    return Intl.message(
+      'Candidates with fully detailed academic credentials receive more recruiter visibility on SkillMatch.',
+      name: 'recruiterVisibilityDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current Records`
+  String get currentRecords {
+    return Intl.message(
+      'Current Records',
+      name: 'currentRecords',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorted by recent`
+  String get sortedByRecent {
+    return Intl.message(
+      'Sorted by recent',
+      name: 'sortedByRecent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add details about your responsibilities and impact.`
+  String get experienceManagementDescription {
+    return Intl.message(
+      'Add details about your responsibilities and impact.',
+      name: 'experienceManagementDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Section completeness`
+  String get sectionCompleteness {
+    return Intl.message(
+      'Section completeness',
+      name: 'sectionCompleteness',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add more details about your responsibilities and impact. Specific achievements increase recruiter discovery.`
+  String get experienceCompletenessHint {
+    return Intl.message(
+      'Add more details about your responsibilities and impact. Specific achievements increase recruiter discovery.',
+      name: 'experienceCompletenessHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `EDITORIAL SCORE`
+  String get editorialScore {
+    return Intl.message(
+      'EDITORIAL SCORE',
+      name: 'editorialScore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{percentage}% Completed`
+  String completedPercentage(int percentage) {
+    return Intl.message(
+      '$percentage% Completed',
+      name: 'completedPercentage',
+      desc: '',
+      args: [percentage],
+    );
+  }
+
+  /// `Skills:`
+  String get skillsLabel {
+    return Intl.message(
+      'Skills:',
+      name: 'skillsLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No applications yet`
+  String get noApplicationsYet {
+    return Intl.message(
+      'No applications yet',
+      name: 'noApplicationsYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notifications`
+  String get notificationsTitle {
+    return Intl.message(
+      'Notifications',
+      name: 'notificationsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No notifications yet`
+  String get noNotifications {
+    return Intl.message(
+      'No notifications yet',
+      name: 'noNotifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We'll let you know when important updates arrive.`
+  String get noNotificationsDesc {
+    return Intl.message(
+      'We\'ll let you know when important updates arrive.',
+      name: 'noNotificationsDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No unread notifications`
+  String get noUnreadNotifications {
+    return Intl.message(
+      'No unread notifications',
+      name: 'noUnreadNotifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mark as read`
+  String get markAsRead {
+    return Intl.message(
+      'Mark as read',
+      name: 'markAsRead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mark all as read`
+  String get markAllAsRead {
+    return Intl.message(
+      'Mark all as read',
+      name: 'markAllAsRead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All notifications marked as read`
+  String get allMarkedAsRead {
+    return Intl.message(
+      'All notifications marked as read',
+      name: 'allMarkedAsRead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notification marked as read`
+  String get notificationMarkedAsRead {
+    return Intl.message(
+      'Notification marked as read',
+      name: 'notificationMarkedAsRead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Showing cached notifications (Offline)`
+  String get showingCachedNotifications {
+    return Intl.message(
+      'Showing cached notifications (Offline)',
+      name: 'showingCachedNotifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All`
+  String get filterAll {
+    return Intl.message(
+      'All',
+      name: 'filterAll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unread`
+  String get filterUnread {
+    return Intl.message(
+      'Unread',
+      name: 'filterUnread',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading notifications...`
+  String get loadingNotifications {
+    return Intl.message(
+      'Loading notifications...',
+      name: 'loadingNotifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copy`
+  String get copy {
+    return Intl.message(
+      'Copy',
+      name: 'copy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open menu`
+  String get openMenu {
+    return Intl.message(
+      'Open menu',
+      name: 'openMenu',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send message`
+  String get sendMessage {
+    return Intl.message(
+      'Send message',
+      name: 'sendMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sending message...`
+  String get sendingMessage {
+    return Intl.message(
+      'Sending message...',
+      name: 'sendingMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ask me about jobs, resumes, interviews, or your career.`
+  String get aiAssistantSubtitle {
+    return Intl.message(
+      'Ask me about jobs, resumes, interviews, or your career.',
+      name: 'aiAssistantSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resume Optimization`
+  String get resumeOptimization {
+    return Intl.message(
+      'Resume Optimization',
+      name: 'resumeOptimization',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How can I optimize my CV for Flutter developer roles?`
+  String get resumeOptimizationPrompt {
+    return Intl.message(
+      'How can I optimize my CV for Flutter developer roles?',
+      name: 'resumeOptimizationPrompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Interview Prep`
+  String get interviewPrep {
+    return Intl.message(
+      'Interview Prep',
+      name: 'interviewPrep',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What are the top technical interview questions for Dart and Flutter?`
+  String get interviewPrepPrompt {
+    return Intl.message(
+      'What are the top technical interview questions for Dart and Flutter?',
+      name: 'interviewPrepPrompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Career Growth`
+  String get careerGrowth {
+    return Intl.message(
+      'Career Growth',
+      name: 'careerGrowth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What steps should I take to become a Senior Mobile Architect?`
+  String get careerGrowthPrompt {
+    return Intl.message(
+      'What steps should I take to become a Senior Mobile Architect?',
+      name: 'careerGrowthPrompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Job Fit Analysis`
+  String get jobFitAnalysis {
+    return Intl.message(
+      'Job Fit Analysis',
+      name: 'jobFitAnalysis',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How does MatchIn calculate my job match percentage?`
+  String get jobFitAnalysisPrompt {
+    return Intl.message(
+      'How does MatchIn calculate my job match percentage?',
+      name: 'jobFitAnalysisPrompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No history yet`
+  String get noHistoryYet {
+    return Intl.message(
+      'No history yet',
+      name: 'noHistoryYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid job ID.`
+  String get invalidJobId {
+    return Intl.message(
+      'Invalid job ID.',
+      name: 'invalidJobId',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There was a problem with the server.`
+  String get serverError {
+    return Intl.message(
+      'There was a problem with the server.',
+      name: 'serverError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Application submitted successfully.`
+  String get applicationSubmittedSuccessfully {
+    return Intl.message(
+      'Application submitted successfully.',
+      name: 'applicationSubmittedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are in guest mode`
+  String get guestModeTitle {
+    return Intl.message(
+      'You are in guest mode',
+      name: 'guestModeTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please log in to access this feature.`
+  String get guestModeMessage {
+    return Intl.message(
+      'Please log in to access this feature.',
+      name: 'guestModeMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Job link is not available for this job.`
+  String get shareJobLinkUnavailable {
+    return Intl.message(
+      'Job link is not available for this job.',
+      name: 'shareJobLinkUnavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Couldn't save the job. Please try again.`
+  String get saveJobFailed {
+    return Intl.message(
+      'Couldn\'t save the job. Please try again.',
+      name: 'saveJobFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You're offline. Showing saved data.`
+  String get offlineStatusShowingSaved {
+    return Intl.message(
+      'You\'re offline. Showing saved data.',
+      name: 'offlineStatusShowingSaved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connection is slow. Retrying...`
+  String get connectionSlowRetrying {
+    return Intl.message(
+      'Connection is slow. Retrying...',
+      name: 'connectionSlowRetrying',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back online`
+  String get backOnline {
+    return Intl.message(
+      'Back online',
+      name: 'backOnline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User`
+  String get userFallback {
+    return Intl.message(
+      'User',
+      name: 'userFallback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Retry`
+  String get retry {
+    return Intl.message(
+      'Retry',
+      name: 'retry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rename Chat`
+  String get editTitle {
+    return Intl.message(
+      'Rename Chat',
+      name: 'editTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter new title`
+  String get enterNewTitle {
+    return Intl.message(
+      'Enter new title',
+      name: 'enterNewTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Suggested Prompts`
+  String get suggestedPrompts {
+    return Intl.message(
+      'Suggested Prompts',
+      name: 'suggestedPrompts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AI Career Mentor`
+  String get careerMentor {
+    return Intl.message(
+      'AI Career Mentor',
+      name: 'careerMentor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Candidate Context`
+  String get contextPreview {
+    return Intl.message(
+      'Candidate Context',
+      name: 'contextPreview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Archived`
+  String get archived {
+    return Intl.message(
+      'Archived',
+      name: 'archived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Grounded on your verified skills, experience, and target roles.`
+  String get careerGroundingContext {
+    return Intl.message(
+      'Grounded on your verified skills, experience, and target roles.',
+      name: 'careerGroundingContext',
       desc: '',
       args: [],
     );

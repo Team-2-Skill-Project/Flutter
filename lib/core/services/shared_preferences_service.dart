@@ -1,4 +1,3 @@
-
 import '../cache/cache_key.dart';
 import '../cache/shared_preferences_helper.dart';
 
@@ -19,10 +18,39 @@ class SharedPreferencesService {
     return _sharedPreferencesHelper.getData(key: CacheKey.isLoggedIn) ?? false;
   }
 
+  Future<void> saveUserId(int id) async {
+    await _sharedPreferencesHelper.saveData(key: CacheKey.id, value: id);
+  }
+
+  int? getUserId() {
+    return _sharedPreferencesHelper.getData(key: CacheKey.id);
+  }
+
+  /// Clears only the logged-in session. Guest flag is intentionally kept
+  /// so a 401 auto-logout (interceptor) can't wipe "Continue as Guest".
+  /// Explicit logout clears guest separately (see Settings logout).
   Future<void> clearAuthData() async {
     await _sharedPreferencesHelper.deleteData(key: CacheKey.id);
     await _sharedPreferencesHelper.deleteData(key: CacheKey.userDataKey);
     await _sharedPreferencesHelper.deleteData(key: CacheKey.isLoggedIn);
+  }
+
+  // --- Guest mode: "Continue as Guest" skips auth on next app opens ---
+  Future<void> setGuest(bool value) async {
+    await _sharedPreferencesHelper.saveData(
+      key: CacheKey.isGuest,
+      value: value,
+    );
+  }
+
+  bool isGuest() {
+    return _sharedPreferencesHelper.getBool(key: CacheKey.isGuest) ?? false;
+  }
+
+  /// True when the user logged in OR continued as guest,
+  /// i.e. auth screens (register/login) must be skipped.
+  bool shouldSkipAuth() {
+    return isLoggedIn() || isGuest();
   }
 
   // --- This methods are used to save and get data about onboarding status ---
@@ -81,5 +109,70 @@ class SharedPreferencesService {
     );
     if (list == null) return {};
     return list.toSet();
+  }
+
+  // --- Roadmap rewarded ad XP persistence ---
+  Future<void> saveRewardedAdXp(int xp) async {
+    await _sharedPreferencesHelper.saveData(
+      key: CacheKey.rewardedAdXp,
+      value: xp,
+    );
+  }
+
+  int getRewardedAdXp() {
+    return _sharedPreferencesHelper.getData(key: CacheKey.rewardedAdXp) ?? 0;
+  }
+
+  // --- Notifications Preference ---
+  Future<void> setNotificationsEnabled(bool value) async {
+    await _sharedPreferencesHelper.saveData(
+      key: CacheKey.notificationsEnabled,
+      value: value,
+    );
+  }
+
+  bool isNotificationsEnabled() {
+    return _sharedPreferencesHelper.getData(
+          key: CacheKey.notificationsEnabled,
+        ) ??
+        true;
+  }
+
+  // --- API base URL — last valid remote configuration, used offline ---
+  Future<void> saveApiBaseUrl(String url) async {
+    await _sharedPreferencesHelper.saveData(
+      key: CacheKey.apiBaseUrl,
+      value: url,
+    );
+  }
+
+  String? getApiBaseUrl() {
+    return _sharedPreferencesHelper.getString(key: CacheKey.apiBaseUrl);
+  }
+
+  // --- Language Preference ---
+  Future<void> saveLanguageCode(String code) async {
+    await _sharedPreferencesHelper.saveData(
+      key: CacheKey.languageCode,
+      value: code,
+    );
+  }
+
+  String getLanguageCode() {
+    return _sharedPreferencesHelper.getString(key: CacheKey.languageCode) ??
+        'en';
+  }
+
+  // --- Theme Mode Preference ---
+  Future<void> saveThemeMode(String themeMode) async {
+    await _sharedPreferencesHelper.saveData(
+      key: CacheKey.themeMode,
+      value: themeMode,
+    );
+  }
+
+  String getThemeMode() {
+    return _sharedPreferencesHelper.getString(key: CacheKey.themeMode) ??
+        'system';
   }
 }

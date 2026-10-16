@@ -4,6 +4,7 @@ import 'package:MatchIn/generated/l10n.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
 import 'package:MatchIn/core/utils/validator.dart';
 import 'package:MatchIn/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:MatchIn/features/auth/presentation/helpers/auth_success_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,54 +67,67 @@ class _LoginFormState extends State<LoginForm> {
             isPassword: true,
             textInputAction: TextInputAction.done,
             validator: (value) {
-              if (value == null || value.isEmpty)
+              if (value == null || value.isEmpty) {
                 return locale.passwordRequirements;
+              }
               return null;
             },
           ),
           SizedBox(height: 16.h),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  ValueListenableBuilder<bool>(
-                    valueListenable: _isKeepSignedIn,
-                    builder: (context, value, child) {
-                      return Switch(
-                        value: value,
-                        activeColor: AppColors.white,
-                        activeTrackColor: AppColors.midnightBlue,
-                        inactiveTrackColor: AppColors.surfaceVariant,
-                        onChanged: (newValue) =>
-                            _isKeepSignedIn.value = newValue,
-                      );
-                    },
-                  ),
-                  SizedBox(width: 8.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        locale.keepMeSignedIn,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: AppColors.textPrimary,
-                          fontWeight: FontWeight.w600,
-                        ),
+              Expanded(
+                child: Row(
+                  children: [
+                    ValueListenableBuilder<bool>(
+                      valueListenable: _isKeepSignedIn,
+                      builder: (context, value, child) {
+                        return Switch(
+                          value: value,
+                          activeThumbColor: AppColors.white,
+                          activeTrackColor: AppColors.midnightBlue,
+                          inactiveTrackColor: AppColors.surfaceVariant,
+                          onChanged: (newValue) =>
+                              _isKeepSignedIn.value = newValue,
+                        );
+                      },
+                    ),
+                    SizedBox(width: 8.w),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            locale.keepMeSignedIn,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: AppColors.textPrimary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            locale.onlyOnTrustedDevices,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        locale.onlyOnTrustedDevices,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
               TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                onPressed: () {
+                  final email = _emailController.text.trim();
+                  context.push(
+                    AppRoutes.kForgetPasswordView,
+                    extra: email.isNotEmpty ? email : null,
+                  );
+                },
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
                 child: Text(
                   locale.forgotPassword,
                   style: theme.textTheme.bodyMedium?.copyWith(
@@ -126,9 +140,9 @@ class _LoginFormState extends State<LoginForm> {
           ),
           SizedBox(height: 24.h),
           BlocConsumer<AuthCubit, AuthState>(
-            listener: (context, state) {
+            listener: (context, state) async {
               if (state is LoginSuccess) {
-                context.go(AppRoutes.kHomeView);
+                await handleLoginSuccess(context, state.loginModel);
               } else if (state is LoginFailure) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

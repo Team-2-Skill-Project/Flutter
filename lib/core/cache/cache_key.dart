@@ -3,12 +3,35 @@ abstract class CacheKey {
   static const String accessToken = 'accessToken';
   static const String refreshToken = 'refreshToken';
   static const String isLoggedIn = 'isLoggedIn';
+  static const String isGuest = 'isGuest';
   static const String id = 'id';
   static const String userDataKey = 'userDataKey';
   static const String onBoardingViewed = 'onBoardingViewed';
   static const String fcmToken = 'fcmToken';
   static const String collectedTreasures = 'collectedTreasures';
   static const String completedTaskIds = 'completedTaskIds';
+  static const String rewardedAdXp = 'rewardedAdXp';
+  static const String cachedRoadmaps = 'cached_roadmaps';
+  static const String cachedRoadmapDetailsPrefix = 'cached_roadmap_details_';
+  static const String roadmapSyncQueuePrefix = 'roadmap_sync_queue_';
+  static const String candidateXp = 'candidate_xp';
+  static const String roadmapXpPrefix = 'roadmap_xp_';
   static const String chatSessions = 'chatSessions';
   static const String chatMessagesPrefix = 'chatMessages_';
+  static const String jobsFeedPrefix = 'jobs_feed_';
+  static const String candidateProfile = 'candidate_profile';
+  static const String pendingCv = 'pendingCv';
+  static const String cachedCvFile = 'cachedCvFile';
+  static const String cvUploadMarker = 'cvUploadMarker';
+  static const String notificationsPrefix = 'notifications_';
+  static const String unreadNotificationsCount = 'unread_notifications_count';
+  static const String notificationsEnabled = 'notifications_enabled';
+  static const String languageCode = 'language_code';
+  static const String themeMode = 'theme_mode';
+  static const String apiBaseUrl = 'apiBaseUrl';
 }
+
+// TODO Profile Cache:
+// Scope candidate profile cache by authenticated user ID.
+// Use candidate_profile_<userId>.
+// Verify CacheKey.id lifecycle during Auth/Login/Logout first.

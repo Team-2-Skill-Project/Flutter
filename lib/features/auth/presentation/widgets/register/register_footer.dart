@@ -1,6 +1,8 @@
 import 'package:MatchIn/core/routing/app_routes.dart';
-import 'package:MatchIn/core/widgets/social_login_button.dart';
+import 'package:MatchIn/core/services/services_locator.dart';
+import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/core/utils/app_colors.dart';
+import 'package:MatchIn/features/auth/presentation/widgets/google_sign_in_button.dart';
 import 'package:MatchIn/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,11 +34,7 @@ class RegisterFooter extends StatelessWidget {
           ],
         ),
         SizedBox(height: 12.h),
-        SocialLoginButton(
-          text: locale.registerWithGoogle,
-          icon: const Icon(Icons.g_mobiledata, size: 24),
-          onPressed: () {},
-        ),
+        const GoogleSignInButton(),
         SizedBox(height: 16.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +47,13 @@ class RegisterFooter extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () => context.go(AppRoutes.kLoginView),
+              onTap: () {
+                if (context.canPop()) {
+                  context.pop();
+                } else {
+                  context.push(AppRoutes.kLoginView);
+                }
+              },
               child: Padding(
                 padding: EdgeInsets.all(4.w),
                 child: Text(
@@ -63,14 +67,43 @@ class RegisterFooter extends StatelessWidget {
             ),
           ],
         ),
-
-        // SizedBox(height: 4.h),
-        // Text(
-        //   locale.uploadCvOptional,
-        //   style: theme.textTheme.bodySmall?.copyWith(
-        //     color: AppColors.textSecondary,
-        //   ),
-        // ),
+        SizedBox(height: 20.h),
+        SizedBox(
+          width: double.infinity,
+          height: 56.h,
+          child: OutlinedButton.icon(
+            onPressed: () async {
+              await getIt<SharedPreferencesService>().setGuest(true);
+              if (context.mounted) {
+                context.go(AppRoutes.kHomeView);
+              }
+            },
+            icon: Icon(
+              Icons.explore_outlined,
+              size: 22.sp,
+              color: theme.colorScheme.primary,
+            ),
+            label: Text(
+              locale.continueAsGuest,
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w700,
+                color: theme.colorScheme.primary,
+              ),
+            ),
+            style: OutlinedButton.styleFrom(
+              backgroundColor:
+                  theme.colorScheme.primary.withValues(alpha: 0.08),
+              side: BorderSide(
+                color: theme.colorScheme.primary.withValues(alpha: 0.4),
+                width: 1.5,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

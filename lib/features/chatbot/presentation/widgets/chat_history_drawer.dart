@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../generated/l10n.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:MatchIn/core/extensions/context_extensions.dart';
 import '../../domain/entities/chat_entity.dart';
 import '../cubit/chatbot_cubit.dart';
 import '../cubit/chatbot_state.dart';
@@ -13,7 +13,7 @@ class ChatHistoryDrawer extends StatelessWidget {
     BuildContext context,
     List<ChatEntity> chats,
   ) {
-    final s = S.of(context);
+    final s = context.l10n;
     final now = DateTime.now();
     final todayStart = DateTime(now.year, now.month, now.day);
     final yesterdayStart = todayStart.subtract(const Duration(days: 1));
@@ -38,30 +38,88 @@ class ChatHistoryDrawer extends StatelessWidget {
       }
     }
 
-    // Remove empty groups
     grouped.removeWhere((key, value) => value.isEmpty);
     return grouped;
   }
 
-  void _showDeleteConfirmDialog(BuildContext context, ChatEntity chat) {
-    final s = S.of(context);
-    showDialog(
+  void _showRenameDialog(BuildContext context, ChatEntity chat) {
+    final s = context.l10n;
+    final colors = context.colors;
+    final textController = TextEditingController(text: chat.title);
+
+    showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(s.deleteChat),
-        content: Text(s.confirmDeleteChat),
+        backgroundColor: colors.surface,
+        title: Text(
+          s.editTitle,
+          style: TextStyle(color: colors.onSurface),
+        ),
+        content: TextField(
+          controller: textController,
+          autofocus: true,
+          decoration: InputDecoration(
+            hintText: s.enterNewTitle,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.r),
+            ),
+          ),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
             child: Text(s.cancel),
           ),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: colors.primary,
+              foregroundColor: colors.onPrimary,
+            ),
+            onPressed: () {
+              final newTitle = textController.text.trim();
+              if (newTitle.isNotEmpty) {
+                Navigator.pop(ctx);
+                context.read<ChatbotCubit>().updateChatTitle(chat.id, newTitle);
+              }
+            },
+            child: Text(s.save),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showDeleteConfirmDialog(BuildContext context, ChatEntity chat) {
+    final s = context.l10n;
+    final colors = context.colors;
+
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: colors.surface,
+        title: Text(
+          s.deleteChat,
+          style: TextStyle(color: colors.onSurface),
+        ),
+        content: Text(
+          s.confirmDeleteChat,
+          style: TextStyle(color: colors.onSurfaceVariant),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(s.cancel),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: colors.error,
+              foregroundColor: colors.onError,
+            ),
             onPressed: () {
               Navigator.pop(ctx);
               context.read<ChatbotCubit>().deleteChat(chat.id);
             },
-            child: Text(s.delete, style: const TextStyle(color: Colors.white)),
+            child: Text(s.delete),
           ),
         ],
       ),
@@ -69,24 +127,36 @@ class ChatHistoryDrawer extends StatelessWidget {
   }
 
   void _showClearAllConfirmDialog(BuildContext context) {
-    final s = S.of(context);
-    showDialog(
+    final s = context.l10n;
+    final colors = context.colors;
+
+    showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(s.clearAllChats),
-        content: Text(s.confirmClearAllChats),
+        backgroundColor: colors.surface,
+        title: Text(
+          s.clearAllChats,
+          style: TextStyle(color: colors.onSurface),
+        ),
+        content: Text(
+          s.confirmClearAllChats,
+          style: TextStyle(color: colors.onSurfaceVariant),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
             child: Text(s.cancel),
           ),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: colors.error,
+              foregroundColor: colors.onError,
+            ),
             onPressed: () {
               Navigator.pop(ctx);
               context.read<ChatbotCubit>().clearAllChats();
             },
-            child: Text(s.clear, style: const TextStyle(color: Colors.white)),
+            child: Text(s.clear),
           ),
         ],
       ),
@@ -95,37 +165,44 @@ class ChatHistoryDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final s = S.of(context);
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
+    final s = context.l10n;
+    final colors = context.colors;
 
     return Drawer(
-      backgroundColor: isDark ? Colors.grey[900] : Colors.white,
+      backgroundColor: colors.surface,
       child: SafeArea(
         child: Column(
           children: [
             // Drawer Header with New Chat
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.r),
               child: Column(
                 children: [
                   Row(
                     children: [
-                      Icon(
-                        Icons.auto_awesome,
-                        color: theme.primaryColor,
-                        size: 24,
+                      Container(
+                        padding: EdgeInsets.all(6.r),
+                        decoration: BoxDecoration(
+                          color: colors.primary.withValues(alpha: 0.12),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.auto_awesome_rounded,
+                          color: colors.primary,
+                          size: 20.r,
+                        ),
                       ),
-                      const SizedBox(width: 8),
+                      SizedBox(width: 8.w),
                       Text(
                         s.chatHistory,
-                        style: theme.textTheme.titleMedium?.copyWith(
+                        style: context.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
+                          color: colors.onSurface,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
@@ -134,18 +211,19 @@ class ChatHistoryDrawer extends StatelessWidget {
                         context.read<ChatbotCubit>().initializeChat();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.primaryColor,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        backgroundColor: colors.primary,
+                        foregroundColor: colors.onPrimary,
+                        padding: EdgeInsets.symmetric(vertical: 12.h),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12.r),
                         ),
                       ),
-                      icon: const Icon(Icons.add, color: Colors.white),
+                      icon: Icon(Icons.add_rounded, size: 20.r),
                       label: Text(
                         s.newChat,
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
+                          fontSize: 14.sp,
                         ),
                       ),
                     ),
@@ -153,25 +231,40 @@ class ChatHistoryDrawer extends StatelessWidget {
                 ],
               ),
             ),
-            const Divider(height: 1),
+            Divider(height: 1, color: colors.outlineVariant.withValues(alpha: 0.4)),
 
             // History List
             Expanded(
               child: BlocBuilder<ChatbotCubit, ChatbotState>(
                 builder: (context, state) {
+                  if (state.isLoadingHistory && state.chatHistory.isEmpty) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.2.w,
+                        color: colors.primary,
+                      ),
+                    );
+                  }
+
                   final grouped = _groupChats(context, state.chatHistory);
 
                   if (state.chatHistory.isEmpty) {
                     return Center(
-                      child: Text(
-                        'No history yet',
-                        style: TextStyle(color: Colors.grey[600]),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
+                        child: Text(
+                          s.noHistoryYet,
+                          textAlign: TextAlign.center,
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            color: colors.onSurfaceVariant,
+                          ),
+                        ),
                       ),
                     );
                   }
 
                   return ListView.builder(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    padding: EdgeInsets.symmetric(vertical: 8.h),
                     itemCount: grouped.length,
                     itemBuilder: (context, index) {
                       final groupTitle = grouped.keys.elementAt(index);
@@ -181,14 +274,14 @@ class ChatHistoryDrawer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                              vertical: 8.0,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 16.w,
+                              vertical: 8.h,
                             ),
                             child: Text(
                               groupTitle,
-                              style: theme.textTheme.labelMedium?.copyWith(
-                                color: Colors.grey[600],
+                              style: context.textTheme.labelMedium?.copyWith(
+                                color: colors.onSurfaceVariant,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -198,22 +291,22 @@ class ChatHistoryDrawer extends StatelessWidget {
                             return ListTile(
                               dense: true,
                               selected: isSelected,
-                              selectedTileColor: theme.primaryColor.withValues(
+                              selectedTileColor: colors.primary.withValues(
                                 alpha: 0.1,
                               ),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(8.r),
                               ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                                vertical: 2.0,
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 16.w,
+                                vertical: 2.h,
                               ),
                               leading: Icon(
                                 Icons.chat_bubble_outline_rounded,
-                                size: 18,
+                                size: 18.r,
                                 color: isSelected
-                                    ? theme.primaryColor
-                                    : Colors.grey[600],
+                                    ? colors.primary
+                                    : colors.onSurfaceVariant,
                               ),
                               title: Text(
                                 chat.title,
@@ -223,23 +316,39 @@ class ChatHistoryDrawer extends StatelessWidget {
                                   fontWeight: isSelected
                                       ? FontWeight.bold
                                       : FontWeight.normal,
-                                  color: isSelected ? theme.primaryColor : null,
+                                  color: isSelected
+                                      ? colors.primary
+                                      : colors.onSurface,
                                 ),
                               ),
-                              trailing: IconButton(
-                                icon: const Icon(
-                                  Icons.delete_outline_rounded,
-                                  size: 18,
-                                  color: Colors.grey,
-                                ),
-                                onPressed: () =>
-                                    _showDeleteConfirmDialog(context, chat),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    tooltip: s.editTitle,
+                                    icon: Icon(
+                                      Icons.edit_outlined,
+                                      size: 16.r,
+                                      color: colors.onSurfaceVariant,
+                                    ),
+                                    onPressed: () =>
+                                        _showRenameDialog(context, chat),
+                                  ),
+                                  IconButton(
+                                    tooltip: s.deleteChat,
+                                    icon: Icon(
+                                      Icons.delete_outline_rounded,
+                                      size: 16.r,
+                                      color: colors.onSurfaceVariant,
+                                    ),
+                                    onPressed: () =>
+                                        _showDeleteConfirmDialog(context, chat),
+                                  ),
+                                ],
                               ),
                               onTap: () {
                                 Navigator.pop(context);
-                                context.read<ChatbotCubit>().selectChat(
-                                  chat.id,
-                                );
+                                context.read<ChatbotCubit>().selectChat(chat.id);
                               },
                             );
                           }),
@@ -251,23 +360,23 @@ class ChatHistoryDrawer extends StatelessWidget {
               ),
             ),
 
-            const Divider(height: 1),
+            Divider(height: 1, color: colors.outlineVariant.withValues(alpha: 0.4)),
             // Clear All Button
             BlocBuilder<ChatbotCubit, ChatbotState>(
               builder: (context, state) {
                 if (state.chatHistory.isEmpty) return const SizedBox.shrink();
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.r),
                   child: TextButton.icon(
                     onPressed: () => _showClearAllConfirmDialog(context),
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.delete_sweep_rounded,
-                      color: Colors.red,
-                      size: 20,
+                      color: colors.error,
+                      size: 20.r,
                     ),
                     label: Text(
                       s.clearAllChats,
-                      style: const TextStyle(color: Colors.red),
+                      style: TextStyle(color: colors.error),
                     ),
                   ),
                 );

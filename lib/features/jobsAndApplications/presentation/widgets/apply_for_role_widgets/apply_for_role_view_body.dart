@@ -1,0 +1,152 @@
+import 'package:MatchIn/core/functions/require_auth.dart';
+import 'package:MatchIn/core/routing/app_routes.dart';
+import 'package:MatchIn/core/widgets/cv_file_card.dart';
+import 'package:MatchIn/features/jobsAndApplications/domain/entities/job_entity.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/cubit/cv_cubit.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/cubit/cv_state.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/widgets/apply_bottom_button.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/widgets/apply_header.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/widgets/apply_for_role_widgets/job_summary_card.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/widgets/apply_for_role_widgets/cover_note.dart';
+import 'package:MatchIn/features/jobsAndApplications/presentation/widgets/apply_for_role_widgets/user_info.dart';
+import 'package:MatchIn/generated/l10n.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+
+class ApplyForRoleViewBody extends StatefulWidget {
+  const ApplyForRoleViewBody({
+    super.key,
+    required this.job,
+  });
+
+  final JobEntity job;
+
+  @override
+  State<ApplyForRoleViewBody> createState() => _ApplyForRoleViewBodyState();
+}
+
+class _ApplyForRoleViewBodyState extends State<ApplyForRoleViewBody> {
+  String? _coverLetter;
+
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
+
+    return Column(
+      children: [
+        ApplyHeader(
+          title: s.applyForRole,
+          currentStep: 1,
+          totalSteps: 2,
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(16.r),
+            child: ListView(
+              children: [
+                JobSummaryCard(job: widget.job),
+                SizedBox(height: 24.h),
+                const UserInfo(),
+                SizedBox(height: 24.h),
+                BlocBuilder<CvCubit, CvState>(
+                  buildWhen: (previous, current) {
+                    return previous.status !=
+                            current.status ||
+                        previous.file?.name !=
+                            current.file?.name;
+                  },
+                  builder: (context, state) {
+                    switch (state.status) {
+                      case CvStatus.empty:
+                        return CvFileCard(
+                          status: CvFileStatus.empty,
+                          onUpload: () {
+                            context
+                                .read<CvCubit>()
+                                .pickCv();
+                          },
+                        );
+
+                      case CvStatus.picking:
+                        return const CvFileCard(
+                          status: CvFileStatus.empty,
+                        );
+
+                      case CvStatus.selected:
+                        return CvFileCard(
+                          status: CvFileStatus.uploaded,
+                          fileName: state.file?.name,
+                          updatedText: s.updatedJustNow,
+                          onReplace: () {
+                            context
+                                .read<CvCubit>()
+                                .pickCv();
+                          },
+                          onEdit: () {
+                            context
+                                .read<CvCubit>()
+                                .pickCv();
+                          },
+                          onView: () {
+                            // CV preview will be connected next.
+                          },
+                        );
+
+                      case CvStatus.failure:
+                        return CvFileCard(
+                          status: state.file == null
+                              ? CvFileStatus.empty
+                              : CvFileStatus.uploaded,
+                          fileName: state.file?.name,
+                          updatedText: state.file == null
+                              ? null
+                              : s.updatedJustNow,
+                          onUpload: () {
+                            context
+                                .read<CvCubit>()
+                                .pickCv();
+                          },
+                          onReplace: () {
+                            context
+                                .read<CvCubit>()
+                                .pickCv();
+                          },
+                        );
+                    }
+                  },
+                ),
+                SizedBox(height: 24.h),
+                CoverNote(
+                  onChanged: (value) {
+                    _coverLetter = value.trim().isEmpty ? null : value.trim();
+                  },
+                ),
+                SizedBox(height: 20.h),
+                ApplyBottomButton(
+                  label: s.continueText,
+                  helperText: s.reviewBeforeSubmission,
+                  onPressed: () {
+                    if (!requireAuth(context)) return;
+                    final cvFile = context.read<CvCubit>().state.file;
+                    context.push(
+                      AppRoutes.kreviewApplication,
+                      extra: <String, dynamic>{
+                        'job': widget.job,
+                        if (_coverLetter != null) 'coverLetter': _coverLetter,
+                        if (cvFile != null) ...{
+                          'cvFileName': cvFile.name,
+                        },
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

@@ -1,0 +1,56 @@
+import 'package:MatchIn/features/profile/presentation/widgets/edit_skills_widgets/skill_search_field.dart';
+import 'package:MatchIn/features/profile/presentation/widgets/edit_skills_widgets/skill_suggestions.dart';
+import 'package:MatchIn/generated/l10n.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class AddSkillSection extends StatelessWidget {
+  const AddSkillSection({
+    required this.controller,
+    required this.suggestions,
+    required this.onSearchChanged,
+    required this.onAddPressed,
+    required this.onSuggestionPressed,
+    required this.onSubmitted,
+    super.key,
+  });
+
+  final TextEditingController controller;
+  final List<String> suggestions;
+  final ValueChanged<String> onSearchChanged;
+  final VoidCallback onAddPressed;
+  final ValueChanged<String> onSuggestionPressed;
+  final ValueChanged<String> onSubmitted;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final locale = S.of(context);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          locale.addNewSkill,
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        SizedBox(height: 12.h),
+        SkillSearchField(
+          controller: controller,
+          onChanged: onSearchChanged,
+          onSubmitted: onSubmitted,
+          onAddPressed: onAddPressed,
+        ),
+        if (suggestions.isNotEmpty) ...[
+          SizedBox(height: 16.h),
+          SkillSuggestions(
+            skills: suggestions,
+            onSkillPressed: onSuggestionPressed,
+          ),
+        ],
+      ],
+    );
+  }
+}

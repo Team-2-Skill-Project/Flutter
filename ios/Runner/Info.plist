@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
+		<key>GADApplicationIdentifier</key>
+		<string>ca-app-pub-8909325309909984~8067028945</string>
 		<key>CADisableMinimumFrameDurationOnPhone</key>
 		<true/>
 		<key>CFBundleDevelopmentRegion</key>
@@ -26,6 +28,14 @@
 		<string>$(FLUTTER_BUILD_NUMBER)</string>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>MatchIn needs microphone access so you can dictate chatbot messages.</string>
+		<key>NSCameraUsageDescription</key>
+		<string>MatchIn needs camera access so you can take a profile photo.</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>MatchIn needs photo library access so you can choose a profile photo.</string>
+		<key>NSSpeechRecognitionUsageDescription</key>
+		<string>MatchIn needs speech recognition access to convert your voice into chatbot text.</string>
 		<key>UIApplicationSceneManifest</key>
 		<dict>
 			<key>UIApplicationSupportsMultipleScenes</key>
@@ -49,6 +59,11 @@
 		</dict>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
+		<key>UIBackgroundModes</key>
+		<array>
+			<string>fetch</string>
+			<string>remote-notification</string>
+		</array>
 		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>
 		<key>UIMainStoryboardFile</key>
