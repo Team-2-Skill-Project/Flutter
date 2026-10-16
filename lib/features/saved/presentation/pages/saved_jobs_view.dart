@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:MatchIn/core/functions/require_auth.dart';
 import 'package:MatchIn/core/functions/share_job.dart';
+import 'package:MatchIn/core/routing/cubit/main_navigation_cubit.dart';
 import 'package:MatchIn/core/services/shared_preferences_service.dart';
 import 'package:MatchIn/features/jobsAndApplications/presentation/cubit/applications_cubit.dart';
 import 'package:MatchIn/features/jobsAndApplications/presentation/cubit/applications_state.dart';
@@ -50,6 +53,11 @@ class _SavedJobsContent extends StatefulWidget {
 class _SavedJobsContentState extends State<_SavedJobsContent> {
   SavedTabType _activeTab = SavedTabType.saved;
   final ScrollController _scrollController = ScrollController();
+  StreamSubscription<int>? _navSubscription;
+
+  /// Index of this screen in the main bottom navigation
+  /// (see MainNavigationWidget tab order / openSavedJobs).
+  static const int _savedTabIndex = 1;
 
   @override
   void initState() {
@@ -72,7 +80,27 @@ class _SavedJobsContentState extends State<_SavedJobsContent> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // The IndexedStack keeps this screen alive across tab switches:
+    // refresh from the local source of truth (and replay queued ops)
+    // every time the tab becomes visible, so bookmarks toggled on
+    // Home/Search/Details appear without reopening the app.
+    _navSubscription ??= context.read<MainNavigationCubit>().stream.listen(
+      _onTabChangedExternally,
+    );
+  }
+
+  void _onTabChangedExternally(int index) {
+    if (!mounted || index != _savedTabIndex) return;
+    final cubit = context.read<SavedJobsCubit>();
+    cubit.fetchSavedJobs(isRefresh: true);
+    cubit.syncPendingJobs();
+  }
+
+  @override
   void dispose() {
+    _navSubscription?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
