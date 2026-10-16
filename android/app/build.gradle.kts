@@ -8,6 +8,7 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+//Load the keystore properties from the key.properties file if it exists. This is used for signing the release build of the app.
 val keystoreProperties = Properties()
 val keystorePropertiesFile = rootProject.file("key.properties")
 if (keystorePropertiesFile.exists()) {
@@ -25,6 +26,7 @@ android {
         isCoreLibraryDesugaringEnabled = true
     }
 
+//Sing the app
     signingConfigs {
         create("release") {
             if (keystorePropertiesFile.exists()) {
