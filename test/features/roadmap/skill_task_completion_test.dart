@@ -175,6 +175,7 @@ Future<_FlowHarness> _pumpSheet(
   );
   final skillTaskCubit = SkillTaskCubit(
     completeRoadmapTaskUseCase: CompleteRoadmapTaskUseCase(repository: repo),
+    repository: repo,
   );
   addTearDown(roadmapCubit.close);
   addTearDown(skillTaskCubit.close);
@@ -323,6 +324,7 @@ void main() {
         completeRoadmapTaskUseCase: CompleteRoadmapTaskUseCase(
           repository: repo,
         ),
+        repository: repo,
       );
       addTearDown(roadmapCubit.close);
       addTearDown(skillTaskCubit.close);

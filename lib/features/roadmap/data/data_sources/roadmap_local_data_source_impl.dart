@@ -85,23 +85,71 @@ class RoadmapLocalDataSourceImpl implements RoadmapLocalDataSource {
     required int roadmapId,
     required int taskId,
   }) async {
+    return _setTaskCompletionLocally(
+      roadmapId: roadmapId,
+      taskId: taskId,
+      isCompleted: true,
+      completedAt: DateTime.now().toUtc().toIso8601String(),
+    );
+  }
+
+  @override
+  Future<RoadmapModel?> revertTaskCompletionLocally({
+    required int roadmapId,
+    required int taskId,
+  }) async {
+    // Rolls back an optimistic completion after a confirmed failure.
+    // Only touches tasks this flow marked: already-completed tasks keep
+    // their authoritative state.
+    return _setTaskCompletionLocally(
+      roadmapId: roadmapId,
+      taskId: taskId,
+      isCompleted: false,
+      completedAt: null,
+      onlyWhen: (task) => task.isCompleted,
+    );
+  }
+
+  /// Shared local completion writer. When [onlyWhen] is provided, tasks
+  /// not matching it are left untouched (rollback safety).
+  Future<RoadmapModel?> _setTaskCompletionLocally({
+    required int roadmapId,
+    required int taskId,
+    required bool isCompleted,
+    String? completedAt,
+    bool Function(RoadmapTaskModel task)? onlyWhen,
+  }) async {
     final cached = await getCachedRoadmapDetails(roadmapId);
     if (cached == null) return null;
     var changed = false;
     final milestones = cached.milestones.map((milestone) {
       final tasks = milestone.tasks.map((task) {
-        if (task.id == taskId && !task.isCompleted) {
+        final model = task is RoadmapTaskModel
+            ? task
+            : RoadmapTaskModel(
+                id: task.id,
+                title: task.title,
+                description: task.description,
+                estimatedHours: task.estimatedHours,
+                isCompleted: task.isCompleted,
+                completedAt: task.completedAt,
+              );
+        if (model.id == taskId &&
+            model.isCompleted != isCompleted &&
+            (onlyWhen == null || onlyWhen(model))) {
           changed = true;
           return RoadmapTaskModel(
-            id: task.id,
-            title: task.title,
-            description: task.description,
-            estimatedHours: task.estimatedHours,
-            isCompleted: true,
-            completedAt: DateTime.now().toUtc().toIso8601String(),
+            id: model.id,
+            title: model.title,
+            description: model.description,
+            estimatedHours: model.estimatedHours,
+            isCompleted: isCompleted,
+            completedAt: isCompleted
+                ? (completedAt ?? model.completedAt)
+                : null,
           );
         }
-        return task;
+        return model;
       }).toList();
       return RoadmapMilestoneModel(
         id: milestone.id,

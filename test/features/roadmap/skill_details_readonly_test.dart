@@ -71,10 +71,12 @@ Future<void> _pumpSheet(
       repository: _UnusedRepository(),
     ),
   );
+  final skillRepo = skillRepository ?? _UnusedRepository();
   final skillTaskCubit = SkillTaskCubit(
     completeRoadmapTaskUseCase: CompleteRoadmapTaskUseCase(
-      repository: skillRepository ?? _UnusedRepository(),
+      repository: skillRepo,
     ),
+    repository: skillRepo,
   );
   addTearDown(roadmapCubit.close);
   addTearDown(skillTaskCubit.close);

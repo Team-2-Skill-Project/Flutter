@@ -25,6 +25,14 @@ abstract class RoadmapLocalDataSource {
     required int taskId,
   });
 
+  /// Rolls back an optimistic local completion after a confirmed
+  /// request failure. Never touches tasks that were already completed
+  /// before the optimistic mark.
+  Future<RoadmapModel?> revertTaskCompletionLocally({
+    required int roadmapId,
+    required int taskId,
+  });
+
   /// Applies the authoritative server task state to the cached details
   /// of [roadmapId] without touching newer local pending changes for
   /// other tasks. Returns the updated roadmap, or null when the task or

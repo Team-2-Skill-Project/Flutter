@@ -208,6 +208,37 @@ class RoadmapRepositoryImpl implements RoadmapRepository {
   }
 
   @override
+  Future<RoadmapTask?> applyLocalCompletion({
+    required int roadmapId,
+    required int taskId,
+  }) async {
+    try {
+      final updated = await localDataSource.markTaskCompletedLocally(
+        roadmapId: roadmapId,
+        taskId: taskId,
+      );
+      return _findTask(updated, taskId);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  @override
+  Future<void> revertLocalCompletion({
+    required int roadmapId,
+    required int taskId,
+  }) async {
+    try {
+      await localDataSource.revertTaskCompletionLocally(
+        roadmapId: roadmapId,
+        taskId: taskId,
+      );
+    } catch (_) {
+      // Best effort: the next authoritative fetch self-heals the cache.
+    }
+  }
+
+  @override
   Future<Either<Failure, RoadmapEntity>> refreshRoadmap(
     RefreshRoadmapParams params,
   ) async {

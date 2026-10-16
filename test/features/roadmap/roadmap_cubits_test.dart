@@ -228,6 +228,7 @@ void main() {
       completeRoadmapTaskUseCase: CompleteRoadmapTaskUseCase(
         repository: skillTaskRepo,
       ),
+      repository: skillTaskRepo,
     );
   });
 
@@ -554,6 +555,7 @@ void main() {
         completeRoadmapTaskUseCase: CompleteRoadmapTaskUseCase(
           repository: gatedRepo,
         ),
+        repository: gatedRepo,
       );
 
       unawaited(cubit.completeTask(taskId: 7));

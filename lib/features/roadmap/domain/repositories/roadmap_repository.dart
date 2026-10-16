@@ -54,8 +54,25 @@ abstract class RoadmapRepository {
   /// to the local cache, enqueues a durable sync op, and returns a local
   /// completed projection so the UI updates immediately.
   Future<Either<Failure, RoadmapTask>> completeTaskOfflineFirst({
-    required int roadmapId,
+    required int? roadmapId,
     required CompleteRoadmapTaskParams params,
+  });
+
+  /// Applies an optimistic completion to the durable local cache and
+  /// returns the local projection, or null when no cached roadmap holds
+  /// the task. Callers paint from local truth immediately, then confirm
+  /// through [completeTaskOfflineFirst] and roll back via
+  /// [revertLocalCompletion] on confirmed failure.
+  Future<RoadmapTask?> applyLocalCompletion({
+    required int roadmapId,
+    required int taskId,
+  });
+
+  /// Rolls back an optimistic completion after a confirmed failure.
+  /// Never touches tasks that were already completed beforehand.
+  Future<void> revertLocalCompletion({
+    required int roadmapId,
+    required int taskId,
   });
 
   /// Candidate-wide XP (`GET /roadmaps/xp`): authoritative when online

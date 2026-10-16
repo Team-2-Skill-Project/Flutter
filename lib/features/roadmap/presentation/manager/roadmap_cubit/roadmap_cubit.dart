@@ -305,6 +305,29 @@ class RoadmapCubit extends Cubit<RoadmapState> {
     return true;
   }
 
+  /// Re-reads the selected roadmap from the durable local cache and
+  /// emits it immediately without any network wait. Callers invoke it
+  /// right after mutating local state (optimistic paint, rollback
+  /// repaint, queued offline mutation), so the cache is the freshest
+  /// source at that point. Returns true when local details were emitted.
+  Future<bool> refreshFromLocalCache() async {
+    final selectedId = _selectedRoadmapId;
+    if (selectedId == null) return false;
+    final cached = await _safeCachedDetails(selectedId);
+    if (isClosed || cached == null) return false;
+    _lastDetails = cached;
+    final pending = await _safePendingCount();
+    if (isClosed) return false;
+    emit(
+      RoadmapDetailsSuccess(
+        details: cached,
+        rewardedAdXp: sharedPreferencesService.getRewardedAdXp(),
+        pendingOpsCount: pending,
+      ),
+    );
+    return true;
+  }
+
   /// Replays durable pending ops (manual retry + connectivity-restore
   /// path). Refreshes the displayed details when sync made progress.
   /// Returns true when at least one op synchronized.

@@ -103,10 +103,12 @@ Future<void> pumpList(
   RoadmapEntity details, {
   required RoadmapCubit roadmapCubit,
 }) async {
+  final skillRepo = FakeRenderRepository();
   final skillCubit = SkillTaskCubit(
     completeRoadmapTaskUseCase: CompleteRoadmapTaskUseCase(
-      repository: FakeRenderRepository(),
+      repository: skillRepo,
     ),
+    repository: skillRepo,
   );
   addTearDown(skillCubit.close);
   addTearDown(roadmapCubit.close);
@@ -267,6 +269,98 @@ void main() {
 
       expect(find.byType(RoadmapTaskNode), findsNothing);
       expect(find.text('No roadmaps yet'), findsOneWidget);
+    });
+
+    testWidgets('long titles and subtitles truncate with ellipsis', (
+      tester,
+    ) async {
+      const longTitle =
+          'Study core documentation and patterns for Core Fundamentals '
+          'with additional advanced topics and extended learning material';
+      const longSubtitle =
+          'A very long milestone description that would otherwise push '
+          'neighboring nodes out of their intended winding-path positions';
+      final prefsService = await freshPrefs();
+      final repo = FakeRenderRepository()
+        ..listResult = const Right(_page)
+        ..detailsResult = Right(detailsWith(1));
+      final roadmapCubit = buildCubit(prefsService, repo);
+      await roadmapCubit.loadRoadmaps();
+      await pumpList(
+        tester,
+        RoadmapEntity(
+          id: 1,
+          title: 'R',
+          milestones: [
+            RoadmapMilestone(
+              id: 1,
+              title: longSubtitle,
+              order: 1,
+              tasks: [
+                RoadmapTask(id: 1, title: longTitle),
+                RoadmapTask(id: 2, title: 'Short'),
+              ],
+            ),
+          ],
+        ),
+        roadmapCubit: roadmapCubit,
+      );
+
+      final titleText = tester.widget<Text>(
+        find.text(longTitle, skipOffstage: false),
+      );
+      expect(titleText.maxLines, 3);
+      expect(titleText.overflow, TextOverflow.ellipsis);
+      expect(titleText.textAlign, TextAlign.center);
+      final subtitleTexts = tester.widgetList<Text>(
+        find.text(longSubtitle, skipOffstage: false),
+      );
+      // Both nodes share the milestone subtitle; each copy truncates.
+      expect(subtitleTexts, hasLength(2));
+      for (final subtitleText in subtitleTexts) {
+        expect(subtitleText.maxLines, 2);
+        expect(subtitleText.overflow, TextOverflow.ellipsis);
+        expect(subtitleText.textAlign, TextAlign.center);
+      }
+      // Stored data is untouched; only the presentation truncates, and
+      // the path still lays out without overflow errors.
+      expect(find.byType(RoadmapTaskNode), findsNWidgets(2));
+    });
+
+    testWidgets('arabic titles truncate within the node bounds', (
+      tester,
+    ) async {
+      const arabicTitle =
+          'دراسة الوثائق الأساسية والأنماط المتقدمة مع مواد تعليمية إضافية طويلة جدا';
+      final prefsService = await freshPrefs();
+      final repo = FakeRenderRepository()
+        ..listResult = const Right(_page)
+        ..detailsResult = Right(detailsWith(1));
+      final roadmapCubit = buildCubit(prefsService, repo);
+      await roadmapCubit.loadRoadmaps();
+      await pumpList(
+        tester,
+        RoadmapEntity(
+          id: 1,
+          title: 'R',
+          milestones: [
+            RoadmapMilestone(
+              id: 1,
+              title: 'M',
+              order: 1,
+              tasks: [RoadmapTask(id: 1, title: arabicTitle)],
+            ),
+          ],
+        ),
+        roadmapCubit: roadmapCubit,
+      );
+
+      final titleText = tester.widget<Text>(
+        find.text(arabicTitle, skipOffstage: false),
+      );
+      expect(titleText.maxLines, 3);
+      expect(titleText.overflow, TextOverflow.ellipsis);
+      expect(find.byType(RoadmapTaskNode), findsOneWidget);
     });
   });
 }

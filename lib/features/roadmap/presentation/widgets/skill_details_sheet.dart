@@ -139,6 +139,15 @@ class SkillDetailsSheet extends StatelessWidget {
                           listener: (context, skillState) async {
                             final taskId = int.tryParse(task.id);
                             if (taskId == null) return;
+                            if (skillState is SkillTaskOptimisticUpdate &&
+                                skillState.taskId == taskId) {
+                              // Instant paint from the durable local cache:
+                              // no network wait, no screen change needed.
+                              await context
+                                  .read<RoadmapCubit>()
+                                  .refreshFromLocalCache();
+                              return;
+                            }
                             if (skillState is SkillTaskCompleteSuccess &&
                                 skillState.taskId == taskId) {
                               context.showSuccessSnackBar(l10n.taskCompleted);
@@ -153,6 +162,12 @@ class SkillDetailsSheet extends StatelessWidget {
                               await _refreshDetails(context);
                             } else if (skillState is SkillTaskCompleteFailure &&
                                 skillState.taskId == taskId) {
+                              // The optimistic mark was rolled back: repaint
+                              // local truth, then explain the failure.
+                              await context
+                                  .read<RoadmapCubit>()
+                                  .refreshFromLocalCache();
+                              if (!context.mounted) return;
                               context.showErrorSnackBar(
                                 _completionFailureMessage(l10n, skillState),
                               );

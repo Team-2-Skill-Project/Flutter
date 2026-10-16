@@ -179,6 +179,7 @@ Future<_SheetHarness> _pumpHost(
   );
   final skillTaskCubit = SkillTaskCubit(
     completeRoadmapTaskUseCase: CompleteRoadmapTaskUseCase(repository: repo),
+    repository: repo,
   );
   addTearDown(roadmapCubit.close);
   addTearDown(skillTaskCubit.close);

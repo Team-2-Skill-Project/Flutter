@@ -362,7 +362,10 @@ Future<void> setupServiceLocator() async {
   );
 
   getIt.registerFactory<SkillTaskCubit>(
-    () => SkillTaskCubit(completeRoadmapTaskUseCase: getIt()),
+    () => SkillTaskCubit(
+      completeRoadmapTaskUseCase: getIt(),
+      repository: getIt<RoadmapRepository>(),
+    ),
   );
 
   // =========================================================
